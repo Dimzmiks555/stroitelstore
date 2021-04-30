@@ -1,19 +1,33 @@
 .header {
     display: flex;
-    padding: 20px;
-    height: 80px;
+    padding: 14px;
     align-items: center;
+    margin-bottom: 40px;
 }
 
 .catalog__button{
+    font-size: 15px;
+    display: flex;
+    align-items: center;
     color: inherit;
     font-family: inherit;
     height: 40px;
-    padding: 10px 30px;
+    color: #fefefe;
+    font-weight: bold;
+    padding: 10px 20px;
     border-radius: 5px;
-    background: #fff;
+    background: #d00;
     margin-left: 40px;
-    border: 1px solid #ccc;
+    border: none;
+    cursor: pointer;
+}
+.catalog__button:hover{
+    background: #a22;
+}
+.catalog__button img {
+    margin-right: 10px;
+    height: 25px;
+    width: 25px;
 }
 .search{
     margin-left: 60px;
@@ -24,4 +38,9 @@
     background: #f4f4f4;
     outline: none;
     padding: 0 20px;
+}
+.logo{
+    z-index: 999;
+    height: 80px;
+    width: 300px;
 }
