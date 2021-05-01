@@ -48,3 +48,27 @@
     height: 80px;
     width: 300px;
 }
+.user{
+    margin-left: 50px;
+    cursor: pointer;
+}
+.cart img{
+    height: 30px;
+    width: 30px;
+}
+.cart {
+    margin-left: 30px;
+}
+.user img{
+    height: 30px;
+    width: 30px;
+}
+.underheader{
+    justify-content: space-between;
+    color: #fff;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    background: #d00;
+}
