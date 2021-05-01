@@ -30,6 +30,8 @@
     width: 25px;
 }
 .search{
+    font-size: inherit;
+    font-family: inherit;
     margin-left: 60px;
     height: 40px;
     width: 40%;
