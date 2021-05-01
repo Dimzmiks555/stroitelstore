@@ -2,11 +2,13 @@
     font-size: 20px;
     padding: 130px 20px;
     height: 100vh;
+    overflow-y: scroll;
     background: #fff;
     position: fixed;
-    left:10%;
     top:0;
-    width: 80%;
+    transform: translateX(0%);
+    padding-right: 10%;
+    width:90%;
     z-index: 800;
 }
 .close {
@@ -22,6 +24,9 @@
     justify-content: center;
     font-size: 40px;
     cursor: pointer;
+}
+.close:hover{
+    background: #800;
 }
 .catalog-enter {
     opacity: 0.01;
@@ -52,32 +57,38 @@
     background-size: cover;
     background-position: center center;
     
-    box-shadow: #ccc 0px 0px 10px 0px;
     border-radius: 50px;
     height: 320px;
     width: 32%;
 }
 .metiz{
+    padding: 20px;
     position: relative;
-    background: url(/catalog/metiz.jpg);
-    background-size: contain;
     margin-top: 30px;
-    box-shadow: #ccc 0px 0px 10px 0px;
-    border-radius: 160px 22px 22px 160px;
+    background: #eeeeee;
+    border-radius: 22px;
     height: 320px;
     width: 32%;
 }
 .metiz h3 {
     text-transform: uppercase;
 }
-.panel {
-    border-radius: 0px 20px 20px 0px;
-    padding: 20px 20px;
-    right: 0%;
-    position: absolute;
-    overflow: hidden;
-    height: 100%;
-    width: 50%;
+.info{
+    display: flex;
+    align-items: center;
+}
+.icon {
+    margin-right: 20px;
+    height: 80px;
+    min-width: 80px;
+    box-shadow: #ccc 0 0 10px;
     background: #fff;
-    border: 1px solid #fff;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icon img {
+    width: 50px;
+    height: 50px;
 }

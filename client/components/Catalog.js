@@ -20,24 +20,70 @@ const Catalog = observer(() => {
                         <h1>Каталог</h1>
                         <div className={styles.catalog__items}>
                             <div className={styles.metiz}>
-                                <div className={styles.panel}>
+                                <div className={styles.info}>
+                                    <div className={styles.icon}>
+                                        <img src="/catalog/screw.svg" />
+                                    </div>
                                     <h3>Метизы</h3>
                                 </div>
+                                <div className={styles.panel}>
+                    
+                                </div>
                             </div>
-                            <div className={styles.catalog__item}>
-                                <h3>Ручной инструмент</h3>
+                            <div className={styles.metiz}>
+                                <div className={styles.info}>
+                                    <div className={styles.icon}>
+                                        <img src="/catalog/screw.svg" />
+                                    </div>
+                                    <h3>Ручной инструмент</h3>
+                                </div>
+                                <div className={styles.panel}>
+                    
+                                </div>
                             </div>
-                            <div className={styles.catalog__item}>
-                                <h3>Электроинструмент</h3>
+                            <div className={styles.metiz}>
+                                <div className={styles.info}>
+                                    <div className={styles.icon}>
+                                        <img src="/catalog/screw.svg" />
+                                    </div>
+                                    <h3>Кровля</h3>
+                                </div>
+                                <div className={styles.panel}>
+                    
+                                </div>
                             </div>
-                            <div className={styles.catalog__item}>
-                                <h3>Краски</h3>
+                            <div className={styles.metiz}>
+                                <div className={styles.info}>
+                                    <div className={styles.icon}>
+                                        <img src="/catalog/screw.svg" />
+                                    </div>
+                                    <h3>Сухие смеси</h3>
+                                </div>
+                                <div className={styles.panel}>
+                    
+                                </div>
                             </div>
-                            <div className={styles.catalog__item}>
-                                <h3>Сухие смеси</h3>
+                            <div className={styles.metiz}>
+                                <div className={styles.info}>
+                                    <div className={styles.icon}>
+                                        <img src="/catalog/screw.svg" />
+                                    </div>
+                                    <h3>Краски</h3>
+                                </div>
+                                <div className={styles.panel}>
+                    
+                                </div>
                             </div>
-                            <div className={styles.catalog__item}>
-                                <h3>Кровля</h3>
+                            <div className={styles.metiz}>
+                                <div className={styles.info}>
+                                    <div className={styles.icon}>
+                                        <img src="/catalog/screw.svg" />
+                                    </div>
+                                    <h3>Электро инструмент</h3>
+                                </div>
+                                <div className={styles.panel}>
+                    
+                                </div>
                             </div>
                         </div>
                     </div>
