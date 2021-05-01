@@ -3,7 +3,7 @@ import { enableStaticRendering } from "mobx-react";
 enableStaticRendering(typeof window === "undefined");
 class CatalogStore {
 
-    catalog = {
+    props = {
         display: 'none'
     }
 
@@ -11,9 +11,12 @@ class CatalogStore {
         makeAutoObservable(this);
     }
     AppendCatalog() {
-        this.catalog.display = 'block';
+        this.props.display = 'block';
+    }
+    HideCatalog() {
+        this.props.display = 'none';
     }
 }
 
-export default new CatalogStore
+export default new CatalogStore()
 

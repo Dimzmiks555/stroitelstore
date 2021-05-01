@@ -1,6 +1,6 @@
 .catalog{
     font-size: 20px;
-    padding: 100px 20px;
+    padding: 130px 20px;
     height: 100vh;
     background: #fff;
     position: fixed;
@@ -8,4 +8,76 @@
     top:0;
     width: 80%;
     z-index: 800;
+}
+.close {
+    float: right;
+    color: #fff;
+    border-radius: 50%;
+    border: none;
+    background: #d00;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    cursor: pointer;
+}
+.catalog-enter {
+    opacity: 0.01;
+}
+
+.catalog-enter.catalog-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+}
+
+.catalog-leave {
+    opacity: 1;
+}
+
+.catalog-leave.catalog-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}
+.catalog__items {
+    margin-top: 40px;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+}
+.catalog__item {
+    padding: 20px 40px;
+    margin-top: 30px;
+    background-size: cover;
+    background-position: center center;
+    
+    box-shadow: #ccc 0px 0px 10px 0px;
+    border-radius: 50px;
+    height: 320px;
+    width: 32%;
+}
+.metiz{
+    position: relative;
+    background: url(/catalog/metiz.jpg);
+    background-size: contain;
+    margin-top: 30px;
+    box-shadow: #ccc 0px 0px 10px 0px;
+    border-radius: 160px 22px 22px 160px;
+    height: 320px;
+    width: 32%;
+}
+.metiz h3 {
+    text-transform: uppercase;
+}
+.panel {
+    border-radius: 0px 20px 20px 0px;
+    padding: 20px 20px;
+    right: 0%;
+    position: absolute;
+    overflow: hidden;
+    height: 100%;
+    width: 50%;
+    background: #fff;
+    border: 1px solid #fff;
 }
