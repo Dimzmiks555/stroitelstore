@@ -77,6 +77,18 @@
     background: #d00;
     z-index: 999;
 }
+.underheader a {
+    display: flex;
+
+}
+.underheader a:hover {
+    color: #ddd;
+
+}
+.underheader a img {
+    height: 16px;
+    margin-right: 6px;
+}
 .userblock{
     margin-left: auto;
     display: flex;

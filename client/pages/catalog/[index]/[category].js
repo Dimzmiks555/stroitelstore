@@ -14,7 +14,13 @@ export default function Category() {
             <div className={styles.category}>
                 <div className={styles.category_main}>
                     <div className={styles.category_filter}>
-
+                        <div className={styles.filter_price}>
+                            <div className={styles.filter_title}>Цена</div>
+                            <div className={styles.filter_inputs}>
+                                <input placeholder="От"></input>
+                                <input placeholder="До"></input>
+                            </div>
+                        </div>
                     </div>
                     <div className={styles.category_goodsblock}>
                         <div className={styles.category_goodsblock_header}>
@@ -36,7 +42,7 @@ export default function Category() {
                                 </div>
                                 <div>
                                     <div className={styles.good_price}>
-                                        344
+                                        344 ₽
                                     </div>
                                     <a className={styles.to_cart}>
                                         В корзину
@@ -55,7 +61,7 @@ export default function Category() {
                                 </div>
                                 <div>
                                     <div className={styles.good_price}>
-                                        784
+                                        784 ₽
                                     </div>
                                     <button className={styles.to_cart}>
                                         В корзину
@@ -73,7 +79,7 @@ export default function Category() {
                                 </div>
                                 <div>
                                     <div className={styles.good_price}>
-                                        889.20
+                                        889.20 ₽
                                     </div>
                                     <button className={styles.to_cart}>
                                         В корзину
@@ -91,7 +97,7 @@ export default function Category() {
                                 </div>
                                 <div>
                                     <div className={styles.good_price}>
-                                        344
+                                        344 ₽
                                     </div>
                                     <button className={styles.to_cart}>
                                         В корзину
@@ -109,7 +115,7 @@ export default function Category() {
                                 </div>
                                 <div>
                                     <div className={styles.good_price}>
-                                        344
+                                        344 ₽
                                     </div>
                                     <button className={styles.to_cart}>
                                         В корзину
@@ -127,7 +133,7 @@ export default function Category() {
                                 </div>
                                 <div>
                                     <div className={styles.good_price}>
-                                        344
+                                        344 ₽
                                     </div>
                                     <button className={styles.to_cart}>
                                         В корзину
