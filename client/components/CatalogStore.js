@@ -6,7 +6,8 @@ class CatalogStore {
     props = {
         display: 'none',
         categories: [
-            {
+            {   
+                board: '/catalog/img/metiz.jpg',
                 category: 'Крепеж',
                 url: '/catalog/screw.svg',
                 subcats: [
@@ -25,6 +26,7 @@ class CatalogStore {
                 ]
             },
             {
+                board: '/catalog/img/doors.jpg',
                 category: 'Окна и двери',
                 url: '/catalog/door.svg',
                 subcats: [
@@ -43,6 +45,7 @@ class CatalogStore {
                 ]
             },
             {
+                board: '/catalog/img/e-tool.jpg',
                 category: 'Электроинструмент',
                 url: '/catalog/drill.svg',
                 subcats: [
@@ -61,6 +64,7 @@ class CatalogStore {
                 ]
             },
             {
+                board: '/catalog/img/m-tool.jpg',
                 category: 'Ручной инструмент',
                 url: '/catalog/hammer.svg',
                 subcats: [
@@ -79,6 +83,7 @@ class CatalogStore {
                 ]
             },
             {
+                board: '/catalog/img/paint.jpg',
                 category: 'Краски',
                 url: '/catalog/paint-bucket.svg',
                 subcats: [
@@ -97,6 +102,7 @@ class CatalogStore {
                 ]
             },
             {
+                board: '/catalog/img/cement.jpg',
                 category: 'Сухие смеси',
                 url: '/catalog/cement.svg',
                 subcats: [
@@ -115,6 +121,7 @@ class CatalogStore {
                 ]
             },
             {
+                board: '/catalog/img/garden.jpg',
                 category: 'Сад и огород',
                 url: '/catalog/garden.svg',
                 subcats: [
@@ -133,6 +140,7 @@ class CatalogStore {
                 ]
             },
             {
+                board: '/catalog/img/sealant.jpg',
                 category: 'Клеи, герметики, пены',
                 url: '/catalog/sealant-gun.svg',
                 subcats: [
@@ -151,6 +159,7 @@ class CatalogStore {
                 ]
             },
             {
+                board: '/catalog/img/lock.jpg',
                 category: 'Замочно-скобяные изделия',
                 url: '/catalog/lock.svg',
                 subcats: [

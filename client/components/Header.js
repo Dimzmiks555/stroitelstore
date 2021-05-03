@@ -13,6 +13,22 @@ const Header = observer(() => {
             <div>anodaday@yandex.ru</div>
             <div>+7 ( 900 ) 300 - 13 - 12</div>
         </div>
+        <div className={styles.menu}>
+            <ul>
+                <li>
+                    <a>О магазине</a>
+                </li>
+                <li>
+                    <a>Доставка и оплата</a>
+                </li>
+                <li>
+                    <a>Сотрудничество</a>
+                </li>
+                <li>
+                    <a>Контакты</a>
+                </li>
+            </ul>
+        </div>
         <div className={styles.header}>
             <div className={styles.logo}>
                 <Link href="/">

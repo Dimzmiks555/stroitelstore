@@ -1,4 +1,6 @@
 .banner{
     max-height: 480px;
     overflow: hidden;
+    margin-bottom: 80px;
+    background: #f4f4f4;
 }

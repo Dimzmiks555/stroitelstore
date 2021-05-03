@@ -4,6 +4,7 @@ import Banner from "../components/Banner";
 import Catalog from "../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
+import NewGoods from '../components/NewGoods';
 
 const Index = observer(() => {
   return (
@@ -11,10 +12,12 @@ const Index = observer(() => {
     <Head>
       <title>СТРОИТЕЛЬ - Интернет-магазин строительных материалов</title>
     </Head>
+    
+    <Catalog />
+    <Header />
     <div className={styles.page}>
-      <Catalog />
-      <Header />
       <Banner />
+      <NewGoods />
     </div>
     </>
   )

@@ -11,15 +11,23 @@ const CatalogItems = observer(() => {
 
     return (
         <div className={styles.catalog__items}>
-            <h1>{CatalogItemsStore.props.category}</h1>
-            <div>
-                {CatalogItemsStore.props.subcats.map((subcat, index) => (
-                    <Link href={`/catalog/${index}/${subcat.route}`}>
-                        <a className={styles.catalog__link} onClick={handleClick}>{subcat.name}</a>
-                    </Link>
-                ))}
+            <div className={styles.catalog__itemsblock}>
+                <h1>{CatalogItemsStore.props.category}</h1>
+                <div>
+                    {CatalogItemsStore.props.subcats.map((subcat, index) => (
+                        <Link href={`/catalog/${index}/${subcat.route}`}>
+                            <a className={styles.catalog__link} onClick={handleClick}>{subcat.name}</a>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+            {console.log(CatalogItemsStore.props.board)}
+            <div className={styles.catalog_img}>
+                <img src={CatalogItemsStore.props.board}>
+                </img>
             </div>
         </div>
+        
     )
 })
 

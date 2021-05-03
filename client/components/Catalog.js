@@ -1,11 +1,12 @@
 import CatalogStore from "./CatalogStore";
-import {CSSTransition} from 'react-transition-group'
 import styles from './Catalog.module.css';
 import {observer} from "mobx-react";
 import { enableStaticRendering } from "mobx-react";
 import CatalogItems from './Catalog/CatalogItems'
-import CatalogItemsStore from "./Catalog/CatalogItemsStore";
 import CatalogNavItem from './Catalog/CatalogNavItem'
+import Link from 'next/link'
+import stylesHeader from './Header.module.css'
+
 enableStaticRendering(typeof window === "undefined");
 const Catalog = observer(() => {
     function handleClick() {
@@ -17,16 +18,30 @@ const Catalog = observer(() => {
     } else {
         return (
             <>
+                
                 <div className={styles.catalog}>
-                    <button className={styles.close} onClick={handleClick}>&#215;</button>
-                    <h1>Каталог</h1>
-                    <div className={styles.catalog__table}>
-                        <div className={styles.catalog__nav}>
-                            {CatalogStore.props.categories.map(category => (
-                                <CatalogNavItem category={category}/>
-                            ))}
+                    <div className={stylesHeader.header}>
+                        <div className={stylesHeader.logo}>
+                            <Link href="/">
+                                <a><img src="/LOGO.svg" /></a>
+                            </Link>
                         </div>
-                        <CatalogItems />
+                        <input className={stylesHeader.search} placeholder="Поиск...">
+                        </input>
+                        <div className={stylesHeader.userblock}>
+                            <button className={styles.close} onClick={handleClick}>&#215;</button>
+                        </div>
+                    </div>
+                    <div className={styles.catalog_block}>
+                        <h1>Каталог</h1>
+                        <div className={styles.catalog__table}>
+                            <div className={styles.catalog__nav}>
+                                {CatalogStore.props.categories.map(category => (
+                                    <CatalogNavItem category={category}/>
+                                ))}
+                            </div>
+                            <CatalogItems />
+                        </div>
                     </div>
                 </div>
             </>

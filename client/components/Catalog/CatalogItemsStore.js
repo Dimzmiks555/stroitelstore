@@ -4,6 +4,7 @@ enableStaticRendering(typeof window === "undefined");
 class CatalogItemsStore {
 
     props = {
+        board: '/catalog/img/metiz.jpg',
         category: 'Крепеж',
         url: '/catalog/screw.svg',
         subcats: [

@@ -1,12 +1,11 @@
 .header {
     background: #fff;
-    width: 80%;
+    width: 100%;
     display: flex;
-    padding: 14px;
+    padding: 14px 10%;
     align-items: center;
-    z-index: 999;
-    position: fixed;
-    top: 30px;
+    z-index: 999;   
+    box-shadow: #eee 0px 5px 20px;
 }
 .catalog__button{
     font-size: 15px;
@@ -65,16 +64,14 @@
     width: 30px;
 }
 .underheader{
-    top: 0;
-    width: 80%;
-    position: fixed;
+    font-weight: bold;
+    background: #fff;
+    width: 100%;
     justify-content: space-between;
-    color: #fff;
-    padding: 0 20px;
+    padding: 0 10%;
     display: flex;
     align-items: center;
-    height: 30px;
-    background: #d00;
+    height: 40px;
     z-index: 999;
 }
 .underheader a {
@@ -82,7 +79,7 @@
 
 }
 .underheader a:hover {
-    color: #ddd;
+    color: #d00;
 
 }
 .underheader a img {
@@ -93,4 +90,30 @@
     margin-left: auto;
     display: flex;
     margin-right: 40px;
+}
+.menu {
+    padding: 0 20%;
+    z-index: 999;
+    width: 100%;
+    height: 60px;
+    background: #d00;
+    display: flex;
+    align-items: center;
+}
+.menu ul {
+    font-weight: bold;
+    width: 100%;
+    justify-content: space-around;
+    display: flex;
+    color: #fff;
+}
+.menu ul li {
+    flex-basis: 25%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+.menu ul li a {
+    display: block;
 }
