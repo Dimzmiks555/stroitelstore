@@ -1,10 +1,13 @@
 .header {
+    background: #fff;
+    width: 80%;
     display: flex;
     padding: 14px;
     align-items: center;
-    margin-bottom: 40px;
+    z-index: 999;
+    position: fixed;
+    top: 30px;
 }
-
 .catalog__button{
     font-size: 15px;
     display: flex;
@@ -43,8 +46,6 @@
 }
 .logo{
     background: #fff;
-
-    z-index: 999;
     height: 80px;
     width: 300px;
 }
@@ -64,6 +65,9 @@
     width: 30px;
 }
 .underheader{
+    top: 0;
+    width: 80%;
+    position: fixed;
     justify-content: space-between;
     color: #fff;
     padding: 0 20px;
@@ -71,4 +75,10 @@
     align-items: center;
     height: 30px;
     background: #d00;
+    z-index: 999;
+}
+.userblock{
+    margin-left: auto;
+    display: flex;
+    margin-right: 40px;
 }

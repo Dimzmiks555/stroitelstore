@@ -23,12 +23,14 @@ const Header = observer(() => {
             </button>
             <input className={styles.search} placeholder="Поиск...">
             </input>
-            <div className={styles.user}>
-                <img src="/header/user.svg" />
+            <div className={styles.userblock}>
+                <div className={styles.user}>
+                    <img src="/header/user.svg" />
+                </div>
+                <a href="#" className={styles.cart}>
+                    <img src="/header/shopping-cart.svg" />
+                </a>
             </div>
-            <a href="#" className={styles.cart}>
-                <img src="/header/shopping-cart.svg" />
-            </a>
         </div>
         </>
     )
