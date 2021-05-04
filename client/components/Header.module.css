@@ -66,8 +66,6 @@
 .underheader{
     font-weight: bold;
     background: #fff;
-    width: 100%;
-    justify-content: space-between;
     padding: 0 10%;
     display: flex;
     align-items: center;
@@ -85,6 +83,15 @@
 .underheader a img {
     height: 16px;
     margin-right: 6px;
+}
+.underheader_location {
+    flex-grow: 1;
+}
+.underheader_phone {
+    flex-grow: 1;
+}
+.underheader_mail {
+    flex-grow: 1;
 }
 .userblock{
     margin-left: auto;

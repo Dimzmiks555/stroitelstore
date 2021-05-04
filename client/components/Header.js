@@ -9,9 +9,9 @@ const Header = observer(() => {
     return (
         <>
         <div className={styles.underheader}>
-            <a href="https://yandex.ru/maps/10678/lisky/house/kommunisticheskaya_ulitsa_25/Z0AYcwdjS0wPQFtqfXV5dX5jZg==/?ll=39.503298%2C50.984202&utm_source=main_stripe_big&z=16.56"><img src="/header/map.svg"></img>Воронежская обл., г. Лиски, ул. Коммунистическая, д. 25</a>
-            <div>anodaday@yandex.ru</div>
-            <div>+7 ( 900 ) 300 - 13 - 12</div>
+            <a сlassName={styles.underheader_location} href="https://yandex.ru/maps/10678/lisky/house/kommunisticheskaya_ulitsa_25/Z0AYcwdjS0wPQFtqfXV5dX5jZg==/?ll=39.503298%2C50.984202&utm_source=main_stripe_big&z=16.56"><img src="/header/map.svg"></img>Воронежская обл., г. Лиски, ул. Коммунистическая, д. 25</a>
+            <div сlassName={styles.underheader_mail}>anodaday@yandex.ru</div>
+            <div сlassName={styles.underheader_phone}>+7 ( 900 ) 300 - 13 - 12</div>
         </div>
         <div className={styles.menu}>
             <ul>
