@@ -1,0 +1,41 @@
+.busket {
+    display: flex;
+    justify-content: space-between;
+}
+.busket h1{
+    margin-bottom: 50px;
+}
+.busket_items {
+    font-weight: bold;
+}
+.busket_item {
+    display: flex;
+    flex: 1 100%;
+    align-items: center;
+}
+.good_img img{
+    width: 120px;
+    height: 120px;
+    object-fit: scale-down;
+}
+.good_img {
+    margin-right: 20px;
+    display: flex;
+    flex: 0 auto; 
+}
+.good_title{
+    font-size: 20px;
+    flex: 6 0px; 
+}
+.busket_info{
+    width: 65%;
+}
+.busket_mainblock {
+    padding: 40px;
+    background: #f4f4f4;
+    width: 30%;
+}
+.good_price {
+    flex: 0 auto; 
+    font-size: 32px;
+}

@@ -44,9 +44,11 @@ const Header = observer(() => {
                 <div className={styles.user}>
                     <img src="/header/user.svg" />
                 </div>
-                <a href="#" className={styles.cart}>
-                    <img src="/header/shopping-cart.svg" />
-                </a>
+                <Link href="/busket">
+                    <a href="#" className={styles.cart}>
+                        <img src="/header/shopping-cart.svg" />
+                    </a>
+                </Link>
             </div>
         </div>
         </>

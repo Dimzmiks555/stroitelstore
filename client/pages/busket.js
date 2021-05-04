@@ -1,9 +1,9 @@
 import Header from '../components/Header';
 import styles from './index.module.css';
-import Banner from "../components/Banner";
 import Catalog from "../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
+import Busket from '../components/Busket';
 
 const Index = observer(() => {
   return (
@@ -11,10 +11,13 @@ const Index = observer(() => {
     <Head>
       <title>Корзина</title>
     </Head>
+    
+    <Catalog />
+    <Header />
     <div className={styles.page}>
-      <Catalog />
-      <Header />
-      <Banner />
+      <Busket>
+        
+      </Busket>
     </div>
     </>
   )
