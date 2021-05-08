@@ -27,13 +27,9 @@ class CatalogStore {
             },
             {
                 board: '/catalog/img/doors.jpg',
-                category: 'Окна и двери',
+                category: 'Двери, напольные покрытия',
                 url: '/catalog/door.svg',
                 subcats: [
-                    {
-                        name: 'Окна',
-                        route: 'bolts'
-                    },
                     {
                         name: 'Двери',
                         route: 'screws'
@@ -84,7 +80,7 @@ class CatalogStore {
             },
             {
                 board: '/catalog/img/paint.jpg',
-                category: 'Краски',
+                category: 'Краски и малярный инструмент',
                 url: '/catalog/paint-bucket.svg',
                 subcats: [
                     {
@@ -122,7 +118,7 @@ class CatalogStore {
             },
             {
                 board: '/catalog/img/garden.jpg',
-                category: 'Сад и огород',
+                category: 'Хозяйственный инвентарь',
                 url: '/catalog/garden.svg',
                 subcats: [
                     {
@@ -177,6 +173,44 @@ class CatalogStore {
                     },
                 ]
             },
+            {
+                board: '/catalog/img/osnastka.jpg',
+                category: 'Оснастка и расх. материалы',
+                url: '/catalog/saw.svg',
+                subcats: [
+                    {
+                        name: 'Замки',
+                        route: 'bolts'
+                    },
+                    {
+                        name: 'Петли',
+                        route: 'screws'
+                    },
+                    {
+                        name: 'Задвижки',
+                        route: 'shims'
+                    },
+                ]
+            },
+            {
+                board: '/catalog/img/roof.jpg',
+                category: 'Кровельные материалы',
+                url: '/catalog/roof.svg',
+                subcats: [
+                    {
+                        name: 'Замки',
+                        route: 'bolts'
+                    },
+                    {
+                        name: 'Петли',
+                        route: 'screws'
+                    },
+                    {
+                        name: 'Задвижки',
+                        route: 'shims'
+                    },
+                ]
+            }
         ]
     }
 

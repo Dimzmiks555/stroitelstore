@@ -1,13 +1,34 @@
-import Header from '../../../components/Header';
-import Mainstyles from '../../index.module.css';
+import CategoryStore from '../../components/Catalog/category/categoryStore.js'
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import Header from '../../components/Header';
+import Mainstyles from '../index.module.css';
 import styles from './category.module.css'
-import Catalog from "../../../components/Catalog";
+import Catalog from "../../components/Catalog";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import CategoryStore from './categoryStore.js'
-export default function Category() {
-    const router = useRouter();
-    const { index, category } = router.query;
+import { observer } from "mobx-react";
+const Category = observer(({mainTitle}) => {
+
+
+    const api = new WooCommerceRestApi({
+        url: "http://kassa1/wordpress",
+        consumerKey: "ck_841d881edc4d8a0fbded1a632f8f1438efb8cfee",
+        consumerSecret: "cs_a373ad07206d189c841c0b48d029e992d1cde50d",
+        version: "wc/v3"
+      });
+      api.get("products", {
+        per_page: 18, // 18 products per page
+      })
+        .then((response) => {
+          // Successful request
+            console.log(response);
+        })
+        .catch((error) => {
+          // Invalid request, for 4xx and 5xx statuses
+        })
+        .finally(() => {
+          // Always executed.
+        });
     return (
         <>
         <Catalog />
@@ -51,7 +72,7 @@ export default function Category() {
                     <div className={styles.category_goodsblock}>
                         <div className={styles.category_goodsblock_header}>
                             
-                            <h1>{CategoryStore.cats[category].title}</h1>
+                            <h1>{mainTitle}</h1>
                             <div>
                                 200 товаров
                             </div>
@@ -181,4 +202,57 @@ export default function Category() {
         </div>
         </>
     )
+}) 
+
+
+export async function getStaticPaths() {
+    // Add your logic to fetch all products by category
+
+    return {
+        paths: [
+            // For each category/product combination you would have an entry like the following:
+            {
+                params: {
+                    category: 'bolts'
+                }
+            },
+            {
+                params: {
+                    category: 'shims'
+                }
+            },
+            {
+                params: {
+                    category: 'screws'
+                }
+            },
+            {
+                params: {
+                    category: 'paints115'
+                }
+            },
+        ],
+        fallback: false
+  };
 }
+
+export async function getStaticProps({ params: { category } }) {
+    // // Call an external API endpoint to get posts.
+    // // You can use any data fetching library
+    // const api = new WooCommerceRestApi({
+    //     url: "http://example.com",
+    //     consumerKey: "ck_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    //     consumerSecret: "cs_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    //     version: "wc/v3"
+    //   });
+    const mainTitle = CategoryStore.cats[category].title
+    // By returning { props: { posts } }, the Blog component
+    // will receive `posts` as a prop at build time
+    return {
+      props: {
+        mainTitle,
+      },
+    }
+  }
+
+export default Category

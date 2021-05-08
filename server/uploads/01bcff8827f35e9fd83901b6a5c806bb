@@ -1,0 +1,125 @@
+<tenderposition_import xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="http://www.tender.pro/schema/tenderposition_import.xsd">
+<tenderpositions>
+<nds>0</nds>
+  <tenderposition>
+    <number>1</number>
+    <tpid>13946208</tpid>
+    <nid>0</nid>
+    <maxprice></maxprice>
+    <goodprice></goodprice>
+    <analogid>0</analogid>
+    <amount>84.000</amount>
+    <edismid>0</edismid>
+    <edism>шт</edism>
+    <title>Металлочерепица 1180 х 8000; Оц 0.50 (RAL 8017) матовый Монтеррей коричневый</title>
+    <description></description>
+    <custom_field></custom_field>
+    <exfield1></exfield1>
+    <exfield2></exfield2>
+    <price></price>
+  </tenderposition>
+  <tenderposition>
+    <number>2</number>
+    <tpid>13946209</tpid>
+    <nid>0</nid>
+    <maxprice></maxprice>
+    <goodprice></goodprice>
+    <analogid>0</analogid>
+    <amount>8.000</amount>
+    <edismid>0</edismid>
+    <edism>шт</edism>
+    <title>Металлочерепица 1180 х 2000; Оц 0.50 (RAL 8017) матовый Монтеррей коричневый</title>
+    <description></description>
+    <custom_field></custom_field>
+    <exfield1></exfield1>
+    <exfield2></exfield2>
+    <price></price>
+  </tenderposition>
+  <tenderposition>
+    <number>3</number>
+    <tpid>13946218</tpid>
+    <nid>0</nid>
+    <maxprice></maxprice>
+    <goodprice></goodprice>
+    <analogid>0</analogid>
+    <amount>600.000</amount>
+    <edismid>0</edismid>
+    <edism>шт</edism>
+    <title>Саморез кровельный 4.8х70 мм цинк, шайба с прокл., (RAL 8017) матовый М-8	Коричневый , кровельный по дереву</title>
+    <description></description>
+    <custom_field></custom_field>
+    <exfield1></exfield1>
+    <exfield2></exfield2>
+    <price></price>
+  </tenderposition>
+  <tenderposition>
+    <number>4</number>
+    <tpid>13946223</tpid>
+    <nid>0</nid>
+    <maxprice></maxprice>
+    <goodprice></goodprice>
+    <analogid>0</analogid>
+    <amount>4000.000</amount>
+    <edismid>0</edismid>
+    <edism>шт</edism>
+    <title>Саморез кровельный 4.8х28 мм цинк, шайба с прокл., шайба с прокл., (RAL 8017) М-8 Коричневый , кровельный по дереву</title>
+    <description></description>
+    <custom_field></custom_field>
+    <exfield1></exfield1>
+    <exfield2></exfield2>
+    <price></price>
+  </tenderposition>
+  <tenderposition>
+    <number>5</number>
+    <tpid>13946225</tpid>
+    <nid>0</nid>
+    <maxprice></maxprice>
+    <goodprice></goodprice>
+    <analogid>0</analogid>
+    <amount>100.000</amount>
+    <edismid>0</edismid>
+    <edism>шт</edism>
+    <title>Гладкий лист RAL 8017 толщина 2000*1250*0,35 м 	Коричневый</title>
+    <description></description>
+    <custom_field></custom_field>
+    <exfield1></exfield1>
+    <exfield2></exfield2>
+    <price></price>
+  </tenderposition>
+  <tenderposition>
+    <number>6</number>
+    <tpid>13946227</tpid>
+    <nid>0</nid>
+    <maxprice></maxprice>
+    <goodprice></goodprice>
+    <analogid>0</analogid>
+    <amount>22.000</amount>
+    <edismid>0</edismid>
+    <edism>шт</edism>
+    <title>Снегозадержание для металлочерепицы 3м NL 20х40мм	коричневые</title>
+    <description></description>
+    <custom_field></custom_field>
+    <exfield1></exfield1>
+    <exfield2></exfield2>
+    <price></price>
+  </tenderposition>
+  <tenderposition>
+    <number>7</number>
+    <tpid>13946228</tpid>
+    <nid>0</nid>
+    <maxprice></maxprice>
+    <goodprice></goodprice>
+    <analogid>0</analogid>
+    <amount>100.000</amount>
+    <edismid>0</edismid>
+    <edism>шт</edism>
+    <title>Уплотнитель для металлочерепицы 30 мм	Монтеррей		</title>
+    <description></description>
+    <custom_field></custom_field>
+    <exfield1></exfield1>
+    <exfield2></exfield2>
+    <price></price>
+  </tenderposition>
+</tenderpositions>
+</tenderposition_import>
