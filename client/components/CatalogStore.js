@@ -31,8 +31,64 @@ class CatalogStore {
                 url: '/catalog/door.svg',
                 subcats: [
                     {
-                        name: 'Двери',
-                        route: 'screws'
+                        name: 'Арки',
+                        route: 'arcs'
+                    },
+                    {
+                        name: 'Входные двери',
+                        route: 'enterdoors'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
+                    },
+                    {
+                        name: 'Дверная фурнитура',
+                        route: 'shims'
                     },
                     {
                         name: 'Дверная фурнитура',

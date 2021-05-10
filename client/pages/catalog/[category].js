@@ -7,28 +7,10 @@ import Catalog from "../../components/Catalog";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { observer } from "mobx-react";
-const Category = observer(({mainTitle}) => {
+const Category = observer(({mainTitle, CatID}) => {
 
 
-    const api = new WooCommerceRestApi({
-        url: "http://kassa1/wordpress",
-        consumerKey: "ck_841d881edc4d8a0fbded1a632f8f1438efb8cfee",
-        consumerSecret: "cs_a373ad07206d189c841c0b48d029e992d1cde50d",
-        version: "wc/v3"
-      });
-      api.get("products", {
-        per_page: 18, // 18 products per page
-      })
-        .then((response) => {
-          // Successful request
-            console.log(response);
-        })
-        .catch((error) => {
-          // Invalid request, for 4xx and 5xx statuses
-        })
-        .finally(() => {
-          // Always executed.
-        });
+    
     return (
         <>
         <Catalog />
@@ -77,124 +59,37 @@ const Category = observer(({mainTitle}) => {
                                 200 товаров
                             </div>
                         </div>
+                        {console.log(CategoryStore.data)}
                         <div className={styles.category_goods}>
-                            <div className={styles.category_good}>
-                                <div>
-                                    <Link href="/product/unis-plus">
-                                        <a>
-                                            <div className={styles.good_img}>
-                                                <img src="/good/unis.jpg"></img>
-                                            </div>
+                            {CategoryStore.data.map(item => (
+                                <div className={styles.category_good}>
+                                    <div>
+                                        <Link href="/product/unis-plus">
+                                            <a>
+                                                <div className={styles.good_img}>
+                                                    <img src="/good/unis.jpg"></img>
+                                                </div>
+                                            </a>
+                                        </Link>
+                                        <Link href="/product/unis-plus">
+                                            <a>
+                                                <div className={styles.good_title}>
+                                                    {item.name}
+                                                </div>
+                                            </a>
+                                        </Link>
+                                    </div>
+                                    <div>
+                                        <div className={styles.good_price}>
+                                            344 ₽ / шт.
+                                        </div>
+                                        <a className={styles.to_cart}>
+                                            В корзину
                                         </a>
-                                    </Link>
-                                    <Link href="/product/unis-plus">
-                                        <a>
-                                            <div className={styles.good_title}>
-                                                Юнис Плюс
-                                            </div>
-                                        </a>
-                                    </Link>
-                                </div>
-                                <div>
-                                    <div className={styles.good_price}>
-                                        344 ₽ / шт.
-                                    </div>
-                                    <a className={styles.to_cart}>
-                                        В корзину
-                                    </a>
-                                </div>
-                            </div>
-                            <div className={styles.category_good}>
-                                <div>
-                                    <div className={styles.good_img}>
-                                        <img src="/good/topor.jpg"></img>
-                                    </div>
-                                    <div className={styles.good_title}>
-                                        Топор, 600 г, фибергласовое топорище Сибртех
-
                                     </div>
                                 </div>
-                                <div>
-                                    <div className={styles.good_price}>
-                                        784 ₽ / шт.
-                                    </div>
-                                    <button className={styles.to_cart}>
-                                        В корзину
-                                    </button>
-                                </div>
-                            </div>
-                            <div className={styles.category_good}>
-                                <div>
-                                    <div className={styles.good_img}>
-                                        <img src="/good/screw.png"></img>
-                                    </div>
-                                    <div className={styles.good_title}>
-                                        Саморез Ш.Г.К 4,8*19 Желт. ( 400шт) RAL1018 Daxmer/10
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className={styles.good_price}>
-                                        889.20 ₽ / шт.
-                                    </div>
-                                    <button className={styles.to_cart}>
-                                        В корзину
-                                    </button>
-                                </div>
-                            </div>
-                            <div className={styles.category_good}>
-                                <div>
-                                    <div className={styles.good_img}>
-                                        <img src="/good/unis.jpg"></img>
-                                    </div>
-                                    <div className={styles.good_title}>
-                                        Юнис Плюс
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className={styles.good_price}>
-                                        344 ₽ / шт.
-                                    </div>
-                                    <button className={styles.to_cart}>
-                                        В корзину
-                                    </button>
-                                </div>
-                            </div>
-                            <div className={styles.category_good}>
-                                <div>
-                                    <div className={styles.good_img}>
-                                        <img src="/good/unis.jpg"></img>
-                                    </div>
-                                    <div className={styles.good_title}>
-                                        Юнис Плюс
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className={styles.good_price}>
-                                        344 ₽ / шт.
-                                    </div>
-                                    <button className={styles.to_cart}>
-                                        В корзину
-                                    </button>
-                                </div>
-                            </div>
-                            <div className={styles.category_good}>
-                                <div>
-                                    <div className={styles.good_img}>
-                                        <img src="/good/unis.jpg"></img>
-                                    </div>
-                                    <div className={styles.good_title}>
-                                        Юнис Плюс
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className={styles.good_price}>
-                                        344 ₽ / шт.
-                                    </div>
-                                    <button className={styles.to_cart}>
-                                        В корзину
-                                    </button>
-                                </div>
-                            </div>
+                            ))}
+                            
                         </div>
                     </div>
                 </div>
@@ -231,10 +126,30 @@ export async function getStaticPaths() {
                     category: 'paints115'
                 }
             },
+            {
+                params: {
+                    category: 'arcs'
+                }
+            },
         ],
         fallback: false
   };
 }
+function GetData(CatID) {
+    const api = new WooCommerceRestApi({
+        url: "http://admin.stroitelstore.ru/",
+        consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
+        consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
+        version: "wc/v3"
+      });
+    api.get("products", {
+        per_page: 18,
+        category: CatID // 18 products per page
+      })
+      .then((result) => {
+        CategoryStore.getData(result.data)
+      })
+} 
 
 export async function getStaticProps({ params: { category } }) {
     // // Call an external API endpoint to get posts.
@@ -243,14 +158,18 @@ export async function getStaticProps({ params: { category } }) {
     //     url: "http://example.com",
     //     consumerKey: "ck_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     //     consumerSecret: "cs_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    //     version: "wc/v3"
+    //     version: "wc/v3"s
     //   });
-    const mainTitle = CategoryStore.cats[category].title
+    
+    const mainTitle = CategoryStore.cats[category].title;
+    const CatID = CategoryStore.cats[category].category_id;
+    GetData(CatID);
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time
     return {
       props: {
         mainTitle,
+        CatID,
       },
     }
   }

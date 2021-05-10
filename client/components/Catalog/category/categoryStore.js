@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx"
 import { enableStaticRendering } from "mobx-react";
 enableStaticRendering(typeof window === "undefined");
 class CategoryStore {
-
+    data = []
     cats = {
         screws: {
             title: 'Саморезы'
@@ -22,8 +22,9 @@ class CategoryStore {
         paints115: {
             title: 'Краски ПФ-115'
         },
-        drills: {
-            title: 'Дрели'
+        arcs: {
+            title: 'Арки',
+            category_id: 27
         },
         drills: {
             title: 'Дрели'
@@ -44,6 +45,9 @@ class CategoryStore {
 
     constructor() {
         makeAutoObservable(this);
+    }
+    getData(data) {
+        this.data = data;
     }
 }
 
