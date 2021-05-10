@@ -3,20 +3,23 @@ import styles from '../Catalog.module.css'
 import CatalogItemsStore from "./CatalogItemsStore";
 import Link from 'next/link'
 import CatalogStore from "../CatalogStore";
+import CategoryStore from "./category/categoryStore";
 const CatalogItems = observer(() => {
 
-    function handleClick() {
-        CatalogStore.HideCatalog()
+    function handleClick(id, e) {
+        preventDefault(e);
+        CategoryStore.getData(id)
+        CatalogStore.HideCatalog();
     }
 
     return (
         <div className={styles.catalog__items}>
             <div className={styles.catalog__itemsblock}>
                 <h1>{CatalogItemsStore.props.category}</h1>
-                <div>
+                <div className={styles.catalog__itemslist}>
                     {CatalogItemsStore.props.subcats.map((subcat) => (
-                        <Link href={`/catalog/${subcat.route}`}>
-                            <a className={styles.catalog__link} onClick={handleClick}>{subcat.name}</a>
+                        <Link href={`/catalog/${subcat.id}/${subcat.route}`}>
+                            <a className={styles.catalog__link} onClick={(e) => this.handleClick(subcat.id, e)}>{subcat.name}</a>
                         </Link>
                     ))}
                 </div>

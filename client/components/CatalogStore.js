@@ -32,67 +32,83 @@ class CatalogStore {
                 subcats: [
                     {
                         name: 'Арки',
-                        route: 'arcs'
+                        route: 'arcs',
+                        id: 27
                     },
                     {
                         name: 'Входные двери',
-                        route: 'enterdoors'
+                        route: 'enterdoors',
+                        id: 17
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Линолеум',
+                        route: 'linoleum',
+                        id: 23
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Доборы дверные',
+                        route: 'door_dobors',
+                        id: 28
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Капители',
+                        route: 'kapitels',
+                        id: 29
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Компл. для плинтусов',
+                        route: 'compl_for_plint',
+                        id: 24
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Компл. для подоконников',
+                        route: 'compl_for_podokonnik',
+                        id: 32
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Коробки дверные',
+                        route: 'door_box',
+                        id: 18
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Ламинат',
+                        route: 'laminat',
+                        id: 21
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Межкомнатные двери',
+                        route: 'interdoors',
+                        id: 26
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Наличники дверные',
+                        route: 'nalichniki',
+                        id: 19
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Плинтус',
+                        route: 'plintus',
+                        id: 20
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Погонаж',
+                        route: 'pogonazh',
+                        id: 31
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Подоконники',
+                        route: 'podokonnik',
+                        id: 22
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Пороги и углы',
+                        route: 'porogi',
+                        id: 25
                     },
                     {
-                        name: 'Дверная фурнитура',
-                        route: 'shims'
+                        name: 'Раздвижные системы',
+                        route: 'razdvig_system',
+                        id: 30
                     },
                 ]
             },

@@ -88,7 +88,11 @@
     justify-content: space-between;
 }
 .catalog__itemsblock {
-    width: 55%
+    width: 55%;
+}
+.catalog__itemslist {
+    display: flex;
+    flex-wrap: wrap;
 }
 .catalog__items h1{
     margin-bottom: 30px;
@@ -147,6 +151,7 @@
     height: 50px;
 }
 .catalog__link {
+    width: 50%;
     display: block;
     margin-bottom: 20px;
 }
