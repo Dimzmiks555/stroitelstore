@@ -118,3 +118,23 @@
 .to_cart:hover{
     background: #900;
 }
+.outofstock {
+    margin-left: auto;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    font-family: inherit;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 20px;
+    background: #888;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 16px 20px;
+    cursor: pointer;
+}
+.outofstock:hover {
+    background: #555;
+}

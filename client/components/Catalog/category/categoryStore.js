@@ -2,8 +2,11 @@ import { action, makeAutoObservable } from "mobx"
 import { enableStaticRendering } from "mobx-react";
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 enableStaticRendering(typeof window === "undefined");
+
 class CategoryStore {
+
     data = []
+
     cats = {
         screws: {
             title: 'Саморезы',
@@ -117,7 +120,8 @@ class CategoryStore {
             version: "wc/v3"
             });
         await api.get("products", {
-                per_page: 18,
+                per_page: 20,
+                order: 'asc',
                 category: id // 18 products per page
             })
             .then(

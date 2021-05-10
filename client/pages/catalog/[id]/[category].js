@@ -9,6 +9,7 @@ import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import { observer } from "mobx-react";
 import { useEffect } from 'react';
 import { get } from 'mobx';
+import Footer from '../../../components/Footer.js';
 const Category = observer(({mainTitle, CatID, data}) => {
     const router = useRouter()
         let cat_id = router.query.id
@@ -75,14 +76,14 @@ const Category = observer(({mainTitle, CatID, data}) => {
                                     
                                     {console.log(item)}
                                     <div>
-                                        <Link href="/product/unis-plus">
+                                        <Link href={`/product/${item.id}`}>
                                             <a>
                                                 <div className={styles.good_img}>
                                                     <img src={item?.images[0]?.src}></img>
                                                 </div>
                                             </a>
                                         </Link>
-                                        <Link href="/product/unis-plus">
+                                        <Link href={`/product/${item.id}`}>
                                             <a>
                                                 <div className={styles.good_title}>
                                                     {item.name}
@@ -91,14 +92,16 @@ const Category = observer(({mainTitle, CatID, data}) => {
                                         </Link>
                                     </div>
                                     <div>
+                                        
                                         <div className={styles.good_price}>
                                             {
-                                                item.price != '' ? (<p><span>{item.price}</span> ₽ / шт.</p>) : <b>По запросу</b>
+                                                item.price != '' ? (<p><span>{Number(item.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
                                             }
                                         </div>
-                                        <a className={styles.to_cart}>
-                                            В корзину
-                                        </a>
+                                        {
+                                            item.stock_status == 'outofstock' ? (<a className={styles.outofstock}>Под заказ</a>) : (<a className={styles.to_cart}>В корзину</a>) 
+                                        }
+                                        
                                     </div>
                                 </div>
                             ))}
@@ -108,6 +111,7 @@ const Category = observer(({mainTitle, CatID, data}) => {
                 </div>
             </div>
         </div>
+        <Footer />
         </>
     )
 }) 

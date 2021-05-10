@@ -5,6 +5,7 @@ import Catalog from "../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
 import NewGoods from '../components/NewGoods';
+import Footer from '../components/Footer';
 
 const Index = observer(() => {
   return (
@@ -19,6 +20,7 @@ const Index = observer(() => {
       <Banner />
       <NewGoods />
     </div>
+    <Footer />
     </>
   )
 
