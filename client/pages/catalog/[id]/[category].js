@@ -5,12 +5,12 @@ import styles from './category.module.css'
 import Catalog from "../../../components/Catalog";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import { observer } from "mobx-react";
 import { useEffect } from 'react';
-import { get } from 'mobx';
 import Footer from '../../../components/Footer.js';
-const Category = observer(({mainTitle, CatID, data}) => {
+
+
+const Category = observer(({mainTitle}) => {
     const router = useRouter()
         let cat_id = router.query.id
     

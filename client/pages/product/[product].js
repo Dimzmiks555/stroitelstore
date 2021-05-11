@@ -47,7 +47,7 @@ const Product = observer(() => {
                             <h4>Артикул: {ProductStore.data?.sku}</h4>
                         </div>
                         <div className={styles.product__overview_price}>
-                            {ProductStore.data.price ? (<p><span>{Number(ProductStore.data?.price).toLocaleString()}</span> ₽ / шт.</p>) : null} 
+                            {ProductStore.data.price ? (<p><span>{Number(ProductStore.data?.price).toLocaleString()}</span> ₽ / шт.</p>) : <p>Цена по запросу</p>} 
                         </div>
                         <div className={styles.product__overview_cart}>
                             <button>
