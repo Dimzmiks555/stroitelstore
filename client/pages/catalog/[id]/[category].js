@@ -6,23 +6,53 @@ import Catalog from "../../../components/Catalog";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { observer } from "mobx-react";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import Footer from '../../../components/Footer.js';
 
 
 const Category = observer(({mainTitle}) => {
     const router = useRouter()
-        let cat_id = router.query.id
-    
+    let cat_id = router.query.id
+    const [data, setData] = useState([]);
+    const [isLoading, setLoading] = useState([true]);
     useEffect(() => {
-        CategoryStore.getData(cat_id);
-
-
-        return function cleanup() {
-            CategoryStore.clearData();
+        setLoading(true)
+        async function getData(id){
+            const api = new WooCommerceRestApi({
+                url: "http://admin.stroitelstore.ru/",
+                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
+                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
+                version: "wc/v3"
+                });
+            await api.get("products", {
+                    per_page: 20,
+                    order: 'asc',
+                    category: id // 18 products per page
+                })
+                .then( result => {
+                        setData(result.data)
+                        setLoading(false)
+                    }
+                )
+            
         }
+        
+        getData(cat_id);
 
-    }, []);
+
+    }, [cat_id]);
+    if (isLoading == true) {
+        return (
+            <>
+                <Catalog />
+                <Header />
+                <div className={styles.LoadingPanel}>
+                    <img src='/spinning-circles.svg'></img>
+                </div>
+            </>
+        )
+    } else {
     return (
         <>
         <Catalog />
@@ -71,7 +101,7 @@ const Category = observer(({mainTitle}) => {
                             </div>
                         </div>
                         <div className={styles.category_goods}>
-                            {CategoryStore.data.map(item => (
+                            {data.map(item => (
                                 <div className={styles.category_good}>
                                     
                                     {console.log(item)}
@@ -114,6 +144,7 @@ const Category = observer(({mainTitle}) => {
         <Footer />
         </>
     )
+}
 }) 
 
 

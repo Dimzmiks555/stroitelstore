@@ -35,7 +35,7 @@
 }
 .product__overview_img  img:hover {
     width: 80%;
-    height: auto;
+    height: calc(auto + 20%);
     object-fit: contain;
 }
 .product__overview_info {
@@ -80,4 +80,16 @@
 }
 .product__description h2 {
     font-size: 32px;
+}
+.LoadingPanel {
+    background: rgba(255,255,255,0.3);
+    backdrop-filter: blur(5px);
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
