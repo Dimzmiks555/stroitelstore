@@ -175,16 +175,44 @@ class CatalogStore {
                 url: '/catalog/cement.svg',
                 subcats: [
                     {
-                        name: 'Наливной пол',
-                        route: 'bolts'
+                        name: 'Штукатурка',
+                        route: 'shtukaturka',
+                        id: 39
+                    },
+                    {
+                        name: 'Шпаклевка',
+                        route: 'spaklevka_smesi',
+                        id: 40
                     },
                     {
                         name: 'Цемент',
-                        route: 'screws'
+                        route: 'cement',
+                        id: 38
                     },
                     {
-                        name: 'Шпатлевка',
-                        route: 'shims'
+                        name: 'Клей для плитки',
+                        route: 'glue_plitka',
+                        id: 37
+                    },
+                    {
+                        name: 'Клей для газоблоков',
+                        route: 'glue_gazoblock',
+                        id: 42
+                    },
+                    {
+                        name: 'Известь',
+                        route: 'izvest',
+                        id: 41
+                    },
+                    {
+                        name: 'Затирки',
+                        route: 'zatirki',
+                        id: 36
+                    },
+                    {
+                        name: 'Алебастр',
+                        route: 'alebastr',
+                        id: 35
                     },
                 ]
             },

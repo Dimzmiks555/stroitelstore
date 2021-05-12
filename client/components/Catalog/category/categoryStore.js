@@ -106,31 +106,52 @@ class CategoryStore {
             title: 'Раздвижные системы',
             category_id: 30
         }
+        ,
+        shtukaturka: {
+            title: 'Штукатурка',
+            category_id: 39
+        }
+        ,
+        spaklevka_smesi: {
+            title: 'Шпаклевка',
+            category_id: 40
+        }
+        ,
+        cement: {
+            title: 'Цемент',
+            category_id: 38
+        }
+        ,
+        glue_plitka: {
+            title: 'Клей для плитки',
+            category_id: 37
+        }
+        ,
+        glue_gazoblock: {
+            title: 'Клей для газоблоков',
+            category_id: 42
+        }
+        ,
+        izvest: {
+            title: 'Известь',
+            category_id: 41
+        }
+        ,
+        zatirki: {
+            title: 'Затирки',
+            category_id: 36
+        }
+        ,
+        alebastr: {
+            title: 'Алебастр',
+            category_id: 35
+        }
     }
 
     constructor() {
         makeAutoObservable(this);
     }
-    async getData(id){
-        this.data = []
-        const api = new WooCommerceRestApi({
-            url: "http://admin.stroitelstore.ru/",
-            consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-            consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-            version: "wc/v3"
-            });
-        await api.get("products", {
-                per_page: 20,
-                order: 'asc',
-                category: id // 18 products per page
-            })
-            .then(
-                action('fetchSuccess', result => {
-                    this.data = result.data
-                })
-            )
-        
-    }
+    
     clearData(){
         this.data = [];
         this.id = null

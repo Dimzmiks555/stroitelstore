@@ -6,9 +6,7 @@ import CatalogStore from "../CatalogStore";
 import CategoryStore from "./category/categoryStore";
 const CatalogItems = observer(() => {
 
-    function handleClick(id, e) {
-        preventDefault(e);
-        CategoryStore.getData(id)
+    function handleClick( e) {
         CatalogStore.HideCatalog();
     }
 
@@ -19,7 +17,7 @@ const CatalogItems = observer(() => {
                 <div className={styles.catalog__itemslist}>
                     {CatalogItemsStore.props.subcats.map((subcat) => (
                         <Link href={`/catalog/${subcat.id}/${subcat.route}`}>
-                            <a className={styles.catalog__link} onClick={(e) => this.handleClick(subcat.id, e)}>{subcat.name}</a>
+                            <a className={styles.catalog__link} onClick={handleClick}>{subcat.name}</a>
                         </Link>
                     ))}
                 </div>
