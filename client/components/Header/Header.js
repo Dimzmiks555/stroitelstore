@@ -1,5 +1,6 @@
 import styles from './Header.module.css';
-import CatalogStore from "./CatalogStore";
+import CatalogStore from "../CatalogStore";
+import Search from '../Search/Search'
 import {observer} from "mobx-react";
 import Link from 'next/link';
 const Header = observer(() => {
@@ -38,8 +39,7 @@ const Header = observer(() => {
             <button className={styles.catalog__button} onClick={handleClick}>
                 <img src="/header/catalog.svg" /> Каталог
             </button>
-            <input className={styles.search} placeholder="Поиск...">
-            </input>
+            <Search />
             <div className={styles.userblock}>
                 <div className={styles.user}>
                     <img src="/header/user.svg" />

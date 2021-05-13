@@ -30,3 +30,6 @@ ul, li {
   display: block;
   list-style: none;
 }
+input {
+  font-family: inherit;
+}

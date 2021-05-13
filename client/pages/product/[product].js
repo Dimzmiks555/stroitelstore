@@ -1,4 +1,4 @@
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import Mainstyles from '../index.module.css';
 import styles from './product.module.css'
 import Catalog from "../../components/Catalog";
@@ -7,7 +7,7 @@ import { useRouter} from 'next/router'
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
-import Footer from '../../components/Footer';
+import Footer from '../../components/Footer/Footer';
 
 const Product = observer(() => {
         

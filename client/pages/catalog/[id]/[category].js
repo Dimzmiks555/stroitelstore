@@ -1,5 +1,5 @@
 import CategoryStore from '../../../components/Catalog/category/categoryStore.js'
-import Header from '../../../components/Header';
+import Header from '../../../components/Header/Header';
 import Mainstyles from '../../index.module.css';
 import styles from './category.module.css'
 import Catalog from "../../../components/Catalog";
@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { observer } from "mobx-react";
 import { useEffect, useState } from 'react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
-import Footer from '../../../components/Footer.js';
+import Footer from '../../../components/Footer/Footer';
 
 
 const Category = observer(({mainTitle}) => {
