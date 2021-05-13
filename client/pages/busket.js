@@ -1,9 +1,9 @@
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import styles from './index.module.css';
 import Catalog from "../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
-import Busket from '../components/Busket';
+import Busket from '../components/Busket/Busket';
 
 const Index = observer(() => {
   return (

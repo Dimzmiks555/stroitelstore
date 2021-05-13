@@ -3,6 +3,7 @@ import CatalogStore from "../CatalogStore";
 import Search from '../Search/Search'
 import {observer} from "mobx-react";
 import Link from 'next/link';
+import BusketStore from '../Busket/BusketStore';
 const Header = observer(() => {
     function handleClick() {
         CatalogStore.AppendCatalog()
@@ -47,6 +48,7 @@ const Header = observer(() => {
                 <Link href="/busket">
                     <a href="#" className={styles.cart}>
                         <img src="/header/shopping-cart.svg" />
+                        {BusketStore.positions.length - 1 != 0 ? (<p>{BusketStore.positions.length - 1}</p>) : null}
                     </a>
                 </Link>
             </div>

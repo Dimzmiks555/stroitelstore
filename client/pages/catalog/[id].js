@@ -1,14 +1,14 @@
-import CategoryStore from '../../../components/Catalog/category/categoryStore.js'
-import Header from '../../../components/Header/Header';
-import Mainstyles from '../../index.module.css';
+import CategoryStore from '../../components/Catalog/category/categoryStore.js'
+import Header from '../../components/Header/Header';
+import Mainstyles from '../index.module.css';
 import styles from './category.module.css'
-import Catalog from "../../../components/Catalog";
+import Catalog from "../../components/Catalog";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { observer } from "mobx-react";
 import { useEffect, useState } from 'react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
-import Footer from '../../../components/Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 
 
 const Category = observer(({mainTitle}) => {
@@ -150,9 +150,9 @@ const Category = observer(({mainTitle}) => {
 
 
 
-export async function getServerSideProps({ params: { category } }) {
+export async function getServerSideProps({ params: { id } }) {
         
-    const mainTitle = CategoryStore.cats[category].title;
+    const mainTitle = CategoryStore.cats[id].title;
 
     return {
       props: {

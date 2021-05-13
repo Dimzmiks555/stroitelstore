@@ -8,141 +8,141 @@ class CategoryStore {
     data = []
 
     cats = {
-        screws: {
+        27 : {
             title: 'Саморезы',
             category_id: 27
         },
-        bolts: {
+        27: {
             title: 'Болты',
             category_id: 27
         },
-        shims: {
+        27: {
             title: 'Шайбы',
             category_id: 27
         },
-        drills: {
+        27: {
             title: 'Дрели',
             category_id: 27
         },
-        hammers: {
+        27: {
             title: 'Молотки',
             category_id: 27
         },
-        paints115: {
+        27: {
             title: 'Краски ПФ-115',
             category_id: 27
         },
-        arcs: {
+        27: {
             title: 'Арки',
             category_id: 27
         },
-        enterdoors: {
+        17: {
             title: 'Входные двери',
             category_id: 17
         },
-        linoleum: {
+        23: {
             title: 'Линолеум',
             category_id: 23
         },
-        door_dobors: {
+        28: {
             title: 'Доборы дверные',
             category_id: 28
         },
-        kapitels: {
+        29: {
             title: 'Капители',
             category_id: 29
         },
-        compl_for_plint: {
+        24: {
             title: 'Компл. для плинтусов',
             category_id: 24
         }
         ,
-        compl_for_podokonnik: {
+        32: {
             title: 'Компл. для подоконников',
             category_id: 32
         }
         ,
-        door_box: {
+        18: {
             title: 'Коробки дверные',
             category_id: 18
         }
         ,
-        laminat: {
+        21: {
             title: 'Ламинат',
             category_id: 21
         }
         ,
-        interdoors: {
+        26: {
             title: 'Межкомнатные двери',
             category_id: 26
         }
         ,
-        nalichniki: {
+        19: {
             title: 'Наличники дверные',
             category_id: 19
         }
         ,
-        plintus: {
+        20: {
             title: 'Плинтус',
             category_id: 20
         }
         ,
-        pogonazh: {
+        31: {
             title: 'Погонаж',
             category_id: 31
         }
         ,
-        podokonnik: {
+        22: {
             title: 'Подоконники',
             category_id: 22
         }
         ,
-        porogi: {
+        25: {
             title: 'Пороги и углы',
             category_id: 25
         }
         ,
-        razdvig_system: {
+        30: {
             title: 'Раздвижные системы',
             category_id: 30
         }
         ,
-        shtukaturka: {
+        39: {
             title: 'Штукатурка',
             category_id: 39
         }
         ,
-        spaklevka_smesi: {
+        40: {
             title: 'Шпаклевка',
             category_id: 40
         }
         ,
-        cement: {
+        38: {
             title: 'Цемент',
             category_id: 38
         }
         ,
-        glue_plitka: {
+        37: {
             title: 'Клей для плитки',
             category_id: 37
         }
         ,
-        glue_gazoblock: {
+        42: {
             title: 'Клей для газоблоков',
             category_id: 42
         }
         ,
-        izvest: {
+        41: {
             title: 'Известь',
             category_id: 41
         }
         ,
-        zatirki: {
+        36: {
             title: 'Затирки',
             category_id: 36
         }
         ,
-        alebastr: {
+        35: {
             title: 'Алебастр',
             category_id: 35
         }

@@ -38,14 +38,30 @@
     width: 300px;
 }
 .user{
+    display: flex;
+    align-items: center;
     margin-left: 50px;
     cursor: pointer;
 }
 .cart img{
+    margin-right: 10px;
     height: 30px;
     width: 30px;
 }
+.cart p {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    background: #d00;
+    color: #fff;
+}
 .cart {
+    display: flex;
+    align-items: center;
     margin-left: 30px;
 }
 .user img{

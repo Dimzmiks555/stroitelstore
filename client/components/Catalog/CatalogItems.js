@@ -16,7 +16,7 @@ const CatalogItems = observer(() => {
                 <h1>{CatalogItemsStore.props.category}</h1>
                 <div className={styles.catalog__itemslist}>
                     {CatalogItemsStore.props.subcats.map((subcat) => (
-                        <Link href={`/catalog/${subcat.id}/${subcat.route}`}>
+                        <Link href={`/catalog/${subcat.id}`}>
                             <a className={styles.catalog__link} onClick={handleClick}>{subcat.name}</a>
                         </Link>
                     ))}

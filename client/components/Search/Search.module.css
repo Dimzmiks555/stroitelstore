@@ -10,7 +10,6 @@
     margin-left: 60px;
     height: 40px;
     width: 100%;
-    border-radius: 5px;
     border: none;
     background: #f4f4f4;
     outline: none;
@@ -19,7 +18,7 @@
 .result {
     z-index: 999;
     left: 60px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     background: #fff;
     position: absolute;
     width: 100%;
@@ -39,4 +38,7 @@
 }
 .result__item_title {
     width: 80%;
+}
+.result__cat_item_title {
+    font-weight: bold;
 }

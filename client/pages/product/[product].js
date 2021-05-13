@@ -2,15 +2,19 @@ import Header from '../../components/Header/Header';
 import Mainstyles from '../index.module.css';
 import styles from './product.module.css'
 import Catalog from "../../components/Catalog";
-import ProductStore from './productStore'
+import ProductStore from '../../components/Product/productStore'
 import { useRouter} from 'next/router'
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import Footer from '../../components/Footer/Footer';
+import BusketStore from '../../components/Busket/BusketStore';
 
 const Product = observer(() => {
-        
+    function handleClick(e) {
+        BusketStore.AddPosition(e.target.id)
+        console.log(typeof(e.target.id))
+    }   
     const router = useRouter(); 
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState([true]);
@@ -72,7 +76,7 @@ const Product = observer(() => {
                                     {data.price ? (<p><span>{Number(data?.price).toLocaleString()}</span> ₽ / шт.</p>) : <p>Цена по запросу</p>} 
                                 </div>
                                 <div className={styles.product__overview_cart}>
-                                    <button>
+                                    <button id={data?.id} onClick={e => {handleClick(e)}}>
                                         В корзину
                                     </button>
                                 </div>

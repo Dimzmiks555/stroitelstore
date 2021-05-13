@@ -1,30 +1,73 @@
 import styles from './Busket.module.css'
 import Link from 'next/link'
-export default function Busket () {
+import BusketStore from './BusketStore'
+import { useState, useEffect } from 'react'
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import { observer } from 'mobx-react';
+
+
+const Busket = observer(() => {
+
+    const [data, setData] = useState([]);
+    const [isLoading, setLoading] = useState([true]);
+    let arr = []
+    BusketStore.positions.map((item) => {
+        arr.push(item.id)
+    })
+    useEffect(() => {
+        async function getData(idArray){
+            setLoading(true)
+            const api = new WooCommerceRestApi({
+                url: "http://admin.stroitelstore.ru/",
+                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
+                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
+                version: "wc/v3"
+                });
+            await api.get(`products`, {
+                include: idArray
+            })
+                .then( result => {
+                    console.log(result.data)
+                        setData(result.data)
+                        setLoading(false)
+                    }
+                )
+            
+        }
+        
+        getData(arr);
+           
+
+    }, [ BusketStore.positions ]);
+
     return (
         <div className={styles.busket}>
             <div className={styles.busket_info}>
                 <h1>Заказ</h1>
                 <div className={styles.busket_items}>
-                    <div className={styles.busket_item}>
-                        <Link href="/product/unis-plus">
-                            <a className={styles.good_img}>
-                                <div>
-                                    <img src="/good/unis.jpg"></img>
-                                </div>
-                            </a>
-                        </Link>
-                        <Link href="/product/unis-plus">
-                            <a className={styles.good_title}>
-                                <div >
-                                    Юнис Плюс
-                                </div>
-                            </a>
-                        </Link>
-                        <div className={styles.good_price}>
-                            344 ₽ / шт.
+                    {data.map((item, index) => (
+                        <div className={styles.busket_item}>
+                            <Link href={`/product/${item?.id}`}>
+                                <a className={styles.good_img}>
+                                    <div>
+                                        <img src={item?.images[0]?.src}></img>
+                                    </div>
+                                </a>
+                            </Link>
+                            <Link href={`/product/${item?.id}`}>
+                                <a className={styles.good_title}>
+                                    {item?.name}
+                                </a>
+                            </Link>
+                            <div className={styles.good_price}>
+                                {arr[index]} ₽
+                            </div>
+                            <div className={styles.good_price}>
+                                {item?.price} ₽
+                            </div>
                         </div>
-                    </div>
+                    ))}
+                    
                 </div>
             </div>
             <div className={styles.busket_mainblock}>
@@ -34,4 +77,5 @@ export default function Busket () {
             </div>
         </div>
     )
-}
+}) 
+export default Busket

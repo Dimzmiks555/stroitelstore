@@ -3,12 +3,13 @@
     justify-content: space-between;
 }
 .busket h1{
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 .busket_items {
     font-weight: bold;
 }
 .busket_item {
+    margin-bottom: 20px;
     display: flex;
     flex: 1 100%;
     align-items: center;
@@ -24,6 +25,7 @@
     flex: 0 auto; 
 }
 .good_title{
+    font-weight: normal;
     font-size: 20px;
     flex: 6 0px; 
 }
@@ -36,6 +38,7 @@
     width: 30%;
 }
 .good_price {
+    margin-left: 20px;
     flex: 0 auto; 
-    font-size: 32px;
+    font-size: 24px;
 }
