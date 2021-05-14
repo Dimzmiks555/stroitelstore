@@ -11,8 +11,12 @@ const Busket = observer(() => {
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState([true]);
     let arr = []
+    let count = []
     BusketStore.positions.map((item) => {
         arr.push(item.id)
+    })
+    BusketStore.counts.map((item) => {
+        count.push(item.count)
     })
     useEffect(() => {
         async function getData(idArray){
@@ -28,7 +32,11 @@ const Busket = observer(() => {
             })
                 .then( result => {
                     console.log(result.data)
-                        setData(result.data)
+                        let data = []
+                        result.data.map((item) => {
+                            data.push(item)
+                        })
+                        setData(data)
                         setLoading(false)
                     }
                 )
@@ -38,7 +46,7 @@ const Busket = observer(() => {
         getData(arr);
            
 
-    }, [ BusketStore.positions ]);
+    }, [ BusketStore.positions,  BusketStore.positions ]);
 
     return (
         <div className={styles.busket}>
@@ -60,7 +68,7 @@ const Busket = observer(() => {
                                 </a>
                             </Link>
                             <div className={styles.good_price}>
-                                {arr[index]} ₽
+                                {count[index + 1]} шт
                             </div>
                             <div className={styles.good_price}>
                                 {item?.price} ₽

@@ -11,13 +11,23 @@ import Footer from '../../components/Footer/Footer';
 import BusketStore from '../../components/Busket/BusketStore';
 
 const Product = observer(() => {
-    function handleClick(e) {
-        BusketStore.AddPosition(e.target.id)
-        console.log(typeof(e.target.id))
-    }   
+    
+    const [added, setAdded] = useState(false);
     const router = useRouter(); 
     const [data, setData] = useState([]);
+    const [counter_value, setCV] = useState([1]);
     const [isLoading, setLoading] = useState([true]);
+
+    function handleClick(e) {
+        BusketStore.AddPosition(e.target.id, counter_value)
+        BusketStore.AddCount(counter_value.toString())
+        setAdded(true);
+        
+    }   
+    function handleCounter(e) {
+        setCV(e.target.value)
+    }
+    
     let product_id = router.query.product;
     useEffect(() => {
         
@@ -75,11 +85,34 @@ const Product = observer(() => {
                                 <div className={styles.product__overview_price}>
                                     {data.price ? (<p><span>{Number(data?.price).toLocaleString()}</span> ₽ / шт.</p>) : <p>Цена по запросу</p>} 
                                 </div>
-                                <div className={styles.product__overview_cart}>
-                                    <button id={data?.id} onClick={e => {handleClick(e)}}>
-                                        В корзину
-                                    </button>
+                                <div className={styles.product__to_cart__block}>
+                                    <div className={styles.product__counter}>
+                                        <button>
+                                            +
+                                        </button>
+                                        <input value={counter_value} onChange={e => {handleCounter(e)}}>
+                                        </input>
+                                        <button>
+                                            −
+                                        </button>
+                                    </div>
+                                    {
+                                        added === false ? (
+                                            <div className={styles.product__overview_cart}>
+                                                <button id={data?.id} onClick={e => {handleClick(e)}}>
+                                                    В корзину
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div className={styles.product__overview_cart_added} disabled>
+                                                <button id={data?.id} onClick={e => {handleClick(e)}}>
+                                                    Добавлено
+                                                </button>
+                                            </div>
+                                        )
+                                    }
                                 </div>
+                                
                             </div>
                         </div>
                         <div className={styles.product__infoblock}>

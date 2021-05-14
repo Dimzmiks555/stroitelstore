@@ -5,7 +5,14 @@ class BusketStore {
 
     positions = [
         {
-            id: undefined
+            id: null,
+            count: null
+        }
+    ]
+
+    counts = [
+        {
+            count: null
         }
     ]
 
@@ -13,8 +20,11 @@ class BusketStore {
         makeAutoObservable(this);
     }
 
-    AddPosition(id) {
-        this.positions.push({id: id.toString()})
+    AddPosition(id, count) {
+        this.positions.push({id: id.toString(), count: count})
+    }
+    AddCount(count) {
+        this.counts.push({count: count})
     }
 
 }
