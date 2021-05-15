@@ -37,7 +37,7 @@ const Catalog = observer(() => {
                         <div className={styles.catalog__table}>
                             <div className={styles.catalog__nav}>
                                 {CatalogStore.props.categories.map(category => (
-                                    <CatalogNavItem category={category}/>
+                                    <CatalogNavItem key={category} category={category}/>
                                 ))}
                             </div>
                             <CatalogItems />

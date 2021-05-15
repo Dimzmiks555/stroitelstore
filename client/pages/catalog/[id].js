@@ -102,9 +102,8 @@ const Category = observer(({mainTitle}) => {
                         </div>
                         <div className={styles.category_goods}>
                             {data.map(item => (
-                                <div className={styles.category_good}>
+                                <div key={item.id} className={styles.category_good}>
                                     
-                                    {console.log(item)}
                                     <div>
                                         <Link href={`/product/${item.id}`}>
                                             <a>

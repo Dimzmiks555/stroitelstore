@@ -20,17 +20,40 @@ const Product = observer(() => {
 
     function handleClick(e) {
         BusketStore.AddPosition(e.target.id, counter_value)
-        BusketStore.AddCount(counter_value.toString())
         setAdded(true);
         
     }   
-    function handleCounter(e) {
-        setCV(e.target.value)
+    function handleChange(e) {
+        
+        if (e.target.value > 0 || e.target.value == '' && e.target.value != 'e') {
+            setAdded(false);
+            setCV(e.target.value)
+        } 
+
     }
-    
+    function increment() {
+        setAdded(false);
+        setCV(+counter_value + 1)
+    }
+    function decrement() {
+        setAdded(false);
+        if(+counter_value != 1) {
+            setCV(+counter_value - 1)
+        }
+    }
+
+
+
     let product_id = router.query.product;
     useEffect(() => {
-        
+        let filter = BusketStore.positions.findIndex(item => item.data.id == product_id)
+        if (filter == -1) {
+            setAdded(false)
+            setCV(1)
+        } else {
+            setAdded(true)
+            setCV(BusketStore.positions[filter].count)
+        }
         async function getData(id){
             setLoading(true)
             setData([]) 
@@ -87,12 +110,12 @@ const Product = observer(() => {
                                 </div>
                                 <div className={styles.product__to_cart__block}>
                                     <div className={styles.product__counter}>
-                                        <button>
+                                        <button onClick={increment}>
                                             +
                                         </button>
-                                        <input value={counter_value} onChange={e => {handleCounter(e)}}>
+                                        <input value={counter_value} onChange={e => {handleChange(e)}} type="number" min="1">
                                         </input>
-                                        <button>
+                                        <button onClick={decrement}>
                                             −
                                         </button>
                                     </div>

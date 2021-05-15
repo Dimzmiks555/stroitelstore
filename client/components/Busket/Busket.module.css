@@ -3,7 +3,16 @@
     justify-content: space-between;
 }
 .busket h1{
-    margin-bottom: 30px;
+    margin-bottom: 60px;
+}
+.busket h2{
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.busket h2 span{
+    font-size: 42px;
 }
 .busket_items {
     font-weight: bold;
@@ -16,7 +25,7 @@
 }
 .good_img img{
     width: 120px;
-    height: 120px;
+    height: 80px;
     object-fit: scale-down;
 }
 .good_img {
@@ -27,7 +36,10 @@
 .good_title{
     font-weight: normal;
     font-size: 20px;
-    flex: 6 0px; 
+    flex: 5 0px; 
+}
+.good_title:hover{
+    color: #d00;
 }
 .busket_info{
     width: 65%;
@@ -38,7 +50,50 @@
     width: 30%;
 }
 .good_price {
+    font-weight: normal;
     margin-left: 20px;
-    flex: 0 auto; 
+    flex: 1 auto; 
     font-size: 24px;
+}
+.good_total {
+    text-align: right;
+    font-size: 24px;
+    width: 10%;
+    margin-left: 20px;
+}
+.good__counter {
+    flex: 0 auto;
+    display: flex;
+    margin-right: 20px;
+}
+.good__counter input{
+    outline: none;
+    border: none;
+    font-size: 24px;
+    text-align: center;
+    display: block;
+    width: 70px;
+    margin: 0 10px;
+    -moz-appearance: textfield;
+}
+.good__counter input::-webkit-inner-spin-button { 
+    display: none;
+}
+.good__counter button {
+    outline: none;
+    background: #fff;
+    color: #555;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 32px;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height:32px;
+    font-weight: bold;
+}
+.good__counter button:hover {
+    color: #d00;
 }

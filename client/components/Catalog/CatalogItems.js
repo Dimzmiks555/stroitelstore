@@ -22,7 +22,6 @@ const CatalogItems = observer(() => {
                     ))}
                 </div>
             </div>
-            {console.log(CatalogItemsStore.props.board)}
             <div className={styles.catalog_img}>
                 <img src={CatalogItemsStore.props.board}>
                 </img>

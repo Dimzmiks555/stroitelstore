@@ -48,7 +48,7 @@ const Header = observer(() => {
                 <Link href="/busket">
                     <a href="#" className={styles.cart}>
                         <img src="/header/shopping-cart.svg" />
-                        {BusketStore.positions.length - 1 != 0 ? (<p>{BusketStore.positions.length - 1}</p>) : null}
+                        {BusketStore.positions.length != 0 ? (<p>{BusketStore.positions.length}</p>) : null}
                     </a>
                 </Link>
             </div>

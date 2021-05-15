@@ -113,28 +113,33 @@
     margin-right: 20px;
 }
 .product__counter input{
+    outline: none;
     border: none;
     font-size: 24px;
     text-align: center;
     display: block;
     width: 70px;
+    margin: 0 10px;
+    -moz-appearance: textfield;
+}
+.product__counter input::-webkit-inner-spin-button { 
+    display: none;
 }
 .product__counter button {
+    outline: none;
     background: #fff;
-    color: #d00;
+    color: #555;
     align-items: center;
     justify-content: center;
-    margin: 0 10px;
     display: flex;
     font-size: 32px;
     cursor: pointer;
-    border: 2px solid #d00;
+    border: none;
     border-radius: 50%;
-    width: 64px;
-    height:64px;
+    width: 32px;
+    height:32px;
     font-weight: bold;
 }
 .product__counter button:hover {
-    background: #d00;
-    color: #fff;
+    color: #d00;
 }
