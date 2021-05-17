@@ -124,7 +124,7 @@ const Search = observer(() => {
             
             
         
-        if (value != '') {
+        if (value != '' && value.length > 1) {
             getData(value);
         } else {
             setData([])

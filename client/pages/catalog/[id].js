@@ -53,9 +53,60 @@ const Category = observer(({mainTitle}) => {
             <>
                 <Catalog />
                 <Header />
-                <div className={styles.LoadingPanel}>
-                    <img src='/spinning-circles.svg'></img>
+                <div className={Mainstyles.page}>
+                <div className={styles.category}>
+                    <div className={styles.category_main}>
+                        <div className={styles.category_filter}>
+                            <div className={styles.filter_price}>
+                                <div className={styles.filter_title}>Цена</div>
+                                <div className={styles.filter_inputs}>
+                                    <div>
+                                        <input placeholder="От"></input>
+                                        <p>₽</p>
+                                    </div>
+                                    <div>
+                                        <input placeholder="До"></input>
+                                        <p>₽</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles.filter_brend}>
+                                <div className={styles.filter_title}>Бренд</div>
+                                <div className={styles.filter_checkboxes}>
+                                    <div>
+                                        <input type="checkbox"></input>
+                                        <label> UNIS </label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox"></input>
+                                        <label> Волма </label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox"></input>
+                                        <label> Эталон </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.category_goodsblock}>
+                            <div className={styles.category_goodsblock_header}>
+                                
+                                <h1>{mainTitle}</h1>
+                                <div>
+                                    200 товаров
+                                </div>
+                            </div>
+                            <div className={styles.category_goods}>
+                                
+                            <div className={styles.LoadingPanel}>
+                                <img src='/spinning-circles.svg'></img>
+                            </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
             </>
         )
     } else {

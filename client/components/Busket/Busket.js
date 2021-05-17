@@ -73,6 +73,8 @@ const Busket = observer(() => {
             <div className={styles.busket_mainblock}>
                 <div>
                     <h2>Итого <span>{total} ₽</span></h2>
+                    <h3>Всего позиций: <span>{BusketStore.positions.length}</span></h3>
+                    <h3>Способ доставки: <span>Самовывоз</span></h3>
                 </div>
                 <div>
                     <button className={styles.to_pay}>Оплатить заказ</button>

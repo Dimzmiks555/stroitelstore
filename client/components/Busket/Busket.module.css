@@ -6,10 +6,19 @@
     margin-bottom: 40px;
 }
 .busket h2{
+    margin-bottom: 20px;
     font-size: 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.busket h3 {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.busket h3 span {
+    font-weight: normal;
 }
 .busket h2 span{
     font-size: 32px;
@@ -45,6 +54,10 @@
     width: 65%;
 }
 .busket_mainblock {
+    flex-basis: content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border-radius: 10px;
     box-shadow: #ddd 0px 0px 30px;
     padding: 40px;
