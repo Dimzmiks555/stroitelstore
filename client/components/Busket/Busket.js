@@ -27,6 +27,7 @@ const Busket = observer(() => {
         BusketStore.delete(e.target.id)
     }
     return (
+        <>
         <div className={styles.busket}>
             <div className={styles.busket_info}>
                 <h1>Заказ</h1>
@@ -73,8 +74,15 @@ const Busket = observer(() => {
                 <div>
                     <h2>Итого <span>{total} ₽</span></h2>
                 </div>
+                <div>
+                    <button className={styles.to_pay}>Оплатить заказ</button>
+                </div>
             </div>
         </div>
+        <div className={styles.dilivery}>
+            <h1>Способ доставки</h1>
+        </div>
+        </>
     )
 }) 
 export default Busket
