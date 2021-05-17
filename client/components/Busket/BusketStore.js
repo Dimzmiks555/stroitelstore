@@ -9,7 +9,11 @@ class BusketStore {
         makeObservable(this, {
             positions: observable,
             AddPosition: action,
-            getData: action
+            getData: action,
+            incrementCount: action,
+            decrementCount: action,
+            setCount: action,
+            delete: action
         });
     }
 
@@ -32,14 +36,25 @@ class BusketStore {
             )
         
     }
-    
-    setCount(index) {
+    setCount(index, value) {
+        
+        if (value > 0 || value == '' && value != 'e') {
+            
+            this.positions[index].count = value
+        }
+    }
+    incrementCount(index) {
         if (index != undefined) {
-            console.log(this.positions[index].count)
+            
             this.positions[index].count = +this.positions[index].count + 1
         }
     }
-
+    decrementCount(index) {
+        if (index != undefined) {
+            
+            this.positions[index].count = +this.positions[index].count - 1
+        }
+    }
     AddPosition(id, count) {
         let filter = this.positions.findIndex(item => item.data.id == id)
         if (filter == -1) {
@@ -47,6 +62,9 @@ class BusketStore {
         } else {
             this.positions[filter].count = +count
         }
+    }
+    delete(index) {
+        this.positions = this.positions.splice(+index - 1, 1)
     }
 
 }

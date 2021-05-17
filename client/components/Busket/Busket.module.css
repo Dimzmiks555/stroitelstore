@@ -97,3 +97,15 @@
 .good__counter button:hover {
     color: #d00;
 }
+.delete__good button{
+    outline: none;
+    cursor: pointer;
+    background: #fff;
+    border: none;
+    margin-left: 20px;
+    font-size: 20px;
+    color: #ccc;
+}
+.delete__good button:hover{
+    color: #d00;
+}

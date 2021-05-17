@@ -15,9 +15,17 @@ const Busket = observer(() => {
 
     function increment(e) {
         console.log(e.target.id)
-        BusketStore.setCount(e.target.index)
+        BusketStore.incrementCount(e.target.id)
     }
-
+    function decrement(e) {
+        BusketStore.decrementCount(e.target.id)
+    }
+    function handleChange(e) {
+        BusketStore.setCount(e.target.id ,e.target.value)
+    }
+    function handleDelete(e) {
+        BusketStore.delete(e.target.id)
+    }
     return (
         <div className={styles.busket}>
             <div className={styles.busket_info}>
@@ -44,14 +52,17 @@ const Busket = observer(() => {
                                 <button id={index} onClick={increment}>
                                     +
                                 </button>
-                                <input value={item.count} >
+                                <input id={index} value={item.count} onChange={handleChange} type="number">
                                 </input>
-                                <button id={index}>
+                                <button id={index} onClick={decrement}>
                                     −
                                 </button>
                             </div>
                             <div className={styles.good_total}>
                                  {item?.data.price * item.count} ₽
+                            </div>
+                            <div className={styles.delete__good}>
+                                 <button id={index} onClick={handleDelete}>✖</button>
                             </div>
                         </div>
                     ))}

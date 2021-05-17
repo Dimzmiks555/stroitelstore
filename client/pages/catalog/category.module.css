@@ -176,3 +176,8 @@ backface-visibility: hidden;
 transform-origin: 0 0; /* see note above */
 }
 .ldio-lwfv892l7qs div { box-sizing: content-box; }
+
+
+.added {
+    background: #ccc;
+}

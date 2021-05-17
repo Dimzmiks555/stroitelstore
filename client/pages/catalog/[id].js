@@ -9,6 +9,7 @@ import { observer } from "mobx-react";
 import { useEffect, useState } from 'react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import Footer from '../../components/Footer/Footer';
+import BusketStore from '../../components/Busket/BusketStore.js';
 
 
 const Category = observer(({mainTitle}) => {
@@ -16,6 +17,11 @@ const Category = observer(({mainTitle}) => {
     let cat_id = router.query.id
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState([true]);
+
+    function handleClick(e) {
+        BusketStore.AddPosition(e.target.id, 1)
+    }
+    
     useEffect(() => {
         setLoading(true)
         async function getData(id){
@@ -53,6 +59,20 @@ const Category = observer(({mainTitle}) => {
             </>
         )
     } else {
+
+
+    function GetButton(pos) {
+        if (pos.stock_status == 'outofstock') 
+        {       
+            return <a className={styles.outofstock}>Под заказ</a>
+        } else 
+        {
+            return <a id={pos.id} className={styles.to_cart} onClick={handleClick}>В корзину</a>
+        }
+    }
+
+        
+    
     return (
         <>
         <Catalog />
@@ -127,9 +147,7 @@ const Category = observer(({mainTitle}) => {
                                                 item.price != '' ? (<p><span>{Number(item.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
                                             }
                                         </div>
-                                        {
-                                            item.stock_status == 'outofstock' ? (<a className={styles.outofstock}>Под заказ</a>) : (<a className={styles.to_cart}>В корзину</a>) 
-                                        }
+                                        {GetButton(item)}
                                         
                                     </div>
                                 </div>
