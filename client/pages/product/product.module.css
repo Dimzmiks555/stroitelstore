@@ -2,17 +2,20 @@
     padding-top: 40px;
 }
 .back_button {
-    border-radius: 25px;
-    font-size: 24px;
-    color: #d00;
-    border: 2px solid #d00;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 50%;
+    font-size: 56px;
+    color: #333;
     cursor: pointer;
-    display: inline-block;
-    padding: 10px 20px;
+    padding: 0px 20px;
 }
 .back_button:hover {
-    background: #d00;
-    color: #fff;
+    color: #d00;
 }
 .product__overview {
     display: flex;

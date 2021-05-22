@@ -43,11 +43,6 @@
     margin-left: 50px;
     cursor: pointer;
 }
-.cart img{
-    margin-right: 10px;
-    height: 30px;
-    width: 30px;
-}
 .cart p {
     font-weight: bold;
     display: flex;
@@ -56,17 +51,19 @@
     border-radius: 50%;
     height: 32px;
     width: 32px;
-    background: #d00;
+    color: #fff;
+}
+.cart div {
+    font-weight: bold;
     color: #fff;
 }
 .cart {
+    border-radius: 25px;
+    padding: 10px 20px;
+    background: #d00;
     display: flex;
     align-items: center;
     margin-left: 30px;
-}
-.user img{
-    height: 30px;
-    width: 30px;
 }
 .underheader{
     font-weight: bold;
@@ -128,4 +125,21 @@
 }
 .menu ul li a {
     display: block;
+}
+.cart svg {
+    fill: #fff;
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+}
+.cart:hover {
+    background: #a00;
+}
+
+.user svg{
+    height: 30px;
+    width: 30px;
+}
+.user:hover svg{
+    fill: #d00;
 }

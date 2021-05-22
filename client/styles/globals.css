@@ -33,3 +33,7 @@ ul, li {
 input {
   font-family: inherit;
 }
+p {
+  margin: 0;
+  padding: 0;
+}

@@ -143,4 +143,54 @@
 }
 .dilivery {
     margin-top: 40px;
+    width: calc(70% - 40px);
+}
+.dilivery h1 {
+    margin-bottom: 40px;
+}
+.select {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #ddd;
+}
+.select__item {
+    display: flex;
+    height: 120px;
+    width: 50%;
+    cursor: pointer;
+}
+.select__item:hover {
+    background: #d00;
+    color: #fff;
+}
+.select__item:hover svg {
+    fill: #fff;
+}
+.select__item:first-child {
+    border-right: 2px solid #ddd;
+}
+.select__item_icon {
+    width: 30%;
+    padding: 20px 40px;
+}
+.select__item_icon svg {
+    height: 80px;
+    width: 80px;
+    fill: #d00;
+}
+.select__item_title {
+    display: flex;
+    font-size: 28px;
+    align-items: center;
+}
+.active {
+    color: #fff;
+    background: #d00;
+    display: flex;
+    height: 120px;
+    width: 50%;
+    cursor: pointer;
+}
+.active svg {
+    fill: #fff;
 }

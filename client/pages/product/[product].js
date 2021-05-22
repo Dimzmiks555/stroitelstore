@@ -93,7 +93,7 @@ const Product = observer(() => {
             return (
                 <div className={Mainstyles.page}>
                     <a className={styles.back_button} onClick={() => router.back()}>
-                    ← Назад
+                    ⟵
                     </a>
                     <div className={styles.product}>
                         <div className={styles.product__overview}>

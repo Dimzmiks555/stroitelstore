@@ -1,6 +1,6 @@
 import { makeObservable, computed, observable, action} from "mobx"
 import { enableStaticRendering } from "mobx-react";
-
+import styles from './Busket.module.css'
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 enableStaticRendering(typeof window === "undefined");
 class BusketStore {
@@ -18,6 +18,8 @@ class BusketStore {
     }
 
     positions = []
+
+    delivery = false
 
     async getData(id, count){
         const api = new WooCommerceRestApi({
@@ -66,6 +68,14 @@ class BusketStore {
     delete(index) {
         this.positions = this.positions.splice(+index - 1, 1)
     }
+
+
+    setDel(e, delivery) {
+        e.target.className = styles.active
+        this.delivery = delivery
+    }
+
+
 
 }
 
