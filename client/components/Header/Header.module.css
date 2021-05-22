@@ -44,13 +44,14 @@
     cursor: pointer;
 }
 .cart p {
+    margin-left: 10px;
+    font-size: 18px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     height: 32px;
-    width: 32px;
     color: #fff;
 }
 .cart div {

@@ -8,18 +8,20 @@ class BusketStore {
     constructor() {
         makeObservable(this, {
             positions: observable,
+            delivery: observable,
             AddPosition: action,
             getData: action,
             incrementCount: action,
             decrementCount: action,
             setCount: action,
-            delete: action
+            delete: action,
+            setDelivery: action,
         });
     }
 
     positions = []
 
-    delivery = false
+    delivery = ''
 
     async getData(id, count){
         const api = new WooCommerceRestApi({
@@ -70,9 +72,8 @@ class BusketStore {
     }
 
 
-    setDel(e, delivery) {
-        e.target.className = styles.active
-        this.delivery = delivery
+    setDelivery(value) {
+        this.delivery = value;
     }
 
 

@@ -19,7 +19,7 @@ const Search = observer(() => {
                     return e.target.value
                 });
             } else {
-                setValue('')
+                setValue(null)
             }
         }
         Set()
@@ -48,7 +48,9 @@ const Search = observer(() => {
                 });
 
             if (text == '' || text == null) {
-                setData([])
+                setData(prevState => {
+                    return []
+                })
             } else {
                 await api.get("products", {
                     per_page: 10,
@@ -56,7 +58,7 @@ const Search = observer(() => {
                 })
                 .then( result => {
                         setData(prevState => {
-                            return result.data
+                            return prevState.result.data
                         });
                         setLoading(false)
                     }
@@ -70,7 +72,7 @@ const Search = observer(() => {
                         setCatData(prevState => {
                             console.log(prevState)
                             console.log(result.data)
-                            return result.data
+                            return prevState.result.data
                         });
                         setLoading(false)
                     }
@@ -124,7 +126,7 @@ const Search = observer(() => {
             
             
         
-        if (value != '' && value.length > 1) {
+        if (value != '' && value?.length > 1) {
             getData(value);
         } else {
             setData([])

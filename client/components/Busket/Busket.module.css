@@ -1,6 +1,7 @@
 .busket {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
 }
 .busket h1{
     margin-bottom: 40px;
@@ -15,9 +16,10 @@
 .busket h3 {
     margin-bottom: 10px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
 .busket h3 span {
+    padding: 10px 0;
     font-weight: normal;
 }
 .busket h2 span{
@@ -25,6 +27,7 @@
 }
 .busket_items {
     font-weight: bold;
+    margin-bottom: 80px;
 }
 .busket_item {
     margin-bottom: 20px;
@@ -34,7 +37,7 @@
 }
 .good_img img{
     width: 120px;
-    height: 80px;
+    height: 100px;
     object-fit: scale-down;
 }
 .good_img {
@@ -143,7 +146,6 @@
 }
 .dilivery {
     margin-top: 40px;
-    width: calc(70% - 40px);
 }
 .dilivery h1 {
     margin-bottom: 40px;
@@ -151,46 +153,95 @@
 .select {
     display: flex;
     justify-content: space-between;
-    border: 2px solid #ddd;
+    margin-bottom: 60px;
 }
 .select__item {
+    font-size: 24px;
+    padding: 20px 40px;
+    border-radius: 20px;
+    border: 2px solid #ddd;
+	user-select: none;
     display: flex;
-    height: 120px;
-    width: 50%;
+    justify-content: space-around;
+    align-items: center;
+    height: 80px;
+    width: 45%;
     cursor: pointer;
 }
 .select__item:hover {
     background: #d00;
     color: #fff;
+    border: none;
+}
+.select__item:first-child {
+    border-right: 2px solid #ddd;
 }
 .select__item:hover svg {
     fill: #fff;
 }
-.select__item:first-child {
-    border-right: 2px solid #ddd;
+.select__item svg {
+    fill: #d00;
+    width: 60px;
+    height: 60px;
 }
 .select__item_icon {
     width: 30%;
     padding: 20px 40px;
 }
-.select__item_icon svg {
-    height: 80px;
-    width: 80px;
-    fill: #d00;
-}
 .select__item_title {
     display: flex;
-    font-size: 28px;
+    font-size: 24px;
     align-items: center;
 }
-.active {
+.select input[type=radio] {
+    display: none;
+}
+.select input[type=radio]:checked + .select__item {
+    background: rgb(233,2,142);
+background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, rgba(255,0,0,1) 88%);
     color: #fff;
-    background: #d00;
+    border: none;
+}
+.select input[type=radio]:checked + .select__item svg{
+    fill: #fff;
+}
+.select__overview p {
+    font-size: 24px;
+}
+.payment {
+    margin-top: 60px;
+}
+.payment__methods {
     display: flex;
-    height: 120px;
-    width: 50%;
+    justify-content: space-between;
+}
+.payment__methods .method{
+    font-size: 24px;
+    padding: 20px 40px;
+    border-radius: 25px;
+    border: 2px solid #ddd;
+	user-select: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80px;
+    width: 45%;
     cursor: pointer;
 }
-.active svg {
+.payment__methods .method:hover{
+    background: #d00;
+    color: #fff;
+    border: none;
+}
+.payment input[type=radio] {
+    display: none;
+}
+.payment input[type=radio]:checked + .method {
+    background: rgb(233,2,142);
+    background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, rgba(255,0,0,1) 88%);
+    color: #fff;
+    border: none;
+}
+.payment input[type=radio]:checked + .method svg{
     fill: #fff;
 }
