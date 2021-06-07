@@ -88,13 +88,13 @@
     margin-right: 6px;
 }
 .underheader_location {
-    flex-grow: 1;
+    width: 60%;
 }
 .underheader_phone {
-    flex-grow: 1;
+    width: 20%;
 }
 .underheader_mail {
-    flex-grow: 1;
+    width: 20%;
 }
 .userblock{
     margin-left: auto;
