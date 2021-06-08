@@ -3,4 +3,7 @@
     overflow: hidden;
     margin-bottom: 80px;
     background: #f4f4f4;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
 }
