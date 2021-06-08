@@ -2,10 +2,9 @@
     background: #fff;
     width: 100%;
     display: flex;
-    padding: 14px 10%;
+    padding: 24px 10%;
     align-items: center;
-    z-index: 999;   
-    box-shadow: #eee 0px 5px 20px;
+    z-index: 999;
 }
 .catalog__button{
     font-size: 15px;
@@ -38,13 +37,16 @@
     width: 300px;
 }
 .user{
+    padding: 15px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    margin-left: 50px;
+    margin-left: 20px;
     cursor: pointer;
 }
 .cart p {
-    margin-left: 10px;
     font-size: 18px;
     font-weight: bold;
     display: flex;
@@ -59,67 +61,67 @@
     color: #fff;
 }
 .cart {
-    border-radius: 25px;
-    padding: 10px 20px;
-    background: #d00;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 15px;
     display: flex;
     align-items: center;
     margin-left: 30px;
 }
 .underheader{
-    font-weight: bold;
-    background: #fff;
-    padding: 0 10%;
-    display: flex;
-    align-items: center;
-    height: 40px;
+    font-size: 20px;
+    margin-left: auto;
     z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .underheader a {
-    display: flex;
-
+    text-align: center;
 }
 .underheader a:hover {
     color: #d00;
 
 }
 .underheader a img {
-    height: 16px;
+    height: 24px;
     margin-right: 6px;
 }
 .underheader_location {
-    width: 60%;
+    font-size: 16px;
+    justify-content: center;
 }
 .underheader_phone {
-    width: 20%;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 26px;
 }
 .underheader_mail {
-    width: 20%;
+    color: #fff;
+    font-weight: bold;
 }
 .userblock{
     margin-left: auto;
     display: flex;
-    margin-right: 40px;
+    margin-right: 0px;
 }
 .menu {
-    padding: 0 20%;
+    justify-content: space-between;
+    padding: 0 10%;
     z-index: 999;
     width: 100%;
-    height: 60px;
+    height: 40px;
     background: #d00;
     display: flex;
     align-items: center;
 }
 .menu ul {
-    font-weight: bold;
     width: 100%;
-    justify-content: space-around;
     display: flex;
     color: #fff;
 }
 .menu ul li {
-    flex-basis: 25%;
-    justify-content: center;
+    margin-right: 60px;
     display: flex;
     align-items: center;
     height: 60px;
@@ -128,19 +130,20 @@
     display: block;
 }
 .cart svg {
-    fill: #fff;
-    margin-right: 10px;
+    fill: #333;
+    margin-right: 4px;
     height: 30px;
     width: 30px;
 }
 .cart:hover {
-    background: #a00;
+    background: #eee;
 }
 
 .user svg{
+    fill: #333333;
     height: 30px;
     width: 30px;
 }
-.user:hover svg{
-    fill: #d00;
+.user:hover{
+    background: #eee;
 }
