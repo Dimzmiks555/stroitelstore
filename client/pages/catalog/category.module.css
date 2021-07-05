@@ -3,6 +3,10 @@
     font-size: 42px;
     margin-bottom: 20px;
 }
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+}
 .category_main {
     display: flex;
     justify-content: space-between;
@@ -178,4 +182,11 @@ transform-origin: 0 0; /* see note above */
 
 .added {
     background: #ccc;
+}
+
+.sorter {
+    display: flex;
+}
+.sorter p {
+    margin-right: 20px;
 }

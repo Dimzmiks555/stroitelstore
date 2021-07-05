@@ -14,10 +14,11 @@ import BusketStore from '../../components/Busket/BusketStore.js';
 
 const Category = observer(({mainTitle}) => {
     const router = useRouter()
-    let cat_id = router.query.id
+    let {id, sort} = router.query
     const [data, setData] = useState([]);
+    const [items, setItems] = useState([]);
     const [isLoading, setLoading] = useState([true]);
-
+    
     function handleClick(e) {
         BusketStore.AddPosition(e.target.id, 1)
     }
@@ -34,7 +35,6 @@ const Category = observer(({mainTitle}) => {
             await api.get("products", {
                     per_page: 100,
                     order: 'asc',
-                    orderby: 'price',
                     category: id,
                     stock_status: 'instock'// 18 products per page
                 })
@@ -46,10 +46,121 @@ const Category = observer(({mainTitle}) => {
             
         }
         
-        getData(cat_id);
+        getData(id);
 
 
-    }, [cat_id]);
+    }, [id]);
+    
+    useEffect(() => {
+        setItems(data)
+    },[data])
+    
+    
+    function Sort(value) {
+        setItems(items.sort((a, b) => {
+            return a.price - b.price
+        }))
+    }
+    function GetButton(pos) {
+        if (pos.stock_status == 'outofstock') 
+        {       
+            return <a className={styles.outofstock}>Под заказ</a>
+        } else 
+        {
+            return (
+                <Link href={`/product/${pos.id}`}>
+                    <a id={pos.id} className={styles.to_cart} >Подробнее</a>
+                </Link>
+                )
+        }
+    }
+    function handleSelect(e) {
+        if (e.target.value == 'priceUp') {
+            router.push(`./${id}?sort=asc`)
+        } else if (e.target.value == 'priceDown') {
+            router.push(`./${id}?sort=desc`)
+        }
+    } 
+    function showGoods() {
+        let result;
+        console.log(sort == undefined)
+        if (sort == undefined) {
+            result = items.map(item => {
+                return (
+                    <div key={item.id} className={styles.category_good}>
+                    
+                    <div>
+                        <Link href={`/product/${item.id}`}>
+                            <a>
+                                <div className={styles.good_img}>
+                                    <img src={item?.images[0]?.src}></img>
+                                </div>
+                            </a>
+                        </Link>
+                        <Link href={`/product/${item.id}`}>
+                            <a>
+                                <div className={styles.good_title}>
+                                    {item.name}
+                                </div>
+                            </a>
+                        </Link>
+                    </div>
+                    <div>
+                        
+                        <div className={styles.good_price}>
+                            {
+                                item.price != '' ? (<p><span>{Number(item.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
+                            }
+                        </div>
+                        {GetButton(item)}
+                        
+                    </div>
+                </div>
+                )
+            })
+        } else if (sort == 'asc') {
+            const dataASC = items.sort((a, b) => {
+                return a.price - b.price
+            })
+            result = dataASC.map(item => {
+                return (
+                    <div key={item.id} className={styles.category_good}>
+                    
+                    <div>
+                        <Link href={`/product/${item.id}`}>
+                            <a>
+                                <div className={styles.good_img}>
+                                    <img src={item?.images[0]?.src}></img>
+                                </div>
+                            </a>
+                        </Link>
+                        <Link href={`/product/${item.id}`}>
+                            <a>
+                                <div className={styles.good_title}>
+                                    {item.name}
+                                </div>
+                            </a>
+                        </Link>
+                    </div>
+                    <div>
+                        
+                        <div className={styles.good_price}>
+                            {
+                                item.price != '' ? (<p><span>{Number(item.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
+                            }
+                        </div>
+                        {GetButton(item)}
+                        
+                    </div>
+                </div>
+                )
+            })
+        }
+        return result
+    }
+    useEffect(() => {
+        showGoods()
+    }, [items])
     if (isLoading == true) {
         return (
             <>
@@ -110,18 +221,7 @@ const Category = observer(({mainTitle}) => {
         )
     } else {
 
-
-    function GetButton(pos) {
-        if (pos.stock_status == 'outofstock') 
-        {       
-            return <a className={styles.outofstock}>Под заказ</a>
-        } else 
-        {
-            return <a id={pos.id} className={styles.to_cart} onClick={handleClick}>В корзину</a>
-        }
-    }
-
-        
+    
     
     return (
         <>
@@ -164,44 +264,25 @@ const Category = observer(({mainTitle}) => {
                     </div>
                     <div className={styles.category_goodsblock}>
                         <div className={styles.category_goodsblock_header}>
-                            
-                            <h1>{mainTitle}</h1>
-                            <div>
-                                {data.length} товаров
+                            <h1>{data[0]?.categories[0].name}</h1>
+                            <div className={styles.toolbar}>
+                                <div>
+                                    {data.length} товаров
+                                </div>
+                                <div className={styles.sorter}>
+                                    <p>Сортировка</p>
+                                    <select onChange={e => handleSelect(e)}>
+                                        <option value="default">По умолчанию</option>
+                                        <option value="priceUp">По возрастанию цены</option>
+                                        <option value="priceDown">По убыванию цены</option>
+                                        <option>А - Я</option>
+                                        <option>Я - А</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div className={styles.category_goods}>
-                            {data.map(item => (
-                                <div key={item.id} className={styles.category_good}>
-                                    
-                                    <div>
-                                        <Link href={`/product/${item.id}`}>
-                                            <a>
-                                                <div className={styles.good_img}>
-                                                    <img src={item?.images[0]?.src}></img>
-                                                </div>
-                                            </a>
-                                        </Link>
-                                        <Link href={`/product/${item.id}`}>
-                                            <a>
-                                                <div className={styles.good_title}>
-                                                    {item.name}
-                                                </div>
-                                            </a>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        
-                                        <div className={styles.good_price}>
-                                            {
-                                                item.price != '' ? (<p><span>{Number(item.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
-                                            }
-                                        </div>
-                                        {GetButton(item)}
-                                        
-                                    </div>
-                                </div>
-                            ))}
+                            {showGoods()}
                             
                         </div>
                     </div>
@@ -219,11 +300,9 @@ const Category = observer(({mainTitle}) => {
 
 export async function getServerSideProps({ params: { id } }) {
         
-    const mainTitle = CategoryStore.cats[id].title;
 
     return {
       props: {
-        mainTitle
       },
     }
   }

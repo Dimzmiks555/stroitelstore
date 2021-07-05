@@ -12,16 +12,74 @@ class CatalogStore {
                 url: '/catalog/screw.svg',
                 subcats: [
                     {
+                        name: 'Анкера',
+                        route: 'ankers',
+                        id: 83
+                    },
+                    {
                         name: 'Болты',
-                        route: 'bolts'
+                        route: 'bolts',
+                        id: 67
+                    },
+                    {
+                        name: 'Вертлюг',
+                        route: 'vertlug',
+                        id: 85
+                    },
+                    {
+                        name: 'Гайки',
+                        route: 'shims',
+                        id: 68
+                    },
+                    {
+                        name: 'Гвозди',
+                        route: 'gvozdi',
+                        id: 82
+                    },
+                    {
+                        name: 'Дюбеля',
+                        route: 'dubels',
+                        id: 69
+                    },
+                    {
+                        name: 'Заклёпки',
+                        route: 'zaklepki',
+                        id: 86
+                    },
+                    {
+                        name: 'Крюки',
+                        route: 'hooks',
+                        id: 88
+                    },
+                    {
+                        name: 'Пробой-ушки',
+                        route: 'proboy_ushki',
+                        id: 70
                     },
                     {
                         name: 'Саморезы',
-                        route: 'screws'
+                        route: 'skrews',
+                        id: 80
+                    },
+                    {
+                        name: 'Скобы',
+                        route: 'skobs',
+                        id: 74
+                    },
+                    {
+                        name: 'Шурупы',
+                        route: 'shurups',
+                        id: 81
+                    },
+                    {
+                        name: 'Шпильки',
+                        route: 'shpilki',
+                        id: 71
                     },
                     {
                         name: 'Шайбы',
-                        route: 'shims'
+                        route: 'shaibi',
+                        id: 84
                     },
                 ]
             },
@@ -222,16 +280,19 @@ class CatalogStore {
                 url: '/catalog/garden.svg',
                 subcats: [
                     {
-                        name: 'Тачки',
-                        route: 'bolts'
+                        name: 'Анкера',
+                        route: 'ankers',
+                        id: 83
                     },
                     {
-                        name: 'Грабли',
-                        route: 'screws'
+                        name: 'Болты',
+                        route: 'bolts',
+                        id: 67
                     },
                     {
-                        name: 'Лопаты',
-                        route: 'shims'
+                        name: 'Вертлюг',
+                        route: 'vertlug',
+                        id: 85
                     },
                 ]
             },
