@@ -32,9 +32,11 @@ const Category = observer(({mainTitle}) => {
                 version: "wc/v3"
                 });
             await api.get("products", {
-                    per_page: 20,
+                    per_page: 100,
                     order: 'asc',
-                    category: id // 18 products per page
+                    orderby: 'price',
+                    category: id,
+                    stock_status: 'instock'// 18 products per page
                 })
                 .then( result => {
                         setData(result.data)
@@ -92,9 +94,6 @@ const Category = observer(({mainTitle}) => {
                             <div className={styles.category_goodsblock_header}>
                                 
                                 <h1>{mainTitle}</h1>
-                                <div>
-                                    200 товаров
-                                </div>
                             </div>
                             <div className={styles.category_goods}>
                                 
@@ -168,7 +167,7 @@ const Category = observer(({mainTitle}) => {
                             
                             <h1>{mainTitle}</h1>
                             <div>
-                                200 товаров
+                                {data.length} товаров
                             </div>
                         </div>
                         <div className={styles.category_goods}>
