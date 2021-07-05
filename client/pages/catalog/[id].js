@@ -16,9 +16,12 @@ const Category = observer(({mainTitle}) => {
     const router = useRouter()
     let {id, sort} = router.query
     const [data, setData] = useState([]);
-    const [items, setItems] = useState([]);
+    let items = [];
+    if (data != undefined) {
+        Object.assign(items, data)
+    }
     const [isLoading, setLoading] = useState([true]);
-    
+    let dataF;
     function handleClick(e) {
         BusketStore.AddPosition(e.target.id, 1)
     }
@@ -52,15 +55,11 @@ const Category = observer(({mainTitle}) => {
     }, [id]);
     
     useEffect(() => {
-        setItems(data)
+        if (data != undefined) {
+            Object.assign(items, data)
+        }
     },[data])
     
-    
-    function Sort(value) {
-        setItems(items.sort((a, b) => {
-            return a.price - b.price
-        }))
-    }
     function GetButton(pos) {
         if (pos.stock_status == 'outofstock') 
         {       
@@ -79,88 +78,62 @@ const Category = observer(({mainTitle}) => {
             router.push(`./${id}?sort=asc`)
         } else if (e.target.value == 'priceDown') {
             router.push(`./${id}?sort=desc`)
+        } else if (e.target.value == 'default') {
+            router.push(`./${id}`)
         }
     } 
     function showGoods() {
         let result;
-        console.log(sort == undefined)
         if (sort == undefined) {
-            result = items.map(item => {
-                return (
-                    <div key={item.id} className={styles.category_good}>
-                    
-                    <div>
-                        <Link href={`/product/${item.id}`}>
-                            <a>
-                                <div className={styles.good_img}>
-                                    <img src={item?.images[0]?.src}></img>
-                                </div>
-                            </a>
-                        </Link>
-                        <Link href={`/product/${item.id}`}>
-                            <a>
-                                <div className={styles.good_title}>
-                                    {item.name}
-                                </div>
-                            </a>
-                        </Link>
-                    </div>
-                    <div>
-                        
-                        <div className={styles.good_price}>
-                            {
-                                item.price != '' ? (<p><span>{Number(item.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
-                            }
-                        </div>
-                        {GetButton(item)}
-                        
-                    </div>
-                </div>
-                )
-            })
+            dataF = data;
+            console.log(data, dataF, items)
         } else if (sort == 'asc') {
-            const dataASC = items.sort((a, b) => {
+            dataF = items?.sort((a, b) => {
                 return a.price - b.price
             })
-            result = dataASC.map(item => {
-                return (
-                    <div key={item.id} className={styles.category_good}>
-                    
-                    <div>
-                        <Link href={`/product/${item.id}`}>
-                            <a>
-                                <div className={styles.good_img}>
-                                    <img src={item?.images[0]?.src}></img>
-                                </div>
-                            </a>
-                        </Link>
-                        <Link href={`/product/${item.id}`}>
-                            <a>
-                                <div className={styles.good_title}>
-                                    {item.name}
-                                </div>
-                            </a>
-                        </Link>
-                    </div>
-                    <div>
-                        
-                        <div className={styles.good_price}>
-                            {
-                                item.price != '' ? (<p><span>{Number(item.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
-                            }
-                        </div>
-                        {GetButton(item)}
-                        
-                    </div>
-                </div>
-                )
+        } else if (sort == 'desc') {
+            dataF = items?.sort((a, b) => {
+                return b.price - a.price
             })
         }
+        result = dataF.map(item => {
+            return (
+                <div key={item.id} className={styles.category_good}>
+                
+                <div>
+                    <Link href={`/product/${item.id}`}>
+                        <a>
+                            <div className={styles.good_img}>
+                                <img src={item?.images[0]?.src}></img>
+                            </div>
+                        </a>
+                    </Link>
+                    <Link href={`/product/${item.id}`}>
+                        <a>
+                            <div className={styles.good_title}>
+                                {item.name}
+                            </div>
+                        </a>
+                    </Link>
+                </div>
+                <div>
+                    
+                    <div className={styles.good_price}>
+                        {
+                            item.price != '' ? (<p><span>{Number(item.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
+                        }
+                    </div>
+                    {GetButton(item)}
+                    
+                </div>
+            </div>
+            )
+        })
         return result
     }
     useEffect(() => {
         showGoods()
-    }, [items])
+    }, [dataF])
     if (isLoading == true) {
         return (
             <>
