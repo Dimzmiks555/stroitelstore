@@ -46,7 +46,8 @@ const Category = observer(({mainTitle}) => {
                         setLoading(false)
                     }
                 )
-            
+
+                
         }
         
         getData(id);
