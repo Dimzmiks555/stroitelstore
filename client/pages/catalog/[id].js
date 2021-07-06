@@ -81,13 +81,17 @@ const Category = observer(({mainTitle}) => {
             router.push(`./${id}?sort=desc`)
         } else if (e.target.value == 'default') {
             router.push(`./${id}`)
+        } else if (e.target.value == 'ascName') {
+            router.push(`./${id}?sort=ascName`)
+        } else if (e.target.value == 'descName') {
+            router.push(`./${id}?sort=descName`)
         }
+        
     } 
     function showGoods() {
         let result;
         if (sort == undefined) {
             dataF = data;
-            console.log(data, dataF, items)
         } else if (sort == 'asc') {
             dataF = items?.sort((a, b) => {
                 return a.price - b.price
@@ -95,6 +99,15 @@ const Category = observer(({mainTitle}) => {
         } else if (sort == 'desc') {
             dataF = items?.sort((a, b) => {
                 return b.price - a.price
+            })
+        } else if (sort == 'ascName') {
+            dataF = items?.sort(( a, b ) => {
+                return a.name[0].localeCompare(b.name[0])
+            })
+            console.log(items)
+        } else if (sort == 'descName') {
+            dataF = items?.sort(( a, b ) => {
+                return b.name[0].localeCompare(a.name[0])
             })
         }
         result = dataF.map(item => {
@@ -249,8 +262,8 @@ const Category = observer(({mainTitle}) => {
                                         <option value="default">По умолчанию</option>
                                         <option value="priceUp">По возрастанию цены</option>
                                         <option value="priceDown">По убыванию цены</option>
-                                        <option>А - Я</option>
-                                        <option>Я - А</option>
+                                        <option value="ascName">А - Я</option>
+                                        <option value="descName">Я - А</option>
                                     </select>
                                 </div>
                             </div>
