@@ -11,7 +11,7 @@ import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import Footer from '../../components/Footer/Footer';
 import 'antd/dist/antd.css'
 import BusketStore from '../../components/Busket/BusketStore.js';
-import {Select, Slider} from 'antd'
+import {Select, Slider, InputNumber} from 'antd'
 const { Option } = Select;
 
 
@@ -56,10 +56,10 @@ const Category = observer(({mainTitle}) => {
                 .then( result => {
                         let arr = [];
                         result.data.forEach(item => {
-                            arr.push(item.price)
+                            arr.push(+item.price)
                         });
                         setData(result.data)
-                        setPrices(Math.min(arr[0]),Math.min(arr[arr.length]))
+                        setPrices([Math.min(...arr),Math.max(...arr)])
                         setLoading(false)
                     }
                 )
@@ -184,7 +184,10 @@ const Category = observer(({mainTitle}) => {
                     <div className={styles.category_filter}>
                         <div className={styles.filter_price}>
                             <div className={styles.filter_title}>Цена</div>
-                            {/* <Slider range defaultValue={[prices[0], prices[1]]}/> */}
+                            <div>
+                                <InputNumber></InputNumber><InputNumber></InputNumber>
+                            </div>
+                            <Slider range min={prices[0]} max={prices[1]} defaultValue={[0, prices[1]]}/>
                         </div>
                     </div>
                     <div className={styles.category_goodsblock}>

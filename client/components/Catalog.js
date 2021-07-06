@@ -6,7 +6,6 @@ import CatalogItems from './Catalog/CatalogItems'
 import CatalogNavItem from './Catalog/CatalogNavItem'
 import Link from 'next/link'
 import stylesHeader from './Header/Header.module.css'
-import Search from "./Search/Search";
 
 enableStaticRendering(typeof window === "undefined");
 const Catalog = observer(() => {
@@ -27,7 +26,6 @@ const Catalog = observer(() => {
                                 <a><img src="/LOGO.svg" /></a>
                             </Link>
                         </div>
-                        <Search />
                         <div className={stylesHeader.userblock}>
                             <button className={styles.close} onClick={handleClick}>&#215;</button>
                         </div>

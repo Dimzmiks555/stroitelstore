@@ -96,25 +96,24 @@
 }
 .good_price{
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 20px;
 }
 .good_price span {
     font-size: 32px;
 }
 .to_cart{
-    margin-left: auto;
     display: block;
     text-align: center;
     font-family: inherit;
-    font-size: 20px;
+    font-size: 18px;
     color: #fff;
     margin-top: 20px;
     background: #c00;
     border-radius: 5px;
     border: none;
     outline: none;
-    width: 100%;
+    width: 70%;
     padding: 12px 20px;
     cursor: pointer;
 }
