@@ -141,7 +141,7 @@
     background: #555;
 }
 .LoadingPanel {
-    margin-top: 40px;
+    margin-top: 200px;
     background: rgba(255,255,255,0.3);
     backdrop-filter: blur(5px);
     display: flex;
@@ -186,7 +186,10 @@ transform-origin: 0 0; /* see note above */
 
 .sorter {
     display: flex;
+    align-items: center;
 }
 .sorter p {
-    margin-right: 20px;
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-right: 20px !important;
 }

@@ -9,19 +9,31 @@ import { observer } from "mobx-react";
 import { useEffect, useState } from 'react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import Footer from '../../components/Footer/Footer';
+import 'antd/dist/antd.css'
 import BusketStore from '../../components/Busket/BusketStore.js';
+import {Select, Slider} from 'antd'
+const { Option } = Select;
+
 
 
 const Category = observer(({mainTitle}) => {
+
+    // Router
     const router = useRouter()
     let {id, sort} = router.query
+
+    //UseState
     const [data, setData] = useState([]);
+    const [prices, setPrices] = useState([]);
+    const [isLoading, setLoading] = useState([true]);
+
+    // Lets
     let items = [];
+    let dataF;
+
     if (data != undefined) {
         Object.assign(items, data)
     }
-    const [isLoading, setLoading] = useState([true]);
-    let dataF;
     function handleClick(e) {
         BusketStore.AddPosition(e.target.id, 1)
     }
@@ -42,7 +54,12 @@ const Category = observer(({mainTitle}) => {
                     stock_status: 'instock'// 18 products per page
                 })
                 .then( result => {
+                        let arr = [];
+                        result.data.forEach(item => {
+                            arr.push(item.price)
+                        });
                         setData(result.data)
+                        setPrices(Math.min(arr[0]),Math.min(arr[arr.length]))
                         setLoading(false)
                     }
                 )
@@ -52,6 +69,8 @@ const Category = observer(({mainTitle}) => {
         
         getData(id);
 
+
+        
 
     }, [id]);
     
@@ -74,17 +93,13 @@ const Category = observer(({mainTitle}) => {
                 )
         }
     }
-    function handleSelect(e) {
-        if (e.target.value == 'priceUp') {
+    function handleSelect(value) {
+        if (value == 'priceUp') {
             router.push(`./${id}?sort=asc`)
-        } else if (e.target.value == 'priceDown') {
+        } else if (value == 'priceDown') {
             router.push(`./${id}?sort=desc`)
-        } else if (e.target.value == 'default') {
+        } else if (value == 'default') {
             router.push(`./${id}`)
-        } else if (e.target.value == 'ascName') {
-            router.push(`./${id}?sort=ascName`)
-        } else if (e.target.value == 'descName') {
-            router.push(`./${id}?sort=descName`)
         }
         
     } 
@@ -99,15 +114,6 @@ const Category = observer(({mainTitle}) => {
         } else if (sort == 'desc') {
             dataF = items?.sort((a, b) => {
                 return b.price - a.price
-            })
-        } else if (sort == 'ascName') {
-            dataF = items?.sort(( a, b ) => {
-                return a.name[0].localeCompare(b.name[0])
-            })
-            console.log(items)
-        } else if (sort == 'descName') {
-            dataF = items?.sort(( a, b ) => {
-                return b.name[0].localeCompare(a.name[0])
             })
         }
         result = dataF.map(item => {
@@ -156,51 +162,9 @@ const Category = observer(({mainTitle}) => {
                 <div className={Mainstyles.page}>
                 <div className={styles.category}>
                     <div className={styles.category_main}>
-                        <div className={styles.category_filter}>
-                            <div className={styles.filter_price}>
-                                <div className={styles.filter_title}>Цена</div>
-                                <div className={styles.filter_inputs}>
-                                    <div>
-                                        <input placeholder="От"></input>
-                                        <p>₽</p>
-                                    </div>
-                                    <div>
-                                        <input placeholder="До"></input>
-                                        <p>₽</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={styles.filter_brend}>
-                                <div className={styles.filter_title}>Бренд</div>
-                                <div className={styles.filter_checkboxes}>
-                                    <div>
-                                        <input type="checkbox"></input>
-                                        <label> UNIS </label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox"></input>
-                                        <label> Волма </label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox"></input>
-                                        <label> Эталон </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.category_goodsblock}>
-                            <div className={styles.category_goodsblock_header}>
-                                
-                                <h1>{mainTitle}</h1>
-                            </div>
-                            <div className={styles.category_goods}>
-                                
-                            <div className={styles.LoadingPanel}>
+                    <div className={styles.LoadingPanel}>
                                 <img src='/spinning-circles.svg'></img>
-                            </div>
-                                
-                            </div>
-                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -220,33 +184,7 @@ const Category = observer(({mainTitle}) => {
                     <div className={styles.category_filter}>
                         <div className={styles.filter_price}>
                             <div className={styles.filter_title}>Цена</div>
-                            <div className={styles.filter_inputs}>
-                                <div>
-                                    <input placeholder="От"></input>
-                                    <p>₽</p>
-                                </div>
-                                <div>
-                                    <input placeholder="До"></input>
-                                    <p>₽</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.filter_brend}>
-                            <div className={styles.filter_title}>Бренд</div>
-                            <div className={styles.filter_checkboxes}>
-                                <div>
-                                    <input type="checkbox"></input>
-                                    <label> UNIS </label>
-                                </div>
-                                <div>
-                                    <input type="checkbox"></input>
-                                    <label> Волма </label>
-                                </div>
-                                <div>
-                                    <input type="checkbox"></input>
-                                    <label> Эталон </label>
-                                </div>
-                            </div>
+                            {/* <Slider range defaultValue={[prices[0], prices[1]]}/> */}
                         </div>
                     </div>
                     <div className={styles.category_goodsblock}>
@@ -256,15 +194,14 @@ const Category = observer(({mainTitle}) => {
                                 <div>
                                     {data.length} товаров
                                 </div>
+                                
                                 <div className={styles.sorter}>
                                     <p>Сортировка</p>
-                                    <select onChange={e => handleSelect(e)}>
-                                        <option value="default">По умолчанию</option>
-                                        <option value="priceUp">По возрастанию цены</option>
-                                        <option value="priceDown">По убыванию цены</option>
-                                        <option value="ascName">А - Я</option>
-                                        <option value="descName">Я - А</option>
-                                    </select>
+                                    <Select defaultValue="default" style={{ width: 200 }} onChange={e => handleSelect(e)}>
+                                            <Option value="default">По умолчанию</Option>
+                                            <Option value="priceUp">По возрастанию цены</Option>
+                                            <Option value="priceDown">По убыванию цены</Option>
+                                    </Select>
                                 </div>
                             </div>
                         </div>
