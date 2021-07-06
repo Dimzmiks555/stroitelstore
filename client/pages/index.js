@@ -5,9 +5,11 @@ import Catalog from "../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
 import NewGoods from '../components/NewGoods';
+import Offers from '../components/Offers/Offers';
 import Footer from '../components/Footer/Footer';
 
 const Index = observer(() => {
+
   return (
     <>
     <Head>
@@ -19,6 +21,7 @@ const Index = observer(() => {
     <div className={styles.page}>
       <Banner />
       <NewGoods />
+      <Offers />
     </div>
     <Footer />
     </>
