@@ -1,4 +1,3 @@
-import CategoryStore from '../../components/Catalog/category/categoryStore.js'
 import Header from '../../components/Header/Header';
 import Mainstyles from '../index.module.css';
 import styles from './category.module.css'
@@ -10,9 +9,11 @@ import { useEffect, useState } from 'react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import Footer from '../../components/Footer/Footer';
 import BusketStore from '../../components/Busket/BusketStore.js';
-import {Select, Slider, InputNumber} from 'antd'
-const { Option } = Select;
-
+import Select from 'react-select'
+import Slider from 'rc-slider';
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider.Range);
+import 'rc-slider/assets/index.css';
 
 
 const Category = observer(({mainTitle}) => {
@@ -24,6 +25,7 @@ const Category = observer(({mainTitle}) => {
     //UseState
     const [data, setData] = useState([]);
     const [prices, setPrices] = useState([]);
+    const [priceFilter, setPriceFilters] = useState([]);
     const [isLoading, setLoading] = useState([true]);
 
     // Lets
@@ -32,9 +34,6 @@ const Category = observer(({mainTitle}) => {
 
     if (data != undefined) {
         Object.assign(items, data)
-    }
-    function handleClick(e) {
-        BusketStore.AddPosition(e.target.id, 1)
     }
     
     useEffect(() => {
@@ -93,15 +92,24 @@ const Category = observer(({mainTitle}) => {
         }
     }
     function handleSelect(value) {
-        if (value == 'priceUp') {
+        if (value.value == 'priceUp') {
             router.push(`./${id}?sort=asc`)
-        } else if (value == 'priceDown') {
+        } else if (value.value == 'priceDown') {
             router.push(`./${id}?sort=desc`)
-        } else if (value == 'default') {
+        } else if (value.value == 'default') {
             router.push(`./${id}`)
         }
         
     } 
+    function handleRange(values) {
+        setPriceFilters(values)
+        let result = dataF.filter(item => {
+            if (item.price >= values[0] && item.price <= values[1]) {
+                return true
+            }
+        }) 
+        dataF = result;
+    }
     function showGoods() {
         let result;
         if (sort == undefined) {
@@ -162,7 +170,7 @@ const Category = observer(({mainTitle}) => {
                 <div className={styles.category}>
                     <div className={styles.category_main}>
                     <div className={styles.LoadingPanel}>
-                                <img src='/spinning-circles.svg'></img>
+                            <img src='/spinning-circles.svg'></img>
                     </div>
                     </div>
                 </div>
@@ -171,7 +179,11 @@ const Category = observer(({mainTitle}) => {
         )
     } else {
 
-    
+    const options = [
+        { value: 'default', label: 'По умолчанию' },
+        { value: 'priceUp', label: 'По возрастанию цены' },
+        { value: 'priceDown', label: 'По уменьшению цены' }
+    ]
     
     return (
         <>
@@ -183,10 +195,19 @@ const Category = observer(({mainTitle}) => {
                     <div className={styles.category_filter}>
                         <div className={styles.filter_price}>
                             <div className={styles.filter_title}>Цена</div>
-                            <div>
-                                <InputNumber></InputNumber><InputNumber></InputNumber>
+                            <div className={styles.filter_inputs}>
+                                <input value={priceFilter[0]} defaultValue={prices[0]}></input>
+                                <input value={priceFilter[1]} defaultValue={prices[1]}></input>
                             </div>
-                            <Slider range min={prices[0]} max={prices[1]} defaultValue={[0, prices[1]]}/>
+                            <Range
+                             trackStyle={[{ backgroundColor: '#c33' }]} 
+                             handleStyle={[{ backgroundColor: '#fff', borderColor:'#c33'}]}
+                             railStyle={{ backgroundColor: 'f5f5f5'}}
+                             min={prices[0]} 
+                             max={prices[1]} 
+                             defaultValue={[0, prices[1]]}
+                             onChange={e => handleRange(e)}
+                             />
                         </div>
                     </div>
                     <div className={styles.category_goodsblock}>
@@ -197,13 +218,8 @@ const Category = observer(({mainTitle}) => {
                                     {data.length} товаров
                                 </div>
                                 
-                                <div className={styles.sorter}>
-                                    <p>Сортировка</p>
-                                    <Select defaultValue="default" style={{ width: 200 }} onChange={e => handleSelect(e)}>
-                                            <Option value="default">По умолчанию</Option>
-                                            <Option value="priceUp">По возрастанию цены</Option>
-                                            <Option value="priceDown">По убыванию цены</Option>
-                                    </Select>
+                                <div className={styles.sorter}>                                    
+                                    <Select className={styles.select} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
                                 </div>
                             </div>
                         </div>

@@ -25,6 +25,7 @@
 .category_filter .filter_inputs{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 .category_filter .filter_checkboxes > div {
     margin-bottom: 10px;
@@ -191,4 +192,7 @@ transform-origin: 0 0; /* see note above */
     padding: 0 !important;
     margin: 0 !important;
     margin-right: 20px !important;
+}
+.select{
+    min-width: 230px;
 }
