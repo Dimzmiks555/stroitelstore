@@ -9,11 +9,12 @@ import { observer } from "mobx-react";
 import { useEffect, useState } from 'react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import Footer from '../../components/Footer/Footer';
-import 'antd/dist/antd.css'
 import BusketStore from '../../components/Busket/BusketStore.js';
-import {Select, Slider, InputNumber} from 'antd'
-const { Option } = Select;
-
+import Select from 'react-select'
+import Slider from 'rc-slider';
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider.Range);
+import 'rc-slider/assets/index.css';
 
 
 const Category = observer(({mainTitle}) => {
@@ -94,11 +95,11 @@ const Category = observer(({mainTitle}) => {
         }
     }
     function handleSelect(value) {
-        if (value == 'priceUp') {
+        if (value.value == 'priceUp') {
             router.push(`./${id}?sort=asc`)
-        } else if (value == 'priceDown') {
+        } else if (value.value == 'priceDown') {
             router.push(`./${id}?sort=desc`)
-        } else if (value == 'default') {
+        } else if (value.value == 'default') {
             router.push(`./${id}`)
         }
         
@@ -172,7 +173,11 @@ const Category = observer(({mainTitle}) => {
         )
     } else {
 
-    
+    const options = [
+        { value: 'default', label: 'По умолчанию' },
+        { value: 'priceUp', label: 'По возрастанию цены' },
+        { value: 'priceDown', label: 'По уменьшению цены' }
+    ]
     
     return (
         <>
@@ -185,9 +190,18 @@ const Category = observer(({mainTitle}) => {
                         <div className={styles.filter_price}>
                             <div className={styles.filter_title}>Цена</div>
                             <div>
-                                <InputNumber></InputNumber><InputNumber></InputNumber>
+                                {/* <InputNumber></InputNumber><InputNumber></InputNumber> */}
                             </div>
-                            <Slider range min={prices[0]} max={prices[1]} defaultValue={[0, prices[1]]}/>
+                            {/* <Slider range min={prices[0]} max={prices[1]} defaultValue={[0, prices[1]]}/> */}
+                            <Range
+                             trackStyle={[{ backgroundColor: '#f5f5f5' }]} 
+                             handleStyle={[{ backgroundColor: '#c33', borderColor:'#e88'}]}
+                             activehandleStyle={[{ backgroundColor: 'gray', borderColor:'blue'}]}
+                             railStyle={{ backgroundColor: 'black'}}
+                             min={prices[0]} 
+                             max={prices[1]} 
+                             defaultValue={[0, prices[1]]}
+                             />
                         </div>
                     </div>
                     <div className={styles.category_goodsblock}>
@@ -198,13 +212,8 @@ const Category = observer(({mainTitle}) => {
                                     {data.length} товаров
                                 </div>
                                 
-                                <div className={styles.sorter}>
-                                    <p>Сортировка</p>
-                                    <Select defaultValue="default" style={{ width: 200 }} onChange={e => handleSelect(e)}>
-                                            <Option value="default">По умолчанию</Option>
-                                            <Option value="priceUp">По возрастанию цены</Option>
-                                            <Option value="priceDown">По убыванию цены</Option>
-                                    </Select>
+                                <div className={styles.sorter}>                                    
+                                    <Select className={styles.select} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
                                 </div>
                             </div>
                         </div>
