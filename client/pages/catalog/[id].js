@@ -9,7 +9,6 @@ import { observer } from "mobx-react";
 import { useEffect, useState } from 'react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import Footer from '../../components/Footer/Footer';
-import 'antd/dist/antd.css'
 import BusketStore from '../../components/Busket/BusketStore.js';
 import {Select, Slider, InputNumber} from 'antd'
 const { Option } = Select;

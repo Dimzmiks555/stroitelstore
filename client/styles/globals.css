@@ -2,6 +2,9 @@
   font-family: 'Comfortaa';
   src: url('/Roboto-Regular.ttf');
 }
+@import '~antd/lib/style/themes/default.less';
+@import '~antd/dist/antd.less';
+@import 'your-theme-file.less';
 /* Comfortaa-VariableFont_wght */
 html,
 body {
