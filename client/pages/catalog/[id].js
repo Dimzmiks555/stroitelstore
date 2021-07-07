@@ -1,4 +1,3 @@
-import CategoryStore from '../../components/Catalog/category/categoryStore.js'
 import Header from '../../components/Header/Header';
 import Mainstyles from '../index.module.css';
 import styles from './category.module.css'
@@ -26,6 +25,7 @@ const Category = observer(({mainTitle}) => {
     //UseState
     const [data, setData] = useState([]);
     const [prices, setPrices] = useState([]);
+    const [priceFilter, setPriceFilters] = useState([]);
     const [isLoading, setLoading] = useState([true]);
 
     // Lets
@@ -34,9 +34,6 @@ const Category = observer(({mainTitle}) => {
 
     if (data != undefined) {
         Object.assign(items, data)
-    }
-    function handleClick(e) {
-        BusketStore.AddPosition(e.target.id, 1)
     }
     
     useEffect(() => {
@@ -104,6 +101,15 @@ const Category = observer(({mainTitle}) => {
         }
         
     } 
+    function handleRange(values) {
+        setPriceFilters(values)
+        let result = dataF.filter(item => {
+            if (item.price >= values[0] && item.price <= values[1]) {
+                return true
+            }
+        }) 
+        dataF = result;
+    }
     function showGoods() {
         let result;
         if (sort == undefined) {
@@ -164,7 +170,7 @@ const Category = observer(({mainTitle}) => {
                 <div className={styles.category}>
                     <div className={styles.category_main}>
                     <div className={styles.LoadingPanel}>
-                                <img src='/spinning-circles.svg'></img>
+                            <img src='/spinning-circles.svg'></img>
                     </div>
                     </div>
                 </div>
@@ -189,18 +195,18 @@ const Category = observer(({mainTitle}) => {
                     <div className={styles.category_filter}>
                         <div className={styles.filter_price}>
                             <div className={styles.filter_title}>Цена</div>
-                            <div>
-                                {/* <InputNumber></InputNumber><InputNumber></InputNumber> */}
+                            <div className={styles.filter_inputs}>
+                                <input value={priceFilter[0]} defaultValue={prices[0]}></input>
+                                <input value={priceFilter[1]} defaultValue={prices[1]}></input>
                             </div>
-                            {/* <Slider range min={prices[0]} max={prices[1]} defaultValue={[0, prices[1]]}/> */}
                             <Range
-                             trackStyle={[{ backgroundColor: '#f5f5f5' }]} 
-                             handleStyle={[{ backgroundColor: '#c33', borderColor:'#e88'}]}
-                             activehandleStyle={[{ backgroundColor: 'gray', borderColor:'blue'}]}
-                             railStyle={{ backgroundColor: 'black'}}
+                             trackStyle={[{ backgroundColor: '#c33' }]} 
+                             handleStyle={[{ backgroundColor: '#fff', borderColor:'#c33'}]}
+                             railStyle={{ backgroundColor: 'f5f5f5'}}
                              min={prices[0]} 
                              max={prices[1]} 
                              defaultValue={[0, prices[1]]}
+                             onChange={e => handleRange(e)}
                              />
                         </div>
                     </div>

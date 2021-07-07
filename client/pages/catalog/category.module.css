@@ -25,6 +25,7 @@
 .category_filter .filter_inputs{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 .category_filter .filter_checkboxes > div {
     margin-bottom: 10px;
