@@ -4,8 +4,10 @@ import {observer} from "mobx-react";
 import {useState, useEffect} from 'react'
 import Link from 'next/link';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import { useRouter } from 'next/router';
 
 const Search = observer(() => {
+    const router = useRouter()
     const [display, setDisplay] = useState('none')
     const [value, setValue] = useState('')
     const [data, setData] = useState([]);
@@ -37,6 +39,9 @@ const Search = observer(() => {
         setDisplay('none')
         setValue('')
         CatalogStore.HideCatalog()
+    }
+    function handleSearchPage(e) {
+        router.push(`/search/${value}`)
     }
      async function getData(text){
 
@@ -138,7 +143,10 @@ const Search = observer(() => {
 
     return (
         <div className={styles.search__box} onBlur={e => {handleBlur(e)}} onFocus={handleFocus} >
-            <input className={styles.search} placeholder="Поиск..." value={value} onChange={e => {handleChange(e)}} ></input>
+            <div className={styles.search__tool}>
+                <input className={styles.search} placeholder="Поиск..." value={value} onChange={e => {handleChange(e)}} ></input>
+                <button onClick={e => handleSearchPage(e)}>Найти</button>
+            </div>
             <div className={styles.result} style={{display: display}}>
                 {value != null ? catData.map(item => (
                     item.parent != 0 ? (<Link href={`/catalog/${item.id}`}>

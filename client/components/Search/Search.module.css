@@ -21,7 +21,7 @@
     border: 1px solid #ddd;
     background: #fff;
     position: absolute;
-    width: 100%;
+    width: 86%;
 }
 .result__item {
     padding: 10px 20px;
@@ -41,4 +41,25 @@
 }
 .result__cat_item_title {
     font-weight: bold;
+}
+.search__tool {
+    justify-content: space-between;
+    display: flex;
+}
+.search__tool button {
+    border-radius: 5px;
+    font-family: inherit;
+    padding: 10px 20px;
+    background: #d00;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.search__tool button:hover {
+    border-radius: 5px;
+    font-family: inherit;
+    padding: 10px 20px;
+    background: #900;
+    color: #fff;
+    border: none;
 }

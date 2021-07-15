@@ -1,0 +1,37 @@
+.login {
+    display: flex;
+    justify-content: space-between;
+}
+.login h2 {
+    font-size: 32px;
+}
+.login__input {
+    margin-top: 40px;
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+.login__button {
+    margin-top: 60px;
+    width: 300px;
+    height: 60px;
+}
+.sign_in {
+    width: 40%;
+    padding: 40px 60px;
+}
+.sign_up {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    border-radius: 50px;
+    padding: 40px 60px;
+    background: #d00;
+    width: 50%;
+}
+.sign_in .login__input {
+    border: 1px solid #aaa;
+}
