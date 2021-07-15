@@ -26,12 +26,10 @@ const Busket = observer(() => {
         BusketStore.setCount(e.target.id ,e.target.value)
     }
     function handleDelete(e) {
-        BusketStore.delete(e.target.id)
+        BusketStore.delete(e.target.id, e.target.value)
     }
     function handleRadio(e) {
-        console.log(e.currentTarget.id)
         setDelivery(e.currentTarget.id)
-        console.log(delivery)
     }
     return (
         <>
@@ -39,16 +37,17 @@ const Busket = observer(() => {
             <div className={styles.busket_info}>
                 <h1>Заказ</h1>
                 <div className={styles.busket_items}>
-                    {BusketStore.positions.map((item, index) => (
+                    {console.log(BusketStore.order.products)}
+                    {BusketStore.initFetchStatus == 'done' ? BusketStore.order.products.map((item, index) => (
                         <div key={item.data.id} className={styles.busket_item}>
-                            <Link href={`/product/${item?.data.id}`}>
+                            <Link href={`/product/`}>
                                 <a className={styles.good_img}>
                                     <div>
                                         <img src={item?.data.images[0]?.src}></img>
                                     </div>
                                 </a>
                             </Link>
-                            <Link href={`/product/${item?.data.id}`}>
+                            <Link href={`/product/`}>
                                 <a className={styles.good_title}>
                                     {item?.data.name}
                                 </a>
@@ -70,10 +69,10 @@ const Busket = observer(() => {
                                  {(item?.data.price * item.count).toLocaleString()} ₽
                             </div>
                             <div className={styles.delete__good}>
-                                 <button id={index} onClick={handleDelete}>✖</button>
+                                 <button id={index} value={item.data.id} onClick={handleDelete}>✖</button>
                             </div>
                         </div>
-                    ))}
+                    )) : 'Пусто'}
                     
                 </div>
                 

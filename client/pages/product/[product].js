@@ -46,7 +46,7 @@ const Product = observer(() => {
 
     let product_id = router.query.product;
     useEffect(() => {
-        let filter = BusketStore.positions.findIndex(item => item.data.id == product_id)
+        let filter = BusketStore.positions.findIndex(item => item.id == product_id)
         if (filter == -1) {
             setAdded(false)
             setCV(1)

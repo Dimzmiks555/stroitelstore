@@ -16,8 +16,6 @@ const Busket = observer(() => {
                     
                     
                 </div>
-                
-                    
             </div>
         </div>
         </>
