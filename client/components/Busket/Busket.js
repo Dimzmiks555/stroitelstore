@@ -137,18 +137,35 @@ const Busket = observer(() => {
                         </div>
                     </div>
                 </div>
-                <div className={styles.payment}>
-                    <h1>Способ оплаты</h1>
-                    <div className={styles.payment__methods}>
-                        
-                        <input id="nal" type="radio" name="payment" ></input>
-                        <label className={styles.method} for="nal">
-                            Наличными
-                        </label>
-                        <input id="card" type="radio" name="payment" ></input>
-                        <label className={styles.method} for="card">
-                            Картой
-                        </label>
+                <div className={styles.payment_and_clientdata}>
+                    <div className={styles.payment}>
+                        <h1>Способ оплаты</h1>
+                        <div className={styles.payment__methods}>
+                            
+                            <input id="nal" type="radio" name="payment" ></input>
+                            <label className={styles.method} for="nal">
+                                Наличными
+                            </label>
+                            <input id="card" type="radio" name="payment" ></input>
+                            <label className={styles.method} for="card">
+                                Картой
+                            </label>
+                        </div>
+                    </div>
+                    <div className={styles.clientdata}>
+                        <div>
+                            <h1>Ваши данные</h1>
+                        </div>
+                        <div className={styles.clientdata__inputs}>
+                            <input placeholder="Имя"></input>
+                            <input placeholder="Фамилия"></input>
+                        </div>
+                        <div>
+                            <input placeholder="Номер телефона"></input>
+                        </div>
+                        <div>
+                            <input placeholder="Электронная почта"></input>
+                        </div>
                     </div>
                 </div>
             </div>

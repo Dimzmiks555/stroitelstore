@@ -93,11 +93,11 @@ const Search = observer(({mainTitle}) => {
     }
     function handleSelect(value) {
         if (value.value == 'priceUp') {
-            router.push(`./${id}?sort=asc`)
+            router.push(`./${request}?sort=asc`)
         } else if (value.value == 'priceDown') {
-            router.push(`./${id}?sort=desc`)
+            router.push(`./${request}?sort=desc`)
         } else if (value.value == 'default') {
-            router.push(`./${id}`)
+            router.push(`./${request}`)
         }
         
     } 

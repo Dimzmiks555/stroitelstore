@@ -1,12 +1,23 @@
 .footer {
-    background: linear-gradient(90deg, #f52,#f00);
+    background: linear-gradient(90deg, #a02,#d00);
     height: 300px;
     display: flex;
     padding: 40px 10%;
-    backdrop-filter: blur(20px);
     opacity: 90%;
+    color: #fff;
+    font-size: 18px;
 }
 .logo{
     height: 80px;
+    width: 25%;
+}
+.logo img {
+    height: 80px;
     width: 300px;
+}
+.menu {
+
+}
+.menu ul li {
+    margin-top: 20px;
 }

@@ -159,14 +159,14 @@
 .select__item {
     font-size: 24px;
     padding: 20px 40px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: 2px solid #ddd;
 	user-select: none;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 80px;
-    width: 45%;
+    height: 100px;
+    width: 49%;
     cursor: pointer;
 }
 .select__item:hover {
@@ -211,6 +211,7 @@ background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, 
 }
 .payment {
     margin-top: 60px;
+    width: 49%;
 }
 .payment__methods {
     display: flex;
@@ -219,14 +220,14 @@ background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, 
 .payment__methods .method{
     font-size: 24px;
     padding: 20px 40px;
-    border-radius: 25px;
+    border-radius: 10px;
     border: 2px solid #ddd;
 	user-select: none;
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 80px;
-    width: 45%;
+    width: 49%;
     cursor: pointer;
 }
 .payment__methods .method:hover{
@@ -245,4 +246,30 @@ background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, 
 }
 .payment input[type=radio]:checked + .method svg{
     fill: #fff;
+}
+.payment_and_clientdata {
+    display: flex;
+    justify-content: space-between;
+}
+.clientdata {
+    width: 47%;
+    margin-top: 60px;
+}
+.clientdata input {
+    padding: 10px 20px;
+    font-size: inherit;
+    font-family: inherit;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    border: #aaa solid 1px;
+    outline: none;
+    height: 50px;
+    width: 100%;
+}
+.clientdata__inputs {
+    display: flex;
+    justify-content: space-between;
+}
+.clientdata__inputs input {
+    width: 45%;
 }

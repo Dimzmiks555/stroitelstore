@@ -4,6 +4,7 @@ import Catalog from "../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
 import Cabinet from '../components/Cabinet/Cabinet';
+import Footer from '../components/Footer/Footer';
 
 const CabinetPage = observer(() => {
   return (
@@ -19,6 +20,7 @@ const CabinetPage = observer(() => {
         
       </Cabinet>
     </div>
+    <Footer></Footer>
     </>
   )
 

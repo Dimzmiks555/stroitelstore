@@ -4,6 +4,7 @@ import Catalog from "../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
 import Busket from '../components/Busket/Busket';
+import Footer from '../components/Footer/Footer';
 
 const Index = observer(() => {
   return (
@@ -19,6 +20,7 @@ const Index = observer(() => {
         
       </Busket>
     </div>
+    <Footer></Footer>
     </>
   )
 
