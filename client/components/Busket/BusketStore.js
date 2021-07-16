@@ -56,9 +56,12 @@ class BusketStore {
     async getInitData(positions){
         
         let ids = []
+        let counts = []
         positions.forEach(item => {
-            ids.push(item.id)
+            ids.push(item.id);
+            counts.push(item.count)
         });
+        
         const api = new WooCommerceRestApi({
             url: "http://admin.stroitelstore.ru/",
             consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
@@ -71,7 +74,10 @@ class BusketStore {
             .then( result => {
                     result.data.forEach((item, index) => {
                         this.order.products.push(
-                           {data: result.data[index]}
+                            {
+                                data: result.data[index],
+                                count: counts[index]
+                            }
                         );  
                     })   
                     this.initFetchStatus = 'done'   
