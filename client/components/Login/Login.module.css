@@ -1,9 +1,12 @@
 .login {
+    padding-top: 40px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
-.login h2 {
-    font-size: 32px;
+.login h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
 }
 .login__input {
     margin-top: 40px;
@@ -21,17 +24,21 @@
 .sign_in {
     width: 40%;
     padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.sign_up {
+.info {
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #fff;
     border-radius: 50px;
-    padding: 40px 60px;
-    background: #d00;
     width: 50%;
 }
 .sign_in .login__input {
     border: 1px solid #aaa;
+}
+.image {
+    width: 80%;
 }

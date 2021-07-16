@@ -21,13 +21,17 @@ const Search = observer(() => {
                     return e.target.value
                 });
             } else {
+                setDisplay('block');
                 setValue(null)
             }
         }
+        setDisplay('block');
         Set()
     }
     function handleFocus(e) {
-        setDisplay('block');
+            if (value != '' && value != null) {
+                setDisplay('block');
+            }
     }
     function handleBlur(e) {
         if (!e.currentTarget.contains(e.relatedTarget)) {
@@ -142,8 +146,8 @@ const Search = observer(() => {
     }, [value]);
 
     return (
-        <div className={styles.search__box} onBlur={e => {handleBlur(e)}} onFocus={handleFocus} >
-            <div className={styles.search__tool}>
+        <div className={styles.search__box} onBlur={e => {handleBlur(e)}} >
+            <div className={styles.search__tool} onFocus={handleFocus} >
                 <input className={styles.search} placeholder="Поиск..." value={value} onChange={e => {handleChange(e)}} ></input>
                 <button onClick={e => handleSearchPage(e)}>Найти</button>
             </div>

@@ -13,7 +13,7 @@ export default function NewGoods () {
               version: "wc/v3"
               });
           await api.get("products", {
-                  per_page: 10,
+                  per_page: 8,
                   stock_status: 'instock'// 18 products per page
               })
               .then( result => {
@@ -35,14 +35,29 @@ export default function NewGoods () {
   
   }, []);
 
-
+    function handleRightScroll(e) {
+        let newgoods = document.getElementById('newgoods');
+        if (newgoods.style.transform == 'translateX(-100%)') {
+            return
+        } else {
+            newgoods.style.transform = 'translateX(-100%)'
+        }
+    }
+    function handleLeftScroll(e) {
+        let newgoods = document.getElementById('newgoods');
+        if (newgoods.style.transform == 'translateX(-100%)') {
+            newgoods.style.transform = 'translateX(0%)'
+        } else {
+            return
+        }
+    }
     return (
         <div className={styles.newgoods}>
             <h2>
                 Новинки
             </h2>
-            <div className={styles.newgoods__wrapper}>
-                <div className={styles.newgoods__items}>
+            <div className={styles.newgoods__wrapper} >
+                <div className={styles.newgoods__items} id="newgoods">
                     {data.map(item => (
                         <div className={styles.newgoods__item}>
                             <div>
@@ -65,7 +80,16 @@ export default function NewGoods () {
                     
                     ))}
                 </div>
+                
             </div>
+            
+            <div className={styles.newgoods__control_left} onClick={e => {handleLeftScroll(e)}}>
+                &lArr;
+            </div>
+            <div className={styles.newgoods__control_right} onClick={e => {handleRightScroll(e)}}>
+                &rArr;
+            </div>
+            
             
         </div>
     )

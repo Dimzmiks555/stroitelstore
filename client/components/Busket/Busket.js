@@ -4,17 +4,42 @@ import BusketStore from './BusketStore'
 import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react';
 
-
 const Busket = observer(() => {
 
     let total = null
+    
+    
 
     const [delivery, setDelivery] = useState([])
 
     BusketStore.order.products.map((item, index) => {
         total += item.data?.price * item.count
     })
-
+    if (typeof window !== "undefined") {
+        window.addEventListener('scroll', () => {
+            if (document.getElementById('totalBlock') !== null) {
+                let totalBlock = document.getElementById('totalBlock')
+                let y = window.pageYOffset;
+                    if (y >= 180 && y <= 720) {
+                        totalBlock.style.position = 'fixed';
+                        totalBlock.style.top = '0';
+                        totalBlock.style.right = '10%';
+                        totalBlock.style.width = '24%'
+                    } else if (y > 720){
+                        totalBlock.style.position = 'fixed';
+                        totalBlock.style.bottom = '340px';
+                        totalBlock.style.right = '10%';
+                        totalBlock.style.width = '24%'
+                    }
+                    else {
+                        totalBlock.style = null;
+                    }
+            }
+            
+        })
+    } else {
+        
+    }
     function increment(e) {
         console.log(e.target.id)
         BusketStore.incrementCount(e.target.id)
@@ -41,21 +66,18 @@ const Busket = observer(() => {
                     <div className={styles.busket_items}>
                     {BusketStore.initFetchStatus == 'done' ? BusketStore.order.products.map((item, index) => (
                         <div key={item.data.id} className={styles.busket_item}>
-                            <Link href={`/product/`}>
+                            <Link href={`/product/${item.data.id}`}>
                                 <a className={styles.good_img}>
                                     <div>
                                         <img src={item?.data.images[0]?.src}></img>
                                     </div>
                                 </a>
                             </Link>
-                            <Link href={`/product/`}>
+                            <Link href={`/product/${item.data.id}`}>
                                 <a className={styles.good_title}>
                                     {item?.data.name}
                                 </a>
                             </Link>
-                            <div className={styles.good_price}>
-                                {Number(item?.data.price).toLocaleString()} ₽
-                            </div>
                             <div className={styles.good__counter}>
                                 <button id={index} onClick={increment}>
                                     +
@@ -67,7 +89,7 @@ const Busket = observer(() => {
                                 </button>
                             </div>
                             <div className={styles.good_total}>
-                                 {(item?.data.price * item.count).toLocaleString()} ₽
+                                 <b>{(item?.data.price * item.count).toLocaleString()}</b> ₽
                             </div>
                             <div className={styles.delete__good}>
                                  <button id={index} value={item.data.id} onClick={handleDelete}>✖</button>
@@ -141,7 +163,6 @@ const Busket = observer(() => {
                     <div className={styles.payment}>
                         <h1>Способ оплаты</h1>
                         <div className={styles.payment__methods}>
-                            
                             <input id="nal" type="radio" name="payment" ></input>
                             <label className={styles.method} for="nal">
                                 Наличными
@@ -171,9 +192,10 @@ const Busket = observer(() => {
                 </>) : (<h2>В корзине пока ничего нет</h2>)}
                 
             </div>
-            {BusketStore.positions[0] ? (<div className={styles.busket_mainblock}>
+            {BusketStore.positions[0] ? (
+            <div className={styles.busket_mainblock} id='totalBlock'>
                 <div>
-                    <h2>Итого <span>{total?.toLocaleString()} ₽</span></h2>
+                    <h2>Итого <span>{total?.toLocaleString()} <i>₽</i></span></h2>
                     <h3>Всего позиций <span>{BusketStore.positions.length}</span></h3>
                     <h3>Способ доставки <span>{delivery == 'delivery' ? 'Доставка' : delivery == 'shop' ? 'Самовывоз' : 'Не выбран'}</span></h3>
                     <h3>Адрес <span>{delivery == 'delivery' ? 'Не указан' : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}</span></h3>

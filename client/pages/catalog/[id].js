@@ -77,7 +77,9 @@ const Category = observer(({mainTitle}) => {
             Object.assign(items, data)
         }
     },[data])
-    
+    function addGood(e) {
+        BusketStore.AddPosition(e.target.id, 1)
+    }
     function GetButton(pos) {
         
         let obj = BusketStore.order.products.filter(item => item?.data?.id == pos.id)
@@ -92,9 +94,7 @@ const Category = observer(({mainTitle}) => {
                 )
         } else {
             return (
-                <Link href={`/product/${pos.id}`}>
-                    <a id={pos.id} className={styles.to_cart} >В корзину</a>
-                </Link>
+                    <a id={pos.id} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a>
                 )
         }
         

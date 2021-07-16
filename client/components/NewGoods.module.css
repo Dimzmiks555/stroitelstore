@@ -1,3 +1,6 @@
+.newgoods {
+    position: relative;
+}
 .newgoods h2{
     font-size: 36px;
     margin-bottom: 60px;
@@ -8,10 +11,11 @@
     overflow: hidden;
 }
 .newgoods__items {
-    top: 0;
-    left: 0;
-    display: flex;
     position: absolute;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    transition: ease-in-out .5s all;
 }
 .newgoods__item {
     min-width: 20%;
@@ -70,4 +74,40 @@
 }
 .to_cart:hover{
     background: #800;
+}
+.newgoods__control_left {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: -20px;
+    top: 50%;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    line-height: 40px;
+    font-weight: bold;
+    user-select: none;
+    cursor: pointer;
+}
+.newgoods__control_left:hover, .newgoods__control_right:hover{
+    background: #d00;
+    color: #fff !important;
+}
+.newgoods__control_right {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: -20px;
+    top: 50%;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    line-height: 40px;
+    font-weight: bold;
+    user-select: none;
+    cursor: pointer;
 }

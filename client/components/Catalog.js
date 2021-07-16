@@ -26,12 +26,12 @@ const Catalog = observer(() => {
                                 <a><img src="/LOGO.svg" /></a>
                             </Link>
                         </div>
+                        <h1 className={styles.catalog_h1}>Каталог</h1>
                         <div className={stylesHeader.userblock}>
                             <button className={styles.close} onClick={handleClick}>&#215;</button>
                         </div>
                     </div>
                     <div className={styles.catalog_block}>
-                        <h1>Каталог</h1>
                         <div className={styles.catalog__table}>
                             <div className={styles.catalog__nav}>
                                 {CatalogStore.props.categories.map(category => (
