@@ -118,6 +118,21 @@
     padding: 12px 20px;
     cursor: pointer;
 }
+.to_cart_added {
+    display: block;
+    text-align: center;
+    font-family: inherit;
+    font-size: 18px;
+    color: #c00;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 5px;
+    border: #c00 2px solid;
+    outline: none;
+    width: 70%;
+    padding: 12px 20px;
+    cursor: pointer;
+}
 .to_cart:hover{
     background: #900;
 }

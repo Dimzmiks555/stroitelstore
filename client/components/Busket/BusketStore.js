@@ -47,7 +47,7 @@ class BusketStore {
                         count: +count,
                         data: result.data
                     });
-                    
+                    this.initFetchStatus = 'done'   
                     localStorage.setItem('positions', JSON.stringify(this.positions))                
                 }
             )
@@ -73,12 +73,16 @@ class BusketStore {
         })
             .then( result => {
                     result.data.forEach((item, index) => {
+                        
+                        let count = positions.filter(lsitem => lsitem.id == item.id)
                         this.order.products.push(
                             {
                                 data: result.data[index],
-                                count: counts[index]
+                                count: count[0].count
                             }
-                        );  
+                        );
+                        
+                        console.log(this.order.products)
                     })   
                     this.initFetchStatus = 'done'   
                 }
@@ -89,19 +93,19 @@ class BusketStore {
         
         if (value > 0 || value == '' && value != 'e') {
             
-            this.positions[index].count = value
+            this.order.products[index].count = value
         }
     }
     incrementCount(index) {
         if (index != undefined) {
             
-            this.positions[index].count = +this.positions[index].count + 1
+            this.order.products[index].count = +this.order.products[index].count + 1
         }
     }
     decrementCount(index) {
         if (index != undefined) {
             
-            this.positions[index].count = +this.positions[index].count - 1
+            this.order.products[index].count = +this.order.products[index].count - 1
         }
     }
     AddPosition(id, count) {

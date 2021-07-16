@@ -1,7 +1,7 @@
 .busket {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: flex-start;
 }
 .busket h1{
     margin-bottom: 40px;

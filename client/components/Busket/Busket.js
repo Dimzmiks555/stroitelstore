@@ -11,7 +11,7 @@ const Busket = observer(() => {
 
     const [delivery, setDelivery] = useState([])
 
-    BusketStore.positions.map((item, index) => {
+    BusketStore.order.products.map((item, index) => {
         total += item.data?.price * item.count
     })
 
@@ -35,9 +35,10 @@ const Busket = observer(() => {
         <>
         <div className={styles.busket}>
             <div className={styles.busket_info}>
-                <h1>Заказ</h1>
-                <div className={styles.busket_items}>
-                    {console.log(BusketStore.order.products)}
+                <h1>Корзина</h1>
+                {BusketStore.positions[0] ? (
+                <>
+                    <div className={styles.busket_items}>
                     {BusketStore.initFetchStatus == 'done' ? BusketStore.order.products.map((item, index) => (
                         <div key={item.data.id} className={styles.busket_item}>
                             <Link href={`/product/`}>
@@ -167,8 +168,10 @@ const Busket = observer(() => {
                         </div>
                     </div>
                 </div>
+                </>) : (<h2>В корзине пока ничего нет</h2>)}
+                
             </div>
-            <div className={styles.busket_mainblock}>
+            {BusketStore.positions[0] ? (<div className={styles.busket_mainblock}>
                 <div>
                     <h2>Итого <span>{total?.toLocaleString()} ₽</span></h2>
                     <h3>Всего позиций <span>{BusketStore.positions.length}</span></h3>
@@ -177,9 +180,9 @@ const Busket = observer(() => {
                     <h3>Способ оплаты <span>Наличными</span></h3>
                 </div>
                 <div>
-                    <button className={styles.to_pay}>Оплатить заказ</button>
+                    <button className={styles.to_pay}>Заказать</button>
                 </div>
-            </div>
+            </div>) : null}
         </div>
         </>
     )

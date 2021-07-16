@@ -79,17 +79,25 @@ const Category = observer(({mainTitle}) => {
     },[data])
     
     function GetButton(pos) {
+        
+        let obj = BusketStore.order.products.filter(item => item?.data?.id == pos.id)
         if (pos.stock_status == 'outofstock') 
         {       
             return <a className={styles.outofstock}>Под заказ</a>
-        } else 
-        {
+        } else if (obj[0]?.data?.id == pos.id) {
             return (
                 <Link href={`/product/${pos.id}`}>
-                    <a id={pos.id} className={styles.to_cart} >Подробнее</a>
+                    <a id={pos.id} className={styles.to_cart_added} >Добавлен</a>
+                </Link>
+                )
+        } else {
+            return (
+                <Link href={`/product/${pos.id}`}>
+                    <a id={pos.id} className={styles.to_cart} >В корзину</a>
                 </Link>
                 )
         }
+        
     }
     function handleSelect(value) {
         if (value.value == 'priceUp') {
