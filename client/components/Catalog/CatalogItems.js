@@ -10,6 +10,7 @@ const CatalogItems = observer(() => {
         CatalogStore.HideCatalog();
     }
 
+
     return (
         <div className={styles.catalog__items}>
             <div className={styles.catalog__itemsblock}>

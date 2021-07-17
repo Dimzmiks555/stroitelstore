@@ -13,6 +13,9 @@ const Catalog = observer(() => {
         CatalogStore.HideCatalog()
     };
     
+    
+
+
     if (CatalogStore.props.display == 'none'){
         return null
     } else {

@@ -9,6 +9,7 @@ class CatalogStore {
             {   
                 board: '/catalog/img/metiz.jpg',
                 category: 'Крепеж',
+                id: 66,
                 url: '/catalog/screw.svg',
                 subcats: [
                     {
