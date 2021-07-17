@@ -26,7 +26,12 @@ class BusketStore {
     order = {
         delivery: '',
         payment: '',
-        clientData: '',
+        clientData: {
+            name: '',
+            surname: '',
+            phone: '',
+            mail: ''
+        },
         products: [
 
         ]
@@ -55,6 +60,7 @@ class BusketStore {
             )
         
     }
+
     async getInitData(positions){
         
         let ids = []
@@ -151,7 +157,58 @@ class BusketStore {
     setPayment(value) {
         this.order.payment = value;
     }
+    setClientData(id, value) {
+        if (id == 'name') {
+            this.order.clientData.name = value;
+        } else if (id == 'surname') {
+            this.order.clientData.surname = value;
+        } else if (id == 'phone') {
+            this.order.clientData.phone = value;
+        } else if (id == 'mail') {
+            this.order.clientData.mail = value;
+        }  
+    }
+    async setOrder() {
 
+        let line_items = []
+
+        this.order.products.forEach(item => {
+            line_items.push({product_id: item.data.id, quantity: item.count})
+        })
+
+        const data = {
+            
+            billing: {
+              first_name: this.order.clientData.name,
+              last_name: this.order.clientData.surname,
+              email: this.order.clientData.mail,
+              phone: this.order.clientData.phone
+            },
+            line_items: line_items,
+          };
+        const api = new WooCommerceRestApi({
+            url: "http://admin.stroitelstore.ru/",
+            consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
+            consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
+            version: "wc/v3"
+            });
+        await api.post('orders', data)
+            .then( response => {
+                    console.log(response.data) 
+                }
+            ).catch(err => {
+                console.log(err, err.response?.data)
+            })
+        // fetch('http://admin.stroitelstore.ru/wp-json/wc/v3/orders?oauth_consumer_key=ck_f3179856b9f88fc14315e11fd4c231397f53759e&oauth_nonce=nBUCjaYEWi9NylfCPiYrf3zumpwBM2SS', {
+        //     method: 'POST',
+        //     headers: {
+        //         "Access-Control-Origin": "*",
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(data),
+        //   }).then(result => console.log(result)).catch(err => console.log(err))
+        
+    }
 
 
 }

@@ -60,7 +60,12 @@ const Busket = observer(() => {
         BusketStore.setPayment(e.currentTarget.id)
     }
     function sendOrder(e) {
-        router.push('/completed_order')
+        // router.push('/completed_order')
+        BusketStore.setOrder()
+        console.log(BusketStore.order)
+    }
+    function handleClientData(e) {
+        BusketStore.setClientData(e.target.id, e.target.value)
     }
     return (
         <>
@@ -160,7 +165,7 @@ const Busket = observer(() => {
                             <p><b>Воронежская область</b>, город <b>Лиски</b>, улица <b>Коммунистическая</b>, дом <b>25</b></p>
                         </div>
                         <div className="delivery_block" style={{display: delivery == 'delivery' ? 'block' : 'none'}}>
-                            <h1>Доставка</h1>
+                            <h1>Адрес</h1>
                         </div>
                     </div>
                 </div>
@@ -186,14 +191,14 @@ const Busket = observer(() => {
                             </Link>
                         </div>
                         <div className={styles.clientdata__inputs}>
-                            <input placeholder="Имя"></input>
-                            <input placeholder="Фамилия"></input>
+                            <input id="name" placeholder="Имя" onChange={e => handleClientData(e)}></input>
+                            <input id="surname" placeholder="Фамилия" onChange={e => handleClientData(e)}></input>
                         </div>
                         <div>
-                            <input placeholder="Номер телефона"></input>
+                            <input id="phone" placeholder="Номер телефона" onChange={e => handleClientData(e)}></input>
                         </div>
                         <div>
-                            <input placeholder="Электронная почта"></input>
+                            <input id="mail" placeholder="Электронная почта" onChange={e => handleClientData(e)}></input>
                         </div>
                     </div>
                 </div>
