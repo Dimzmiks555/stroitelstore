@@ -33,6 +33,9 @@ input, label {
   font-family: inherit;
   display: block;
 }
+button {
+  font-family: inherit !important;
+}
 p {
   margin: 0;
   padding: 0;

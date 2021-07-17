@@ -13,18 +13,21 @@
 .newgoods__items {
     position: absolute;
     top: 0px;
-    left: 0px;
+    left: 20px;
     display: flex;
     transition: ease-in-out .5s all;
 }
 .newgoods__item {
     min-width: 20%;
     flex-basis: 20%;
-    margin-right: 5%;
+    margin-left: 5%;
     margin-bottom: 60px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+.newgoods__item:first-child {
+    margin-left: 2% !important;
 }
 .good_img {
     height: 240px;
@@ -76,6 +79,8 @@
     background: #800;
 }
 .newgoods__control_left {
+    
+    padding: 0px 12px;
     position: absolute;
     width: 40px;
     height: 40px;
@@ -84,18 +89,22 @@
     border-radius: 50%;
     background: #eee;
     display: flex;
-    text-align: center;
     justify-content: center;
     line-height: 40px;
     font-weight: bold;
     user-select: none;
     cursor: pointer;
+    transform: rotate(180deg);
+}
+.newgoods svg {
+    width: 40px;
 }
 .newgoods__control_left:hover, .newgoods__control_right:hover{
     background: #d00;
-    color: #fff !important;
+    fill: #fff !important;
 }
 .newgoods__control_right {
+    padding: 0px 12px;
     position: absolute;
     width: 40px;
     height: 40px;
@@ -104,7 +113,6 @@
     border-radius: 50%;
     background: #eee;
     display: flex;
-    text-align: center;
     justify-content: center;
     line-height: 40px;
     font-weight: bold;

@@ -1,0 +1,55 @@
+.cabinet h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+.blocks {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.blocks h2 {
+    margin-bottom: 16px;
+}
+.clientData {
+    display: flex;
+    border-radius: 10px;
+    padding: 20px 40px;
+    border: 1px solid #ccc;
+    width: 48%;
+    margin-bottom: 40px;
+}
+.clientData__image {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin-right: 40px;
+    background: #d33;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.clientData__image svg {
+    fill: #fff;
+    width: 50%;
+    height: 50%;
+}
+.cashback {
+    display: flex;
+    background: #c00;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px 40px;
+    border: 1px solid #c00;
+    width: 48%;
+    margin-bottom: 40px;
+}
+.cashback .clientData__image {
+    background: #fff;
+    color: #d00;
+    font-size: 54px;
+    font-weight: 600;
+}
+.clientData p {
+    margin-bottom: 10px;
+}

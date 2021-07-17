@@ -12,7 +12,9 @@ const Header = observer(() => {
             BusketStore.initialSet(busketPositions) 
         }
     }
-
+    function handleClickLogo(e) {
+        CatalogStore.HideCatalog()
+    };
 
     function handleClick() {
         CatalogStore.AppendCatalog()
@@ -40,9 +42,9 @@ const Header = observer(() => {
             <div className={styles.underheader_phone}>+7 (900) 300-13-12</div>
         </div>
         <div className={styles.header}>
-            <div className={styles.logo}>
-                <Link href="/">
-                    <a><img src="/LOGO.svg" /></a>
+            <div className={styles.logo}  onClick={e => {handleClickLogo(e)}}>
+                <Link href="/"  onClick={e => {handleClickLogo(e)}}>
+                    <a  onClick={e => {handleClickLogo(e)}}><img src="/LOGO.svg"  onClick={e => {handleClickLogo(e)}}/></a>
                 </Link>
             </div>
             <button className={styles.catalog__button} onClick={handleClick}>

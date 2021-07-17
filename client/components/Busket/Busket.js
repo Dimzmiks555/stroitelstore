@@ -3,15 +3,16 @@ import Link from 'next/link'
 import BusketStore from './BusketStore'
 import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react';
+import { useRouter } from 'next/router';
 
 const Busket = observer(() => {
 
     let total = null
-    
+    const router = useRouter()
     
 
     const [delivery, setDelivery] = useState([])
-
+    const [payment, setPayment] = useState([])
     BusketStore.order.products.map((item, index) => {
         total += item.data?.price * item.count
     })
@@ -37,11 +38,8 @@ const Busket = observer(() => {
             }
             
         })
-    } else {
-        
-    }
+    } 
     function increment(e) {
-        console.log(e.target.id)
         BusketStore.incrementCount(e.target.id)
     }
     function decrement(e) {
@@ -55,6 +53,14 @@ const Busket = observer(() => {
     }
     function handleRadio(e) {
         setDelivery(e.currentTarget.id)
+        BusketStore.setDelivery(e.currentTarget.id)
+    }
+    function handlePayment(e) {
+        setPayment(e.currentTarget.id)
+        BusketStore.setPayment(e.currentTarget.id)
+    }
+    function sendOrder(e) {
+        router.push('/completed_order')
     }
     return (
         <>
@@ -79,12 +85,12 @@ const Busket = observer(() => {
                                 </a>
                             </Link>
                             <div className={styles.good__counter}>
-                                <button id={index} onClick={increment}>
+                                <button id={item.data?.id} onClick={increment}>
                                     +
                                 </button>
-                                <input id={index} value={item.count} onChange={handleChange} type="number">
+                                <input id={item.data?.id} value={item.count} onChange={handleChange} type="number">
                                 </input>
-                                <button id={index} onClick={decrement}>
+                                <button id={item.data?.id} onClick={decrement}>
                                     −
                                 </button>
                             </div>
@@ -150,9 +156,8 @@ const Busket = observer(() => {
                     </div>
                     <div className={styles.select__overview}>
                         <div className="shop_block" style={{display: delivery == 'shop' ? 'block' : 'none'}}>
-                            <p><b>Ваш заказ вы сможете забрать по адресу:</b></p>
-                            <br></br>
-                            <p>Воронежская обл., г. Лиски, ул. Коммунистическая, д. 25</p>
+                            <h2><b>Ваш заказ вы сможете забрать по адресу:</b></h2>
+                            <p><b>Воронежская область</b>, город <b>Лиски</b>, улица <b>Коммунистическая</b>, дом <b>25</b></p>
                         </div>
                         <div className="delivery_block" style={{display: delivery == 'delivery' ? 'block' : 'none'}}>
                             <h1>Доставка</h1>
@@ -163,19 +168,22 @@ const Busket = observer(() => {
                     <div className={styles.payment}>
                         <h1>Способ оплаты</h1>
                         <div className={styles.payment__methods}>
-                            <input id="nal" type="radio" name="payment" ></input>
-                            <label className={styles.method} for="nal">
-                                Наличными
+                            <input id="nal" type="radio" name="payment" onClick={e => {handlePayment(e)}} ></input>
+                            <label className={styles.method} for="nal" >
+                                Наличными или картой при получении
                             </label>
-                            <input id="card" type="radio" name="payment" ></input>
+                            <input id="card" type="radio" name="payment" onClick={e => {handlePayment(e)}}></input>
                             <label className={styles.method} for="card">
-                                Картой
+                                Банковской картой онлайн
                             </label>
                         </div>
                     </div>
                     <div className={styles.clientdata}>
-                        <div>
+                        <div className={styles.clientdata__title}>
                             <h1>Ваши данные</h1>
+                            <Link href="login">
+                                <button>Войти</button>
+                            </Link>
                         </div>
                         <div className={styles.clientdata__inputs}>
                             <input placeholder="Имя"></input>
@@ -198,11 +206,11 @@ const Busket = observer(() => {
                     <h2>Итого <span>{total?.toLocaleString()} <i>₽</i></span></h2>
                     <h3>Всего позиций <span>{BusketStore.positions.length}</span></h3>
                     <h3>Способ доставки <span>{delivery == 'delivery' ? 'Доставка' : delivery == 'shop' ? 'Самовывоз' : 'Не выбран'}</span></h3>
-                    <h3>Адрес <span>{delivery == 'delivery' ? 'Не указан' : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}</span></h3>
-                    <h3>Способ оплаты <span>Наличными</span></h3>
+                    <h3>Адрес <span>{delivery == 'delivery' ? 'Доставка' : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}</span></h3>
+                    <h3>Способ оплаты <span>{payment == 'nal' ? 'Наличными' : payment == 'card' ? 'Картой' : 'Не указан'}</span></h3>
                 </div>
                 <div>
-                    <button className={styles.to_pay}>Заказать</button>
+                    <button className={styles.to_pay} onClick={sendOrder}>Заказать</button>
                 </div>
             </div>) : null}
         </div>

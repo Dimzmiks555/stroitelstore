@@ -131,6 +131,7 @@
     color: #d00;
 }
 .to_pay {
+    font-family: inherit;
     border-radius: 10px;
     font-weight: bold;
     text-transform: uppercase;
@@ -158,6 +159,7 @@
     margin-bottom: 60px;
 }
 .select__item {
+    font-weight: bold;
     font-size: 24px;
     padding: 20px 40px;
     border-radius: 10px;
@@ -223,9 +225,8 @@ background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, 
     margin-bottom: 20px;
     margin-left: 40px;
     position: relative;
-    font-size: 20px;
+    font-size: 18px;
 	user-select: none;
-    width: 49%;
     cursor: pointer;
 }
 .payment__methods .method:before {
@@ -283,4 +284,30 @@ background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, 
 }
 .clientdata__inputs input {
     width: 45%;
+}
+.clientdata__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.clientdata__title button {
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 34px;
+    color: #c00;
+    padding: 10px 20px;
+    border: 2px solid #c00;
+    background: #fff;
+}
+.clientdata__title button:hover {
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 34px;
+    padding: 10px 20px;
+    color: #fff;
+    border: 2px solid #c00;
+    background: #c00;
 }

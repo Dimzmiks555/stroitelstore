@@ -79,10 +79,12 @@
 .product__infoblock {
     padding-top: 80px;
 }
-.product__description {
+.product__description p{
+    margin-bottom: 40px;
 }
 .product__description h2 {
-    font-size: 32px;
+    font-size: 36px;
+    margin-bottom: 20px;
 }
 .LoadingPanel {
     background: rgba(255,255,255,0.3);

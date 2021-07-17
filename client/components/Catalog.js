@@ -24,7 +24,7 @@ const Catalog = observer(() => {
                 
                 <div className={styles.catalog}>
                     <div className={stylesHeader.header}>
-                        <div className={stylesHeader.logo}>
+                        <div className={stylesHeader.logo } onClick={handleClick}>
                             <Link href="/">
                                 <a><img src="/LOGO.svg" /></a>
                             </Link>

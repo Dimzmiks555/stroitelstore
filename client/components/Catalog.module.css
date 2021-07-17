@@ -99,14 +99,12 @@
     flex-wrap: wrap;
 }
 .catalog__items h1{
-    margin-bottom: 30px;
 }
 .catalog__item {
     padding: 20px 40px;
     margin-top: 30px;
     background-size: cover;
     background-position: center center;
-    
     border-radius: 50px;
     height: 320px;
     width: 32%;
@@ -157,7 +155,7 @@
 .catalog__link {
     width: 49%;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 6px;
 }
 .catalog__link:hover{
     color: #d00;

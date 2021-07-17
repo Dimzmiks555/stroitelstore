@@ -9,7 +9,6 @@ class BusketStore {
         makeObservable(this, {
             positions: observable,
             order: observable,
-            delivery: observable,
             initFetchStatus: observable,
             AddPosition: action,
             getData: action,
@@ -18,17 +17,20 @@ class BusketStore {
             setCount: action,
             delete: action,
             setDelivery: action,
-            getInitData: action
+            getInitData: action,
+            setPayment: action
         });
     }
     initFetchStatus = 'pending';
     positions = []
     order = {
+        delivery: '',
+        payment: '',
+        clientData: '',
         products: [
 
         ]
     }
-    delivery = ''
 
     async getData(id, count){
         const api = new WooCommerceRestApi({
@@ -89,23 +91,37 @@ class BusketStore {
             )
         
     }
-    setCount(index, value) {
+    setCount(id, value) {
         
-        if (value > 0 || value == '' && value != 'e') {
-            
-            this.order.products[index].count = value
+        if (value > 0 || value != '' && value != 'e' && value != 0) {
+            let filter = this.positions.findIndex(item => item.id == id)
+            this.positions[filter].count = +value
+            this.order.products[filter].count = +value
+            localStorage.setItem('positions', JSON.stringify(this.positions))
+        } else {
+            let filter = this.positions.findIndex(item => item.id == id)
+            this.positions[filter].count = 1
+            this.order.products[filter].count = 1
+            localStorage.setItem('positions', JSON.stringify(this.positions))
         }
     }
-    incrementCount(index) {
-        if (index != undefined) {
+    incrementCount(id) {
+        if (id != undefined) {
+            let filter = this.positions.findIndex(item => item.id == id)
+            this.positions[filter].count = +this.positions[filter].count + 1
+            this.order.products[filter].count = +this.positions[filter].count
+            localStorage.setItem('positions', JSON.stringify(this.positions))
             
-            this.order.products[index].count = +this.order.products[index].count + 1
         }
     }
-    decrementCount(index) {
-        if (index != undefined) {
-            
-            this.order.products[index].count = +this.order.products[index].count - 1
+    decrementCount(id) {
+        if (id != undefined) {
+            let filter = this.positions.findIndex(item => item.id == id)
+            if (+this.positions[filter].count > 1) {
+                this.positions[filter].count = +this.positions[filter].count - 1
+                this.order.products[filter].count = +this.positions[filter].count
+                localStorage.setItem('positions', JSON.stringify(this.positions))
+            }
         }
     }
     AddPosition(id, count) {
@@ -130,7 +146,10 @@ class BusketStore {
         this.getInitData(positions)
     }
     setDelivery(value) {
-        this.delivery = value;
+        this.order.delivery = value;
+    }
+    setPayment(value) {
+        this.order.payment = value;
     }
 
 
