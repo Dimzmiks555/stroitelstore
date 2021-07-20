@@ -60,9 +60,7 @@ const Busket = observer(() => {
         BusketStore.setPayment(e.currentTarget.id)
     }
     function sendOrder(e) {
-        // router.push('/completed_order')
         BusketStore.setOrder()
-        console.log(BusketStore.order)
     }
     function handleClientData(e) {
         BusketStore.setClientData(e.target.id, e.target.value)
@@ -215,7 +213,13 @@ const Busket = observer(() => {
                     <h3>Способ оплаты <span>{payment == 'nal' ? 'Наличными' : payment == 'card' ? 'Картой' : 'Не указан'}</span></h3>
                 </div>
                 <div>
-                    <button className={styles.to_pay} onClick={sendOrder}>Заказать</button>
+                    { delivery != '' &&
+                      payment!= '' &&
+                      BusketStore.order.clientData.phone != ''  &&
+                      BusketStore.order.clientData.name != ''  &&
+                      BusketStore.order.clientData.surname != '' ?
+                        <button className={styles.to_pay} onClick={sendOrder}>Заказать</button> :
+                        <button className={styles.to_pay} style={{background: '#ccc', cursor: 'default'}}>Заказать</button>}
                 </div>
             </div>) : null}
         </div>

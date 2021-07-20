@@ -1,8 +1,9 @@
 import { makeObservable, computed, observable, action} from "mobx"
 import { enableStaticRendering } from "mobx-react";
-import styles from './Busket.module.css'
+import { useRouter } from "next/router";
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 enableStaticRendering(typeof window === "undefined");
+
 class BusketStore {
 
     constructor() {
@@ -177,7 +178,6 @@ class BusketStore {
         }  
     }
     async setOrder() {
-
         let line_items = []
 
         this.order.products.forEach(item => {
@@ -207,7 +207,8 @@ class BusketStore {
             });
         await api.post('orders', data)
             .then( response => {
-                    console.log(response.data) 
+                    console.log(response.data)
+                    window.location.href = `/completed_order/${response?.data?.id}`
                 }
             ).catch(err => {
                 console.log(err, err.response?.data)
