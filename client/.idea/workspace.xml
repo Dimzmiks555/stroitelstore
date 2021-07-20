@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8941cffd-435a-46e3-a20f-c9cc53586058" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1vZ5Khk1LnLDGUHsPXFh09Ey07z" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8941cffd-435a-46e3-a20f-c9cc53586058" name="Default Changelist" comment="" />
+      <created>1626756708044</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1626756708044</updated>
+      <workItem from="1626756711165" duration="3316000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="174" key="#Deployment" timestamp="1626756892605">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="552" y="174" key="#Deployment/0.0.1920.1032@0.0.1920.1032" timestamp="1626756892605" />
+    <state x="536" y="161" key="#SSH_Configurations" timestamp="1626756849834">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="536" y="161" key="#SSH_Configurations/0.0.1920.1032@0.0.1920.1032" timestamp="1626756849834" />
+    <state x="461" y="161" key="SettingsEditor" timestamp="1626756964027">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="461" y="161" key="SettingsEditor/0.0.1920.1032@0.0.1920.1032" timestamp="1626756964027" />
+    <state x="822" y="415" key="WebDeployment.AddServerDialog.v.1" timestamp="1626756737125">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="822" y="415" key="WebDeployment.AddServerDialog.v.1/0.0.1920.1032@0.0.1920.1032" timestamp="1626756737125" />
+    <state x="773" y="246" key="ftp.server.browser" timestamp="1626756889649">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="773" y="246" key="ftp.server.browser/0.0.1920.1032@0.0.1920.1032" timestamp="1626756889649" />
+  </component>
+</project>

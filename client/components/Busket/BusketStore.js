@@ -42,7 +42,11 @@ class BusketStore {
             url: "http://admin.stroitelstore.ru/",
             consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
             consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-            version: "wc/v3"
+            version: "wc/v3",
+            queryStringAuth: true,
+              axiosConfig: {
+                headers: {'Content-Type': 'application/json'},
+                }
             });
         await api.get(`products/${id}`)
             .then( result => {
@@ -74,7 +78,11 @@ class BusketStore {
             url: "http://admin.stroitelstore.ru/",
             consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
             consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-            version: "wc/v3"
+            version: "wc/v3",
+            queryStringAuth: true,
+              axiosConfig: {
+                headers: {'Content-Type': 'application/json'},
+                }
             });
         await api.get(`products`, {
             include: ids
@@ -186,11 +194,16 @@ class BusketStore {
             },
             line_items: line_items,
           };
+        ////key for write
         const api = new WooCommerceRestApi({
-            url: "http://admin.stroitelstore.ru/",
-            consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-            consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-            version: "wc/v3"
+            url: "https://admin.stroitelstore.ru/",
+            consumerKey: "ck_9674d22e8a216dfff0369bc9aa3680f685ebda25",
+            consumerSecret: "cs_96cbffa422eef1b5620be5a553b8065937e91b76",
+            version: "wc/v3",
+            queryStringAuth: true,
+              axiosConfig: {
+                headers: {'Content-Type': 'application/json'},
+            }   
             });
         await api.post('orders', data)
             .then( response => {
@@ -198,15 +211,8 @@ class BusketStore {
                 }
             ).catch(err => {
                 console.log(err, err.response?.data)
+                console.log('fuck')
             })
-        // fetch('http://admin.stroitelstore.ru/wp-json/wc/v3/orders?oauth_consumer_key=ck_f3179856b9f88fc14315e11fd4c231397f53759e&oauth_nonce=nBUCjaYEWi9NylfCPiYrf3zumpwBM2SS', {
-        //     method: 'POST',
-        //     headers: {
-        //         "Access-Control-Origin": "*",
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(data),
-        //   }).then(result => console.log(result)).catch(err => console.log(err))
         
     }
 

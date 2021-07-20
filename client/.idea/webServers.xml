@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d229fd9d-2339-45c9-bb81-faf70ac169ae" name="stroitelstore.ru">
+        <fileTransfer rootFolder="/var/www/stroitelstore.ru" accessType="SFTP" host="stroitelstore.ru" port="22" sshConfigId="c6de02ec-1522-4bbc-a133-acd4ebf5b6d6" sshConfig="root@stroitelstore.ru:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
