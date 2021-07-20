@@ -1,0 +1,20 @@
+.offers {
+    margin-top: 100px;
+}
+.offers__wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.offer {
+    width: 49%;
+    overflow: hidden;
+}
+.offer img {
+    margin-bottom: 30px;
+    border-radius: 25px;
+    width: 100%;
+    cursor: pointer;
+}
+.offer img:hover {
+    filter: brightness(80%);
+}

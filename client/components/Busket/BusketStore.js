@@ -33,14 +33,18 @@ class BusketStore {
             phone: '',
             mail: ''
         },
-        products: [
-
-        ]
+        address : {
+            city: '',
+            street: '',
+            house: '',
+            room: ''
+        },
+        products: []
     }
 
     async getData(id, count){
         const api = new WooCommerceRestApi({
-            url: "http://admin.stroitelstore.ru/",
+            url: "https://admin.stroitelstore.ru/",
             consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
             consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
             version: "wc/v3",
@@ -76,7 +80,7 @@ class BusketStore {
         });
         
         const api = new WooCommerceRestApi({
-            url: "http://admin.stroitelstore.ru/",
+            url: "https://admin.stroitelstore.ru/",
             consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
             consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
             version: "wc/v3",
@@ -175,7 +179,16 @@ class BusketStore {
             this.order.clientData.phone = value;
         } else if (id == 'mail') {
             this.order.clientData.mail = value;
+        } else if (id == 'city') {
+            this.order.address.city = value;
+        } else if (id == 'street') {
+            this.order.address.street = value;
+        } else if (id == 'house') {
+            this.order.address.house = value;
+        }  else if (id == 'room') {
+            this.order.address.room = value;
         }  
+        
     }
     async setOrder() {
         let line_items = []
@@ -183,6 +196,12 @@ class BusketStore {
         this.order.products.forEach(item => {
             line_items.push({product_id: item.data.id, quantity: item.count})
         })
+        let address = '', city = '';
+
+        if (this.order.delivery == 'delivery') {
+            address = `${this.order.address.street},${this.order.address.house},${this.order.address.room}`
+            city = this.order.address.city
+        }
 
         const data = {
             
@@ -190,7 +209,12 @@ class BusketStore {
               first_name: this.order.clientData.name,
               last_name: this.order.clientData.surname,
               email: this.order.clientData.mail,
-              phone: this.order.clientData.phone
+              phone: this.order.clientData.phone,
+            },
+            shipping: {
+                
+              city: city,
+              address_1: address
             },
             line_items: line_items,
           };
@@ -208,6 +232,7 @@ class BusketStore {
         await api.post('orders', data)
             .then( response => {
                     console.log(response.data)
+                    localStorage.clear()
                     window.location.href = `/completed_order/${response?.data?.id}`
                 }
             ).catch(err => {

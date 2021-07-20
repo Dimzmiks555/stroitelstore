@@ -164,6 +164,14 @@ const Busket = observer(() => {
                         </div>
                         <div className="delivery_block" style={{display: delivery == 'delivery' ? 'block' : 'none'}}>
                             <h1>Адрес</h1>
+                            <div className={styles.delivery__inputs}>
+                                <input id="city" placeholder="Город" onChange={e => handleClientData(e)}></input>
+                                <input id="street" placeholder="Улица" onChange={e => handleClientData(e)}></input>
+                                
+                                <input id="house" placeholder="Номер дома" onChange={e => handleClientData(e)}></input>
+                                
+                                <input id="room" placeholder="Номер квартиры" onChange={e => handleClientData(e)}></input>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -29,12 +29,13 @@ class CatalogStore {
                 board: '/catalog/img/m-tool.jpg',
                 category: 'Ручной инструмент',
                 url: '/catalog/hammer.svg',
+                id: 153,
             },
             {
                 board: '/catalog/img/paint.jpg',
                 category: 'Краски и малярный инструмент',
                 url: '/catalog/paint-bucket.svg',
-                
+                id: 132,
             },
             {
                 board: '/catalog/img/cement.jpg',
@@ -46,6 +47,7 @@ class CatalogStore {
                 board: '/catalog/img/garden.jpg',
                 category: 'Хозяйственный инвентарь',
                 url: '/catalog/garden.svg',
+                id: 187,
             },
             {
                 board: '/catalog/img/sealant.jpg',
@@ -57,16 +59,19 @@ class CatalogStore {
                 board: '/catalog/img/lock.jpg',
                 category: 'Замочно-скобяные изделия',
                 url: '/catalog/lock.svg',
+                id: 48,
             },
             {
                 board: '/catalog/img/osnastka.jpg',
                 category: 'Оснастка и расх. материалы',
                 url: '/catalog/saw.svg',
+                id: 172,
             },
             {
                 board: '/catalog/img/roof.jpg',
                 category: 'Кровельные материалы',
                 url: '/catalog/roof.svg',
+                id: 206,
             }
         ]
     }

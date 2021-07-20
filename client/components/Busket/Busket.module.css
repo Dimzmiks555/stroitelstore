@@ -311,3 +311,14 @@ background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, 
     border: 2px solid #c00;
     background: #c00;
 }
+.select__overview .delivery__inputs input {
+    padding: 10px 20px;
+    font-size: inherit;
+    font-family: inherit;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    border: #aaa solid 1px;
+    outline: none;
+    height: 50px;
+    width: 100%;
+}
