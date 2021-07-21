@@ -205,6 +205,7 @@
 background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, rgba(255,0,0,1) 88%);
     color: #fff;
     border: none;
+    cursor: default;
 }
 .select input[type=radio]:checked + .select__item svg{
     fill: #fff;
@@ -321,4 +322,10 @@ background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, 
     outline: none;
     height: 50px;
     width: 100%;
+}
+.select__overview .delivery__inputs label {
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
 }

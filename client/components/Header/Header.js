@@ -4,14 +4,65 @@ import Search from '../Search/Search'
 import {observer} from "mobx-react";
 import Link from 'next/link';
 import BusketStore from '../Busket/BusketStore';
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import HeaderStore from './HeaderStore';
+import { useEffect } from 'react';
 const Header = observer(() => {
+
+
+
+
+
     let busketPositions = []
-    if (typeof window !== 'undefined') {
-        busketPositions = JSON.parse(localStorage.getItem('positions')) || []
-        if (BusketStore.order.products[0] == undefined && busketPositions[0] != undefined) {
-            BusketStore.initialSet(busketPositions) 
+
+    useEffect(() => {
+        
+        if (typeof window !== 'undefined') {
+            busketPositions = JSON.parse(localStorage.getItem('positions')) || []
+            if (BusketStore.order.products[0] == undefined && busketPositions[0] != undefined) {
+                BusketStore.initialSet(busketPositions) 
+            }
+            
+            
         }
+    }, [BusketStore.order.products[0]])
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            
+            if (localStorage.getItem('token')) {
+                getData();
+                
+            }
+        }
+    }, [HeaderStore.userData.email])    
+
+
+    async function getData(username){
+        const api = new WooCommerceRestApi({
+            url: "https://admin.stroitelstore.ru/",
+            consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
+            consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
+            version: "wc/v3",
+            queryStringAuth: true,
+            axiosConfig: {
+              headers: {'Content-Type': 'application/json'},
+              }
+            });
+        await api.get("customers", {
+                per_page: 20,
+            })
+            .then( result => {
+                    let arr = [];
+                    HeaderStore.setUserData(result.data)
+                }
+            )
+
+            
     }
+
+
+
     function handleClickLogo(e) {
         CatalogStore.HideCatalog()
     };
@@ -75,19 +126,35 @@ const Header = observer(() => {
                         <p>Корзина</p>
                     </a>
                 </Link>
-                <Link href="/login">
-                    <div className={styles.user}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="512pt"
-                            height="512pt"
-                            viewBox="0 0 512 512"
-                            >
-                            <path d="M471.387 325.012c-16.969-14.91-37.547-27.793-61.168-38.29-10.098-4.484-21.914.063-26.399 10.157-4.484 10.094.063 21.91 10.157 26.398 19.918 8.852 37.082 19.543 51.007 31.782C462.152 370.145 472 391.989 472 415v37c0 11.027-8.973 20-20 20H60c-11.027 0-20-8.973-20-20v-37c0-23.012 9.848-44.855 27.016-59.941C87.223 337.3 146.098 296 256 296c81.605 0 148-66.395 148-148S337.605 0 256 0 108 66.395 108 148c0 47.707 22.695 90.207 57.852 117.29-64.329 14.14-104.344 41.358-125.239 59.722C14.805 347.687 0 380.484 0 415v37c0 33.086 26.914 60 60 60h392c33.086 0 60-26.914 60-60v-37c0-34.516-14.805-67.313-40.613-89.988zM148 148c0-59.55 48.45-108 108-108s108 48.45 108 108-48.45 108-108 108-108-48.45-108-108zm0 0"></path>
-                        </svg>
-                        <p>Войти</p>
-                    </div>
+                {HeaderStore.userData[0]?.email ? (
+                    <Link href="/cabinet">
+                        <div className={styles.user}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="512pt"
+                                height="512pt"
+                                viewBox="0 0 512 512"
+                                >
+                                <path d="M471.387 325.012c-16.969-14.91-37.547-27.793-61.168-38.29-10.098-4.484-21.914.063-26.399 10.157-4.484 10.094.063 21.91 10.157 26.398 19.918 8.852 37.082 19.543 51.007 31.782C462.152 370.145 472 391.989 472 415v37c0 11.027-8.973 20-20 20H60c-11.027 0-20-8.973-20-20v-37c0-23.012 9.848-44.855 27.016-59.941C87.223 337.3 146.098 296 256 296c81.605 0 148-66.395 148-148S337.605 0 256 0 108 66.395 108 148c0 47.707 22.695 90.207 57.852 117.29-64.329 14.14-104.344 41.358-125.239 59.722C14.805 347.687 0 380.484 0 415v37c0 33.086 26.914 60 60 60h392c33.086 0 60-26.914 60-60v-37c0-34.516-14.805-67.313-40.613-89.988zM148 148c0-59.55 48.45-108 108-108s108 48.45 108 108-48.45 108-108 108-108-48.45-108-108zm0 0"></path>
+                            </svg>
+                            <p>{HeaderStore.userData[0].first_name} <br></br> {HeaderStore.userData[0].last_name}</p>
+                        </div>
                 </Link>
+                ) : (
+                    <Link href="/login">
+                        <div className={styles.user}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="512pt"
+                                height="512pt"
+                                viewBox="0 0 512 512"
+                                >
+                                <path d="M471.387 325.012c-16.969-14.91-37.547-27.793-61.168-38.29-10.098-4.484-21.914.063-26.399 10.157-4.484 10.094.063 21.91 10.157 26.398 19.918 8.852 37.082 19.543 51.007 31.782C462.152 370.145 472 391.989 472 415v37c0 11.027-8.973 20-20 20H60c-11.027 0-20-8.973-20-20v-37c0-23.012 9.848-44.855 27.016-59.941C87.223 337.3 146.098 296 256 296c81.605 0 148-66.395 148-148S337.605 0 256 0 108 66.395 108 148c0 47.707 22.695 90.207 57.852 117.29-64.329 14.14-104.344 41.358-125.239 59.722C14.805 347.687 0 380.484 0 415v37c0 33.086 26.914 60 60 60h392c33.086 0 60-26.914 60-60v-37c0-34.516-14.805-67.313-40.613-89.988zM148 148c0-59.55 48.45-108 108-108s108 48.45 108 108-48.45 108-108 108-108-48.45-108-108zm0 0"></path>
+                            </svg>
+                            <p>Войти</p>
+                        </div>
+                    </Link>
+                )}
                 
             </div>
         </div>

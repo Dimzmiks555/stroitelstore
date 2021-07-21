@@ -173,6 +173,7 @@ const Category = observer(({mainTitle}) => {
     useEffect(() => {
         showGoods()
     }, [dataF])
+    
     if (isLoading == true) {
         return (
             <>

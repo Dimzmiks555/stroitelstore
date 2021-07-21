@@ -2,6 +2,26 @@
     font-size: 36px;
     margin-bottom: 40px;
 }
+.cabinet__header {
+    display: flex;
+    justify-content: space-between;
+}
+.cabinet__header button {
+    height: 50px;
+    font-size: 16px;
+    width: 160px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: #fff;
+    color: #d00;
+    font-weight: bold;
+    border: 2px solid #d00;
+}
+.cabinet__header button:hover {
+    background: #d00;
+    color: #fff;
+}
 .blocks {
     width: 80%;
     display: flex;
@@ -19,6 +39,27 @@
     width: 48%;
     margin-bottom: 40px;
     cursor: pointer;
+    background: #fff;
+}
+.userData {
+    display: flex;
+    border-radius: 10px;
+    padding: 20px 40px;
+    border: 1px solid #ccc;
+    width: 48%;
+    margin-bottom: 40px;
+    cursor: pointer;
+    background: #fff;
+}
+.receipts {
+    display: flex;
+    border-radius: 10px;
+    padding: 20px 40px;
+    border: 1px solid #ccc;
+    width: 48%;
+    margin-bottom: 40px;
+    cursor: pointer;
+    background: #fff;
 }
 .clientData:hover {
     background: #eee;

@@ -6,7 +6,7 @@ import Catalog from "../../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
 import { useRouter } from "next/router";
-import Order_IdStore from './order_idStore'
+import Order_IdStore from '../../components/Orders/order_idStore'
 import Footer from '../../components/Footer/Footer';
 import { useEffect } from 'react';
 
@@ -42,7 +42,7 @@ import { useEffect } from 'react';
           <p>В ближайшее время с вами свяжется менеджер для подтверждения заказа.</p>
           <h2>Детали заказа</h2>
           <ul>
-            <li>Номер телефона: {Order_IdStore.data[0]?.billing?.phone}</li>
+            <li>Номер телефона: {Order_IdStore.data[0]?.billing?.phone ? Order_IdStore.data[0]?.billing?.phone : 'Отсутствует'}</li>
             <li>Электронная почта: {Order_IdStore.data[0]?.billing?.email}</li>
             <li>Способ выдачи: {Order_IdStore.data[0]?.billing?.address_1[0] == undefined ? 'Самовывоз' : 'Доставка' }</li>
             <li>Адрес: {Order_IdStore.data[0]?.billing?.address_1[0] == undefined ? 'ул. Коммунистическая д.25' : Order_IdStore.data[0]?.billing?.address_1 }</li>

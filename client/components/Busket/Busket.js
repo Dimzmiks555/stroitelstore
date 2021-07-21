@@ -4,6 +4,7 @@ import BusketStore from './BusketStore'
 import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
+import HeaderStore from '../Header/HeaderStore';
 
 const Busket = observer(() => {
 
@@ -16,6 +17,16 @@ const Busket = observer(() => {
     BusketStore.order.products.map((item, index) => {
         total += item.data?.price * item.count
     })
+
+    if (HeaderStore.userData[0]?.email) {
+        handleClientData('name', HeaderStore.userData[0]?.first_name);
+        handleClientData('surname', HeaderStore.userData[0]?.last_name);
+        handleClientData('phone', HeaderStore.userData[0]?.phone);
+        handleClientData('mail', HeaderStore.userData[0]?.email);
+        handleClientData('customer_id', HeaderStore.userData[0]?.id);
+    }
+
+
     if (typeof window !== "undefined") {
         window.addEventListener('scroll', () => {
             if (document.getElementById('totalBlock') !== null) {
@@ -62,8 +73,8 @@ const Busket = observer(() => {
     function sendOrder(e) {
         BusketStore.setOrder()
     }
-    function handleClientData(e) {
-        BusketStore.setClientData(e.target.id, e.target.value)
+    function handleClientData(id, value) {
+        BusketStore.setClientData(id, value)
     }
     return (
         <>
@@ -165,12 +176,14 @@ const Busket = observer(() => {
                         <div className="delivery_block" style={{display: delivery == 'delivery' ? 'block' : 'none'}}>
                             <h1>Адрес</h1>
                             <div className={styles.delivery__inputs}>
-                                <input id="city" placeholder="Город" onChange={e => handleClientData(e)}></input>
-                                <input id="street" placeholder="Улица" onChange={e => handleClientData(e)}></input>
-                                
-                                <input id="house" placeholder="Номер дома" onChange={e => handleClientData(e)}></input>
-                                
-                                <input id="room" placeholder="Номер квартиры" onChange={e => handleClientData(e)}></input>
+                                <label for="city">Город</label>
+                                <input id="city" placeholder="Город" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                <label for="street">Улица</label>
+                                <input id="street" placeholder="Улица" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                <label for="house">Дом</label>
+                                <input id="house" placeholder="Номер дома" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                <label for="room">Квартира</label>
+                                <input id="room" placeholder="Номер квартиры" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
                             </div>
                         </div>
                     </div>
@@ -189,24 +202,41 @@ const Busket = observer(() => {
                             </label>
                         </div>
                     </div>
-                    <div className={styles.clientdata}>
-                        <div className={styles.clientdata__title}>
-                            <h1>Ваши данные</h1>
-                            <Link href="login">
-                                <button>Войти</button>
-                            </Link>
+                    {HeaderStore.userData[0]?.email ? (
+                        <div className={styles.clientdata}>
+                            <div className={styles.clientdata__title}>
+                                <h1>Ваши данные</h1>
+                            </div>
+                            <div className={styles.clientdata__inputs}>
+                                <h3>{HeaderStore.userData[0]?.first_name} {HeaderStore.userData[0]?.last_name}</h3>
+                            </div>
+                            <div>
+                                <h3>{HeaderStore.userData[0]?.email}</h3>
+                            </div>
+                            <div>
+                                <h4>{HeaderStore.userData[0]?.phone}</h4>
+                            </div>
                         </div>
-                        <div className={styles.clientdata__inputs}>
-                            <input id="name" placeholder="Имя" onChange={e => handleClientData(e)}></input>
-                            <input id="surname" placeholder="Фамилия" onChange={e => handleClientData(e)}></input>
+                    ) : (
+                        <div className={styles.clientdata}>
+                            <div className={styles.clientdata__title}>
+                                <h1>Ваши данные</h1>
+                                <Link href="login">
+                                    <button>Войти</button>
+                                </Link>
+                            </div>
+                            <div className={styles.clientdata__inputs}>
+                                <input id="name" placeholder="Имя" onChange={e => handleClientData(e)}></input>
+                                <input id="surname" placeholder="Фамилия" onChange={e => handleClientData(e)}></input>
+                            </div>
+                            <div>
+                                <input id="phone" placeholder="Номер телефона" onChange={e => handleClientData(e)}></input>
+                            </div>
+                            <div>
+                                <input id="mail" placeholder="Электронная почта" onChange={e => handleClientData(e)}></input>
+                            </div>
                         </div>
-                        <div>
-                            <input id="phone" placeholder="Номер телефона" onChange={e => handleClientData(e)}></input>
-                        </div>
-                        <div>
-                            <input id="mail" placeholder="Электронная почта" onChange={e => handleClientData(e)}></input>
-                        </div>
-                    </div>
+                    )}
                 </div>
                 </>) : (<h2>В корзине пока ничего нет</h2>)}
                 
@@ -217,7 +247,7 @@ const Busket = observer(() => {
                     <h2>Итого <span>{total?.toLocaleString()} <i>₽</i></span></h2>
                     <h3>Всего позиций <span>{BusketStore.positions.length}</span></h3>
                     <h3>Способ доставки <span>{delivery == 'delivery' ? 'Доставка' : delivery == 'shop' ? 'Самовывоз' : 'Не выбран'}</span></h3>
-                    <h3>Адрес <span>{delivery == 'delivery' ? 'Доставка' : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}</span></h3>
+                    <h3>Адрес <span>{delivery == 'delivery' ? `г. ${BusketStore.order.address.city}, ул. ${BusketStore.order.address.street}, д. ${BusketStore.order.address.house}, кв. ${BusketStore.order.address.room}` : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}</span></h3>
                     <h3>Способ оплаты <span>{payment == 'nal' ? 'Наличными' : payment == 'card' ? 'Картой' : 'Не указан'}</span></h3>
                 </div>
                 <div>

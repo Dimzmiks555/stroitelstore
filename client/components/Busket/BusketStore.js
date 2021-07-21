@@ -31,7 +31,8 @@ class BusketStore {
             name: '',
             surname: '',
             phone: '',
-            mail: ''
+            mail: '',
+            customer_id: 0
         },
         address : {
             city: '',
@@ -187,7 +188,9 @@ class BusketStore {
             this.order.address.house = value;
         }  else if (id == 'room') {
             this.order.address.room = value;
-        }  
+        }  else if (id == 'customer_id') {
+            this.order.clientData.customer_id = value;
+        }
         
     }
     async setOrder() {
@@ -216,6 +219,7 @@ class BusketStore {
               city: city,
               address_1: address
             },
+            customer_id: this.order.clientData.customer_id,
             line_items: line_items,
           };
         ////key for write
@@ -232,7 +236,7 @@ class BusketStore {
         await api.post('orders', data)
             .then( response => {
                     console.log(response.data)
-                    localStorage.clear()
+                    localStorage.removeItem('positions')
                     window.location.href = `/completed_order/${response?.data?.id}`
                 }
             ).catch(err => {

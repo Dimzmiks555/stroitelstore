@@ -2,53 +2,60 @@ import styles from './Cabinet.module.css'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react';
+import HeaderStore from '../Header/HeaderStore';
+import CabinetStore from './CabinetStore';
 
 
 const Cabinet = observer(() => {
 
-   
+    
+    useEffect(() => {
+        CabinetStore.getOrders()
+        console.log(CabinetStore.orders)
+    }, [CabinetStore.orders[0]?.id])
+
+
+
     function handleCashback(e) {
         let block = e.currentTarget;
         block.style.position = 'absolute';
         block.style.width = '80%';
         block.style.height = `${block.scrollHeight * 2}`
     }
-
+    function handleLogOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        window.location.href = '/'
+    }
+    function handleClientBlock(e) {
+        let h2 = e.currentTarget.querySelector('h2')
+        let block = e.currentTarget;
+        h2.style.fontSize = '32px'
+        block.style.position = 'absolute';
+        block.style.width = '80%';
+        block.style.height = '80vh'
+    }
     return (
         <>
         <div className={styles.cabinet}>
-            <h1>Афанасьев Николай Дмитриевич</h1>
+            <div className={styles.cabinet__header}>
+                <h1>Афанасьев Николай Дмитриевич</h1>
+                <button onClick={handleLogOut}>Выйти</button>
+            </div>
             <div className={styles.blocks}>
-                <div className={styles.clientData}>
-                    <div className={styles.clientData__image}>
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                x="0"
-                                y="0"
-                                enableBackground="new 0 0 512 512"
-                                version="1.1"
-                                viewBox="0 0 512 512"
-                                xmlSpace="preserve"
-                                >
-                                <path d="M119.467 337.067c-28.237 0-51.2 22.963-51.2 51.2 0 28.237 22.963 51.2 51.2 51.2s51.2-22.963 51.2-51.2c0-28.237-22.964-51.2-51.2-51.2zm0 85.333c-18.825 0-34.133-15.309-34.133-34.133 0-18.825 15.309-34.133 34.133-34.133s34.133 15.309 34.133 34.133c0 18.824-15.309 34.133-34.133 34.133zM409.6 337.067c-28.237 0-51.2 22.963-51.2 51.2 0 28.237 22.963 51.2 51.2 51.2 28.237 0 51.2-22.963 51.2-51.2 0-28.237-22.963-51.2-51.2-51.2zm0 85.333c-18.825 0-34.133-15.309-34.133-34.133 0-18.825 15.309-34.133 34.133-34.133 18.825 0 34.133 15.309 34.133 34.133 0 18.824-15.308 34.133-34.133 34.133z"></path>
-                                <path d="M510.643 289.784l-76.8-119.467a8.535 8.535 0 00-7.177-3.917H332.8a8.53 8.53 0 00-8.533 8.533v213.333a8.525 8.525 0 008.533 8.533h34.133v-17.067h-25.6V183.467h80.674l72.926 113.442v82.825h-42.667V396.8h51.2a8.525 8.525 0 008.533-8.533V294.4a8.51 8.51 0 00-1.356-4.616z"></path>
-                                <path d="M375.467 277.333V217.6h68.267v-17.067h-76.8a8.53 8.53 0 00-8.533 8.533v76.8a8.525 8.525 0 008.533 8.533h128v-17.067H375.467zM332.8 106.667H8.533A8.536 8.536 0 000 115.2v273.067a8.53 8.53 0 008.533 8.533H76.8v-17.067H17.067v-256h307.2v256H162.133V396.8H332.8a8.525 8.525 0 008.533-8.533V115.2a8.53 8.53 0 00-8.533-8.533z"></path>
-                                <path d="M8.533 345.6H59.733000000000004V362.66700000000003H8.533z"></path>
-                                <path d="M179.2 345.6H324.267V362.66700000000003H179.2z"></path>
-                                <path d="M469.333 345.6H503.466V362.66700000000003H469.333z"></path>
-                                <path d="M34.133 140.8H332.79999999999995V157.86700000000002H34.133z"></path>
-                                <path d="M110.933 379.733H128V396.8H110.933z"></path>
-                                <path d="M401.067 379.733H418.134V396.8H401.067z"></path>
-                                <path d="M34.133 72.533H153.6V89.6H34.133z"></path>
-                                <path d="M0 72.533H17.067V89.6H0z"></path>
-                            </svg>
+                <Link href="/cabinet/orders">
+                    <div className={styles.clientData}>
+                        <div className={styles.clientData__image}>
+                            
+                        </div>
+                        <div>
+                            <h2>Заказы</h2>
+                            <p>Количество заказов: {CabinetStore.orders.length}</p>
+                            <p>Общая сумма заказов: {typeof CabinetStore.orders[0]?.total != 'object' && CabinetStore.orders[0]?.total ? (`${CabinetStore.orders?.reduce((a, b) => { return a + +b.total }, 0 )}`) : null}</p>
+                        </div>
                     </div>
-                    <div>
-                        <h2>Заказы</h2>
-                        <p></p>
-                    </div>
-                </div>
-                <div className={styles.cashback} onClick={e => {handleCashback(e)}}>
+                </Link>
+                <div className={styles.cashback}>
                     <div className={styles.clientData__image}>
                         10%
                     </div>
@@ -56,7 +63,7 @@ const Cabinet = observer(() => {
                         <h2>Скидка</h2>
                     </div>
                 </div>
-                <div className={styles.clientData}>
+                <div className={styles.userData}>
                     <div className={styles.clientData__image}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -68,17 +75,37 @@ const Cabinet = observer(() => {
                         </svg>
                     </div>
                     <div>
-                        <h2>Афанасьев Николай</h2>
-                        <p>E-mail: anodaday@yandex.ru</p>
-                        <p>Телефон: +7 (953) 119-91-20</p>
+                        <h2>{HeaderStore.userData[0]?.first_name} {HeaderStore.userData[0]?.last_name}</h2>
+                        <p>E-mail: {HeaderStore.userData[0]?.email}</p>
+                        <p>Телефон: {HeaderStore.userData[0]?.phone ? (HeaderStore.userData[0]?.phone) : 'Не указан'}</p>
                     </div>
                 </div>
-                <div className={styles.clientData}>
+                <div className={styles.receipts}>
                     <div className={styles.clientData__image}>
-                    
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            x="0"
+                            y="0"
+                            enableBackground="new 0 0 512 512"
+                            version="1.1"
+                            viewBox="0 0 512 512"
+                            xmlSpace="preserve"
+                            >
+                            <path d="M119.467 337.067c-28.237 0-51.2 22.963-51.2 51.2 0 28.237 22.963 51.2 51.2 51.2s51.2-22.963 51.2-51.2c0-28.237-22.964-51.2-51.2-51.2zm0 85.333c-18.825 0-34.133-15.309-34.133-34.133 0-18.825 15.309-34.133 34.133-34.133s34.133 15.309 34.133 34.133c0 18.824-15.309 34.133-34.133 34.133zM409.6 337.067c-28.237 0-51.2 22.963-51.2 51.2 0 28.237 22.963 51.2 51.2 51.2 28.237 0 51.2-22.963 51.2-51.2 0-28.237-22.963-51.2-51.2-51.2zm0 85.333c-18.825 0-34.133-15.309-34.133-34.133 0-18.825 15.309-34.133 34.133-34.133 18.825 0 34.133 15.309 34.133 34.133 0 18.824-15.308 34.133-34.133 34.133z"></path>
+                            <path d="M510.643 289.784l-76.8-119.467a8.535 8.535 0 00-7.177-3.917H332.8a8.53 8.53 0 00-8.533 8.533v213.333a8.525 8.525 0 008.533 8.533h34.133v-17.067h-25.6V183.467h80.674l72.926 113.442v82.825h-42.667V396.8h51.2a8.525 8.525 0 008.533-8.533V294.4a8.51 8.51 0 00-1.356-4.616z"></path>
+                            <path d="M375.467 277.333V217.6h68.267v-17.067h-76.8a8.53 8.53 0 00-8.533 8.533v76.8a8.525 8.525 0 008.533 8.533h128v-17.067H375.467zM332.8 106.667H8.533A8.536 8.536 0 000 115.2v273.067a8.53 8.53 0 008.533 8.533H76.8v-17.067H17.067v-256h307.2v256H162.133V396.8H332.8a8.525 8.525 0 008.533-8.533V115.2a8.53 8.53 0 00-8.533-8.533z"></path>
+                            <path d="M8.533 345.6H59.733000000000004V362.66700000000003H8.533z"></path>
+                            <path d="M179.2 345.6H324.267V362.66700000000003H179.2z"></path>
+                            <path d="M469.333 345.6H503.466V362.66700000000003H469.333z"></path>
+                            <path d="M34.133 140.8H332.79999999999995V157.86700000000002H34.133z"></path>
+                            <path d="M110.933 379.733H128V396.8H110.933z"></path>
+                            <path d="M401.067 379.733H418.134V396.8H401.067z"></path>
+                            <path d="M34.133 72.533H153.6V89.6H34.133z"></path>
+                            <path d="M0 72.533H17.067V89.6H0z"></path>
+                        </svg>
                     </div>
                     <div>
-                        <h2>Электронные чеки</h2>
+                        <h2>Адрес доставки</h2>
                     </div>
                 </div>
             </div>
