@@ -45,7 +45,7 @@
     align-items: center;
     color: #fff;
     border-radius: 50px;
-    width: 50%;
+    width: 70%;
 }
 .sign_in .login__input {
     border: 1px solid #aaa;
@@ -58,7 +58,15 @@
     margin-bottom: 40px;
     width: 80%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+}
+.tabs button:first-child {
+    border-right: none;
+    border-radius: 10px 0px 0px 10px;
+}
+.tabs button:last-child {
+    border-left: none;
+    border-radius: 0 10px 10px 0;
 }
 .tabs button {
     cursor: pointer;
@@ -67,7 +75,6 @@
     width: 160px;
     background: #fff;
     border: 2px solid #aaa;
-    border-radius: 10px;
     color: inherit;
     font-weight: bold;
 }

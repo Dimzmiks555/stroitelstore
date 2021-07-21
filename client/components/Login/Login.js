@@ -5,15 +5,23 @@ import { useState } from 'react';
 export default function Login () {  
 
     const [type, setType] = useState(['login'])
-
+    const [username, setUsername] = useState([''])
+    const [password, setPassword] = useState([''])
 
     let data = {
         username: "anodaday",
         password: "yjdsqu2013"
     }
 
+    function handleUserName(e) {
+        setUsername(e.target.value)
+    }
+    function handlePassword(e) {
+        setPassword(e.target.value)
+    }
+    function handleLogin() {
 
-    fetch('https://admin.stroitelstore.ru/wp-json/jwt-auth/v1/token',{
+        fetch('https://admin.stroitelstore.ru/wp-json/jwt-auth/v1/token',{
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -23,6 +31,9 @@ export default function Login () {
     )
     .then(res => console.log(res))
     .catch(err => console.log(err))
+
+    }
+    
 
     function handleclick(value) {
         setType(value)
@@ -55,20 +66,25 @@ export default function Login () {
     return (
         <div className={styles.login}>
             <div className={styles.info}>
-                <img src='/login/home_repair.jpg' className={styles.image}></img>
+                {type == 'login' ? (
+                    <img src='/login/385-2-2048x1260.png' className={styles.image}></img>
+                ) : (
+                    
+                    <img src='/login/home_repair.jpg' className={styles.image}></img>
+                )}
             </div>
             <div className={styles.sign_in}>
                 
                 <div className={styles.tabs}>
-                    <button onClick={e => {handleclick('login')}}>Вход</button>
-                    <button onClick={e => {handleclick('registration')}}>Регистрация</button>
+                    <button style={type == 'login' ? {background: '#d00', color: '#fff', border: '2px solid #d00'} : null} onClick={e => {handleclick('login')}}>Вход</button>
+                    <button style={type == 'registration' ? {background: '#d00', color: '#fff', border: '2px solid #d00'} : null} onClick={e => {handleclick('registration')}}>Регистрация</button>
                 </div>
                 {type == 'login' ? (
                     <>
                     <h1>Добро пожаловать!</h1>
-                    <input className={styles.login__input} placeholder="E-mail"></input>
-                    <input className={styles.login__input} placeholder="Пароль"></input>
-                    <button className={styles.login__button}>Вход</button>
+                    <input className={styles.login__input} placeholder="E-mail" onChange={e => {handleUserName(e)}}></input>
+                    <input className={styles.login__input} type='password' placeholder="Пароль"onChange={e => {handlePassword(e)}}></input>
+                    <button className={styles.login__button} onClick={handleLogin}>Вход</button>
                     </>
                 ) : (
                     <>
@@ -78,7 +94,7 @@ export default function Login () {
                     <input className={styles.login__input} placeholder="Номер телефона"></input>
                     <input className={styles.login__input} placeholder="Имя"></input>
                     <input className={styles.login__input} placeholder="Фамилия"></input>
-                    <button className={styles.login__button}>Вход</button>
+                    <button className={styles.login__button}>Зарегистрироваться</button>
                     </>
                 )}
             </div>
