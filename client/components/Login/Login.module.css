@@ -9,17 +9,28 @@
     margin-bottom: 20px;
 }
 .login__input {
+    font-size: 16px;
     margin-top: 40px;
     width: 300px;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 4px;
     border: none;
     outline: none;
 }
 .login__button {
+    background: #d00;
+    border: 1px solid #d00;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 10px;
     margin-top: 60px;
     width: 300px;
+    cursor: pointer;
     height: 60px;
+}
+.login__button:hover {
+    background: #a00;
 }
 .sign_in {
     width: 40%;
@@ -38,7 +49,30 @@
 }
 .sign_in .login__input {
     border: 1px solid #aaa;
+    padding: 10px 20px;
 }
 .image {
     width: 80%;
+}
+.tabs {
+    margin-bottom: 40px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+.tabs button {
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 18px;
+    width: 160px;
+    background: #fff;
+    border: 2px solid #aaa;
+    border-radius: 10px;
+    color: inherit;
+    font-weight: bold;
+}
+.tabs button:hover {
+    background: #c00;
+    color: #fff;
+    border: 1px solid #c00;
 }
