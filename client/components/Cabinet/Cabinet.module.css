@@ -18,6 +18,10 @@
     border: 1px solid #ccc;
     width: 48%;
     margin-bottom: 40px;
+    cursor: pointer;
+}
+.clientData:hover {
+    background: #eee;
 }
 .clientData__image {
     width: 160px;
@@ -43,6 +47,10 @@
     border: 1px solid #c00;
     width: 48%;
     margin-bottom: 40px;
+    cursor: pointer;
+}
+.cashback:hover {
+    background: #a00;
 }
 .cashback .clientData__image {
     background: #fff;

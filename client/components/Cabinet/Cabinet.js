@@ -7,6 +7,13 @@ import { observer } from 'mobx-react';
 const Cabinet = observer(() => {
 
    
+    function handleCashback(e) {
+        let block = e.currentTarget;
+        block.style.position = 'absolute';
+        block.style.width = '80%';
+        block.style.height = `${block.scrollHeight * 2}`
+    }
+
     return (
         <>
         <div className={styles.cabinet}>
@@ -41,7 +48,7 @@ const Cabinet = observer(() => {
                         <p></p>
                     </div>
                 </div>
-                <div className={styles.cashback}>
+                <div className={styles.cashback} onClick={e => {handleCashback(e)}}>
                     <div className={styles.clientData__image}>
                         10%
                     </div>
