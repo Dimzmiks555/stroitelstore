@@ -39,6 +39,7 @@ const Header = observer(() => {
 
 
     async function getData(username){
+        console.log(localStorage.getItem('email'))
         const api = new WooCommerceRestApi({
             url: "https://admin.stroitelstore.ru/",
             consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
@@ -51,6 +52,7 @@ const Header = observer(() => {
             });
         await api.get("customers", {
                 per_page: 20,
+                email: localStorage.getItem('username')
             })
             .then( result => {
                     let arr = [];

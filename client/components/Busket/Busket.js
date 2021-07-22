@@ -76,6 +76,12 @@ const Busket = observer(() => {
     function handleClientData(id, value) {
         BusketStore.setClientData(id, value)
     }
+    function handleCreateDelivery(id, value) {
+        BusketStore.createDelivery(id,value)
+    }
+    function addDelivery() {
+        BusketStore.addDelivery()
+    }
     return (
         <>
         <div className={styles.busket}>
@@ -175,16 +181,34 @@ const Busket = observer(() => {
                         </div>
                         <div className="delivery_block" style={{display: delivery == 'delivery' ? 'block' : 'none'}}>
                             <h1>Адрес</h1>
-                            <div className={styles.delivery__inputs}>
-                                <label for="city">Город</label>
-                                <input id="city" placeholder="Город" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
-                                <label for="street">Улица</label>
-                                <input id="street" placeholder="Улица" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
-                                <label for="house">Дом</label>
-                                <input id="house" placeholder="Номер дома" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
-                                <label for="room">Квартира</label>
-                                <input id="room" placeholder="Номер квартиры" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
-                            </div>
+                            {HeaderStore.userData[0]?.shipping?.city?.length < 1 && HeaderStore.userData[0]?.email ? (
+                                <div className={styles.delivery__inputs}>
+                                    <label for="city">Город</label>
+                                    <input id="city" placeholder="Город" onChange={e => handleCreateDelivery(e.target.id, e.target.value)}></input>
+                                    <label for="street">Улица</label>
+                                    <input id="street" placeholder="Улица" onChange={e => handleCreateDelivery(e.target.id, e.target.value)}></input>
+                                    <label for="house">Дом</label>
+                                    <input id="house" placeholder="Номер дома" onChange={e => handleCreateDelivery(e.target.id, e.target.value)}></input>
+                                    <label for="room">Квартира</label>
+                                    <input id="room" placeholder="Номер квартиры" onChange={e => handleCreateDelivery(e.target.id, e.target.value)}></input>
+                                    <button className={styles.newDelivery__button} onClick={addDelivery}>Сохранить</button>
+                                </div>
+                            ) : HeaderStore.userData[0]?.shipping?.address_1?.length > 1  && HeaderStore.userData[0]?.email ? (
+                                <div className={styles.delivery__inputs}>
+                                    <p>Город <b>{HeaderStore.userData[0]?.shipping?.city}</b>, {HeaderStore.userData[0]?.shipping?.address_1}</p>
+                                </div>
+                            ) : (
+                                <div className={styles.delivery__inputs}>
+                                    <label for="city">Город</label>
+                                    <input id="city" placeholder="Город" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                    <label for="street">Улица</label>
+                                    <input id="street" placeholder="Улица" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                    <label for="house">Дом</label>
+                                    <input id="house" placeholder="Номер дома" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                    <label for="room">Квартира</label>
+                                    <input id="room" placeholder="Номер квартиры" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -214,7 +238,7 @@ const Busket = observer(() => {
                                 <h3>{HeaderStore.userData[0]?.email}</h3>
                             </div>
                             <div>
-                                <h4>{HeaderStore.userData[0]?.phone}</h4>
+                                <h3>{HeaderStore.userData[0]?.billing.phone}</h3>
                             </div>
                         </div>
                     ) : (
@@ -247,18 +271,50 @@ const Busket = observer(() => {
                     <h2>Итого <span>{total?.toLocaleString()} <i>₽</i></span></h2>
                     <h3>Всего позиций <span>{BusketStore.positions.length}</span></h3>
                     <h3>Способ доставки <span>{delivery == 'delivery' ? 'Доставка' : delivery == 'shop' ? 'Самовывоз' : 'Не выбран'}</span></h3>
-                    <h3>Адрес <span>{delivery == 'delivery' ? `г. ${BusketStore.order.address.city}, ул. ${BusketStore.order.address.street}, д. ${BusketStore.order.address.house}, кв. ${BusketStore.order.address.room}` : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}</span></h3>
+                    {
+                        HeaderStore.userData[0]?.email ? (
+                            <h3>Адрес 
+                                <span>
+                                    {delivery == 'delivery' ?
+                                    `г. ${HeaderStore.userData[0]?.shipping.city}, ${HeaderStore.userData[0]?.shipping.address_1}` 
+                                    : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}
+                                </span>
+                            </h3>
+                        ) : (
+                            <h3>Адрес 
+                                <span>
+                                    {delivery == 'delivery' ?
+                                    `г. ${BusketStore.order.address.city}, ул. ${BusketStore.order.address.street}, д. ${BusketStore.order.address.house}, кв. ${BusketStore.order.address.room}` 
+                                    : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}
+                                </span>
+                            </h3>
+                        )
+                    }
                     <h3>Способ оплаты <span>{payment == 'nal' ? 'Наличными' : payment == 'card' ? 'Картой' : 'Не указан'}</span></h3>
                 </div>
-                <div>
-                    { delivery != '' &&
-                      payment!= '' &&
-                      BusketStore.order.clientData.phone != ''  &&
-                      BusketStore.order.clientData.name != ''  &&
-                      BusketStore.order.clientData.surname != '' ?
-                        <button className={styles.to_pay} onClick={sendOrder}>Заказать</button> :
-                        <button className={styles.to_pay} style={{background: '#ccc', cursor: 'default'}}>Заказать</button>}
-                </div>
+                {
+                    HeaderStore.userData[0]?.email ? (
+                        <div>
+                            { delivery != '' &&
+                            payment!= '' &&
+                            BusketStore.order.clientData.phone != ''  &&
+                            BusketStore.order.clientData.name != ''  &&
+                            BusketStore.order.clientData.surname != '' ?
+                                <button className={styles.to_pay} onClick={sendOrder}>Заказать</button> :
+                                <button className={styles.to_pay} style={{background: '#ccc', cursor: 'default'}}>Заказать</button>}
+                        </div>
+                    ) : (
+                        <div>
+                            { delivery != '' &&
+                            payment!= '' &&
+                            BusketStore.order.address.phone != ''  &&
+                            BusketStore.order.address.name != ''  &&
+                            BusketStore.order.address.surname != '' ?
+                                <button className={styles.to_pay} onClick={sendOrder}>Заказать</button> :
+                                <button className={styles.to_pay} style={{background: '#ccc', cursor: 'default'}}>Заказать</button>}
+                        </div>
+                    )
+                }
             </div>) : null}
         </div>
         </>

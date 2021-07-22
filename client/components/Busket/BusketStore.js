@@ -11,6 +11,7 @@ class BusketStore {
             positions: observable,
             order: observable,
             initFetchStatus: observable,
+            newDelivery: observable,
             AddPosition: action,
             getData: action,
             incrementCount: action,
@@ -19,7 +20,9 @@ class BusketStore {
             delete: action,
             setDelivery: action,
             getInitData: action,
-            setPayment: action
+            setPayment: action,
+            createDelivery: action,
+            addDelivery: action
         });
     }
     initFetchStatus = 'pending';
@@ -42,6 +45,14 @@ class BusketStore {
         },
         products: []
     }
+
+    newDelivery = {
+        city: '',
+        street: '',
+        house: '',
+        room: ''
+    }
+
 
     async getData(id, count){
         const api = new WooCommerceRestApi({
@@ -171,7 +182,52 @@ class BusketStore {
     setPayment(value) {
         this.order.payment = value;
     }
+    createDelivery(id, value) {
+        if (id == 'city') {
+            this.newDelivery.city = value;
+        } else if (id == 'street') {
+            this.newDelivery.street = value;
+        } else if (id == 'house') {
+            this.newDelivery.house = value;
+        }  else if (id == 'room') {
+            this.newDelivery.room = value;
+        }
+    }
+    async addDelivery() {
+        let address = '', city = '';
+
+        address = `ул. ${this.newDelivery.street}, д. ${this.newDelivery.house}, кв. ${this.newDelivery.room}`
+        city = this.newDelivery.city
+
+        let data = {
+            shipping: {
+              city: city,
+              address_1: address
+            },
+          };
+
+        const api = new WooCommerceRestApi({
+            url: "https://admin.stroitelstore.ru/",
+            consumerKey: "ck_9674d22e8a216dfff0369bc9aa3680f685ebda25",
+            consumerSecret: "cs_96cbffa422eef1b5620be5a553b8065937e91b76",
+            version: "wc/v3",
+            queryStringAuth: true,
+              axiosConfig: {
+                headers: {'Content-Type': 'application/json'},
+            }   
+            });
+        await api.put(`customers/${this.order.clientData.customer_id}`, data)
+            .then( response => {
+                    console.log(response.data);
+                    window.location.reload();
+                }
+            ).catch(err => {
+                console.log(err, err.response?.data)
+                console.log('fuck')
+            })
+    }
     setClientData(id, value) {
+        console.log(this.order)
         if (id == 'name') {
             this.order.clientData.name = value;
         } else if (id == 'surname') {
@@ -181,7 +237,9 @@ class BusketStore {
         } else if (id == 'mail') {
             this.order.clientData.mail = value;
         } else if (id == 'city') {
+
             this.order.address.city = value;
+            console.log(this.order.address.city, id, value)
         } else if (id == 'street') {
             this.order.address.street = value;
         } else if (id == 'house') {
@@ -202,7 +260,7 @@ class BusketStore {
         let address = '', city = '';
 
         if (this.order.delivery == 'delivery') {
-            address = `${this.order.address.street},${this.order.address.house},${this.order.address.room}`
+            address = `ул. ${this.order.address.street}, д. ${this.order.address.house}, кв. ${this.order.address.room}`
             city = this.order.address.city
         }
 
