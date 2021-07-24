@@ -19,7 +19,7 @@ const CatalogItems = observer(() => {
                 {CatalogItemsStore.promise == 'done' ? (
                     <div className={styles.catalog__itemslist}>
                     {CatalogItemsStore.props?.data?.map((subcat) => (
-                        <Link href={`/catalog/${subcat.id}`}>
+                        <Link href={`/catalog/${subcat.id}/1`}>
                             <a className={styles.catalog__link} onClick={handleClick}>{subcat.name}</a>
                         </Link>
                     ))}

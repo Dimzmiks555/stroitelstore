@@ -21,7 +21,6 @@
 .product__overview {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 .product__overview_img {
     
@@ -43,7 +42,7 @@
     object-fit: contain;
 }
 .product__overview_info {
-
+    margin-top: 100px;
     width: 50%;
 }
 .product__overview_title{
@@ -80,8 +79,12 @@
 .product__infoblock {
     padding-top: 80px;
 }
+.product__description {
+    font-size: 18px;
+}
 .product__description p{
     margin-bottom: 40px;
+    margin-left: 10px;
 }
 .product__description h2 {
     font-size: 36px;
@@ -147,5 +150,17 @@
     font-weight: bold;
 }
 .product__counter button:hover {
+    color: #d00;
+}
+.attributes {
+    margin-top: -10px;
+    border-spacing: 10px 16px;
+}
+.attributes td{
+    font-size: 18px;
+}
+.attributes span{
+    font-size: 18px;
+    font-weight: bold;
     color: #d00;
 }

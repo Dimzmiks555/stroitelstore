@@ -42,7 +42,32 @@ const Product = observer(() => {
         }
     }
 
-
+    if (typeof window !== "undefined") {
+        window.addEventListener('scroll', () => {
+            if (document.getElementById('product__overview_img') !== null) {
+                let totalBlock = document.getElementById('product__overview_img')
+                let mainBlock = document.getElementById('product__overview_info')
+                let y = window.pageYOffset;
+                    if (y >= 150 && y <= mainBlock.offsetHeight - 400) {
+                        totalBlock.style.position = 'fixed';
+                        totalBlock.style.top = '80px';
+                        totalBlock.style.left = '10%';
+                        totalBlock.style.width = '43.6%'
+                        mainBlock.style.marginLeft = '54.5%'
+                    } else if (y > mainBlock.offsetHeight - 400){
+                        totalBlock.style.position = 'fixed';
+                        totalBlock.style.bottom = '1000px';
+                        totalBlock.style.left = '10%';
+                        totalBlock.style.width = '43.6%'
+                    }
+                    else {
+                        totalBlock.style = null;
+                        mainBlock.style = null
+                    }
+            }
+            
+        })
+    } 
 
     let product_id = router.query.product;
     useEffect(() => {
@@ -101,10 +126,10 @@ const Product = observer(() => {
                     </a>
                     <div className={styles.product}>
                         <div className={styles.product__overview}>
-                            <div className={styles.product__overview_img}>
+                            <div className={styles.product__overview_img} id="product__overview_img">
                                 <img src={data?.images ? data?.images[0]?.src : null}></img>
                             </div>
-                            <div className={styles.product__overview_info}>
+                            <div className={styles.product__overview_info} id="product__overview_info">
                                 <div className={styles.product__overview_title}>
                                     <h1>{data?.name}</h1>
                                     <h4>Артикул: {data?.sku}</h4>
@@ -139,21 +164,47 @@ const Product = observer(() => {
                                         )
                                     }
                                 </div>
-                                
+                                <div className={styles.product__infoblock}>
+                                    <div className={styles.product__description}>
+                                        <h2>
+                                            Описание
+                                        </h2>
+                                        <p>{data?.description?.replace(/<\/?[^>]+>/g,'')}</p>
+                                        <h2>
+                                            Характеристики
+                                        </h2>
+                                        
+                                        <table className={styles.attributes}>
+                                            {console.log(data)}
+                                            {data?.meta_data?.map(attr => {
+                                                if (attr.key == '_type_of_door') {
+
+                                                    return (<tr><td>Тип двери</td><td><span>{attr.value}</span></td></tr>)
+
+                                                } else if (attr.key == '_depth_of_door') {
+
+                                                    return (<tr><td>Ширина полотна</td><td><span>{attr.value}</span></td></tr>)
+
+                                                } else if (attr.key == '_door_construction') {
+
+                                                    return (<tr><td>Конструкция двери</td><td><span>{attr.value}</span></td></tr>)
+
+                                                } else if (attr.key == '_door_style') {
+
+                                                    return (<tr><td>Тип полотна</td><td><span>{attr.value}</span></td></tr>)
+
+                                                } else if (attr.key == '_door_sizes') {
+
+                                                    return (<tr><td>Размеры двери</td><td><span>{attr.value}</span></td></tr>)
+
+                                                }
+                                            })}
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className={styles.product__infoblock}>
-                            <div className={styles.product__description}>
-                                <h2>
-                                    Описание
-                                </h2>
-                                <p>Описание отсутствует.</p>
-                                <h2>
-                                    Характеристики
-                                </h2>
-                                <p>Характеристики отсутствуют.</p>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             )
