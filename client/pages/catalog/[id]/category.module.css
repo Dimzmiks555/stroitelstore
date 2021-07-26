@@ -252,6 +252,39 @@ transform-origin: 0 0; /* see note above */
     font-size: 18px;
     margin-bottom: 10px;
 }
-.checkbox_filter input {
-    margin-right: 10px;
+.checkbox_filter input[type='checkbox'] {
+    display: none;
+}
+.checkbox_filter label {
+    position: relative;
+    margin-left: 40px;
+    line-height: 30px;
+}
+.checkbox_filter label::before {
+    content: '';
+    left: -40px;
+    position: absolute;
+    background: #ddd;
+    border: 5px solid #ccc;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.checkbox_filter label:hover::before {
+    background: #d99;
+}
+.checkbox_filter input[type='checkbox']:checked + label::after {
+    content: '';
+    top: 7px;
+    left: -33px;
+    position: absolute;
+    background: #d00;
+    border-radius: 5px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.checkbox_filter input[type='checkbox']:checked + label:hover::before {
+    background: #ddd !important;
 }
