@@ -1,6 +1,6 @@
 import Header from '../../components/Header/Header';
 import Mainstyles from '../index.module.css';
-import styles from '../catalog/category.module.css'
+import styles from '../catalog/[id]/category.module.css'
 import Catalog from "../../components/Catalog";
 import { useRouter } from 'next/router';
 import Link from 'next/link';

@@ -47,16 +47,21 @@ const Product = observer(() => {
             if (document.getElementById('product__overview_img') !== null) {
                 let totalBlock = document.getElementById('product__overview_img')
                 let mainBlock = document.getElementById('product__overview_info')
+                let scrollHeight = document.body.scrollHeight;
                 let y = window.pageYOffset;
-                    if (y >= 150 && y <= mainBlock.offsetHeight - 400) {
+                console.log(scrollHeight,mainBlock.offsetHeight )
+                console.log(y)
+                    if (y >= 150 && y <= (scrollHeight - mainBlock.offsetHeight)) {
                         totalBlock.style.position = 'fixed';
                         totalBlock.style.top = '80px';
                         totalBlock.style.left = '10%';
                         totalBlock.style.width = '43.6%'
                         mainBlock.style.marginLeft = '54.5%'
-                    } else if (y > mainBlock.offsetHeight - 400){
+                    } else if (y > (scrollHeight - mainBlock.offsetHeight)){
+                        console.log('bolshe')
                         totalBlock.style.position = 'fixed';
-                        totalBlock.style.bottom = '1000px';
+                        mainBlock.style.marginLeft = '54.5%'
+                        totalBlock.style.bottom = '500px';
                         totalBlock.style.left = '10%';
                         totalBlock.style.width = '43.6%'
                     }
@@ -176,10 +181,10 @@ const Product = observer(() => {
                                         
                                         <table className={styles.attributes}>
                                             {console.log(data)}
-                                            {data?.meta_data?.map(attr => {
-                                                if (attr.key == '_type_of_door') {
+                                            {data?.attributes?.map(attr => {
+                                                if (attr.id == 3) {
 
-                                                    return (<tr><td>Тип двери</td><td><span>{attr.value}</span></td></tr>)
+                                                    return (<tr><td>Тип двери</td><td><span>{attr?.options[0]}</span></td></tr>)
 
                                                 } else if (attr.key == '_depth_of_door') {
 

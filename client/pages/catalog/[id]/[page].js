@@ -20,7 +20,8 @@ const Category = observer(({mainTitle}) => {
 
     // Router
     const router = useRouter()
-    let {id, page , sort} = router.query
+    let {id, page , sort, pa__type_of_door} = router.query
+    console.log(router.query)
 
     //UseState
     const [data, setData] = useState([]);
@@ -56,7 +57,9 @@ const Category = observer(({mainTitle}) => {
                     order: 'asc',
                     category: id,
                     stock_status: 'instock',
-                    min_price: 1// 18 products per page
+                    min_price: 1,
+                    attribute :'pa__type_of_door',
+                    attribute_term: pa__type_of_door
                 })
                 .then( result => {
                         let arr = [];
@@ -66,6 +69,26 @@ const Category = observer(({mainTitle}) => {
                         setData(result.data)
                         setPrices([Math.min(...arr),Math.max(...arr)])
                         setLoading(false)
+                    }
+                )
+
+                
+        }
+        async function getDataAttr(){
+            const api = new WooCommerceRestApi({
+                url: "https://admin.stroitelstore.ru/",
+                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
+                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
+                version: "wc/v3",
+                queryStringAuth: true,
+                axiosConfig: {
+                    headers: {'Content-Type': 'application/json'},
+                    }
+                });
+            await api.get("products/attributes/2/terms", {
+                })
+                .then( result => {
+                        console.log(result.data)
                     }
                 )
 
@@ -92,9 +115,9 @@ const Category = observer(({mainTitle}) => {
         }
         getCategoryData(id);
         getData(id)
-        
+        getDataAttr()
 
-    }, [id, page]);
+    }, [router.query]);
     
     useEffect(() => {
         if (data != undefined) {
@@ -125,11 +148,11 @@ const Category = observer(({mainTitle}) => {
     }
     function handleSelect(value) {
         if (value.value == 'priceUp') {
-            router.push(`./${id}?sort=asc`)
+            router.push(`./${id}/${page}?sort=asc`)
         } else if (value.value == 'priceDown') {
-            router.push(`./${id}?sort=desc`)
+            router.push(`./${id}/${page}?sort=desc`)
         } else if (value.value == 'default') {
-            router.push(`./${id}`)
+            router.push(`./${id}/${page}`)
         }
         
     } 
@@ -141,6 +164,29 @@ const Category = observer(({mainTitle}) => {
             }
         }) 
         dataF = result;
+    }
+    let params = {}
+    Object.assign(params, router.query)
+    delete params['id']
+    delete params['page']
+
+    function handleFilter(e, params) {
+        params[`${e.target.dataset.request}`] = e.target.value;
+        let parametrs = Object.entries(params)
+        function generate(parametrs) {
+            let string =''
+            parametrs.forEach((item, index) => {
+                if(index == 0) {
+                    string = `?${item[0]}=${item[1]}`
+                } else {
+                    string = string + `&${item[0]}=${item[1]}`
+                }
+            })
+            return string
+        }
+        console.log(`/catalog/${id}/1${generate(parametrs)}`)
+
+        router.push(`/catalog/${id}/1${generate(parametrs)}`)
     }
     function showGoods() {
         console.log(categoryData)
@@ -266,12 +312,12 @@ const Category = observer(({mainTitle}) => {
                                 <div>
                                     <div className={styles.filter_title}>Тип двери</div>
                                     <div className={styles.checkbox_filter}>
-                                        <input id='_type_of_door' type='checkbox'></input>
-                                        <label for="_type_of_door">Глухая</label>
+                                        <input id='_type_of_door_gluhaya' value="212" data-request="pa__type_of_door" type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
+                                        <label for="_type_of_door_gluhaya">Глухая</label>
                                     </div>
                                     <div className={styles.checkbox_filter}>
-                                        <input id='_type_of_door' type='checkbox'></input>
-                                        <label for="_type_of_door">Остекленная</label>
+                                        <input id='_type_of_door_glassed'  value="213" data-request="pa__type_of_door" type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
+                                        <label for="_type_of_door_glassed">Остекленная</label>
                                     </div>
                                 </div>
                                 <div>
