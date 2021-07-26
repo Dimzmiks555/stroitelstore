@@ -20,7 +20,7 @@ const Category = observer(({mainTitle}) => {
 
     // Router
     const router = useRouter()
-    let {id, page , sort, pa__type_of_door} = router.query
+    let {id, page , sort, pa__type_of_door, pa__depth_of_door} = router.query
     console.log(router.query)
 
     //UseState
@@ -50,16 +50,18 @@ const Category = observer(({mainTitle}) => {
                 axiosConfig: {
                     headers: {'Content-Type': 'application/json'},
                     }
-                });
+                }); 
             await api.get("products", {
                     per_page: 20,
                     page: page,
-                    order: 'desc',
+                    order: sort,
                     orderby: 'price',
                     category: id,
                     stock_status: 'instock',
-                    attribute :'pa__type_of_door',
-                    attribute_term: pa__type_of_door
+                    attribute: 'pa__depth_of_door',
+                    attribute_term: pa__depth_of_door,
+                    attribute : 'pa__type_of_door',
+                    attribute_term: pa__type_of_door,
                 })
                 .then( result => {
                         console.log(result.data)
@@ -148,14 +150,11 @@ const Category = observer(({mainTitle}) => {
         
     }
     function handleSelect(value) {
-        if (value.value == 'priceUp') {
-            router.push(`/catalog/${id}/${page}?sort=asc`)
-        } else if (value.value == 'priceDown') {
-            router.push(`/catalog/${id}/${page}?sort=desc`)
-        } else if (value.value == 'default') {
-            router.push(`/catalog/${id}/${page}`)
+        if (value.value == 'default') {
+             delete params[`sort`]
+        } else {
+            params[`sort`] = value.value;
         }
-        params[`order`] = value.value;
         let parametrs = Object.entries(params)
         function generate(parametrs) {
             let string =''
@@ -185,11 +184,24 @@ const Category = observer(({mainTitle}) => {
     delete params['page']
 
     function handleFilter(e, params) {
-        if (params[`${e.target.dataset.request}`] != undefined) {
+        if (params[`${e.target.dataset.request}`] != undefined && !params[`${e.target.dataset.request}`].includes(e.target.value)) {
             params[`${e.target.dataset.request}`] = params[`${e.target.dataset.request}`] + ',' + e.target.value;
+        } else if (params[`${e.target.dataset.request}`]?.includes(e.target.value)) {
+            let array = params[`${e.target.dataset.request}`].split(',')
+            array = array.filter(i => {
+                return i != e.target.value
+            })
+            if (array[0] == undefined) {
+                delete params[`${e.target.dataset.request}`]
+            } else if (array[0] != undefined) {
+                params[`${e.target.dataset.request}`] = array.join('')
+            } else {
+                params[`${e.target.dataset.request}`] = array.join(',')
+            }
         } else {
             params[`${e.target.dataset.request}`] = e.target.value;
         }
+        
         let parametrs = Object.entries(params)
         function generate(parametrs) {
             let string =''
@@ -278,8 +290,8 @@ const Category = observer(({mainTitle}) => {
 
     const options = [
         { value: 'default', label: 'По умолчанию' },
-        { value: 'priceUp', label: 'По возрастанию цены' },
-        { value: 'priceDown', label: 'По уменьшению цены' }
+        { value: 'asc', label: 'По возрастанию цены' },
+        { value: 'desc', label: 'По уменьшению цены' }
     ]
     
     return (
@@ -335,12 +347,20 @@ const Category = observer(({mainTitle}) => {
                                 <div>
                                     <div className={styles.filter_title}>Ширина полотна</div>
                                     <div className={styles.checkbox_filter}>
-                                        <input id='_type_of_door' type='checkbox'></input>
-                                        <label for="_type_of_door">38 мм</label>
+                                        {pa__depth_of_door?.includes('214') ? (
+                                            <input id='_depth_of_door_38' value="214" data-request="pa__depth_of_door" checked type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
+                                        ) : (
+                                            <input id='_depth_of_door_38' value="214" data-request="pa__depth_of_door" type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
+                                        )}
+                                        <label for="_depth_of_door_38">38 мм</label>
                                     </div>
                                     <div className={styles.checkbox_filter}>
-                                        <input id='_type_of_door' type='checkbox'></input>
-                                        <label for="_type_of_door">40 мм</label>
+                                    {pa__depth_of_door?.includes('215') ? (
+                                            <input id='_depth_of_door_40' value="215" data-request="pa__depth_of_door" checked type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
+                                        ) : (
+                                            <input id='_depth_of_door_40' value="215" data-request="pa__depth_of_door" type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
+                                        )}
+                                        <label for="_depth_of_door_40">40 мм</label>
                                     </div>
                                     
                                 </div>
