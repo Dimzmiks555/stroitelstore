@@ -57,10 +57,7 @@ const Category = observer(({mainTitle}) => {
                     order: sort,
                     category: id,
                     stock_status: 'instock',
-                    attribute: 'pa__depth_of_door',
-                    attribute_term: pa__depth_of_door,
-                    attribute : 'pa__type_of_door',
-                    attribute_term: pa__type_of_door,
+                    'filter[pa__type_of_door]': 212
                 })
                 .then( result => {
                         console.log(result.data)
