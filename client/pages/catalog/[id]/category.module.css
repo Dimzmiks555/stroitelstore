@@ -286,5 +286,5 @@ transform-origin: 0 0; /* see note above */
     cursor: pointer;
 }
 .checkbox_filter input[type='checkbox']:checked + label:hover::before {
-    background: #ddd !important;
+    background: #ddd !important ;
 }
