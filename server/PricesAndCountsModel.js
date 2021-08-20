@@ -13,12 +13,18 @@ const PricesAndCountsModel = sequelize.define('prices_and_counts', {
         type: Sequelize.STRING,
         primaryKey: true
     },
-    count: {
-        type: Sequelize.STRING,
-    },
     price: {
         type: Sequelize.STRING
-    }
+    },
+    sku: {
+        type: Sequelize.STRING
+    },
+    unit: {
+        type: Sequelize.STRING
+    },
+    amount: {
+        type: Sequelize.STRING
+    },
 })
 
 sequelize.sync({force: true}).then(result=>{

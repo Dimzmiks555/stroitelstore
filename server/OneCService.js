@@ -1,5 +1,6 @@
 import GroupModel from './GroupModel.js'
 import GoodModel from './GoodModel.js'
+import PricesAndCountsModel from './PricesAndCountsModel.js'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -71,50 +72,26 @@ class OneCService {
         
         let data = json
 
-        console.log(data)
 
-
-        // classificator[0]['Группы'][0]['Группа'].forEach(item => {
-        //     let object = {
-        //         guid: item['Ид'][0],
-        //         title: item['Наименование'][0]
-        //     }
-
-            
-
-        //     GroupModel.create(object)
-        //     .then((result)=>{
-        //         console.log(result)
-        //     })
-        //     .catch(err => console.log(err) );
-
-        // })
-
-        // catalog[0]['Товары'][0]['Товар'].forEach(item => {
-
-
-        //     if (item['Группы'] != undefined) {
-
-
-        //         let object = {
-        //             guid: item['Ид'][0],
-        //             title: item['Наименование'][0],
-        //             group_id: item['Группы'][0]['Ид'][0],
-        //         }
-
-                
-
-        //         GoodModel.create(object)
-        //         .then((result)=>{
-        //             console.log(result)
-        //         })
-        //         .catch(err => console.log(err) );
-
-        //     }
+        data['ПакетПредложений'][0]['Предложения'][0]['Предложение'].forEach(item => {
+            let object = {
+                good_guid: item['Ид'][0],
+                sku: item['Артикул'][0],
+                unit: item['БазоваяЕдиница'][0]['$']['НаименованиеПолное'],
+                price:  item['Цены'][0]['Цена'][0]['ЦенаЗаЕдиницу'][0],
+                amount: item['Количество'][0],
+            }
 
             
 
-        // })
+            PricesAndCountsModel.create(object)
+            .then((result)=>{
+                console.log(result)
+            })
+            .catch(err => console.log(err) );
+
+        })
+
         
         
 
