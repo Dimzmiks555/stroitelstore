@@ -1,5 +1,6 @@
 import express from 'express';
-import OneCRouter from './OneCRouter.js'
+import OneCRouter from './routers/OneCRouter.js'
+import ProductsRouter from './routers/ProductsRouter.js'
 import cors from 'cors';
 import passport from 'passport'
 import { Strategy } from 'passport-local'
@@ -15,6 +16,7 @@ app.use(express.json({limit: '50mb'}));
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.static('static'));
 app.use('/', OneCRouter);
+app.use('/api', ProductsRouter);
 
 // app.post('/', (req, res) => {
 //     console.log(req.body)

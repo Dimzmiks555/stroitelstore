@@ -1,6 +1,6 @@
-import GroupModel from './GroupModel.js'
-import GoodModel from './GoodModel.js'
-import PricesAndCountsModel from './PricesAndCountsModel.js'
+import GroupModel from '../models/GroupModel.js'
+import GoodModel from '../models/GoodModel.js'
+import PricesAndCountsModel from '../models/PricesAndCountsModel.js'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
