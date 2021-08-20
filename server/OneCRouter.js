@@ -5,7 +5,7 @@ const router = new Router();
 
 router.post('/1c_exchange', OneCController.create);
 
-router.get('/1c_exchange', OneCController.getAll);
+router.post('/1c_exchange/prices_and_counts', OneCController.createPricesAndCounts);
 
 // router.get('/', OneCController.getOne);
 

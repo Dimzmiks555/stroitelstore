@@ -1,4 +1,5 @@
 import GroupModel from './GroupModel.js'
+import GoodModel from './GoodModel.js'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -35,11 +36,90 @@ class OneCService {
 
         })
 
+        catalog[0]['Товары'][0]['Товар'].forEach(item => {
 
+
+            if (item['Группы'] != undefined) {
+
+
+                let object = {
+                    guid: item['Ид'][0],
+                    title: item['Наименование'][0],
+                    group_id: item['Группы'][0]['Ид'][0],
+                }
+
+                
+
+                GoodModel.create(object)
+                .then((result)=>{
+                    console.log(result)
+                })
+                .catch(err => console.log(err) );
+
+            }
+
+            
+
+        })
         
         
 
     }
+
+
+    async createPricesAndCounts(json) {
+        
+        let data = json
+
+        console.log(data)
+
+
+        // classificator[0]['Группы'][0]['Группа'].forEach(item => {
+        //     let object = {
+        //         guid: item['Ид'][0],
+        //         title: item['Наименование'][0]
+        //     }
+
+            
+
+        //     GroupModel.create(object)
+        //     .then((result)=>{
+        //         console.log(result)
+        //     })
+        //     .catch(err => console.log(err) );
+
+        // })
+
+        // catalog[0]['Товары'][0]['Товар'].forEach(item => {
+
+
+        //     if (item['Группы'] != undefined) {
+
+
+        //         let object = {
+        //             guid: item['Ид'][0],
+        //             title: item['Наименование'][0],
+        //             group_id: item['Группы'][0]['Ид'][0],
+        //         }
+
+                
+
+        //         GoodModel.create(object)
+        //         .then((result)=>{
+        //             console.log(result)
+        //         })
+        //         .catch(err => console.log(err) );
+
+        //     }
+
+            
+
+        // })
+        
+        
+
+    }
+
     // async getAll() {
     //     const tenders = await Tenders.find();
     //     return tenders;

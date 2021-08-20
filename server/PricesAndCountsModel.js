@@ -8,15 +8,15 @@ const sequelize = new Sequelize("1c_base", "root", "root", {
 
 
 
-const GoodModel = sequelize.define('good', {
-    guid: {
+const PricesAndCountsModel = sequelize.define('prices_and_counts', {
+    good_guid: {
         type: Sequelize.STRING,
         primaryKey: true
     },
-    title: {
+    count: {
         type: Sequelize.STRING,
     },
-    group_id: {
+    price: {
         type: Sequelize.STRING
     }
 })
@@ -26,4 +26,4 @@ sequelize.sync({force: true}).then(result=>{
   })
   .catch(err=> console.log(err));
 
-export default sequelize.model('good', GoodModel)
+export default sequelize.model('prices_and_counts', PricesAndCountsModel)

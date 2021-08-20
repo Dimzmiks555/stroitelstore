@@ -11,11 +11,13 @@ class OneCController {
             res.status(500).json(e)
         }
     }
-    async getAll(req, res) {
+    async createPricesAndCounts(req, res) {
         try {
-            // const tenders = await TendersService.getAll();
-            res.send('OK');
+            await OneCService.createPricesAndCounts(req.body);
+            res.send("ok");
+            res.status(200)
         } catch (e) {
+            // console.log(e);
             res.status(500).json(e)
         }
     }
