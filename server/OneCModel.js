@@ -8,16 +8,16 @@ const sequelize = new Sequelize("1c_base", "root", "root", {
 
 
 
-const Group = sequelize.define('group', {
+const GroupModel = sequelize.define('group', {
     guid: {
         type: Sequelize.STRING,
-        allowNull: false,
         primaryKey: true
     },
     title: {
         type: Sequelize.STRING,
-        allowNull: false
     }
+}, {
+  timestamps: false
 })
 
 sequelize.sync().then(result=>{
@@ -25,4 +25,4 @@ sequelize.sync().then(result=>{
   })
   .catch(err=> console.log(err));
 
-export default Group
+export default sequelize.model('group', GroupModel)

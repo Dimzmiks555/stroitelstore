@@ -21,17 +21,16 @@ class OneCService {
         let catalog = data['Каталог']
 
         classificator[0]['Группы'][0]['Группа'].forEach(item => {
-            console.log(item['Ид']) 
-            console.log(item['Наименование'])
-
-            OneCModel.create({
+            let object = {
                 guid: item['Ид'][0],
                 title: item['Наименование'][0]
-            })
+            }
+
+            OneCModel.create(object)
             .then((result)=>{
                 console.log(result)
             })
-            .catch(err=>console.log(err));
+            .catch(err => console.log(err) );
 
         })
 
