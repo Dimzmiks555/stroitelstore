@@ -57,7 +57,8 @@ const Category = observer(({mainTitle}) => {
                     order: sort,
                     category: id,
                     stock_status: 'instock',
-                    'filter[pa__type_of_door]': 212
+                    _type_of_door: '212',
+                    // _depth_of_door: '215',
                 })
                 .then( result => {
                         console.log(result.data)
