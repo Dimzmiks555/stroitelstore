@@ -1,11 +1,10 @@
-import OneCModel from "./OneCModel.js";
-import fs from 'fs'
-import XMLParser from 'xml2js';
+import GroupModel from './GroupModel.js'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { DOMParser }  from 'xmldom';
-import fetch from 'node-fetch';
-import { response } from "express";
+
+import Sequelize from "sequelize";
+ 
+
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 class OneCService {
@@ -26,7 +25,9 @@ class OneCService {
                 title: item['Наименование'][0]
             }
 
-            OneCModel.create(object)
+            
+
+            GroupModel.create(object)
             .then((result)=>{
                 console.log(result)
             })
@@ -34,6 +35,8 @@ class OneCService {
 
         })
 
+
+        
         
 
     }

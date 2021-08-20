@@ -16,11 +16,9 @@ const GroupModel = sequelize.define('group', {
     title: {
         type: Sequelize.STRING,
     }
-}, {
-  timestamps: false
 })
 
-sequelize.sync().then(result=>{
+sequelize.sync({force: true}).then(result=>{
     console.log(result);
   })
   .catch(err=> console.log(err));
