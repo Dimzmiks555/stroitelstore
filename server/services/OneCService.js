@@ -43,11 +43,6 @@ class OneCService {
                     console.log(results);
                 });
 
-            // GroupModel.create(object)
-            // .then((result)=>{
-            //     console.log(result)
-            // })
-            // .catch(err => console.log(err) );
 
         })
 
@@ -72,11 +67,6 @@ class OneCService {
                     console.log(results);
                 });
 
-                // GoodModel.create(object)
-                // .then((result)=>{
-                //     console.log(result)
-                // })
-                // .catch(err => console.log(err) );
 
             }
 
