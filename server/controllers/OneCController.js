@@ -7,7 +7,6 @@ class OneCController {
             res.send("ok");
             res.status(200)
         } catch (e) {
-            // console.log(e);
             res.status(500).json(e)
         }
     }

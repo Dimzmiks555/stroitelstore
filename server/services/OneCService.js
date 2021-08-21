@@ -1,11 +1,20 @@
-import GroupModel from '../models/GroupModel.js'
-import GoodModel from '../models/GoodModel.js'
-import PricesAndCountsModel from '../models/PricesAndCountsModel.js'
+// import GroupModel from '../models/GroupModel.js'
+// import GoodModel from '../models/GoodModel.js'
+// import PricesAndCountsModel from '../models/PricesAndCountsModel.js'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+import mysql from 'mysql2'
 import Sequelize from "sequelize";
  
+
+
+const connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    database: '1c_base',
+    password: "root"
+})
 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -26,14 +35,19 @@ class OneCService {
                 guid: item['Ид'][0],
                 title: item['Наименование'][0]
             }
+            console.log(item)
+            const sql = `INSERT INTO \`groups\` (guid, title) VALUES('${object.guid}', '${object.title}')  `;
+ 
+                connection.query(sql, function(err, results) {
+                    if(err) console.log(err);
+                    console.log(results);
+                });
 
-            
-
-            GroupModel.create(object)
-            .then((result)=>{
-                console.log(result)
-            })
-            .catch(err => console.log(err) );
+            // GroupModel.create(object)
+            // .then((result)=>{
+            //     console.log(result)
+            // })
+            // .catch(err => console.log(err) );
 
         })
 
@@ -51,11 +65,18 @@ class OneCService {
 
                 
 
-                GoodModel.create(object)
-                .then((result)=>{
-                    console.log(result)
-                })
-                .catch(err => console.log(err) );
+                const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}') ON DUPLICATE KEY UPDATE id = id`;
+ 
+                connection.query(sql, function(err, results) {
+                    if(err) console.log(err);
+                    console.log(results);
+                });
+
+                // GoodModel.create(object)
+                // .then((result)=>{
+                //     console.log(result)
+                // })
+                // .catch(err => console.log(err) );
 
             }
 
@@ -83,12 +104,20 @@ class OneCService {
             }
 
             
+            
+            const sql = `INSERT INTO prices_and_counts(good_guid, sku, unit, price, amount) VALUES('${object.good_guid}', '${object.sku}', '${object.unit}', '${object.price}', ${object.amount}) `;
+ 
+            connection.query(sql, function(err, results) {
+                if(err) console.log(err);
+                console.log(results);
+            });
+            
 
-            PricesAndCountsModel.create(object)
-            .then((result)=>{
-                console.log(result)
-            })
-            .catch(err => console.log(err) );
+            // PricesAndCountsModel.create(object)
+            // .then((result)=>{
+            //     console.log(result)
+            // })
+            // .catch(err => console.log(err) );
 
         })
 
