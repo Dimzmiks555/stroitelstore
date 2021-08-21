@@ -22,7 +22,7 @@ const CatalogItems = observer(() => {
                         <Link href={`/catalog/${subcat.id}/1`}>
                             <a className={styles.catalog__link} onClick={handleClick}>{subcat.name}</a>
                         </Link>
-                    ))}
+                    ))} 
                     </div>
                 ) : null}
             </div>
