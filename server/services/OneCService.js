@@ -33,48 +33,77 @@ class OneCService {
         classificator[0]['Группы'][0]['Группа'].forEach(item => {
             let object = {
                 guid: item['Ид'][0],
-                title: item['Наименование'][0]
+                title: item['Наименование'][0],
+                parent_group: null
             }
-            console.log(item)
-            const sql = `INSERT INTO \`groups\` (guid, title) VALUES('${object.guid}', '${object.title}')  `;
+            
+
+            const sql = `INSERT INTO \`groups\` (guid, title, parent_group) VALUES('${object.guid}', '${object.title}', '${subobject.parent_group}')  `;
  
-                connection.query(sql, function(err, results) {
-                    if(err) console.log(err);
-                    console.log(results);
-                });
+            connection.query(sql, function(err, results) {
+                if(err) console.log(err);
+                console.log(results);
+            });
 
 
         })
 
-        catalog[0]['Товары'][0]['Товар'].forEach(item => {
+        classificator[0]['Группы'][0]['Группа'].forEach(item => {
+
+            if (item['Группы']) {
+
+                item['Группы'][0]['Группа'].forEach(subitem => {
+
+                    let subobject = {
+                            guid: subitem['Ид'][0],
+                            title: subitem['Наименование'][0],
+                            parent_group: item['Ид'][0]
+                        }
 
 
-            if (item['Группы'] != undefined) {
+                    let subsql = `INSERT INTO \`groups\` (guid, title, parent_group) VALUES('${subobject.guid}', '${subobject.title}', '${subobject.parent_group}')  `;
+ 
+                    connection.query(subsql, function(err, results) {
+                        if(err) console.log(err);
+                        console.log(results);
+                    });
+
+                })
+
+            }
 
 
-                let object = {
-                    guid: item['Ид'][0],
-                    title: item['Наименование'][0],
-                    group_id: item['Группы'][0]['Ид'][0],
-                }
+
+        })
+        // catalog[0]['Товары'][0]['Товар'].forEach(item => {
+
+
+        //     if (item['Группы'] != undefined) {
+
+
+        //         let object = {
+        //             guid: item['Ид'][0],
+        //             title: item['Наименование'][0],
+        //             group_id: item['Группы'][0]['Ид'][0],
+        //         }
 
                 
 
-                const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}') ON DUPLICATE KEY UPDATE id = id`;
+        //         const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}')`;
  
-                connection.query(sql, function(err, results) {
-                    if(err) console.log(err);
-                    console.log(results);
-                });
+        //         connection.query(sql, function(err, results) {
+        //             if(err) console.log(err);
+        //             console.log(results);
+        //         });
 
-
-            }
+        //     }
 
             
 
-        })
+        // })
         
         
+        console.log('complete')
 
     }
 
