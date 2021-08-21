@@ -31,25 +31,13 @@ class OneCService {
         let catalog = data['Каталог']
 
         classificator[0]['Группы'][0]['Группа'].forEach(item => {
+
             let object = {
                 guid: item['Ид'][0],
                 title: item['Наименование'][0],
                 parent_group: null
             }
             
-
-            const sql = `INSERT INTO \`groups\` (guid, title, parent_group) VALUES('${object.guid}', '${object.title}', '${subobject.parent_group}')  `;
- 
-            connection.query(sql, function(err, results) {
-                if(err) console.log(err);
-                console.log(results);
-            });
-
-
-        })
-
-        classificator[0]['Группы'][0]['Группа'].forEach(item => {
-
             if (item['Группы']) {
 
                 item['Группы'][0]['Группа'].forEach(subitem => {
@@ -71,7 +59,12 @@ class OneCService {
                 })
 
             }
-
+            const sql = `INSERT INTO \`groups\` (guid, title, parent_group) VALUES('${object.guid}', '${object.title}', '${object.parent_group}')  `;
+ 
+            connection.query(sql, function(err, results) {
+                if(err) console.log(err);
+                console.log(results);
+            });
 
 
         })
