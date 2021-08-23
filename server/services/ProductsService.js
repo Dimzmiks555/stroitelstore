@@ -25,16 +25,36 @@ class ProductsService {
 
 
         if (params.page) {
-            console.log(posts_per_page * +params.page - 1)
             limit = `${posts_per_page * (+params.page - 1)}, ${posts_per_page}`
         }
 
+
+        let filters = []
+
+
+
+        
+
+
         if (params.group) {
-            group = params.group
+            filters.push({column: 'group_id', value: params.group})
         }
 
 
-        let sql = `SELECT * FROM \`goods\` LIMIT ${limit}`;
+
+
+        console.log(1)
+
+        let sql = `
+            SELECT goods.guid, goods.title, goods.group_id, groups.title as \`group\` 
+            FROM \`goods\` 
+            JOIN \`groups\` ON groups.guid = goods.group_id 
+            ${filters.length == 1 ? `WHERE \`${filters[0].column}\` = '${filters[0].value}'` : filters.length > 1 ? filters.map((item, index) => index !== 0 ? ` AND ${item.column} = ${item.value} ` : '') : ''} 
+            LIMIT ${limit} 
+        `;
+
+
+        console.log(sql)
 
         connection.query(sql, function(err, results) {
             if(err) console.log(err);

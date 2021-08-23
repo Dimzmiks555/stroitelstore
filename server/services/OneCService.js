@@ -68,32 +68,33 @@ class OneCService {
 
 
         })
-        // catalog[0]['Товары'][0]['Товар'].forEach(item => {
+
+        catalog[0]['Товары'][0]['Товар'].forEach(item => {
 
 
-        //     if (item['Группы'] != undefined) {
+            if (item['Группы'] != undefined) {
 
 
-        //         let object = {
-        //             guid: item['Ид'][0],
-        //             title: item['Наименование'][0],
-        //             group_id: item['Группы'][0]['Ид'][0],
-        //         }
+                let object = {
+                    guid: item['Ид'][0],
+                    title: item['Наименование'][0],
+                    group_id: item['Группы'][0]['Ид'][0],
+                }
 
                 
 
-        //         const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}')`;
+                const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}')`;
  
-        //         connection.query(sql, function(err, results) {
-        //             if(err) console.log(err);
-        //             console.log(results);
-        //         });
+                connection.query(sql, function(err, results) {
+                    if(err) console.log(err);
+                    console.log(results);
+                });
 
-        //     }
+            }
 
             
 
-        // })
+        })
         
         
         console.log('complete')
@@ -124,12 +125,6 @@ class OneCService {
                 console.log(results);
             });
             
-
-            // PricesAndCountsModel.create(object)
-            // .then((result)=>{
-            //     console.log(result)
-            // })
-            // .catch(err => console.log(err) );
 
         })
 
