@@ -8,10 +8,13 @@ export default function NewGoods () {
     useEffect(() => {
       async function getData(){
           
-          const data = await fetch('http://localhost:80/api/products');
-          const json = data.json()
+          await fetch('http://localhost:80/api/products')
+          .then(result => result.json())
+          .then(json => {
+              setData(json)
+              console.log(json)
+          });
 
-          console.log(json)
               
       }
       
@@ -50,7 +53,7 @@ export default function NewGoods () {
                             <div>
                                 <Link href={`/product/${item.id}`}>
                                     <div className={styles.good_img}>
-                                        <img src={item?.images[0]?.src}></img>
+                                        {/* <img src={item?.images[0]?.src}></img> */}
                                     </div>
                                 </Link>
                                 <div className={styles.good_title}>
