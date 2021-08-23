@@ -87,23 +87,12 @@ const Product = observer(() => {
         async function getData(id){
             setLoading(true)
             setData([]) 
-            const api = new WooCommerceRestApi({
-                url: "http://admin.stroitelstore.ru/",
-                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-                version: "wc/v3",
-                queryStringAuth: true,
-                axiosConfig: {
-                    headers: {'Content-Type': 'application/json'},
-                    }
-                });
-            await api.get(`products/${id}`)
-                .then( result => {
-                        setData(result.data);
-                        setLoading(false)
-                    }
-                )
-            
+            fetch(`http://localhost:80/api/products/${id}`)
+            .then(result => result.json())
+            .then(json => {
+                setData(json[0]);
+                setLoading(false)
+            })
         }
         
         if (product_id != undefined) {  
@@ -132,11 +121,11 @@ const Product = observer(() => {
                     <div className={styles.product}>
                         <div className={styles.product__overview}>
                             <div className={styles.product__overview_img} id="product__overview_img">
-                                <img src={data?.images ? data?.images[0]?.src : null}></img>
+                                {/* <img src={data?.images ? data?.images[0]?.src : null}></img> */}
                             </div>
                             <div className={styles.product__overview_info} id="product__overview_info">
                                 <div className={styles.product__overview_title}>
-                                    <h1>{data?.name}</h1>
+                                    <h1>{data?.title}</h1>
                                     <h4>Артикул: {data?.sku}</h4>
                                 </div>
                                 <div className={styles.product__overview_price}>
@@ -156,13 +145,13 @@ const Product = observer(() => {
                                     {
                                         added === false ? (
                                             <div className={styles.product__overview_cart}>
-                                                <button id={data?.id} onClick={e => {handleClick(e)}}>
+                                                <button id={data?.guid} onClick={e => {handleClick(e)}}>
                                                     В корзину
                                                 </button>
                                             </div>
                                         ) : (
                                             <div className={styles.product__overview_cart_added} disabled>
-                                                <button id={data?.id} onClick={e => {handleClick(e)}}>
+                                                <button id={data?.guid} onClick={e => {handleClick(e)}}>
                                                     Добавлено
                                                 </button>
                                             </div>

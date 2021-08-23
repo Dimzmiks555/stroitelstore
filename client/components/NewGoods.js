@@ -11,6 +11,7 @@ export default function NewGoods () {
           await fetch('http://localhost:80/api/products')
           .then(result => result.json())
           .then(json => {
+              json.splice(0, 9)
               setData(json)
               console.log(json)
           });
@@ -51,22 +52,26 @@ export default function NewGoods () {
                     {data.map(item => (
                         <div className={styles.newgoods__item}>
                             <div>
-                                <Link href={`/product/${item.id}`}>
+                                <Link href={`/product/${item.guid}`}>
                                     <div className={styles.good_img}>
                                         {/* <img src={item?.images[0]?.src}></img> */}
                                     </div>
                                 </Link>
+                                <Link href={`/product/${item.guid}`}>
                                 <div className={styles.good_title}>
-                                    {item.name}
+                                    {item.title}
                                 </div>
+                                </Link>
                             </div>
                             <div>
                                 <div className={styles.good_price}>
                                     {item.price} ₽ / шт.
                                 </div>
+                                <Link href={`/product/${item.guid}`}>
                                 <a className={styles.to_cart}>
                                     Подробнее
                                 </a>
+                                </Link>
                             </div>
                         </div>
                     

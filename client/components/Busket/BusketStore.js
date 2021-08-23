@@ -64,7 +64,7 @@ class BusketStore {
         let ids = []
         let counts = []
         positions.forEach(item => {
-            ids.push(item.id);
+            ids.push(item.guid);
             counts.push(item.count)
         });
         
@@ -102,10 +102,10 @@ class BusketStore {
             }
         }
     }
-    AddPosition(id, count) {
-        let filter = this.positions.findIndex(item => item.id == id)
+    AddPosition(guid, count) {
+        let filter = this.positions.findIndex(item => item.guid == guid)
         if (filter == -1) {
-            this.getData(id, count)    
+            this.getData(guid, count)    
         } else {
             this.positions[filter].count = +count
             this.order.products[filter].count = +count

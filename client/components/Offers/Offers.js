@@ -23,20 +23,20 @@ export default function NewGoods () {
         <div className={styles.offers}>
             <div className={styles.offers__wrapper}>
                 <div className={styles.offer}>
-                    <Link href="/search/текс">
-                    <img src="./offers/AkG5VhRaoA0.jpg">
+                    <Link href="/search/makita">
+                    <img src="./offers/cae303a8-9ee2-467e-b48a-87125f96b836.png">
 
                     </img>
                     </Link>
-                    <Link href="/search/зубр">
-                    <img src="./offers/drel-zubr-standart-1.jpg">
+                    <Link href="/search/момент">
+                    <img src="./offers/image.jfif">
 
                     </img>
                     </Link>
                 </div>
                 <div className={styles.offer}>
-                    <Link href="/search/момент">
-                    <img src="./offers/11.jpg">
+                    <Link href="/search/текс">
+                    <img src="./offers/466107473_w640_h640_kraski.jpg">
 
                     </img>
                     </Link>

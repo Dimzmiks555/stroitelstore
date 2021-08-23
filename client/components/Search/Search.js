@@ -47,96 +47,21 @@ const Search = observer(() => {
     function handleSearchPage(e) {
         router.push(`/search/${value}`)
     }
-     async function getData(text){
-
-            const api = new WooCommerceRestApi({
-                url: "https://admin.stroitelstore.ru/",
-                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-                version: "wc/v3",
-                queryStringAuth: true,
-                axiosConfig: {
-                    headers: {'Content-Type': 'application/json'},
-                    }
-                });
-
-            if (text == '' || text == null) {
-                setData(prevState => {
-                    return []
-                })
-            } else {
-                await api.get("products", {
-                    per_page: 10,
-                    search: text// 18 products per page
-                })
-                .then( result => {
-                        setData(prevState => {
-                            return prevState.result.data
-                        });
-                        setLoading(false)
-                    }
-                );
-
-                await api.get("products/categories", {
-                    per_page: 10,
-                    search: text// 18 products per page
-                })
-                .then( result => {
-                        setCatData(prevState => {
-                            console.log(prevState)
-                            console.log(result.data)
-                            return prevState.result.data
-                        });
-                        setLoading(false)
-                    }
-                    )
-                }
-                
-            }
+     
             
     useEffect(() => {
         setLoading(true)
         async function getData(text){
 
-            const api = new WooCommerceRestApi({
-                url: "https://admin.stroitelstore.ru/",
-                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-                version: "wc/v3",
-                queryStringAuth: true,
-                axiosConfig: {
-                    headers: {'Content-Type': 'application/json'},
-                    }
-                });
 
             if (text == '' || text == null) {
                 setData([])
             } else {
-                await api.get("products", {
-                    per_page: 10,
-                    search: text// 18 products per page
-                })
-                .then( result => {
-                        setData(prevState => {
-                            return result.data
-                        });
-                        setLoading(false)
-                    }
-                );
+                
+                fetch(`http://localhost:80/api/products?search=${text}`)
+                .then(res => res.json())
+                .then(json => setData(json))
 
-                await api.get("products/categories", {
-                    per_page: 10,
-                    search: text// 18 products per page
-                })
-                .then( result => {
-                        setCatData(prevState => {
-                            console.log(prevState)
-                            console.log(result.data)
-                            return result.data
-                        });
-                        setLoading(false)
-                    }
-                    )
                 }
                 
             }
@@ -147,7 +72,7 @@ const Search = observer(() => {
             getData(value);
         } else {
             setData([])
-            setCatData([])
+            // setCatData([])
         }
 
 
@@ -161,7 +86,7 @@ const Search = observer(() => {
             </div>
             <div className={styles.result} style={{display: display}}>
                 {value != null ? catData.map(item => (
-                    item.parent != 0 ? (<Link href={`/catalog/${item.id}`}>
+                    item.parent != 0 ? (<Link href={`/catalog/${item.guid}`}>
                             
                     <a className={styles.result__item} onClick={handleClick}>
                         <div className={styles.result__cat_item_title}>
@@ -173,11 +98,11 @@ const Search = observer(() => {
                 )) : null}
                 {value != null ? data.map(item => (
                     
-                    <Link href={`/product/${item.id}`}>
+                    <Link href={`/product/${item.guid}`}>
                             
                     <a className={styles.result__item} onClick={handleClick}>
                         <div className={styles.result__item_title}>
-                            {item.name}
+                            {item.title}
                         </div>
                         <div className={styles.result__item_price}>
                             {item.price} ₽

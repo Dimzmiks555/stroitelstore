@@ -37,31 +37,11 @@ const Search = observer(({mainTitle}) => {
     }
     
     useEffect(() => {
-        setLoading(true)
         async function getData(id){
-            const api = new WooCommerceRestApi({
-                url: "http://admin.stroitelstore.ru/",
-                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-                version: "wc/v3"
-                });
-            await api.get("products", {
-                    per_page: 100,
-                    order: 'asc',
-                    search: request,
-                    stock_status: 'instock'// 18 products per page
-                })
-                .then( result => {
-                        let arr = [];
-                        result.data.forEach(item => {
-                            arr.push(+item.price)
-                        });
-                        setData(result.data)
-                        setPrices([Math.min(...arr),Math.max(...arr)])
-                        setLoading(false)
-                    }
-                )
-
+           
+            fetch(`http://localhost:80/api/products?search=${id}`)
+            .then(result => result.json())
+            .then(json => setData(json))
                 
         }
         
@@ -85,7 +65,7 @@ const Search = observer(({mainTitle}) => {
         } else 
         {
             return (
-                <Link href={`/product/${pos.id}`}>
+                <Link href={`/product/${pos.guid}`}>
                     <a id={pos.id} className={styles.to_cart} >Подробнее</a>
                 </Link>
                 )
@@ -125,20 +105,20 @@ const Search = observer(({mainTitle}) => {
         }
         result = dataF.map(item => {
             return (
-                <div key={item.id} className={styles.category_good}>
+                <div key={item.guid} className={styles.category_good}>
                 
                 <div>
-                    <Link href={`/product/${item.id}`}>
+                    <Link href={`/product/${item.guid}`}>
                         <a>
                             <div className={styles.good_img}>
-                                <img src={item?.images[0]?.src}></img>
+                                {/* <img src={item?.images[0]?.src}></img> */}
                             </div>
                         </a>
                     </Link>
-                    <Link href={`/product/${item.id}`}>
+                    <Link href={`/product/${item.guid}`}>
                         <a>
                             <div className={styles.good_title}>
-                                {item.name}
+                                {item.title}
                             </div>
                         </a>
                     </Link>
