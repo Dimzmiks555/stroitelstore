@@ -55,30 +55,7 @@ class BusketStore {
 
 
     async getData(id, count){
-        const api = new WooCommerceRestApi({
-            url: "https://admin.stroitelstore.ru/",
-            consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-            consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-            version: "wc/v3",
-            queryStringAuth: true,
-              axiosConfig: {
-                headers: {'Content-Type': 'application/json'},
-                }
-            });
-        await api.get(`products/${id}`)
-            .then( result => {
-                    this.positions.push({
-                        count: +count,
-                        id: result.data.id
-                    });
-                    this.order.products.push({
-                        count: +count,
-                        data: result.data
-                    });
-                    this.initFetchStatus = 'done'   
-                    localStorage.setItem('positions', JSON.stringify(this.positions))                
-                }
-            )
+  
         
     }
 
@@ -90,36 +67,6 @@ class BusketStore {
             ids.push(item.id);
             counts.push(item.count)
         });
-        
-        const api = new WooCommerceRestApi({
-            url: "https://admin.stroitelstore.ru/",
-            consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-            consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-            version: "wc/v3",
-            queryStringAuth: true,
-              axiosConfig: {
-                headers: {'Content-Type': 'application/json'},
-                }
-            });
-        await api.get(`products`, {
-            include: ids
-        })
-            .then( result => {
-                    result.data.forEach((item, index) => {
-                        
-                        let count = positions.filter(lsitem => lsitem.id == item.id)
-                        this.order.products.push(
-                            {
-                                data: result.data[index],
-                                count: count[0].count
-                            }
-                        );
-                        
-                        console.log(this.order.products)
-                    })   
-                    this.initFetchStatus = 'done'   
-                }
-            )
         
     }
     setCount(id, value) {
@@ -206,25 +153,6 @@ class BusketStore {
             },
           };
 
-        const api = new WooCommerceRestApi({
-            url: "https://admin.stroitelstore.ru/",
-            consumerKey: "ck_9674d22e8a216dfff0369bc9aa3680f685ebda25",
-            consumerSecret: "cs_96cbffa422eef1b5620be5a553b8065937e91b76",
-            version: "wc/v3",
-            queryStringAuth: true,
-              axiosConfig: {
-                headers: {'Content-Type': 'application/json'},
-            }   
-            });
-        await api.put(`customers/${this.order.clientData.customer_id}`, data)
-            .then( response => {
-                    console.log(response.data);
-                    window.location.reload();
-                }
-            ).catch(err => {
-                console.log(err, err.response?.data)
-                console.log('fuck')
-            })
     }
     setClientData(id, value) {
         console.log(this.order)
