@@ -39,17 +39,19 @@ class ProductsService {
         if (params.group) {
             filters.push({column: 'group_id', value: params.group})
         }
+        if (params.color) {
+            filters.push({column: 'color', value: params.group})
+        }
 
 
-
-
-        console.log(1)
 
         let sql = `
-            SELECT goods.guid, goods.title, goods.group_id, groups.title as \`group\` 
+            SELECT goods.guid, goods.title, goods.group_id, groups.title as \`group\`, prices_and_counts.price, prices_and_counts.amount
             FROM \`goods\` 
             JOIN \`groups\` ON groups.guid = goods.group_id 
-            ${filters.length == 1 ? `WHERE \`${filters[0].column}\` = '${filters[0].value}'` : filters.length > 1 ? filters.map((item, index) => index !== 0 ? ` AND ${item.column} = ${item.value} ` : '') : ''} 
+            JOIN \`prices_and_counts\` ON goods.guid = prices_and_counts.good_guid 
+            WHERE prices_and_counts.amount != 0
+            ${filters.length > 0 ? filters.map((item) =>  ` AND ${item.column} = '${item.value}' `) : ''} 
             LIMIT ${limit} 
         `;
 
@@ -64,7 +66,20 @@ class ProductsService {
 
     }
 
+    async getOne(params ,result) {
+        
+        let sql = `SELECT goods.guid, goods.title, goods.group_id, groups.title as \`group\`, prices_and_counts.price, prices_and_counts.amount  FROM goods 
+        JOIN \`groups\` ON goods.group_id = groups.guid
+        JOIN \`prices_and_counts\` ON goods.guid = prices_and_counts.good_guid
+        WHERE goods.guid = '${params}'`;
 
+
+        connection.query(sql, function(err, results) {
+            if(err) console.log(err);
+            result(results)
+        })
+
+    }
 }
 
 
