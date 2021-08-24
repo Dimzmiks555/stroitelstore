@@ -1,7 +1,11 @@
 .product {
-    display:flex,
+    display:flex;
+    justify-content: space-between;
 
 }
 .main_info {
     width: 48%
+}
+.additional_info {
+    width: 50%
 }
