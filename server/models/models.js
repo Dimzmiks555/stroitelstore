@@ -5,9 +5,24 @@ const sequelize = new Sequelize("1c_base", "root", "root", {
   dialect: "mysql",
   host: "localhost",
   define: {
-        timestamps: false
-    }
+      timestamps: false
+  }
 });
+
+
+
+const GoodModel = sequelize.define('good', {
+    guid: {
+        type: Sequelize.STRING,
+        primaryKey: true
+    },
+    title: {
+        type: Sequelize.STRING,
+    },
+    group_id: {
+        type: Sequelize.STRING
+    }
+})
 
 
 
@@ -24,6 +39,9 @@ const GroupModel = sequelize.define('group', {
     }
 })
 
+GroupModel.hasMany(GoodModel)
+GoodModel.belongsTo(GroupModel)
 
 
-export default sequelize.model('group', GroupModel)
+
+export {GoodModel, GroupModel}
