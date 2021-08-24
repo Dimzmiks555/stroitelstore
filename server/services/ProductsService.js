@@ -1,9 +1,9 @@
 
-import GoodModel from '../models/GoodModel.js'
+// import GoodModel from '../models/GoodModel.js'
 
 import mysql from 'mysql2'
 import Sequelize from "sequelize";
-import { GroupModel } from '../models/Models.js';
+import { GroupModel, GoodModel, PricesAndCountsModel } from '../models/models.js';
  
 
 
@@ -12,9 +12,18 @@ class ProductsService {
 
     async getAll(params ,result) {
         
-        GoodModel.findAll({raw: true, include: [{model : GroupModel}]})
+        let {limit, page} = params
+
+        limit = limit || 10
+        page = page || 1
+
+        let offset = page * limit - limit
+
+
+        GoodModel.findAndCountAll({raw: true, include: [GroupModel, PricesAndCountsModel], limit, offset})
         .then(goods => {
             console.log(goods)
+            result(goods)
         }).catch(err=>console.log(err));
 
         

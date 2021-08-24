@@ -39,9 +39,32 @@ const GroupModel = sequelize.define('group', {
     }
 })
 
-GroupModel.hasMany(GoodModel)
-GoodModel.belongsTo(GroupModel)
+const PricesAndCountsModel = sequelize.define('prices_and_counts', {
+    good_guid: {
+        type: Sequelize.STRING,
+        primaryKey: true
+    },
+    price: {
+        type: Sequelize.STRING
+    },
+    sku: {
+        type: Sequelize.STRING
+    },
+    unit: {
+        type: Sequelize.STRING
+    },
+    amount: {
+        type: Sequelize.STRING
+    },
+})
+
+GroupModel.hasMany(GoodModel, { foreignKey: 'group_id'})
+GoodModel.belongsTo(GroupModel, { foreignKey: 'group_id'})
+
+
+GoodModel.hasOne(PricesAndCountsModel, { foreignKey: 'good_guid'})
+PricesAndCountsModel.belongsTo(GoodModel, { foreignKey: 'good_guid'})
 
 
 
-export {GoodModel, GroupModel}
+export {GoodModel, GroupModel, PricesAndCountsModel }
