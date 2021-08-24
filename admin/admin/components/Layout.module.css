@@ -1,0 +1,11 @@
+.layout {
+    display: flex;
+}
+.main {
+    border-left: 1px solid #ddd;
+    min-height: 100vh;
+    min-width: 80%;
+}
+.page {
+    padding: 30px 40px;
+}

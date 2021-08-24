@@ -1,6 +1,6 @@
-@import 'antd/dist/antd.css';
 html,
 body {
+  color: #333;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -14,4 +14,29 @@ a {
 
 * {
   box-sizing: border-box;
+}
+ul, li, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+input, button {
+  font-family: inherit;
+}
+a {
+  display: block;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table thead {
+  font-weight: bold;
+}
+table td {
+  border: 1px solid #ccc;
+  padding: 10px 20px;
 }
