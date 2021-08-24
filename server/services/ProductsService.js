@@ -49,7 +49,7 @@ class ProductsService {
 
 
         let sql = `
-            SELECT goods.guid, goods.title, goods.group_id, groups.title as \`group\`, prices_and_counts.price, prices_and_counts.amount
+            SELECT goods.guid, goods.title, goods.group_id, groups.title as \`group\`, prices_and_counts.price, prices_and_counts.amount,  prices_and_counts.sku
             FROM \`goods\` 
             JOIN \`groups\` ON groups.guid = goods.group_id 
             JOIN \`prices_and_counts\` ON goods.guid = prices_and_counts.good_guid 
@@ -72,7 +72,8 @@ class ProductsService {
 
     async getOne(params ,result) {
         
-        let sql = `SELECT goods.guid, goods.title, goods.group_id, groups.title as \`group\`, prices_and_counts.price, prices_and_counts.amount,  prices_and_counts.sku  FROM goods 
+        let sql = `SELECT goods.guid, goods.title, goods.group_id, groups.title as \`group\`, prices_and_counts.price, prices_and_counts.amount,  prices_and_counts.sku 
+         FROM goods 
         JOIN \`groups\` ON goods.group_id = groups.guid
         JOIN \`prices_and_counts\` ON goods.guid = prices_and_counts.good_guid
         WHERE goods.guid = '${params}'`;
