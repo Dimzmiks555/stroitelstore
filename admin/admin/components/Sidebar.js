@@ -6,7 +6,7 @@ export default function Sidebar() {
         <div className={styles.sidebar}>
 
             <div className={styles.logo}>
-                <img src='./LOGO.svg'></img>
+                <img src='/sidebar/LOGO.svg'></img>
             </div>
 
 
@@ -36,6 +36,13 @@ export default function Sidebar() {
                     <Link href="/groups">
                         <a>
                             Группы
+                        </a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/attributes">
+                        <a>
+                            Атрибуты
                         </a>
                     </Link>
                 </li>

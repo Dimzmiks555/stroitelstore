@@ -43,18 +43,18 @@ import { useRouter} from 'next/router'
                     }
                 </div>
                 <div className={styles.additional_info}>
-                    <h2>Описание</h2>
-                    <textarea>
-
-                    </textarea>
-                    <h2>Характеристики</h2>
-                    <div className={styles.attributes_block}>
-
-                    </div>
                     <h2>Фотографии</h2>
                     <div className={styles.images_block}>
 
                     </div>
+                    <h2>Характеристики</h2>
+                    <div className={styles.attributes_block}>
+
+                    </div>
+                    <h2>Описание</h2>
+                    <textarea>
+
+                    </textarea>
                 </div>
             </div>
 
