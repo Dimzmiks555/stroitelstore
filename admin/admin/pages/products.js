@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import styles from './products.module.css'
@@ -51,6 +52,9 @@ import styles from './products.module.css'
                             Ед. изм
                         </td>
                         <td>
+                            Цена
+                        </td>
+                        <td>
                             Группа
                         </td>
                     </tr>
@@ -66,13 +70,18 @@ import styles from './products.module.css'
                                     {item['prices_and_count.sku']}
                                 </td>
                                 <td>
-                                    {item.title}
+                                    <Link href={`/products/${item.guid}`}>
+                                        <a>{item.title}</a>
+                                    </Link>
                                 </td>
                                 <td>
                                     {item['prices_and_count.amount']}
                                 </td>
                                 <td>
                                     {item['prices_and_count.unit']}
+                                </td>
+                                <td>
+                                    {item['prices_and_count.price'].toLocaleString()}
                                 </td>
                                 <td>
                                     {item['group.title']}
