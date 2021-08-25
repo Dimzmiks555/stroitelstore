@@ -65,11 +65,10 @@ const Category = observer(({mainTitle}) => {
                 let arr = []
 
                 json.forEach(item => {
-                    arr.push(item['group.title'])
+                    arr.push(item['attribute.title'])
                 })
-
                 setAttributes(json)
-                setFilters
+                setFilters(Array.from(new Set(arr)))
             })
 
                 
@@ -257,25 +256,17 @@ const Category = observer(({mainTitle}) => {
                         </div>
 
                         {
-                            Array.from(new Set(attributes)).map(item => (                                   
+                            filters.map(item => (                                   
                                 <div>
-                                    <div className={styles.filter_title}>{item['attribute.title']}</div>
-                                    <div className={styles.checkbox_filter}>
-                                        {pa__type_of_door?.includes('212') ? (
-                                            <input id='_type_of_door_gluhaya' value="212" data-request="pa__type_of_door" checked type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
-                                        ) : (
-                                            <input id='_type_of_door_gluhaya' value="212" data-request="pa__type_of_door" type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
-                                        )}
-                                        <label for="_type_of_door_gluhaya">Глухая</label>
-                                    </div>
-                                    <div className={styles.checkbox_filter}>
-                                        {pa__type_of_door?.includes('213') ? (
-                                            <input id='_type_of_door_glassed' value="213" data-request="pa__type_of_door" checked type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
-                                        ) : (
-                                            <input id='_type_of_door_glassed' value="213" data-request="pa__type_of_door" type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
-                                        )}
-                                        <label for="_type_of_door_glassed">Остекленная</label>
-                                    </div>
+                                    <div className={styles.filter_title}>{item}</div>
+                                    {
+                                        attributes.map(item => (
+                                            <div className={styles.checkbox_filter}>
+                                                <input id='_type_of_door_gluhaya' value={item.value} data-request={item['attribute.id']}  type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
+                                                <label for="_type_of_door_gluhaya">{item.value}</label>
+                                            </div>
+                                        ))
+                                    }
                                 </div>
                             ))
                         }

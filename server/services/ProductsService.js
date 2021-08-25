@@ -3,7 +3,7 @@
 
 import mysql from 'mysql2'
 import Sequelize from "sequelize";
-import { GroupModel, GoodModel, PricesAndCountsModel } from '../models/models.js';
+import { GroupModel, GoodModel, PricesAndCountsModel, GoodsAttributeModel } from '../models/models.js';
  
 
 
@@ -14,24 +14,21 @@ class ProductsService {
         
         let {limit, page, group_id} = params
 
+        let query = {}
+
+        if (group_id != null) query.group_id = group_id;
+
+
         limit = +limit || 10
         page = page || 1
 
         let offset = page * limit - limit
 
-        if (group_id) {
-            GoodModel.findAndCountAll({raw: true, include: [GroupModel, PricesAndCountsModel],where: {group_id}, limit, offset})
+            GoodModel.findAndCountAll({raw: true, include: [GroupModel, PricesAndCountsModel, include: [{model: GoodsAttributeModel, as: 'attr'}]],where: query, limit, offset})
             .then(goods => {
                 console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
-        } else {
-            GoodModel.findAndCountAll({raw: true, include: [GroupModel, PricesAndCountsModel],  limit, offset})
-            .then(goods => {
-                console.log(goods)
-                result(goods)
-            }).catch(err=>console.log(err));
-        }
 
 
         

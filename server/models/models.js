@@ -103,7 +103,7 @@ AttributeModel.belongsTo(GroupModel, { foreignKey: 'group_id'})
 
 
 AttributeModel.hasMany(GoodsAttributeModel, { foreignKey: 'attr_id'})
-GoodModel.hasMany(GoodsAttributeModel, { foreignKey: 'good_id'})
+GoodModel.hasMany(GoodsAttributeModel, { foreignKey: 'good_id', as: 'attr'})
 GoodsAttributeModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 GoodsAttributeModel.belongsTo(AttributeModel, { foreignKey: 'attr_id'})
 
