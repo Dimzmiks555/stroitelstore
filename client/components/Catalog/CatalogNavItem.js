@@ -7,9 +7,8 @@ const CatalogNavItem = observer(({category}) => {
 
 
     function SetCategory(e) {
-        
-        CatalogItemsStore.getData(+category?.id, category.board)
-        console.log(CatalogItemsStore.props)
+        console.log(category?.id)
+        CatalogItemsStore.getData(category?.id, category.board)
     }
 
     

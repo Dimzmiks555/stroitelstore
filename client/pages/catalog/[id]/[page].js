@@ -41,78 +41,22 @@ const Category = observer(({mainTitle}) => {
     useEffect(() => {
         setLoading(true)
         async function getData(id){
-            const api = new WooCommerceRestApi({
-                url: "https://admin.stroitelstore.ru/",
-                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-                version: "wc/v1",
-                queryStringAuth: true,
-                axiosConfig: {
-                    headers: {'Content-Type': 'application/json'},
-                    }
-                }); 
-            await api.get("products", {
-                    per_page: 20,
-                    page: page,
-                    order: sort,
-                    category: id,
-                    stock_status: 'instock',
-                    _type_of_door: '212',
-                    // _depth_of_door: '215',
-                })
-                .then( result => {
-                        console.log(result.data)
-                        let arr = [];
-                        result.data.forEach(item => {
-                            arr.push(+item.price)
-                        });
-                        setData(result.data)
-                        setPrices([Math.min(...arr),Math.max(...arr)])
-                        setLoading(false)
-                    }
-                )
-                .catch(err => {
-                    console.log(err)
-                })
+            
+            fetch(`http://localhost/api/products?group=${id}`)
+            .then(res => res.json())
+            .then(json => setData(json))
 
+
+            setLoading(false)
                 
         }
         async function getDataAttr(){
-            const api = new WooCommerceRestApi({
-                url: "https://admin.stroitelstore.ru/",
-                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-                version: "wc/v3",
-                queryStringAuth: true,
-                axiosConfig: {
-                    headers: {'Content-Type': 'application/json'},
-                    }
-                });
-            await api.get("products/attributes/2/terms", {
-                })
-                .then( result => {
-                        console.log(result.data)
-                    }
-                )
+           
 
                 
         }
         async function getCategoryData(id){
-            const api = new WooCommerceRestApi({
-                url: "https://admin.stroitelstore.ru/",
-                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-                version: "wc/v3",
-                queryStringAuth: true,
-                axiosConfig: {
-                    headers: {'Content-Type': 'application/json'},
-                    }
-                });
-            await api.get(`products/categories/${id}`)
-                .then( result => {
-                        setCategoryData(result.data)
-                    }
-                )
+
 
                 
         }

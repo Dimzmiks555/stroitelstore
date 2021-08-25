@@ -81,7 +81,7 @@ import styles from './products.module.css'
                                     {item['prices_and_count.unit']}
                                 </td>
                                 <td>
-                                    {item['prices_and_count.price'].toLocaleString()}
+                                    {item['prices_and_count.price']}
                                 </td>
                                 <td>
                                     {item['group.title']}

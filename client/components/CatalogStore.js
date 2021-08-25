@@ -9,7 +9,7 @@ class CatalogStore {
             {   
                 board: '/catalog/img/metiz.jpg',
                 category: 'Крепеж',
-                id: 66,
+                id: '66',
                 url: '/catalog/screw.svg',
                 
             },
@@ -17,7 +17,7 @@ class CatalogStore {
                 board: '/catalog/img/doors.jpg',
                 category: 'Двери, напольные покрытия',
                 url: '/catalog/door.svg',
-                id: 16,
+                id: '2cf30f47-3ecb-11eb-93a4-18c04d2a3938',
             },
             {
                 board: '/catalog/img/e-tool.jpg',

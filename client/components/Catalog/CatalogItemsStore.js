@@ -17,8 +17,17 @@ class CatalogItemsStore {
         this.promise = value 
     }
     async getData(parent, board){
-        if (!isNaN(parent)) {
-    
+        if (parent) {
+            
+            fetch(`http://localhost/api/groups?parent_group=${parent}`)
+            .then(res => res.json())
+            .then(json => {
+                this.props = ({data: json.rows, board: board});
+                this.promise = 'done';
+                
+                console.log(json)
+            })
+
         } else {
             this.props = ({data: [], board: board})
         }

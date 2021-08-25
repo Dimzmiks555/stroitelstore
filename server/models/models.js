@@ -58,6 +58,39 @@ const PricesAndCountsModel = sequelize.define('prices_and_counts', {
     },
 })
 
+const AttributeModel = sequelize.define('attributes', {
+    id: {
+        type: Sequelize.STRING,
+        auto_increment: true,
+        primaryKey: true
+    },
+    title: {
+        type: Sequelize.STRING
+    },
+    group_id: {
+        type: Sequelize.STRING
+    }
+})
+
+
+const GoodsAttributeModel = sequelize.define('goods_attributes', {
+    id: {
+        type: Sequelize.INTEGER,
+        auto_increment: true,
+        primaryKey: true
+    },
+    attr_id: {
+        type: Sequelize.INTEGER
+    },
+    good_id: {
+        type: Sequelize.STRING
+    },
+    value: {
+        type: Sequelize.STRING
+    }
+})
+
+
 GroupModel.hasMany(GoodModel, { foreignKey: 'group_id'})
 GoodModel.belongsTo(GroupModel, { foreignKey: 'group_id'})
 
@@ -65,6 +98,13 @@ GoodModel.belongsTo(GroupModel, { foreignKey: 'group_id'})
 GoodModel.hasOne(PricesAndCountsModel, { foreignKey: 'good_guid'})
 PricesAndCountsModel.belongsTo(GoodModel, { foreignKey: 'good_guid'})
 
+GroupModel.hasMany(AttributeModel, { foreignKey: 'group_id'})
+AttributeModel.belongsTo(GroupModel, { foreignKey: 'group_id'})
 
 
-export {GoodModel, GroupModel, PricesAndCountsModel }
+AttributeModel.hasMany(GoodsAttributeModel, { foreignKey: 'attr_id'})
+GoodModel.hasMany(GoodsAttributeModel, { foreignKey: 'good_id'})
+GoodsAttributeModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
+GoodsAttributeModel.belongsTo(AttributeModel, { foreignKey: 'attr_id'})
+
+export {GoodModel, GroupModel, PricesAndCountsModel, AttributeModel, GoodsAttributeModel }

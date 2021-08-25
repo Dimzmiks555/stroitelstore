@@ -9,6 +9,8 @@ import { useRouter} from 'next/router'
 
 
     const [data, setData] = useState([])
+    const [attributes, setAttributes] = useState([])
+
 
     function fetchData(id) {
         fetch(`http://localhost/api/products/${id}`)
@@ -19,8 +21,20 @@ import { useRouter} from 'next/router'
         })
     }
 
+
+    function fetchAttributes(id) {
+        fetch(`http://localhost/api/goods_attributes?good_id=${id}`)
+        .then(res => res.json())
+        .then(json => {
+            setAttributes(json)
+            console.log(json)
+        })
+    }
+
+
     useEffect(() => { 
         fetchData(router.query.id)
+        fetchAttributes(router.query.id)
     }, [ router.query.id])
 
 
@@ -49,7 +63,36 @@ import { useRouter} from 'next/router'
                     </div>
                     <h2>Характеристики</h2>
                     <div className={styles.attributes_block}>
-
+                        <table>
+                            <thead>
+                                <td>
+                                    ID
+                                </td>
+                                <td>
+                                    Атрибут
+                                </td>
+                                <td>
+                                    Значение
+                                </td>
+                            </thead>
+                            <tbody>
+                               {
+                                   attributes.map(item => (
+                                       <tr>
+                                           <td>
+                                               {item?.id}
+                                           </td>
+                                           <td>
+                                               {item['attribute.title']}
+                                           </td>
+                                           <td>
+                                               {item?.value}
+                                           </td>
+                                       </tr>
+                                   ))
+                               }
+                            </tbody>
+                        </table>
                     </div>
                     <h2>Описание</h2>
                     <textarea>

@@ -8,12 +8,12 @@ export default function NewGoods () {
     useEffect(() => {
       async function getData(){
           
-          await fetch('http://localhost:80/api/products')
+          await fetch('http://localhost:80/api/products?page=1')
           .then(result => result.json())
           .then(json => {
-              json.splice(0, 9)
-              setData(json)
-              console.log(json)
+              json.rows.splice(0, 1)
+              setData(json.rows)
+              console.log(json.rows)
           });
 
               
@@ -65,7 +65,7 @@ export default function NewGoods () {
                             </div>
                             <div>
                                 <div className={styles.good_price}>
-                                    {item.price} ₽ / шт.
+                                    {item['prices_and_count.price']} ₽ / шт.
                                 </div>
                                 <Link href={`/product/${item.guid}`}>
                                 <a className={styles.to_cart}>
