@@ -44,7 +44,7 @@ const Category = observer(({mainTitle}) => {
             
             fetch(`http://localhost/api/products?group=${id}`)
             .then(res => res.json())
-            .then(json => setData(json))
+            .then(json => setData(json?.rows))
 
 
             setLoading(false)
@@ -71,98 +71,98 @@ const Category = observer(({mainTitle}) => {
             Object.assign(items, data)
         }
     },[data])
-    function addGood(e) {
-        BusketStore.AddPosition(e.target.id, 1)
-    }
-    function GetButton(pos) {
+    // function addGood(e) {
+    //     BusketStore.AddPosition(e.target.id, 1)
+    // }
+    // function GetButton(pos) {
         
-        let obj = BusketStore.order.products.filter(item => item?.data?.id == pos.id)
-        if (pos.stock_status == 'outofstock') 
-        {       
-            return <a className={styles.outofstock}>Под заказ</a>
-        } else if (obj[0]?.data?.id == pos.id) {
-            return (
-                <Link href={`/product/${pos.id}`}>
-                    <a id={pos.id} className={styles.to_cart_added} >Добавлен</a>
-                </Link>
-                )
-        } else {
-            return (
-                    <a id={pos.id} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a>
-                )
-        }
+    //     let obj = BusketStore.order.products.filter(item => item?.data?.id == pos.id)
+    //     if (pos.stock_status == 'outofstock') 
+    //     {       
+    //         return <a className={styles.outofstock}>Под заказ</a>
+    //     } else if (obj[0]?.data?.id == pos.id) {
+    //         return (
+    //             <Link href={`/product/${pos.id}`}>
+    //                 <a id={pos.id} className={styles.to_cart_added} >Добавлен</a>
+    //             </Link>
+    //             )
+    //     } else {
+    //         return (
+    //                 <a id={pos.id} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a>
+    //             )
+    //     }
         
-    }
-    function handleSelect(value) {
-        if (value.value == 'default') {
-             delete params[`sort`]
-        } else {
-            params[`sort`] = value.value;
-        }
-        let parametrs = Object.entries(params)
-        function generate(parametrs) {
-            let string =''
-            parametrs.forEach((item, index) => {
-                if(index == 0) {
-                    string = `?${item[0]}=${item[1]}`
-                } else {
-                    string = string + `&${item[0]}=${item[1]}`
-                }
-            })
-            return string
-        }
-        router.push(`/catalog/${id}/1${generate(parametrs)}`)
-    } 
-    function handleRange(values) {
-        setPriceFilters(values)
-        let result = dataF.filter(item => {
-            if (item.price >= values[0] && item.price <= values[1]) {
-                return true
-            }
-        }) 
-        dataF = result;
-    }
-    let params = {}
-    Object.assign(params, router.query)
-    delete params['id']
-    delete params['page']
+    // }
+    // function handleSelect(value) {
+    //     if (value.value == 'default') {
+    //          delete params[`sort`]
+    //     } else {
+    //         params[`sort`] = value.value;
+    //     }
+    //     let parametrs = Object.entries(params)
+    //     function generate(parametrs) {
+    //         let string =''
+    //         parametrs.forEach((item, index) => {
+    //             if(index == 0) {
+    //                 string = `?${item[0]}=${item[1]}`
+    //             } else {
+    //                 string = string + `&${item[0]}=${item[1]}`
+    //             }
+    //         })
+    //         return string
+    //     }
+    //     router.push(`/catalog/${id}/1${generate(parametrs)}`)
+    // } 
+    // function handleRange(values) {
+    //     setPriceFilters(values)
+    //     let result = dataF.filter(item => {
+    //         if (item.price >= values[0] && item.price <= values[1]) {
+    //             return true
+    //         }
+    //     }) 
+    //     dataF = result;
+    // }
+    // let params = {}
+    // Object.assign(params, router.query)
+    // delete params['id']
+    // delete params['page']
 
-    function handleFilter(e, params) {
-        if (params[`${e.target.dataset.request}`] != undefined && !params[`${e.target.dataset.request}`].includes(e.target.value)) {
-            params[`${e.target.dataset.request}`] = params[`${e.target.dataset.request}`] + ',' + e.target.value;
-        } else if (params[`${e.target.dataset.request}`]?.includes(e.target.value)) {
-            let array = params[`${e.target.dataset.request}`].split(',')
-            array = array.filter(i => {
-                return i != e.target.value
-            })
-            if (array[0] == undefined) {
-                delete params[`${e.target.dataset.request}`]
-            } else if (array[0] != undefined) {
-                params[`${e.target.dataset.request}`] = array.join('')
-            } else {
-                params[`${e.target.dataset.request}`] = array.join(',')
-            }
-        } else {
-            params[`${e.target.dataset.request}`] = e.target.value;
-        }
+    // function handleFilter(e, params) {
+    //     if (params[`${e.target.dataset.request}`] != undefined && !params[`${e.target.dataset.request}`].includes(e.target.value)) {
+    //         params[`${e.target.dataset.request}`] = params[`${e.target.dataset.request}`] + ',' + e.target.value;
+    //     } else if (params[`${e.target.dataset.request}`]?.includes(e.target.value)) {
+    //         let array = params[`${e.target.dataset.request}`].split(',')
+    //         array = array.filter(i => {
+    //             return i != e.target.value
+    //         })
+    //         if (array[0] == undefined) {
+    //             delete params[`${e.target.dataset.request}`]
+    //         } else if (array[0] != undefined) {
+    //             params[`${e.target.dataset.request}`] = array.join('')
+    //         } else {
+    //             params[`${e.target.dataset.request}`] = array.join(',')
+    //         }
+    //     } else {
+    //         params[`${e.target.dataset.request}`] = e.target.value;
+    //     }
         
-        let parametrs = Object.entries(params)
-        function generate(parametrs) {
-            let string =''
-            parametrs.forEach((item, index) => {
-                if(index == 0) {
-                    string = `?${item[0]}=${item[1]}`
-                } else {
-                    string = string + `&${item[0]}=${item[1]}`
-                }
-            })
-            return string
-        }
+    //     let parametrs = Object.entries(params)
+    //     function generate(parametrs) {
+    //         let string =''
+    //         parametrs.forEach((item, index) => {
+    //             if(index == 0) {
+    //                 string = `?${item[0]}=${item[1]}`
+    //             } else {
+    //                 string = string + `&${item[0]}=${item[1]}`
+    //             }
+    //         })
+    //         return string
+    //     }
 
-        router.push(`/catalog/${id}/1${generate(parametrs)}`)
-    }
+    //     router.push(`/catalog/${id}/1${generate(parametrs)}`)
+    // }
     function showGoods() {
-        console.log(categoryData)
+        console.log(data)
         return data.map(item => {
                 return (
                     <div key={item.id} className={styles.category_good}>
@@ -170,14 +170,14 @@ const Category = observer(({mainTitle}) => {
                             <Link href={`/product/${item.id}`}>
                                 <a>
                                     <div className={styles.good_img}>
-                                        <img src={item?.images[0]?.src}></img>
+                                        {/* <img src={item?.images[0]?.src}></img> */}
                                     </div>
                                 </a>
                             </Link>
                             <Link href={`/product/${item.id}`}>
                                 <a>
                                     <div className={styles.good_title}>
-                                        {item.name}
+                                        {item.title}
                                     </div>
                                 </a>
                             </Link>
@@ -186,10 +186,10 @@ const Category = observer(({mainTitle}) => {
                             
                             <div className={styles.good_price}>
                                 {
-                                    item.price != '' ? (<p><span>{Number(item.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
+                                    item['prices_and_count.price'] != '' ? (<p><span>{Number( item['prices_and_count.price']).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
                                 }
                             </div>
-                            {GetButton(item)}
+                            {/* {GetButton(item)} */}
                             
                         </div>
                         
@@ -199,7 +199,7 @@ const Category = observer(({mainTitle}) => {
     }
     useEffect(() => {
         showGoods()
-    }, [dataF])
+    }, [data[0]])
     
     if (isLoading == true) {
         return (
@@ -264,7 +264,7 @@ const Category = observer(({mainTitle}) => {
                         </div>
 
                        
-
+{/* 
                         {
                             // Межкомнатные двери
                             id == '211' ? (
@@ -322,13 +322,13 @@ const Category = observer(({mainTitle}) => {
                                 </div>
                                 </>
                             ) : null
-                        }
+                        } */}
 
 
 
                     </div>
                     <div className={styles.category_goodsblock}>
-                        <div className={styles.category_goodsblock_header}>
+                        {/* <div className={styles.category_goodsblock_header}>
                             <h1>{data[0]?.categories[0].name}</h1>
                             <div className={styles.toolbar}>
                                 <div>
@@ -339,7 +339,7 @@ const Category = observer(({mainTitle}) => {
                                     <Select className={styles.select} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className={styles.category_goods}>
                             {showGoods()}
                             
@@ -361,7 +361,7 @@ const Category = observer(({mainTitle}) => {
                                         </svg>}
                                     </li>
                                 </Link>
-                                {paginationCount.map( pageNumber => {
+                                {/* {paginationCount.map( pageNumber => {
                                     if (page == pageNumber) {
                                         return (
                                             <li style={{background: '#d00', color: "#fff"}}><p>{pageNumber}</p></li>
@@ -373,7 +373,7 @@ const Category = observer(({mainTitle}) => {
                                             </Link>
                                         )
                                     }
-                                } )}
+                                } )} */}
                                 <Link href={`/catalog/${id}/${+page + 1}`}>
                                     <li className={styles.pagination_right}>
                                         {<svg
