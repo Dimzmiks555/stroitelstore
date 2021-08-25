@@ -27,6 +27,7 @@ const Category = observer(({mainTitle}) => {
     const [data, setData] = useState([]);
     const [countGoods, setCountGoods] = useState(0);
     const [attributes, setAttributes] = useState([]);
+    const [filters, setFilters] = useState([]);
     const [categoryData, setCategoryData] = useState([]);
     const [prices, setPrices] = useState([]);
     const [priceFilter, setPriceFilters] = useState([]);
@@ -60,7 +61,15 @@ const Category = observer(({mainTitle}) => {
             fetch(`http://localhost/api/goods_attributes?attribute.group_id=${id}`)
             .then(res => res.json())
             .then(json => {
+
+                let arr = []
+
+                json.forEach(item => {
+                    arr.push(item['group.title'])
+                })
+
                 setAttributes(json)
+                setFilters
             })
 
                 
@@ -248,7 +257,7 @@ const Category = observer(({mainTitle}) => {
                         </div>
 
                         {
-                            [new Set(attributes)].map(item => (
+                            Array.from(new Set(attributes)).map(item => (                                   
                                 <div>
                                     <div className={styles.filter_title}>{item['attribute.title']}</div>
                                     <div className={styles.checkbox_filter}>
