@@ -82,7 +82,7 @@ const Category = observer(({mainTitle}) => {
         getData(id)
         getDataAttr()
 
-    }, [router.query]);
+    }, [router.query, page]);
     
     useEffect(() => {
         if (data != undefined) {

@@ -24,11 +24,14 @@ class ProductsService {
 
         let offset = page * limit - limit
 
-            GoodModel.findAndCountAll({include: [{model: GroupModel, include: [{model: AttributeModel, include: [{model: GoodsAttributeModel}]}]},{model: PricesAndCountsModel}, ],where: query, limit, offset})
-            .then(goods => {
-                console.log(goods)
-                result(goods)
-            }).catch(err=>console.log(err));
+        GoodModel.findAndCountAll({
+            nest: true,
+            distinct:true, 
+            include: [{model: GroupModel, include: [{model: AttributeModel, include: [{model: GoodsAttributeModel}]}]},{model: PricesAndCountsModel}, ],where: query, limit, offset})
+        .then(goods => {
+            console.log(goods)
+            result(goods)
+        }).catch(err=>console.log(err));
 
 
         
