@@ -8,13 +8,35 @@ class GoodsAttributesService {
 
     async getAll(params ,result) {
         
-        let {good_id} = params
+        let {good_id, group_id} = params
 
-        GoodsAttributeModel.findAll({raw: true, include: [AttributeModel], where: {good_id}})
-        .then(goods => {
-            console.log(goods)
-            result(goods)
-        }).catch(err=>console.log(err));
+
+
+        if (good_id && group_id) {
+            GoodsAttributeModel.findAll({raw: true, include: [AttributeModel], where: {good_id, group_id}})
+            .then(goods => {
+                console.log(goods)
+                result(goods)
+            }).catch(err=>console.log(err));
+        } else if (!good_id && !group_id) {
+            GoodsAttributeModel.findAll({raw: true, include: [AttributeModel]})
+            .then(goods => {
+                console.log(goods)
+                result(goods)
+            }).catch(err=>console.log(err));
+        } else if (good_id && !group_id) {
+            GoodsAttributeModel.findAll({raw: true, include: [AttributeModel], where: {good_id}})
+            .then(goods => {
+                console.log(goods)
+                result(goods)
+            }).catch(err=>console.log(err));
+        } else if (!good_id && group_id) {
+            GoodsAttributeModel.findAll({raw: true, include: [AttributeModel], where: {group_id}})
+            .then(goods => {
+                console.log(goods)
+                result(goods)
+            }).catch(err=>console.log(err));
+        }
 
         
 

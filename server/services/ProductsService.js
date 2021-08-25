@@ -12,19 +12,29 @@ class ProductsService {
 
     async getAll(params ,result) {
         
-        let {limit, page} = params
+        let {limit, page, group_id} = params
 
-        limit = limit || 10
+        limit = +limit || 10
         page = page || 1
 
         let offset = page * limit - limit
 
+        if (group_id) {
+            GoodModel.findAndCountAll({raw: true, include: [GroupModel, PricesAndCountsModel],where: {group_id}, limit, offset})
+            .then(goods => {
+                console.log(goods)
+                result(goods)
+            }).catch(err=>console.log(err));
+        } else {
+            GoodModel.findAndCountAll({raw: true, include: [GroupModel, PricesAndCountsModel],  limit, offset})
+            .then(goods => {
+                console.log(goods)
+                result(goods)
+            }).catch(err=>console.log(err));
+        }
 
-        GoodModel.findAndCountAll({raw: true, include: [GroupModel, PricesAndCountsModel], limit, offset})
-        .then(goods => {
-            console.log(goods)
-            result(goods)
-        }).catch(err=>console.log(err));
+
+        
 
         
     }

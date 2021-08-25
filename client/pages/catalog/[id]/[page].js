@@ -25,6 +25,8 @@ const Category = observer(({mainTitle}) => {
 
     //UseState
     const [data, setData] = useState([]);
+    const [countGoods, setCountGoods] = useState(0);
+    const [attributes, setAttributes] = useState([]);
     const [categoryData, setCategoryData] = useState([]);
     const [prices, setPrices] = useState([]);
     const [priceFilter, setPriceFilters] = useState([]);
@@ -42,9 +44,12 @@ const Category = observer(({mainTitle}) => {
         setLoading(true)
         async function getData(id){
             
-            fetch(`http://localhost/api/products?group=${id}`)
+            fetch(`http://localhost/api/products?group_id=${id}&limit=20`)
             .then(res => res.json())
-            .then(json => setData(json?.rows))
+            .then(json => {
+                setData(json?.rows)
+                setCountGoods(json?.count)
+            })
 
 
             setLoading(false)
@@ -52,6 +57,11 @@ const Category = observer(({mainTitle}) => {
         }
         async function getDataAttr(){
            
+            fetch(`http://localhost/api/goods_attributes?attribute.group_id=${id}`)
+            .then(res => res.json())
+            .then(json => {
+                setAttributes(json)
+            })
 
                 
         }
@@ -71,28 +81,6 @@ const Category = observer(({mainTitle}) => {
             Object.assign(items, data)
         }
     },[data])
-    // function addGood(e) {
-    //     BusketStore.AddPosition(e.target.id, 1)
-    // }
-    // function GetButton(pos) {
-        
-    //     let obj = BusketStore.order.products.filter(item => item?.data?.id == pos.id)
-    //     if (pos.stock_status == 'outofstock') 
-    //     {       
-    //         return <a className={styles.outofstock}>Под заказ</a>
-    //     } else if (obj[0]?.data?.id == pos.id) {
-    //         return (
-    //             <Link href={`/product/${pos.id}`}>
-    //                 <a id={pos.id} className={styles.to_cart_added} >Добавлен</a>
-    //             </Link>
-    //             )
-    //     } else {
-    //         return (
-    //                 <a id={pos.id} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a>
-    //             )
-    //     }
-        
-    // }
     // function handleSelect(value) {
     //     if (value.value == 'default') {
     //          delete params[`sort`]
@@ -162,19 +150,18 @@ const Category = observer(({mainTitle}) => {
     //     router.push(`/catalog/${id}/1${generate(parametrs)}`)
     // }
     function showGoods() {
-        console.log(data)
         return data.map(item => {
                 return (
-                    <div key={item.id} className={styles.category_good}>
+                    <div key={item.guid} className={styles.category_good}>
                         <div>
-                            <Link href={`/product/${item.id}`}>
+                            <Link href={`/product/${item.guid}`}>
                                 <a>
                                     <div className={styles.good_img}>
                                         {/* <img src={item?.images[0]?.src}></img> */}
                                     </div>
                                 </a>
                             </Link>
-                            <Link href={`/product/${item.id}`}>
+                            <Link href={`/product/${item.guid}`}>
                                 <a>
                                     <div className={styles.good_title}>
                                         {item.title}
@@ -189,7 +176,7 @@ const Category = observer(({mainTitle}) => {
                                     item['prices_and_count.price'] != '' ? (<p><span>{Number( item['prices_and_count.price']).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
                                 }
                             </div>
-                            {/* {GetButton(item)} */}
+                            <a id={item.guid} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a>
                             
                         </div>
                         
@@ -220,14 +207,11 @@ const Category = observer(({mainTitle}) => {
     } else {
 
     let paginationCount = [1]
-    let count = +categoryData?.count
-    console.log(count)
+    let count = +countGoods
     for (let i = count; i > 20; i = i - 20) {
-        console.log(i)
         if (paginationCount.length == '0') {
             return;
         } else {
-            console.log(paginationCount)
             paginationCount.push(`${+paginationCount.length + 1}`   )
         }
     }
@@ -263,14 +247,10 @@ const Category = observer(({mainTitle}) => {
                              />
                         </div>
 
-                       
-{/* 
                         {
-                            // Межкомнатные двери
-                            id == '211' ? (
-                                <>
+                            [new Set(attributes)].map(item => (
                                 <div>
-                                    <div className={styles.filter_title}>Тип двери</div>
+                                    <div className={styles.filter_title}>{item['attribute.title']}</div>
                                     <div className={styles.checkbox_filter}>
                                         {pa__type_of_door?.includes('212') ? (
                                             <input id='_type_of_door_gluhaya' value="212" data-request="pa__type_of_door" checked type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
@@ -288,80 +268,53 @@ const Category = observer(({mainTitle}) => {
                                         <label for="_type_of_door_glassed">Остекленная</label>
                                     </div>
                                 </div>
-                                <div>
-                                    <div className={styles.filter_title}>Ширина полотна</div>
-                                    <div className={styles.checkbox_filter}>
-                                        {pa__depth_of_door?.includes('214') ? (
-                                            <input id='_depth_of_door_38' value="214" data-request="pa__depth_of_door" checked type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
-                                        ) : (
-                                            <input id='_depth_of_door_38' value="214" data-request="pa__depth_of_door" type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
-                                        )}
-                                        <label for="_depth_of_door_38">38 мм</label>
-                                    </div>
-                                    <div className={styles.checkbox_filter}>
-                                    {pa__depth_of_door?.includes('215') ? (
-                                            <input id='_depth_of_door_40' value="215" data-request="pa__depth_of_door" checked type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
-                                        ) : (
-                                            <input id='_depth_of_door_40' value="215" data-request="pa__depth_of_door" type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
-                                        )}
-                                        <label for="_depth_of_door_40">40 мм</label>
-                                    </div>
-                                    
-                                </div>
-                                <div>
-                                    <div className={styles.filter_title}>Тип полотна</div>
-                                    <div className={styles.checkbox_filter}>
-                                        <input id='_type_of_door' type='checkbox'></input>
-                                        <label for="_type_of_door">Финиш-пленка</label>
-                                    </div>
-                                    <div className={styles.checkbox_filter}>
-                                        <input id='_type_of_door' type='checkbox'></input>
-                                        <label for="_type_of_door">Скин экошпон</label>
-                                    </div>
-                                    
-                                </div>
-                                </>
-                            ) : null
-                        } */}
+                            ))
+                        }
+                        {console.log(attributes)}
+                        
 
 
 
                     </div>
                     <div className={styles.category_goodsblock}>
-                        {/* <div className={styles.category_goodsblock_header}>
-                            <h1>{data[0]?.categories[0].name}</h1>
+                        <div className={styles.category_goodsblock_header}>
+                            <h1>{data[0] ? data[0]['group.title'] : null}</h1>
                             <div className={styles.toolbar}>
                                 <div>
-                                    {categoryData?.count} товаров
+                                    {countGoods} товаров
                                 </div>
                                 
                                 <div className={styles.sorter}>                                    
                                     <Select className={styles.select} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
                                 </div>
                             </div>
-                        </div> */}
+                        </div>
                         <div className={styles.category_goods}>
                             {showGoods()}
                             
                         </div>
                         <div className={styles.pagination}>
                             <ul>
-                                <Link href={`/catalog/${id}/${+page - 1}`}>
-                                    <li className={styles.pagination_left}>
-                                        {<svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            x="0"
-                                            y="0"
-                                            enableBackground="new 0 0 512.002 512.002"
-                                            version="1.1"
-                                            viewBox="0 0 512.002 512.002"
-                                            xmlSpace="preserve"
-                                            >
-                                            <path d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061a19.8 19.8 0 0014.057 5.835 19.79 19.79 0 0014.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"></path>
-                                        </svg>}
-                                    </li>
-                                </Link>
-                                {/* {paginationCount.map( pageNumber => {
+                                {
+                                    +page !== 1 ? (
+                                        <Link href={`/catalog/${id}/${+page - 1}`}>
+                                            <li className={styles.pagination_left}>
+                                                {<svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    x="0"
+                                                    y="0"
+                                                    enableBackground="new 0 0 512.002 512.002"
+                                                    version="1.1"
+                                                    viewBox="0 0 512.002 512.002"
+                                                    xmlSpace="preserve"
+                                                    >
+                                                    <path d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061a19.8 19.8 0 0014.057 5.835 19.79 19.79 0 0014.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"></path>
+                                                </svg>}
+                                            </li>
+                                        </Link>
+                                    ) : null
+                                }
+                                {paginationCount.map( pageNumber => {
                                     if (page == pageNumber) {
                                         return (
                                             <li style={{background: '#d00', color: "#fff"}}><p>{pageNumber}</p></li>
@@ -373,22 +326,26 @@ const Category = observer(({mainTitle}) => {
                                             </Link>
                                         )
                                     }
-                                } )} */}
-                                <Link href={`/catalog/${id}/${+page + 1}`}>
-                                    <li className={styles.pagination_right}>
-                                        {<svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            x="0"
-                                            y="0"
-                                            enableBackground="new 0 0 512.002 512.002"
-                                            version="1.1"
-                                            viewBox="0 0 512.002 512.002"
-                                            xmlSpace="preserve"
-                                            >
-                                            <path d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061a19.8 19.8 0 0014.057 5.835 19.79 19.79 0 0014.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"></path>
-                                        </svg>}
-                                    </li>
-                                </Link>
+                                } )}
+                                {
+                                    (countGoods / 20) > page ? (
+                                        <Link href={`/catalog/${id}/${+page + 1}`}>
+                                            <li className={styles.pagination_right}>
+                                                {<svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    x="0"
+                                                    y="0"
+                                                    enableBackground="new 0 0 512.002 512.002"
+                                                    version="1.1"
+                                                    viewBox="0 0 512.002 512.002"
+                                                    xmlSpace="preserve"
+                                                    >
+                                                    <path d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061a19.8 19.8 0 0014.057 5.835 19.79 19.79 0 0014.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"></path>
+                                                </svg>}
+                                            </li>
+                                        </Link>
+                                    ) : null
+                                }
                             </ul>
                         </div>
                     </div>
