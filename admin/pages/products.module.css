@@ -33,3 +33,17 @@
 .attributes > div {
     width: 48%;
 }
+
+.attributes label {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.attributes input {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.attributes select {
+    margin-bottom: 20px;
+    font-size: 16px;
+}

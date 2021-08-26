@@ -32,8 +32,25 @@ import styles from './products.module.css'
                     <h2>Создать атрибут</h2>
 
                     <form>
-                        
+                        <label>
+                            Название
+                        </label>
+                        <input>
+                        </input>
+                        <label>
+                            Группа
+                        </label>
+                        <select>
+
+                        </select>
+
+                        <button>
+                            Создать
+                        </button>
+
                     </form>
+
+
 
                  </div>
                  <div>

@@ -21,7 +21,7 @@ ul, li, ol {
   margin: 0;
 }
 
-input, button {
+input, button, select, label {
   font-family: inherit;
 }
 a {
@@ -39,4 +39,7 @@ table thead {
 table td {
   border: 1px solid #ccc;
   padding: 10px 20px;
+}
+input, select, label {
+  display: block;
 }
