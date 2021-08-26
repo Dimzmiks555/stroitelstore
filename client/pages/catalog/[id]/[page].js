@@ -68,20 +68,25 @@ const Category = observer(({mainTitle}) => {
             setLoading(false)
                 
         }
-        async function getDataAttr(id){
+        async function getDataAttrGoods(id){
            
             fetch(`http://localhost/api/goods_attributes?group_id=${id}`)
             .then(res => res.json())
             .then(json => {
 
-                let arr = []
-
-                json.forEach(item => {
-                    arr.push(item?.attribute?.title)
-                })
                 setAttributes(json)
                 console.log(json)
-                setFilters(Array.from(new Set(arr)))
+            })
+
+                
+        }
+        async function getDataAttr(id){
+           
+            fetch(`http://localhost/api/attributes?group_id=${id}`)
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
+                setFilters(json)
             })
 
                 
@@ -100,6 +105,7 @@ const Category = observer(({mainTitle}) => {
         getCategoryData(id);
         getData(id, params)
         getDataAttr(id)
+        getDataAttrGoods(id)
 
     }, [router.query, page]);
     
@@ -305,8 +311,8 @@ const Category = observer(({mainTitle}) => {
 
                         {
                             filters.map(item => (                                   
-                                <div key={item}>
-                                    <div className={styles.filter_title}>{item}</div>
+                                <div key={item.id}>
+                                    <div className={styles.filter_title}>{item.title}</div>
                                     {
                                         attributes.filter(subitem => {return subitem.attr_id == item.id }).map(item => (
                                             <div className={styles.checkbox_filter} >

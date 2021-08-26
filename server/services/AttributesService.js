@@ -20,13 +20,21 @@ class AttributesService {
 
     async getAll(params ,result) {
         
+        let {group_id} = params
 
-
-        AttributeModel.findAndCountAll({raw: true, include: [GroupModel]})
-        .then(goods => {
-            // console.log(goods)
-            result(goods)
-        }).catch(err=>console.log(err));
+        if (group_id) {
+            AttributeModel.findAndCountAll({raw: true, include: [GroupModel], where: {group_id}})
+            .then(goods => {
+                // console.log(goods)
+                result(goods)
+            }).catch(err=>console.log(err));
+        } else {
+            AttributeModel.findAndCountAll({raw: true, include: [GroupModel]})
+            .then(goods => {
+                // console.log(goods)
+                result(goods)
+            }).catch(err=>console.log(err));
+        }
 
         
 
