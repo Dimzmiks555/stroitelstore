@@ -12,13 +12,19 @@ class ProductsService {
 
     async getAll(params ,result) {
         
-        let {limit, page, group_id} = params
+        let {limit, page, group_id, ...args} = params
 
         let query = {}
 
+        let filters = args
+
+
         if (group_id != null) query.group_id = group_id;
 
+        // if (id != null) filters.id = id;
 
+
+        console.log(args)
         limit = +limit || 10
         page = page || 1
 
@@ -27,9 +33,24 @@ class ProductsService {
         GoodModel.findAndCountAll({
             nest: true,
             distinct:true, 
-            include: [{model: GroupModel, include: [{model: AttributeModel, include: [{model: GoodsAttributeModel}]}]},{model: PricesAndCountsModel}, ],where: query, limit, offset})
+            include: [{
+                model: GroupModel
+            },{
+                model: PricesAndCountsModel
+            }, ],
+            include: [{
+                model: GoodsAttributeModel, 
+                // where: filters,
+                include: [{
+                    model: AttributeModel
+                }]
+            }],
+            where: query,
+            limit, 
+            offset
+        })
         .then(goods => {
-            console.log(goods)
+            // console.log(goods)
             result(goods)
         }).catch(err=>console.log(err));
 
