@@ -45,7 +45,7 @@ const Category = observer(({mainTitle}) => {
         setLoading(true)
         async function getData(id){
             
-            fetch(`http://localhost/api/products?group_id=${id}&limit=20`)
+            fetch(`http://localhost/api/products?group_id=${id}&limit=20&filter_2=Белый`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -182,7 +182,7 @@ const Category = observer(({mainTitle}) => {
                             
                             <div className={styles.good_price}>
                                 {
-                                    item['prices_and_count.price'] != '' ? (<p><span>{Number( item['prices_and_count.price']).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
+                                    item?.prices_and_count?.price != '' ? (<p><span>{Number( item.prices_and_count?.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
                                 }
                             </div>
                             <a id={item.guid} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a>

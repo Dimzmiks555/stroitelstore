@@ -64,6 +64,7 @@ class ProductsService {
 
         let offset = page * limit - limit
 
+        console.log(sub_filters)
         if (sub_filters[0]) {
             GoodModel.findAndCountAll({
                 nest: true,
