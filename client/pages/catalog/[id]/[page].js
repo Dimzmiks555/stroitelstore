@@ -134,11 +134,11 @@ const Category = observer(({mainTitle}) => {
     // }
 
     function handleFilter(e, params) {
-
-        router.push({
-            pathname: `/catalog/[id]/1`,
-            query: {id: id}
-        })
+        console.log(args)
+        // router.push({
+        //     pathname: `/catalog/[id]/1`,
+        //     query: {id: id, ...args}
+        // })
     }
     function showGoods() {
         return data.map(item => {
@@ -240,12 +240,12 @@ const Category = observer(({mainTitle}) => {
 
                         {
                             filters.map(item => (                                   
-                                <div>
+                                <div key={item}>
                                     <div className={styles.filter_title}>{item}</div>
                                     {
                                         attributes.map(item => (
-                                            <div className={styles.checkbox_filter}>
-                                                <input id={item?.id} value={item.value} data-request={item?.attribute?.id}  type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
+                                            <div className={styles.checkbox_filter} >
+                                                <input id={item?.id} value={item.value} data-request={item?.attribute?.id}  type='checkbox' onChange={e => {handleFilter(e)}}></input>
                                                 <label for={item?.id}>{item.value}</label>
                                             </div>
                                         ))
