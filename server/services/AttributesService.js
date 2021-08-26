@@ -5,6 +5,18 @@ import { GroupModel, AttributeModel, PricesAndCountsModel } from '../models/mode
 
 class AttributesService {
 
+    async create(body) {
+        
+
+        AttributeModel.create({title: body.title, group_id: body.group_id})
+        .then(goods => {
+            console.log(goods)
+            result(goods)
+        }).catch(err=>console.log(err));
+
+
+    }
+
 
     async getAll(params ,result) {
         

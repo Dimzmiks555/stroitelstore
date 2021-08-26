@@ -15,6 +15,7 @@ router.get('/products/:id', ProductsController.getOne);
 router.get('/groups/', GroupsController.getAll);
 
 router.get('/attributes/', AttributesController.getAll);
+router.post('/attributes/', AttributesController.create);
 
 router.get('/goods_attributes/', GoodsAttributesController.getAll);
 

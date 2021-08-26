@@ -7,6 +7,9 @@ import styles from './products.module.css'
  export default function Attributes() {
 
     const [data, setData] = useState([])
+    const [groups, setGroups] = useState([])
+    const [attrValue, setAttrValue] = useState([])
+    const [groupID, setGroupID] = useState([])
 
     function fetchData(page) {
         fetch(`http://localhost/api/attributes`)
@@ -18,8 +21,41 @@ import styles from './products.module.css'
     }
 
 
+    function fetchGroups(page) {
+        fetch(`http://localhost/api/groups`)
+        .then(res => res.json())
+        .then(json => {
+            setGroups(json.rows)
+            console.log(json)
+        })
+    }
+
+    function handleAttrValue(e) {
+        setAttrValue(e.target.value)
+    }
+    
+    function handleSubmit(e) {
+        e.preventDefault()
+
+        fetch(`http://localhost/api/groups`, {
+            method: 'POST',
+            body: {
+                group_id: groupID,
+                title: attrValue
+            }
+        })
+        .then(res => res.json())
+        .then(json => {
+            setGroups(json.rows)
+            console.log(json)
+        })
+
+    }
+
+
     useEffect(() => {
         fetchData()
+        fetchGroups()
     }, [data[0]])
 
 
@@ -35,16 +71,20 @@ import styles from './products.module.css'
                         <label>
                             Название
                         </label>
-                        <input>
+                        <input value={attrValue} onChange={handleAttrValue}>
                         </input>
                         <label>
                             Группа
                         </label>
                         <select>
-
+                            {
+                                groups?.map(item => (
+                                    <option value={item.guid}>{item.title}</option>
+                                ))
+                            }
                         </select>
 
-                        <button>
+                        <button onCLick={handleSubmit}>
                             Создать
                         </button>
 

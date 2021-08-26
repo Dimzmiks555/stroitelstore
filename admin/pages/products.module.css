@@ -44,6 +44,13 @@
     font-size: 16px;
 }
 .attributes select {
+    padding: 6px 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.attributes button {
+    margin-top: 20px;
+    padding: 10px 20px;
     margin-bottom: 20px;
     font-size: 16px;
 }

@@ -16,13 +16,13 @@ class GroupsService {
 
 
         if (parent_group) {
-            GroupModel.findAndCountAll({raw: true, where: {parent_group}})
+            GroupModel.findAndCountAll({ where: {parent_group}, order: [['title', 'ASC']]})
             .then(goods => {
                 console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         } else {
-            GroupModel.findAndCountAll({raw: true})
+            GroupModel.findAndCountAll({order: [['title', 'ASC']]})
             .then(goods => {
                 console.log(goods)
                 result(goods)

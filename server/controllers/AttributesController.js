@@ -27,6 +27,16 @@ class AttributesController {
             res.status(500).json(e)
         }
     }
+    async create(req, res) {
+        try {
+            await AttributesService.create(req.body);
+            res.status(200)
+
+        } catch (e) {
+            // console.log(e);
+            res.status(500).json(e)
+        }
+    }
 }
 
 
