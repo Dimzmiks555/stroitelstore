@@ -40,7 +40,6 @@ import styles from './products.module.css'
 
     
     function handleSubmit(e) {
-        e.preventDefault();
 
         console.log({
                     group_id: groupID,
@@ -49,10 +48,10 @@ import styles from './products.module.css'
 
         fetch(`http://localhost/api/attributes`, {
             method: 'POST',
-            body: {
+            body: JSON.stringify({
                 group_id: groupID,
                 title: attrValue
-            },
+            }),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

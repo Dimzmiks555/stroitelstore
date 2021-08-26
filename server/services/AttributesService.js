@@ -7,12 +7,12 @@ class AttributesService {
 
     async create(body) {
         
-        console.log(body)
+        // console.log(body)
 
-        // AttributeModel.create({title: body.title, group_id: body.group_id})
-        // .then(goods => {
-        //     console.log(goods)
-        // }).catch(err=>console.log(err));
+        AttributeModel.create({title: body.title, group_id: body.group_id})
+        .then(goods => {
+            console.log(goods)
+        }).catch(err=>console.log(err));
 
 
     }
