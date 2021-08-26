@@ -3,6 +3,7 @@
 
 import mysql from 'mysql2'
 import Sequelize from "sequelize";
+const {Op} = Sequelize
 import { GroupModel, GoodModel, PricesAndCountsModel, GoodsAttributeModel, AttributeModel } from '../models/models.js';
  
 
@@ -16,15 +17,49 @@ class ProductsService {
 
         let query = {}
 
-        let filters = args
+
+
+        
+
+        let sub_filters = []
 
 
         if (group_id != null) query.group_id = group_id;
 
         // if (id != null) filters.id = id;
 
+        for (let key in args) {
+            const attr_id = key.slice(7);
+            
+            const values = args[key].split(',');
 
-        console.log(args)
+            let attr_filter = [];
+
+            sub_filters.push({
+                attr_id: attr_id,
+                value: [...values]
+            })
+        }
+        
+        let filters = {
+            [Op.and] : sub_filters
+        }
+
+        console.log(filters)
+        // filter_example = {
+        //     [Op.and] : [
+        //         {
+        //             attr_id: 2,
+        //             value: ['white', 'blue']
+        //         },
+        //         {
+        //             attr_id: 3,
+        //             value: ['70мм']
+        //         },
+        //     ]
+        // }
+
+        
         limit = +limit || 10
         page = page || 1
 
@@ -40,6 +75,7 @@ class ProductsService {
             }, ],
             include: [{
                 model: GoodsAttributeModel, 
+                where: filters,
                 // where: filters,
                 include: [{
                     model: AttributeModel
@@ -50,7 +86,7 @@ class ProductsService {
             offset
         })
         .then(goods => {
-            // console.log(goods)
+            console.log(goods)
             result(goods)
         }).catch(err=>console.log(err));
 
