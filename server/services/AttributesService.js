@@ -22,14 +22,16 @@ class AttributesService {
         
         let {group_id} = params
 
+        console.log(params, group_id)
+
         if (group_id) {
-            AttributeModel.findAndCountAll({raw: true, include: [GroupModel], where: {group_id}})
+            AttributeModel.findAndCountAll({include: [GroupModel], where: {group_id}})
             .then(goods => {
                 // console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         } else {
-            AttributeModel.findAndCountAll({raw: true, include: [GroupModel]})
+            AttributeModel.findAndCountAll({include: [GroupModel]})
             .then(goods => {
                 // console.log(goods)
                 result(goods)

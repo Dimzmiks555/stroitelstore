@@ -86,7 +86,7 @@ const Category = observer(({mainTitle}) => {
             .then(res => res.json())
             .then(json => {
                 console.log(json)
-                setFilters(json)
+                setFilters(json.rows)
             })
 
                 

@@ -83,7 +83,7 @@ import { useRouter} from 'next/router'
                                                {item?.id}
                                            </td>
                                            <td>
-                                               {item['attribute.title']}
+                                               {item.attribute.title}
                                            </td>
                                            <td>
                                                {item?.value}
