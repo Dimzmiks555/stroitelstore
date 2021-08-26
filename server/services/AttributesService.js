@@ -7,12 +7,12 @@ class AttributesService {
 
     async create(body) {
         
+        console.log(body)
 
-        AttributeModel.create({title: body.title, group_id: body.group_id})
-        .then(goods => {
-            console.log(goods)
-            result(goods)
-        }).catch(err=>console.log(err));
+        // AttributeModel.create({title: body.title, group_id: body.group_id})
+        // .then(goods => {
+        //     console.log(goods)
+        // }).catch(err=>console.log(err));
 
 
     }
@@ -24,7 +24,7 @@ class AttributesService {
 
         AttributeModel.findAndCountAll({raw: true, include: [GroupModel]})
         .then(goods => {
-            console.log(goods)
+            // console.log(goods)
             result(goods)
         }).catch(err=>console.log(err));
 

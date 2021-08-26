@@ -47,18 +47,17 @@ import styles from './products.module.css'
                     title: attrValue
                 })
 
-        fetch(`http://localhost/api/groups`, {
+        fetch(`http://localhost/api/attributes`, {
             method: 'POST',
-            body: JSON.stringify({
+            body: {
                 group_id: groupID,
                 title: attrValue
-            })
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        .then(res => res.json())
-        .then(json => {
-            setGroups(json.rows)
-            console.log(json)
-        })
+        .then(res => console.log(res))
 
     }
 
