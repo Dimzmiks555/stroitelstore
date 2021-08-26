@@ -65,7 +65,6 @@ const Category = observer(({mainTitle}) => {
                 console.log(json.rows)
             })
 
-
             setLoading(false)
                 
         }
@@ -74,12 +73,14 @@ const Category = observer(({mainTitle}) => {
             fetch(`http://localhost/api/goods_attributes?group_id=${id}`)
             .then(res => res.json())
             .then(json => {
+
                 let arr = []
 
                 json.forEach(item => {
                     arr.push(item?.attribute?.title)
                 })
                 setAttributes(json)
+                console.log(json)
                 setFilters(Array.from(new Set(arr)))
             })
 
@@ -307,7 +308,7 @@ const Category = observer(({mainTitle}) => {
                                 <div key={item}>
                                     <div className={styles.filter_title}>{item}</div>
                                     {
-                                        attributes.map(item => (
+                                        attributes.filter(subitem => {return subitem.attr_id == item.id }).map(item => (
                                             <div className={styles.checkbox_filter} >
                                                 <input id={item?.id} value={item.value} data-request={item?.attribute?.id}  type='checkbox' onChange={e => {handleFilter(e)}}></input>
                                                 <label for={item?.id}>{item.value}</label>
