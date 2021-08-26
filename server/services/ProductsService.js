@@ -14,7 +14,18 @@ class ProductsService {
         
         let {limit, page, group_id, ...args} = params
 
-        let query = {}
+        let query = {
+            // [Sequelize.Op.and] : [
+            //         {
+            //             attr_id: 2,
+            //             value: ['Дуб рене']
+            //         },
+            //         {
+            //             attr_id: 3,
+            //             value: ['70мм']
+            //         },
+            //     ]
+        }
 
 
 
@@ -40,9 +51,12 @@ class ProductsService {
             })
         }
         
-        let filters = {
-            [Sequelize.Op.and] : sub_filters
-        }
+        // let filters = {
+        //     [Sequelize.Op.and] : sub_filters
+        // }
+
+        
+
 
         // filter_example = {
         //     [Op.and] : [
@@ -86,7 +100,7 @@ class ProductsService {
                 include: [
                     {
                         model: GoodsAttributeModel, 
-                        // where: filters,
+                        where: filters,
                         include: [
                             {
                                 model: AttributeModel
