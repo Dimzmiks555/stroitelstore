@@ -45,7 +45,6 @@ class ProductsService {
             [Op.and] : sub_filters
         }
 
-        console.log(filters)
         // filter_example = {
         //     [Op.and] : [
         //         {
@@ -65,30 +64,61 @@ class ProductsService {
 
         let offset = page * limit - limit
 
-        GoodModel.findAndCountAll({
-            nest: true,
-            distinct:true, 
-            include: [{
-                model: GroupModel
-            },{
-                model: PricesAndCountsModel
-            }, ],
-            include: [{
-                model: GoodsAttributeModel, 
-                where: filters,
-                // where: filters,
+        if (sub_filters[0]) {
+            GoodModel.findAndCountAll({
+                nest: true,
+                distinct:true, 
                 include: [{
-                    model: AttributeModel
-                }]
-            }],
-            where: query,
-            limit, 
-            offset
-        })
-        .then(goods => {
-            console.log(goods)
-            result(goods)
-        }).catch(err=>console.log(err));
+                    model: GroupModel
+                },{
+                    model: PricesAndCountsModel
+                }, ],
+                include: [{
+                    model: GoodsAttributeModel, 
+                    where: filters,
+                    // where: filters,
+                    include: [{
+                        model: AttributeModel
+                    }]
+                }],
+                where: query,
+                limit, 
+                offset
+            })
+            .then(goods => {
+                console.log(goods)
+                result(goods)
+            }).catch(err=>console.log(err));
+        } else {
+            GoodModel.findAndCountAll({
+                nest: true,
+                distinct:true, 
+                include: [
+                    {
+                        model: GoodsAttributeModel, 
+                        // where: filters,
+                        include: [
+                            {
+                                model: AttributeModel
+                            }
+                        ]
+                    },
+                    {
+                        model: GroupModel
+                    },
+                    {
+                        model: PricesAndCountsModel
+                    }
+                ],
+                where: query,
+                limit, 
+                offset
+            })
+            .then(goods => {
+                console.log(goods)
+                result(goods)
+            }).catch(err=>console.log(err));
+        }
 
 
         

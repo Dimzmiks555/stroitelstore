@@ -50,6 +50,7 @@ const Category = observer(({mainTitle}) => {
             .then(json => {
                 setData(json?.rows)
                 setCountGoods(json?.count)
+                console.log(json.rows)
             })
 
 
