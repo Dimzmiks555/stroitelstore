@@ -33,16 +33,26 @@ import styles from './products.module.css'
     function handleAttrValue(e) {
         setAttrValue(e.target.value)
     }
+
+    function handleSelect(e) {
+        setGroupID(e.target.value)
+    }
+
     
     function handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
+
+        console.log({
+                    group_id: groupID,
+                    title: attrValue
+                })
 
         fetch(`http://localhost/api/groups`, {
             method: 'POST',
-            body: {
+            body: JSON.stringify({
                 group_id: groupID,
                 title: attrValue
-            }
+            })
         })
         .then(res => res.json())
         .then(json => {
@@ -67,7 +77,7 @@ import styles from './products.module.css'
 
                     <h2>Создать атрибут</h2>
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <label>
                             Название
                         </label>
@@ -76,7 +86,7 @@ import styles from './products.module.css'
                         <label>
                             Группа
                         </label>
-                        <select>
+                        <select value={groupID} onChange={handleSelect}>
                             {
                                 groups?.map(item => (
                                     <option value={item.guid}>{item.title}</option>
@@ -84,7 +94,7 @@ import styles from './products.module.css'
                             }
                         </select>
 
-                        <button onCLick={handleSubmit}>
+                        <button>
                             Создать
                         </button>
 
