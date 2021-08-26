@@ -135,7 +135,10 @@ const Category = observer(({mainTitle}) => {
 
     function handleFilter(e, params) {
 
-        router.push(`/catalog/${id}/1`)
+        router.push({
+            pathname: `/catalog/[id]/1`,
+            query: {id: id}
+        })
     }
     function showGoods() {
         return data.map(item => {
