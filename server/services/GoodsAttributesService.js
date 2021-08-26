@@ -31,7 +31,7 @@ class GoodsAttributesService {
                 result(goods)
             }).catch(err=>console.log(err));
         } else if (!good_id && group_id) {
-            GoodsAttributeModel.findAll({ include: [AttributeModel], where: {group_id}})
+            GoodsAttributeModel.findAll({ include: [{model: AttributeModel, where: {group_id}}]})
             .then(goods => {
                 console.log(goods)
                 result(goods)

@@ -20,7 +20,7 @@ const Category = observer(({mainTitle}) => {
 
     // Router
     const router = useRouter()
-    let {id, page , sort, pa__type_of_door, pa__depth_of_door} = router.query
+    let {id, page, sort, ...args} = router.query
     console.log(router.query)
 
     //UseState
@@ -33,19 +33,31 @@ const Category = observer(({mainTitle}) => {
     const [priceFilter, setPriceFilters] = useState([]);
     const [isLoading, setLoading] = useState([true]);
 
-    // Lets
-    let items = [];
-    let dataF;
-
-    if (data != undefined) {
-        Object.assign(items, data)
-    }
+   
     
     useEffect(() => {
         setLoading(true)
-        async function getData(id){
+        async function getData(id, params){
             
-            fetch(`http://localhost/api/products?group_id=${id}&limit=20`)
+            let parametrs = Object.entries(params)
+
+
+
+            function generate(parametrs) {
+                let string =''
+                parametrs.forEach((item, index) => {
+                    if(index == 0) {
+                        string = `&${item[0]}=${item[1]}`
+                    } else {
+                        string = string + `&${item[0]}=${item[1]}`
+                    }
+                })
+                return string
+            }
+
+
+
+            fetch(`http://localhost/api/products?group_id=${id}&limit=20${generate(parametrs)}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -59,14 +71,14 @@ const Category = observer(({mainTitle}) => {
         }
         async function getDataAttr(id){
            
-            fetch(`http://localhost/api/goods_attributes`)
+            fetch(`http://localhost/api/goods_attributes?group_id=${id}`)
             .then(res => res.json())
             .then(json => {
                 console.log(json)
                 let arr = []
 
                 json.forEach(item => {
-                    arr.push(item['attribute.title'])
+                    arr.push(item?.attribute?.title)
                 })
                 setAttributes(json)
                 setFilters(Array.from(new Set(arr)))
@@ -79,17 +91,18 @@ const Category = observer(({mainTitle}) => {
 
                 
         }
+
+        let params = {}
+        Object.assign(params, router.query)
+        delete params['id']
+        delete params['page']
+
         getCategoryData(id);
-        getData(id)
+        getData(id, params)
         getDataAttr(id)
 
     }, [router.query, page]);
     
-    useEffect(() => {
-        if (data != undefined) {
-            Object.assign(items, data)
-        }
-    },[data])
     // function handleSelect(value) {
     //     if (value.value == 'default') {
     //          delete params[`sort`]
@@ -119,45 +132,11 @@ const Category = observer(({mainTitle}) => {
     //     }) 
     //     dataF = result;
     // }
-    // let params = {}
-    // Object.assign(params, router.query)
-    // delete params['id']
-    // delete params['page']
 
-    // function handleFilter(e, params) {
-    //     if (params[`${e.target.dataset.request}`] != undefined && !params[`${e.target.dataset.request}`].includes(e.target.value)) {
-    //         params[`${e.target.dataset.request}`] = params[`${e.target.dataset.request}`] + ',' + e.target.value;
-    //     } else if (params[`${e.target.dataset.request}`]?.includes(e.target.value)) {
-    //         let array = params[`${e.target.dataset.request}`].split(',')
-    //         array = array.filter(i => {
-    //             return i != e.target.value
-    //         })
-    //         if (array[0] == undefined) {
-    //             delete params[`${e.target.dataset.request}`]
-    //         } else if (array[0] != undefined) {
-    //             params[`${e.target.dataset.request}`] = array.join('')
-    //         } else {
-    //             params[`${e.target.dataset.request}`] = array.join(',')
-    //         }
-    //     } else {
-    //         params[`${e.target.dataset.request}`] = e.target.value;
-    //     }
-        
-    //     let parametrs = Object.entries(params)
-    //     function generate(parametrs) {
-    //         let string =''
-    //         parametrs.forEach((item, index) => {
-    //             if(index == 0) {
-    //                 string = `?${item[0]}=${item[1]}`
-    //             } else {
-    //                 string = string + `&${item[0]}=${item[1]}`
-    //             }
-    //         })
-    //         return string
-    //     }
+    function handleFilter(e, params) {
 
-    //     router.push(`/catalog/${id}/1${generate(parametrs)}`)
-    // }
+        router.push(`/catalog/${id}/1${generate(parametrs)}`)
+    }
     function showGoods() {
         return data.map(item => {
                 return (
@@ -263,15 +242,14 @@ const Category = observer(({mainTitle}) => {
                                     {
                                         attributes.map(item => (
                                             <div className={styles.checkbox_filter}>
-                                                <input id='_type_of_door_gluhaya' value={item.value} data-request={item['attribute.id']}  type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
-                                                <label for="_type_of_door_gluhaya">{item.value}</label>
+                                                <input id={item?.id} value={item.value} data-request={item?.attribute?.id}  type='checkbox' onChange={e => {handleFilter(e, params)}}></input>
+                                                <label for={item?.id}>{item.value}</label>
                                             </div>
                                         ))
                                     }
                                 </div>
                             ))
                         }
-                        {console.log(attributes)}
                         
 
 
