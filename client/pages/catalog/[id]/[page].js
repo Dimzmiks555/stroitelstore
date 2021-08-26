@@ -135,7 +135,7 @@ const Category = observer(({mainTitle}) => {
 
     function handleFilter(e, params) {
 
-        router.push(`/catalog/${id}/1${generate(parametrs)}`)
+        router.push(`/catalog/${id}/1`)
     }
     function showGoods() {
         return data.map(item => {
