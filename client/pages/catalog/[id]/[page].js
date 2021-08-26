@@ -152,14 +152,38 @@ const Category = observer(({mainTitle}) => {
                         pathname: `/catalog/[id]/1`,
                         query: {id: id, [attr_id]: value , ...args}
                     })
-                } else if (key === attr_id && args[key] !== value) {
+                } else if (key === attr_id && args[key].search(value) === -1) {
 
                     let new_value = value + ',' + args[key];
 
-                    let new_args = args;
+                    args[attr_id] = new_value;
+
+                    console.log(args)
+
+                    router.push({
+                        pathname: `/catalog/[id]/1`,
+                        query: {id: id, ...args}
+                    })
+
+                } else if (key === attr_id && args[key].search(value) !== -1) {
+
+                    let filters_ = args[key].split(',')
+
+                    filters_.splice(filters_.indexOf(value), 1)
+
+
+                   
+
+                    let new_value = filters_.join(',');
+
+                    console.log(new_value)
+                    args[attr_id] = new_value;
+
+                    if (new_value == '') {
+                        delete args[attr_id]
+                    }
 
                     
-
                     router.push({
                         pathname: `/catalog/[id]/1`,
                         query: {id: id, ...args}
