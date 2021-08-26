@@ -133,12 +133,53 @@ const Category = observer(({mainTitle}) => {
     //     dataF = result;
     // }
 
-    function handleFilter(e, params) {
-        console.log(args)
-        // router.push({
-        //     pathname: `/catalog/[id]/1`,
-        //     query: {id: id, ...args}
-        // })
+    function handleFilter(e) {
+
+        let filter_id = e?.target?.id;
+        let value = e?.target?.value
+        let attr_id = 'filter_' + attributes.filter(item => filter_id == item.id)[0].attr_id?.toString()
+
+        console.log(attr_id, value)
+
+        console.log(args);
+
+        if (Object.keys(args).length === 0) {
+            router.push({
+                pathname: `/catalog/[id]/1`,
+                query: {id: id, [attr_id]: value , ...args}
+            })
+        } else {
+            for (let key in args) {
+
+                if (key !== attr_id) {
+                    router.push({
+                        pathname: `/catalog/[id]/1`,
+                        query: {id: id, [attr_id]: value , ...args}
+                    })
+                } else if (key === attr_id && args[key] !== value) {
+
+                    let new_value = value + ',' + args[key];
+
+                    router.push({
+                        pathname: `/catalog/[id]/1`,
+                        query: {id: id, [attr_id]: new_value , ...args}
+                    })
+
+                } else {
+
+                    delete args[attr_id]
+
+                    router.push({
+                        pathname: `/catalog/[id]/1`,
+                        query: {id: id , ...args}
+                    })
+                }
+    
+            }
+        }
+
+
+        
     }
     function showGoods() {
         return data.map(item => {
