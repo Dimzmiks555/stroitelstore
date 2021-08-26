@@ -51,9 +51,9 @@ class ProductsService {
             })
         }
         
-        // let filters = {
-        //     [Sequelize.Op.and] : sub_filters
-        // }
+        let filters = {
+            [Sequelize.Op.and] : sub_filters
+        }
 
         
 
