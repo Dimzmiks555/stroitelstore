@@ -74,7 +74,6 @@ const Category = observer(({mainTitle}) => {
             fetch(`http://localhost/api/goods_attributes?group_id=${id}`)
             .then(res => res.json())
             .then(json => {
-                console.log(json)
                 let arr = []
 
                 json.forEach(item => {
@@ -139,9 +138,6 @@ const Category = observer(({mainTitle}) => {
         let value = e?.target?.value
         let attr_id = 'filter_' + attributes.filter(item => filter_id == item.id)[0].attr_id?.toString()
 
-        console.log(attr_id, value)
-
-        console.log(args);
 
         if (Object.keys(args).length === 0) {
             router.push({
@@ -160,9 +156,13 @@ const Category = observer(({mainTitle}) => {
 
                     let new_value = value + ',' + args[key];
 
+                    let new_args = args;
+
+                    
+
                     router.push({
                         pathname: `/catalog/[id]/1`,
-                        query: {id: id, [attr_id]: new_value , ...args}
+                        query: {id: id, ...args}
                     })
 
                 } else {
