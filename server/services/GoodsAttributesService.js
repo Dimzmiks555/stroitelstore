@@ -13,25 +13,25 @@ class GoodsAttributesService {
 
 
         if (good_id && group_id) {
-            GoodsAttributeModel.findAll({raw: true, include: [AttributeModel], where: {good_id, group_id}})
+            GoodsAttributeModel.findAll({ include: [AttributeModel], where: {good_id, group_id}})
             .then(goods => {
                 console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         } else if (!good_id && !group_id) {
-            GoodsAttributeModel.findAll({raw: true, include: [AttributeModel]})
+            GoodsAttributeModel.findAll({ include: [AttributeModel]})
             .then(goods => {
                 console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         } else if (good_id && !group_id) {
-            GoodsAttributeModel.findAll({raw: true, include: [AttributeModel], where: {good_id}})
+            GoodsAttributeModel.findAll({ include: [AttributeModel], where: {good_id}})
             .then(goods => {
                 console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         } else if (!good_id && group_id) {
-            GoodsAttributeModel.findAll({raw: true, include: [AttributeModel], where: {group_id}})
+            GoodsAttributeModel.findAll({ include: [AttributeModel], where: {group_id}})
             .then(goods => {
                 console.log(goods)
                 result(goods)

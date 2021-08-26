@@ -45,24 +45,24 @@ const Category = observer(({mainTitle}) => {
         setLoading(true)
         async function getData(id){
             
-            fetch(`http://localhost/api/products?group_id=${id}&limit=20&filter_2=Белый`)
+            fetch(`http://localhost/api/products?group_id=${id}&limit=20`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
                 setCountGoods(json?.count)
-                console.log(json.rows)
+                
             })
 
 
             setLoading(false)
                 
         }
-        async function getDataAttr(){
+        async function getDataAttr(id){
            
-            fetch(`http://localhost/api/goods_attributes?attribute.group_id=${id}`)
+            fetch(`http://localhost/api/goods_attributes`)
             .then(res => res.json())
             .then(json => {
-
+                console.log(json)
                 let arr = []
 
                 json.forEach(item => {
@@ -81,7 +81,7 @@ const Category = observer(({mainTitle}) => {
         }
         getCategoryData(id);
         getData(id)
-        getDataAttr()
+        getDataAttr(id)
 
     }, [router.query, page]);
     
