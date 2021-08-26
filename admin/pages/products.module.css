@@ -25,3 +25,11 @@
     border: 1px solid #d00;
     color: white
 }
+
+.attributes {
+    display: flex;
+    justify-content: space-between;
+}
+.attributes > div {
+    width: 48%;
+}

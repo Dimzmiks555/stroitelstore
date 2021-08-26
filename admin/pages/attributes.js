@@ -25,45 +25,55 @@ import styles from './products.module.css'
 
      return (
          <Layout title="Атрибуты">
-             <div className={styles.header}>
-                Всего атрибутов: {data?.count}
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <td>
-                            ID
-                        </td>
-                        <td>
-                            Название
-                        </td>
-                        <td>
-                            Группа
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        data?.rows?.map(item => (
+             
+             <div className={styles.attributes}>
+                 <div>
+
+                    <h2>Создать атрибут</h2>
+
+                    <form>
+                        
+                    </form>
+
+                 </div>
+                 <div>
+                    <div className={styles.header}>
+                        Всего атрибутов: {data?.count}
+                    </div>
+                    <table>
+                        <thead>
                             <tr>
                                 <td>
-                                    {item.id}
+                                    ID
                                 </td>
                                 <td>
-                                    <Link href={`/products/${item.guid}`}>
-                                        <a>{item.title}</a>
-                                    </Link>
+                                    Название
                                 </td>
                                 <td>
-                                    {item['group.title']}
+                                    Группа
                                 </td>
                             </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-
-
+                        </thead>
+                        <tbody>
+                            {
+                                data?.rows?.map(item => (
+                                    <tr>
+                                        <td>
+                                            {item.id}
+                                        </td>
+                                        <td>
+                                            {item.title}
+                                        </td>
+                                        <td>
+                                            {item['group.title']}
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                 </div>
+             </div>
 
          </Layout>
      )

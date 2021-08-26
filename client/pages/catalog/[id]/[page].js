@@ -57,12 +57,12 @@ const Category = observer(({mainTitle}) => {
 
 
 
-            fetch(`http://localhost/api/products?group_id=${id}&limit=20${generate(parametrs)}`)
+            fetch(`http://localhost/api/products?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
                 setCountGoods(json?.count)
-                
+                console.log(json.rows)
             })
 
 
@@ -158,7 +158,6 @@ const Category = observer(({mainTitle}) => {
 
                     args[attr_id] = new_value;
 
-                    console.log(args)
 
                     router.push({
                         pathname: `/catalog/[id]/1`,

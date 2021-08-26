@@ -69,19 +69,23 @@ class ProductsService {
             GoodModel.findAndCountAll({
                 nest: true,
                 distinct:true, 
-                include: [{
-                    model: GroupModel
-                },{
-                    model: PricesAndCountsModel
-                }, ],
-                include: [{
-                    model: GoodsAttributeModel, 
-                    where: filters,
-                    // where: filters,
-                    include: [{
-                        model: AttributeModel
-                    }]
-                }],
+                include: [
+                    {
+                        model: GoodsAttributeModel, 
+                        where: filters,
+                        include: [
+                            {
+                                model: AttributeModel
+                            }
+                        ]
+                    },
+                    {
+                        model: GroupModel
+                    },
+                    {
+                        model: PricesAndCountsModel
+                    }
+                ],
                 where: query,
                 limit, 
                 offset

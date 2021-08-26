@@ -55,6 +55,9 @@ import styles from './products.module.css'
                 <thead>
                     <tr>
                         <td>
+                            GUID
+                        </td>
+                        <td>
                             Название
                         </td>
                         <td>
@@ -66,6 +69,9 @@ import styles from './products.module.css'
                     {
                         data?.rows?.map(item => (
                             <tr>
+                                <td>
+                                    <a>{item.guid}</a>
+                                </td>
                                 <td>
                                     <a><b>{item.title}</b></a>
                                 </td>
