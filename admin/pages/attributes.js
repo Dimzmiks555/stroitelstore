@@ -54,6 +54,7 @@ import styles from './products.module.css'
                 title: attrValue
             },
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         })
