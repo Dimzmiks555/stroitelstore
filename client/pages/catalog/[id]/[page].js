@@ -74,6 +74,14 @@ const Category = observer(({mainTitle}) => {
             .then(res => res.json())
             .then(json => {
 
+
+                json.forEach(item => {
+                    delete item.id;
+                })
+
+
+                let filteredAttr = new Set();
+
                 setAttributes(json)
                 console.log(json)
             })

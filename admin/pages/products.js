@@ -8,24 +8,52 @@ import styles from './products.module.css'
 
     const [data, setData] = useState([])
     const [pagination, setPagination] = useState(1)
+    const [groups, setGroups] = useState([])
+    const [group_id, setGroupId] = useState(null)
 
-    function fetchData(page) {
-        fetch(`http://localhost/api/products?page=${page}`)
-        .then(res => res.json())
-        .then(json => {
-            setData(json)
-            console.log(json)
-        })
+    function fetchData(page, group_id) {
+        
+        if (group_id != null) {
+            fetch(`http://kassa1/api/products?page=${page}&group_id=${group_id}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json)
+                console.log(json)
+            })
+        } else {
+            fetch(`http://kassa1/api/products?page=${page}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json)
+                console.log(json)
+            })
+        }
+
     }
 
+    function fetchGroups() {
+        fetch(`http://kassa1/api/groups`)
+        .then(res => res.json())
+        .then(json => {
+            setGroups(json.rows)
+            console.log(json.rows)
+        })
+    }
 
     function handlePagination(e) {
         setPagination(+e.target.id)
     }
 
+    function handleSelect(e) {
+        setGroupId(e.target.value)
+        setPagination(1)
+    }
+
+
     useEffect(() => {
-        fetchData(pagination)
-    }, [data[0], pagination])
+        fetchData(pagination, group_id)
+        fetchGroups()
+    }, [group_id , data[0], pagination, groups.guid])
 
 
      return (
@@ -33,7 +61,21 @@ import styles from './products.module.css'
              <div className={styles.header}>
                 Всего продуктов: {data?.count}
             </div>
-            <table>
+            <div className={styles.filters}>
+                <label>
+                    Группа
+                </label>
+                <select onChange={handleSelect}>
+                    {
+                        groups?.map(item => (
+                            <option value={item?.guid}>
+                                {item.title}
+                            </option>
+                        ))
+                    }
+                </select>
+            </div>
+            <table className={styles.products_table}>
                 <thead>
                     <tr>
                         <td>
@@ -67,7 +109,7 @@ import styles from './products.module.css'
                                     {item.guid}
                                 </td>
                                 <td>
-                                    {item['prices_and_count.sku']}
+                                    {item.prices_and_count?.sku}
                                 </td>
                                 <td>
                                     <Link href={`/products/${item.guid}`}>
@@ -75,16 +117,16 @@ import styles from './products.module.css'
                                     </Link>
                                 </td>
                                 <td>
-                                    {item['prices_and_count.amount']}
+                                    {item.prices_and_count?.amount}
                                 </td>
                                 <td>
-                                    {item['prices_and_count.unit']}
+                                    {item.prices_and_count?.unit}
                                 </td>
                                 <td>
-                                    {item['prices_and_count.price']}
+                                    {item.prices_and_count?.price}
                                 </td>
                                 <td>
-                                    {item['group.title']}
+                                    {item.group?.title}
                                 </td>
                             </tr>
                         ))
@@ -95,22 +137,53 @@ import styles from './products.module.css'
             <div className={styles.pagination}>
                 <ul>
                     <li>
-                        <a id={1} onClick={handlePagination}>{1}</a>
+                        <a id={1} onClick={handlePagination}>{'<'}</a>
                     </li>
+                    { pagination - 4 > 1 - 1 ? (
+                    <li>
+                        <a id={pagination - 4} onClick={handlePagination}>{pagination - 4}</a>
+                    </li>
+                    ) : null}
+                     { pagination - 3 >  1 - 1? (
+                    <li>
+                        <a id={pagination - 3} onClick={handlePagination}>{pagination - 3}</a>
+                    </li>
+                    ) : null}
+                     { pagination - 2 > 1 - 1 ? (
+                    <li>
+                        <a id={pagination - 2} onClick={handlePagination}>{pagination - 2}</a>
+                    </li>
+                    ) : null}
+                     { pagination - 1 >  1 - 1 ? (
+                    <li>
+                        <a id={pagination - 1} onClick={handlePagination}>{pagination - 1}</a>
+                    </li>
+                    ) : null}
+                    <li>
+                        <a id={pagination} onClick={handlePagination}>{pagination}</a>
+                    </li>
+                    { pagination + 1 < Math.floor(data?.count / 10) + 1 ? (
                     <li>
                         <a id={pagination + 1} onClick={handlePagination}>{pagination + 1}</a>
                     </li>
+                    ) : null}
+                     { pagination + 2 < Math.floor(data?.count / 10) + 1 ? (
                     <li>
                         <a id={pagination + 2} onClick={handlePagination}>{pagination + 2}</a>
                     </li>
+                    ) : null}
+                     { pagination + 3 < Math.floor(data?.count / 10) + 1 ? (
                     <li>
                         <a id={pagination + 3} onClick={handlePagination}>{pagination + 3}</a>
                     </li>
+                    ) : null}
+                     { pagination + 4 < Math.floor(data?.count / 10) + 1 ? (
                     <li>
                         <a id={pagination + 4} onClick={handlePagination}>{pagination + 4}</a>
                     </li>
+                    ) : null}
                     <li>
-                        <a id={data?.count} onClick={handlePagination}>{data?.count}</a>
+                        <a id={Math.floor(data?.count / 10) + 1} onClick={handlePagination}>{">"}</a>
                     </li>
                 </ul>
             </div>

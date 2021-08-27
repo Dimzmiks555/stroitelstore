@@ -54,3 +54,13 @@
     margin-bottom: 20px;
     font-size: 16px;
 }
+
+.filters {
+    margin-bottom: 20px;
+}
+.filters label {
+    margin-bottom: 10px;
+}
+.products_table a:hover {
+    color: #d00;
+}

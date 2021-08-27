@@ -10,10 +10,13 @@ import { useRouter} from 'next/router'
 
     const [data, setData] = useState([])
     const [attributes, setAttributes] = useState([])
+    const [attributeList, setAttributeList] = useState([])
 
+    const [newAttrId, setNewAttrId] = useState(null)
+    const [newValue, setNewValue] = useState(null)
 
     function fetchData(id) {
-        fetch(`http://localhost/api/products/${id}`)
+        fetch(`http://kassa1/api/products/${id}`)
         .then(res => res.json())
         .then(json => {
             setData(json)
@@ -23,7 +26,7 @@ import { useRouter} from 'next/router'
 
 
     function fetchAttributes(id) {
-        fetch(`http://localhost/api/goods_attributes?good_id=${id}`)
+        fetch(`http://kassa1/api/goods_attributes?good_id=${id}`)
         .then(res => res.json())
         .then(json => {
             setAttributes(json)
@@ -31,11 +34,53 @@ import { useRouter} from 'next/router'
         })
     }
 
+    function fetchAttributeList(id) {
+        fetch(`http://kassa1/api/attributes?group_id=${id}`)
+        .then(res => res.json())
+        .then(json => {
+            setAttributeList(json.rows)
+            console.log(json.rows)
+        })
+    }
+
+    function handleSelect(e) {
+        setNewAttrId(e.target.value)
+    }
+
+    function handleInput(e) {
+        
+        setNewValue(e.target.value)
+    }
+
+    function handleSubmit(e) {
+        if (newValue != null || newAttrId != null) {
+
+            let data = {
+                good_id: router.query.id,
+                attr_id: +newAttrId,
+                value: newValue.trim()
+            }
+
+            fetch(`http://kassa1/api/goods_attributes`, {
+                method: 'POST',
+                headers: {
+                    "Accept" : "application/json",
+                    "Content-type" : "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+
+            console.log(JSON.stringify(data))
+
+        }
+    }
+
 
     useEffect(() => { 
         fetchData(router.query.id)
         fetchAttributes(router.query.id)
-    }, [ router.query.id])
+        fetchAttributeList(data[0]?.group_id)
+    }, [ router.query.id, data[0]?.group_id])
 
 
      return (
@@ -63,6 +108,36 @@ import { useRouter} from 'next/router'
                     </div>
                     <h2>Характеристики</h2>
                     <div className={styles.attributes_block}>
+
+                        <div className={styles.header}>
+
+                            <div>
+                                <label>
+                                    Атрибут
+                                </label>
+                                <select onChange={handleSelect}>
+                                    <option value={null}>Выберите атрибут...</option>
+                                    {
+                                        attributeList.map(item => (
+                                            <option value={item?.id}>{item?.title}</option>
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                            <div>
+                                <label>
+                                    Значение
+                                </label>
+                                <input value={newValue} onChange={handleInput}></input>
+                            </div>
+                            <div>
+                                <button  onClick={handleSubmit}>
+                                    Добавить
+                                </button>
+                            </div>
+
+                        </div>
+
                         <table>
                             <thead>
                                 <td>

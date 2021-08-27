@@ -6,6 +6,19 @@ import { GroupModel, AttributeModel, GoodsAttributeModel } from '../models/model
 class GoodsAttributesService {
 
 
+
+    async create(data) {
+        
+
+        GoodsAttributeModel.create({attr_id: data.attr_id, good_id: data.good_id, value: data.value})
+        .then(goods => {
+            console.log(goods)
+            // result(goods)
+        }).catch(err=>console.log(err));
+
+
+    }
+
     async getAll(params ,result) {
         
         let {good_id, group_id} = params

@@ -67,17 +67,27 @@ class ProductsService {
 
         if (group_id != null) query.group_id = group_id;
 
+
+
+        // Просто делаем подзапрос и сравниваем айдишники
+
+        // const tempSQL = sequelize.dialect.queryGenerator.selectQuery('goods_attributes',{
+        //     attributes: ['good_id'],
+        //     where: {
+        //           attr_id: attr_id,
+        //           value: [...values],
+        //     }})
+        //     .slice(0,-1); // to remove the ';' from the end of the SQL
+
         // filter_example = {
-        //     [Op.and] : [
-        //         {
-        //             attr_id: 2,
-        //             value: ['white', 'blue']
-        //         },
-        //         {
-        //             attr_id: 3,
-        //             value: ['70мм']
-        //         },
-        //     ]
+        //     [Sequelize.Op.and] : [
+            // {
+            //     guid: [sequelize.literal(`(${tempSQL})`)]
+            // },
+            // {
+            //     guid: [sequelize.literal(`(${tempSQL})`)]
+            // }
+          // ]
         // }
 
 

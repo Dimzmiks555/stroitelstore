@@ -9,3 +9,21 @@
 .additional_info {
     width: 50%
 }
+.header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.header label {
+    margin-bottom: 10px;
+}
+.header input {
+    padding: 10px;
+}
+.header select {
+    padding: 10px;
+}
+.header button {
+    padding: 10px 20px;
+}
