@@ -78,10 +78,11 @@ const Category = observer(({mainTitle}) => {
                 let filteredAttr = []
 
                 json.forEach(obj => {
-                    if (filteredAttr.filter(item => item.id != obj.id)) {
-                        console.log(filteredAttr.filter(item => item.id != obj.id))
+                    if (filteredAttr[0]?.id)) {
                         filteredAttr.push(obj)
-                    } 
+                    } else if (filteredAttr.filter(item => item.id != obj.id) {
+
+                    }
                 })
 
 
