@@ -6,6 +6,14 @@ import Sequelize from "sequelize";
 import { GroupModel, GoodModel, PricesAndCountsModel, GoodsAttributeModel, AttributeModel } from '../models/models.js';
  
 
+const sequelize = new Sequelize("1c_base", "root", "root", {
+    dialect: "mysql",
+    host: "localhost",
+    define: {
+        timestamps: false
+    }
+  });
+
 
 class ProductsService {
 
@@ -14,27 +22,12 @@ class ProductsService {
         
         let {limit, page, group_id, ...args} = params
 
-        let query = {
-        }
-
-
-            // [Sequelize.Op.and] : [
-            //         {
-            //             attr_id: 2,
-            //             value: ['Дуб рене']
-            //         },
-            //         {
-            //             attr_id: 3,
-            //             value: ['70мм']
-            //         },
-            //     ]
+        let query = {}
 
         
 
         let sub_filters = []
 
-
-        if (group_id != null) query.group_id = group_id;
 
         // if (id != null) filters.id = id;
 
@@ -43,11 +36,21 @@ class ProductsService {
             
             const values = args[key].split(',');
 
+
+            const tempSQL = sequelize.dialect.queryGenerator.selectQuery('goods_attributes',{
+                attributes: ['good_id'],
+                where: {
+                      attr_id: attr_id,
+                      value: [...values],
+                }})
+                .slice(0,-1); // to remove the ';' from the end of the SQL
+
             let attr_filter = [];
 
+            console.log(tempSQL)
+
             sub_filters.push({
-                attr_id: attr_id,
-                value: [...values]
+                guid: [sequelize.literal(`(${tempSQL})`)]
             })
         }
         
@@ -55,8 +58,14 @@ class ProductsService {
             [Sequelize.Op.and] : sub_filters
         }
 
-        
+        if (sub_filters[0]) {
+            query = {
+                [Sequelize.Op.and] : sub_filters
+            }
+        }
 
+
+        if (group_id != null) query.group_id = group_id;
 
         // filter_example = {
         //     [Op.and] : [
@@ -94,13 +103,15 @@ class ProductsService {
 
         console.log(sub_filters)
         if (sub_filters[0]) {
+
+
+
             GoodModel.findAndCountAll({
-                raw: true,
-                // distinct:true, 
+                nest: true,
+                distinct:true, 
                 include: [
                     {
                         model: GoodsAttributeModel, 
-                        where: filters,
                         include: [
                             { 
                                 model: AttributeModel
@@ -119,13 +130,13 @@ class ProductsService {
                 offset
             })
             .then(goods => {
-                console.log(filters)
+                // console.log(filters)
                 console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         } else {
             GoodModel.findAndCountAll({
-                raw: true,
+                nest: true,
                 distinct:true, 
                 include: [
                     {
