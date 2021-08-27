@@ -75,15 +75,18 @@ const Category = observer(({mainTitle}) => {
             .then(json => {
 
 
+                let filteredAttr = []
+
                 json.forEach(item => {
-                    delete item.id;
+                    item.id = null;
+                    item.good_id = null;
+                    item.attribute = null
+                    filteredAttr.add(item)
                 })
 
 
-                let filteredAttr = new Set();
-
                 setAttributes(json)
-                console.log(json)
+                console.log(filteredAttr)
             })
 
                 
