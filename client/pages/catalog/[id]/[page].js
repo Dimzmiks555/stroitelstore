@@ -77,11 +77,11 @@ const Category = observer(({mainTitle}) => {
 
                 let filteredAttr = []
 
-                json.forEach(item => {
-                    item.id = null;
-                    item.good_id = null;
-                    item.attribute = null
-                    filteredAttr.add(item)
+                json.forEach(obj => {
+                    if (filteredAttr.filter(item => item.id != obj.id)) {
+                        console.log(filteredAttr.filter(item => item.id != obj.id))
+                        filteredAttr.push(obj)
+                    } 
                 })
 
 
