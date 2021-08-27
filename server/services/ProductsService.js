@@ -15,6 +15,9 @@ class ProductsService {
         let {limit, page, group_id, ...args} = params
 
         let query = {
+        }
+
+
             // [Sequelize.Op.and] : [
             //         {
             //             attr_id: 2,
@@ -25,9 +28,6 @@ class ProductsService {
             //             value: ['70мм']
             //         },
             //     ]
-        }
-
-
 
         
 
@@ -95,23 +95,23 @@ class ProductsService {
         console.log(sub_filters)
         if (sub_filters[0]) {
             GoodModel.findAndCountAll({
-                nest: true,
-                distinct:true, 
+                raw: true,
+                // distinct:true, 
                 include: [
                     {
                         model: GoodsAttributeModel, 
                         where: filters,
                         include: [
-                            {
+                            { 
                                 model: AttributeModel
                             }
                         ]
                     },
                     {
-                        model: GroupModel
+                        model: GroupModel,
                     },
                     {
-                        model: PricesAndCountsModel
+                        model: PricesAndCountsModel,
                     }
                 ],
                 where: query,
@@ -120,11 +120,12 @@ class ProductsService {
             })
             .then(goods => {
                 console.log(filters)
+                console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         } else {
             GoodModel.findAndCountAll({
-                nest: true,
+                raw: true,
                 distinct:true, 
                 include: [
                     {
