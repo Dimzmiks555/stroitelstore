@@ -96,7 +96,7 @@ const Search = observer(() => {
                     
                     </Link>) : null
                 )) : null}
-                {value != null ? data.map(item => (
+                {value != null ? data?.rows?.map(item => (
                     
                     <Link href={`/product/${item.guid}`}>
                             
@@ -105,7 +105,7 @@ const Search = observer(() => {
                             {item.title}
                         </div>
                         <div className={styles.result__item_price}>
-                            {item.price} ₽
+                            {item?.prices_and_count?.price} ₽
                         </div>
                     </a>
                     

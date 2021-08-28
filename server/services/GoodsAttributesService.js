@@ -21,30 +21,30 @@ class GoodsAttributesService {
 
     async getAll(params ,result) {
         
-        let {good_id, group_id} = params
+        let {good_id, group_id, group} = params
 
-
+        
 
         if (good_id && group_id) {
-            GoodsAttributeModel.findAll({ include: [AttributeModel], where: {good_id, group_id}})
+            GoodsAttributeModel.findAll({ include: [AttributeModel], where: {good_id, group_id}, group: group})
             .then(goods => {
                 console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         } else if (!good_id && !group_id) {
-            GoodsAttributeModel.findAll({ include: [AttributeModel]})
+            GoodsAttributeModel.findAll({ include: [AttributeModel], group: group})
             .then(goods => {
                 console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         } else if (good_id && !group_id) {
-            GoodsAttributeModel.findAll({ include: [AttributeModel], where: {good_id}})
+            GoodsAttributeModel.findAll({ include: [AttributeModel], where: {good_id}, group: group})
             .then(goods => {
                 console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         } else if (!good_id && group_id) {
-            GoodsAttributeModel.findAll({ include: [{model: AttributeModel, where: {group_id}}]})
+            GoodsAttributeModel.findAll({ include: [{model: AttributeModel, where: {group_id}, }], group: group})
             .then(goods => {
                 console.log(goods)
                 result(goods)

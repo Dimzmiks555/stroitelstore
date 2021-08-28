@@ -40,6 +40,9 @@
 .result__item_title {
     width: 80%;
 }
+.result__item_title::first-letter {
+    text-transform: uppercase;
+}
 .result__cat_item_title {
     font-weight: bold;
 }

@@ -50,6 +50,9 @@
     font-size: 16px;
     flex: 6 0px; 
 }
+.good_title::first-letter {
+    text-transform: uppercase;
+}
 .good_title:hover{
     color: #d00;
 }
@@ -65,7 +68,9 @@
     border-radius: 10px;
     box-shadow: #ddd 0px 0px 30px;
     padding: 40px;
-    width: 30%;
+    min-width: 24%;
+    width: 100%;
+    flex: 0.83;
 }
 .good_price {
     text-align: right;

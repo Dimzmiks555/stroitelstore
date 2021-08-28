@@ -20,16 +20,13 @@ class ProductsService {
 
     async getAll(params ,result) {
         
-        let {limit, page, group_id, ...args} = params
+        let {limit, page, group_id, search, guid , ...args} = params
 
         let query = {}
 
-        
 
         let filters = []
 
-
-        // if (id != null) filters.id = id;
 
         for (let key in args) {
 
@@ -37,22 +34,7 @@ class ProductsService {
             
             const values = args[key].split(',');
 
-
-            // const tempSQL = sequelize.dialect.queryGenerator.selectQuery('goods_attributes',{
-            //     attributes: ['good_id'],
-            //     where: {
-            //           attr_id: attr_id,
-            //           value: [...values],
-            //     }})
-            //     .slice(0,-1); // to remove the ';' from the end of the SQL
-
-            let attr_filter = [];
-
-            // console.log(tempSQL)
-
-
             filters.push({
-                // where: filters,
                 as: `filter_${attr_id}`,
                 where: {
                     attr_id: attr_id,
@@ -81,9 +63,19 @@ class ProductsService {
         // },
 
 
+
+        if (guid != null) {
+
+            let arr = guid.split(',')
+
+
+
+            query.guid = arr
+        };
+
         if (group_id != null) query.group_id = group_id;
 
-
+        if (search != null) query.title = {[Sequelize.Op.like] : `%${search}%` }
 
         // Просто делаем подзапрос и сравниваем айдишники
 
@@ -130,6 +122,8 @@ class ProductsService {
         console.log(filters)
         if (filters[0]) {
 
+            console.log('Фильтры есть')
+            console.log(filters[0])
 
             GoodModel.findAndCountAll({
                 nest: true,
@@ -150,6 +144,7 @@ class ProductsService {
             .then(goods => {
                 // console.log(filters)
                 console.log(goods)
+
                 result(goods)
             }).catch(err=>console.log(err));
         } else {
@@ -194,7 +189,28 @@ class ProductsService {
         
         console.log(params)
 
-        GoodModel.findAll({raw: true, where: {guid: params}, include: [GroupModel, PricesAndCountsModel] })
+        GoodModel.findAll({
+            nest: true, 
+            where: {guid: params}, 
+            include: [
+            {
+            model: GoodsAttributeModel, 
+            as: 'filter_1',
+            // where: filters,
+            include: [
+                {
+                    model: AttributeModel
+                }
+            ]
+            },
+            {
+                model: GroupModel
+            },
+            {
+                model: PricesAndCountsModel
+            }
+        ] 
+        })
         .then(goods => {
             console.log(goods)
             result(goods)

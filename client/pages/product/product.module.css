@@ -29,14 +29,14 @@
     height: 600px;
     justify-content: center;
 }
-.product__overview_img  img {
+.product__overview_img img {
     width: 60%;
     height: auto;
     object-fit: contain;
     cursor: pointer;
     transition: 0.1s ease-out all;
 }
-.product__overview_img  img:hover {
+.product__overview_img img:hover {
     width: 80%;
     height: calc(auto + 20%);
     object-fit: contain;
@@ -47,6 +47,9 @@
 }
 .product__overview_title{
     margin-bottom: 60px;
+}
+.product__overview_title h1::first-letter {
+    text-transform: uppercase;
 }
 .product__overview_title h4 {
     margin-top: 20px;
@@ -153,14 +156,18 @@
     color: #d00;
 }
 .attributes {
-    margin-top: -10px;
-    border-spacing: 10px 16px;
+    margin-top: 30px;
 }
-.attributes td{
-    font-size: 18px;
+
+.attribute {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-.attributes span{
-    font-size: 18px;
+
+.attribute > div {
+    margin-bottom: 20px;
+}
+.attribute > div:first-child {
     font-weight: bold;
-    color: #d00;
 }

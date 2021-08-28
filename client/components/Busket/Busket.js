@@ -3,20 +3,50 @@ import Link from 'next/link'
 import BusketStore from './BusketStore'
 import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react';
-import { useRouter } from 'next/router';
 import HeaderStore from '../Header/HeaderStore';
 
 const Busket = observer(() => {
 
-    let total = null
-    const router = useRouter()
     
+
 
     const [delivery, setDelivery] = useState([])
     const [payment, setPayment] = useState([])
-    BusketStore.order.products.map((item, index) => {
-        total += item.data?.price * item.count
-    })
+    const [data, setData] = useState([])
+    const [total, setTotal] = useState(null)
+
+    
+    
+
+    useEffect(() => {
+
+        let IDs = [];
+
+        BusketStore?.positions.forEach(item => {
+            IDs.push(item.guid)
+        })
+
+        console.log(IDs)
+
+        if (IDs[0]) {
+            fetch(`http://localhost/api/products?limit=20&guid=${IDs.join(',')}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json?.rows)
+
+                let total = null
+
+                json?.rows?.map((item, index) => {
+                    total += +item?.prices_and_count?.price * +BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
+                    console.log(total)
+                })
+
+                setTotal(total)
+
+            })
+        }
+
+    }, [BusketStore?.positions])
 
     if (HeaderStore.userData[0]?.email) {
         handleClientData('name', HeaderStore.userData[0]?.first_name);
@@ -61,6 +91,7 @@ const Busket = observer(() => {
     }
     function handleDelete(e) {
         BusketStore.delete(e.target.id, e.target.value)
+        
     }
     function handleRadio(e) {
         setDelivery(e.currentTarget.id)
@@ -90,35 +121,35 @@ const Busket = observer(() => {
                 {BusketStore.positions[0] ? (
                 <>
                     <div className={styles.busket_items}>
-                    {BusketStore.initFetchStatus == 'done' ? BusketStore.order.products.map((item, index) => (
-                        <div key={item.data.id} className={styles.busket_item}>
-                            <Link href={`/product/${item.data.id}`}>
+                    {BusketStore?.order?.products?.length != 0 ? data?.map((item, index) => (
+                        <div key={item.guid} className={styles.busket_item}>
+                            <Link href={`/product/${item.guid}`}>
                                 <a className={styles.good_img}>
                                     <div>
-                                        <img src={item?.data.images[0]?.src}></img>
+                                        {/* <img src={item?.data.images[0]?.src}></img> */}
                                     </div>
                                 </a>
                             </Link>
-                            <Link href={`/product/${item.data.id}`}>
+                            <Link href={`/product/${item?.guid}`}>
                                 <a className={styles.good_title}>
-                                    {item?.data.name}
+                                    {item?.title}
                                 </a>
                             </Link>
                             <div className={styles.good__counter}>
-                                <button id={item.data?.id} onClick={increment}>
+                                <button id={item.guid} onClick={increment}>
                                     +
                                 </button>
-                                <input id={item.data?.id} value={item.count} onChange={handleChange} type="number">
+                                <input id={item.guid} value={BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count} onChange={handleChange} type="number">
                                 </input>
-                                <button id={item.data?.id} onClick={decrement}>
+                                <button id={item.guid} onClick={decrement}>
                                     −
                                 </button>
                             </div>
                             <div className={styles.good_total}>
-                                 <b>{(item?.data.price * item.count).toLocaleString()}</b> ₽
+                                 <b>{(item?.prices_and_count.price * BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count).toLocaleString()}</b> ₽
                             </div>
                             <div className={styles.delete__good}>
-                                 <button id={index} value={item.data.id} onClick={handleDelete}>✖</button>
+                                 <button id={index} value={item?.guid} onClick={handleDelete}>✖</button>
                             </div>
                         </div>
                     )) : 'Пусто'}

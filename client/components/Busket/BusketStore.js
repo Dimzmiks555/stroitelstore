@@ -1,4 +1,4 @@
-import { makeObservable, computed, observable, action} from "mobx"
+import { makeAutoObservable, computed, observable, action} from "mobx"
 import { enableStaticRendering } from "mobx-react";
 import { useRouter } from "next/router";
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
@@ -7,23 +7,7 @@ enableStaticRendering(typeof window === "undefined");
 class BusketStore {
 
     constructor() {
-        makeObservable(this, {
-            positions: observable,
-            order: observable,
-            initFetchStatus: observable,
-            newDelivery: observable,
-            AddPosition: action,
-            getData: action,
-            incrementCount: action,
-            decrementCount: action,
-            setCount: action,
-            delete: action,
-            setDelivery: action,
-            getInitData: action,
-            setPayment: action,
-            createDelivery: action,
-            addDelivery: action
-        });
+        makeAutoObservable(this);
     }
     initFetchStatus = 'pending';
     positions = []
@@ -54,30 +38,30 @@ class BusketStore {
     }
 
 
-    async getData(id, count){
+    // async getData(id, count){
   
         
-    }
+    // }
 
-    async getInitData(positions){
+    // async getInitData(positions){
         
-        let ids = []
-        let counts = []
-        positions.forEach(item => {
-            ids.push(item.guid);
-            counts.push(item.count)
-        });
+    //     let ids = []
+    //     let counts = []
+    //     positions.forEach(item => {
+    //         ids.push(item.guid);
+    //         counts.push(item.count)
+    //     });
         
-    }
+    // }
     setCount(id, value) {
         
         if (value > 0 || value != '' && value != 'e' && value != 0) {
-            let filter = this.positions.findIndex(item => item.id == id)
+            let filter = this.positions.findIndex(item => item.guid == id)
             this.positions[filter].count = +value
             this.order.products[filter].count = +value
             localStorage.setItem('positions', JSON.stringify(this.positions))
         } else {
-            let filter = this.positions.findIndex(item => item.id == id)
+            let filter = this.positions.findIndex(item => item.guid == id)
             this.positions[filter].count = 1
             this.order.products[filter].count = 1
             localStorage.setItem('positions', JSON.stringify(this.positions))
@@ -85,7 +69,7 @@ class BusketStore {
     }
     incrementCount(id) {
         if (id != undefined) {
-            let filter = this.positions.findIndex(item => item.id == id)
+            let filter = this.positions.findIndex(item => item.guid == id)
             this.positions[filter].count = +this.positions[filter].count + 1
             this.order.products[filter].count = +this.positions[filter].count
             localStorage.setItem('positions', JSON.stringify(this.positions))
@@ -94,7 +78,7 @@ class BusketStore {
     }
     decrementCount(id) {
         if (id != undefined) {
-            let filter = this.positions.findIndex(item => item.id == id)
+            let filter = this.positions.findIndex(item => item.guid == id)
             if (+this.positions[filter].count > 1) {
                 this.positions[filter].count = +this.positions[filter].count - 1
                 this.order.products[filter].count = +this.positions[filter].count
@@ -105,7 +89,17 @@ class BusketStore {
     AddPosition(guid, count) {
         let filter = this.positions.findIndex(item => item.guid == guid)
         if (filter == -1) {
-            this.getData(guid, count)    
+            // this.getData(guid, count)    
+            this.positions.push({
+                count: +count,
+                guid: guid
+            })
+            this.order.products.push({
+                count: +count,
+                guid: guid
+            })
+            console.log(this.positions)
+            localStorage.setItem('positions', JSON.stringify(this.positions))
         } else {
             this.positions[filter].count = +count
             this.order.products[filter].count = +count
@@ -114,14 +108,15 @@ class BusketStore {
         
     }
     delete(index, id) {
-        this.positions = this.positions.filter((it) => {return it.id != id});
-        this.order.products = this.order.products.filter((it) => {return it.data.id != id});
+        this.positions = this.positions.filter((it) => {return it.guid != id});
+        this.order.products = this.order.products.filter((it) => {return it.guid != id});
         localStorage.setItem('positions', JSON.stringify(this.positions))  
     }
 
     initialSet(positions) {
         this.positions = positions
-        this.getInitData(positions)
+        this.order.products = positions
+        // this.getInitData(positions)
     }
     setDelivery(value) {
         this.order.delivery = value;

@@ -33,6 +33,8 @@ const Category = observer(({mainTitle}) => {
     const [priceFilter, setPriceFilters] = useState([]);
     const [isLoading, setLoading] = useState([true]);
 
+    const [URLParams, setURLParams] = useState(router.query);
+
    
     
     useEffect(() => {
@@ -62,7 +64,6 @@ const Category = observer(({mainTitle}) => {
             .then(json => {
                 setData(json?.rows)
                 setCountGoods(json?.count)
-                console.log(json.rows)
             })
 
             setLoading(false)
@@ -70,13 +71,12 @@ const Category = observer(({mainTitle}) => {
         }
         async function getDataAttrGoods(id){
            
-            fetch(`http://localhost/api/goods_attributes?group_id=${id}`)
+            fetch(`http://localhost/api/goods_attributes?group_id=${id}&group=value`)
             .then(res => res.json())
             .then(json => {
 
 
                 setAttributes(json)
-                console.log(json)
             })
 
                 
@@ -86,7 +86,6 @@ const Category = observer(({mainTitle}) => {
             fetch(`http://localhost/api/attributes?group_id=${id}`)
             .then(res => res.json())
             .then(json => {
-                console.log(json)
                 setFilters(json.rows)
             })
 
@@ -146,72 +145,41 @@ const Category = observer(({mainTitle}) => {
         let value = e?.target?.value
         let attr_id = 'filter_' + attributes.filter(item => filter_id == item.id)[0].attr_id?.toString()
 
+        if (URLParams[attr_id] == value && URLParams[attr_id] != undefined) {
+            delete URLParams[attr_id]
+        } else if (URLParams[attr_id]?.search(value) == -1 && URLParams[attr_id] != undefined) {
 
-        if (Object.keys(args).length === 0) {
-            router.push({
-                pathname: `/catalog/[id]/1`,
-                query: {id: id, [attr_id]: value , ...args}
-            })
+            let arr = URLParams[attr_id].split(',')
+
+            arr.push(value)
+
+
+            URLParams[attr_id] = arr.join(',')
+
+        } else if (URLParams[attr_id]?.search(value) != -1 && URLParams[attr_id] != undefined) {
+
+            let arr = URLParams[attr_id].split(',')
+
+            let newArr = arr.filter(item => { return item !== value})
+
+            console.log(newArr)
+
+            URLParams[attr_id] = newArr.join(',')
+
         } else {
-            for (let key in args) {
-
-                if (key !== attr_id) {
-                    router.push({
-                        pathname: `/catalog/[id]/1`,
-                        query: {id: id, [attr_id]: value , ...args}
-                    })
-                } else if (key === attr_id && args[key].search(value) === -1) {
-
-                    let new_value = value + ',' + args[key];
-
-                    args[attr_id] = new_value;
-
-
-                    router.push({
-                        pathname: `/catalog/[id]/1`,
-                        query: {id: id, ...args}
-                    })
-
-                } else if (key === attr_id && args[key].search(value) !== -1) {
-
-                    let filters_ = args[key].split(',')
-
-                    filters_.splice(filters_.indexOf(value), 1)
-
-
-                   
-
-                    let new_value = filters_.join(',');
-
-                    console.log(new_value)
-                    args[attr_id] = new_value;
-
-                    if (new_value == '') {
-                        delete args[attr_id]
-                    }
-
-                    
-                    router.push({
-                        pathname: `/catalog/[id]/1`,
-                        query: {id: id, ...args}
-                    })
-
-                } else {
-
-                    delete args[attr_id]
-
-                    router.push({
-                        pathname: `/catalog/[id]/1`,
-                        query: {id: id , ...args}
-                    })
-                }
-    
-            }
+            URLParams[attr_id] = value
         }
 
+        console.log(attr_id, value ,args, URLParams)
+
+        router.push({
+            pathname: `/catalog/[id]/1`,
+            query: URLParams
+        })
 
         
     }
+
     function showGoods() {
         return data.map(item => {
                 return (
@@ -332,7 +300,7 @@ const Category = observer(({mainTitle}) => {
                     </div>
                     <div className={styles.category_goodsblock}>
                         <div className={styles.category_goodsblock_header}>
-                            <h1>{data[0] ? data[0]['group.title'] : null}</h1>
+                            <h1>{data[0] ? data[0]?.group?.title : null}</h1>
                             <div className={styles.toolbar}>
                                 <div>
                                     {countGoods} товаров

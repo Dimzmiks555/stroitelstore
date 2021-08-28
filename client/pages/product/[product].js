@@ -19,6 +19,7 @@ const Product = observer(() => {
     const [isLoading, setLoading] = useState([true]);
 
     function handleClick(e) {
+        console.log(e.target.id)
         BusketStore.AddPosition(e.target.id, counter_value)
         setAdded(true);
         
@@ -49,8 +50,8 @@ const Product = observer(() => {
                 let mainBlock = document.getElementById('product__overview_info')
                 let scrollHeight = document.body.scrollHeight;
                 let y = window.pageYOffset;
-                console.log(scrollHeight,mainBlock.offsetHeight )
-                console.log(y)
+                // console.log(scrollHeight,mainBlock.offsetHeight )
+                // console.log(y)
                     if (y >= 150 && y <= (scrollHeight - mainBlock.offsetHeight)) {
                         totalBlock.style.position = 'fixed';
                         totalBlock.style.top = '80px';
@@ -76,7 +77,7 @@ const Product = observer(() => {
 
     let product_id = router.query.product;
     useEffect(() => {
-        let filter = BusketStore.positions.findIndex(item => item.id == product_id)
+        let filter = BusketStore.positions.findIndex(item => item.guid == product_id)
         if (filter == -1) {
             setAdded(false)
             setCV(1)
@@ -126,10 +127,10 @@ const Product = observer(() => {
                             <div className={styles.product__overview_info} id="product__overview_info">
                                 <div className={styles.product__overview_title}>
                                     <h1>{data?.title}</h1>
-                                    <h4>Артикул: {data?.sku}</h4>
+                                    <h4>Артикул: {data?.prices_and_count?.sku}</h4>
                                 </div>
                                 <div className={styles.product__overview_price}>
-                                    {data.price ? (<p><span>{Number(data?.price).toLocaleString()}</span> ₽ / шт.</p>) : <p>Цена по запросу</p>} 
+                                    {data?.prices_and_count?.price ? (<p><span>{(+data?.prices_and_count?.price).toLocaleString()}</span> ₽ / шт.</p>) : <p>Цена по запросу</p>} 
                                 </div>
                                 <div className={styles.product__to_cart__block}>
                                     <div className={styles.product__counter}>
@@ -161,39 +162,29 @@ const Product = observer(() => {
                                 <div className={styles.product__infoblock}>
                                     <div className={styles.product__description}>
                                         <h2>
-                                            Описание
-                                        </h2>
-                                        <p>{data?.description?.replace(/<\/?[^>]+>/g,'')}</p>
-                                        <h2>
                                             Характеристики
                                         </h2>
                                         
-                                        <table className={styles.attributes}>
-                                            {console.log(data)}
-                                            {data?.attributes?.map(attr => {
-                                                if (attr.id == 3) {
+                                        <div className={styles.attributes}>
+                                            {
+                                                data?.filter_1?.map(item => (
+                                                    <div className={styles.attribute}>
+                                                        <div>
+                                                            {item?.attribute?.title}
+                                                        </div>
+                                                        <div>
+                                                            {item?.value}
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
 
-                                                    return (<tr><td>Тип двери</td><td><span>{attr?.options[0]}</span></td></tr>)
+                                        <h2>
+                                            Описание
+                                        </h2>
+                                        <p>{data?.description?.replace(/<\/?[^>]+>/g,'')}</p>
 
-                                                } else if (attr.key == '_depth_of_door') {
-
-                                                    return (<tr><td>Ширина полотна</td><td><span>{attr.value}</span></td></tr>)
-
-                                                } else if (attr.key == '_door_construction') {
-
-                                                    return (<tr><td>Конструкция двери</td><td><span>{attr.value}</span></td></tr>)
-
-                                                } else if (attr.key == '_door_style') {
-
-                                                    return (<tr><td>Тип полотна</td><td><span>{attr.value}</span></td></tr>)
-
-                                                } else if (attr.key == '_door_sizes') {
-
-                                                    return (<tr><td>Размеры двери</td><td><span>{attr.value}</span></td></tr>)
-
-                                                }
-                                            })}
-                                        </table>
                                     </div>
                                 </div>
                             </div>
