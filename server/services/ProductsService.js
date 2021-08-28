@@ -26,7 +26,7 @@ class ProductsService {
 
         
 
-        let sub_filters = []
+        let filters = []
 
 
         // if (id != null) filters.id = id;
@@ -50,21 +50,35 @@ class ProductsService {
 
             // console.log(tempSQL)
 
-            sub_filters.push({
-                attr_id: attr_id,
-                value: [...values]
+
+            filters.push({
+                // where: filters,
+                as: `filter_${attr_id}`,
+                where: {
+                    attr_id: attr_id,
+                    value: [...values]
+                },
+                model: GoodsAttributeModel, 
+                include: [
+                    {   
+                        model: AttributeModel
+                    }
+                ]
             })
         }
         
-        let filters = {
-            [Sequelize.Op.and] : sub_filters
-        }
 
-        // if (sub_filters[0]) {
-        //     query = {
-        //         [Sequelize.Op.and] : sub_filters
-        //     }
-        // }
+        // 
+        // {   
+        //     // where: filters,
+        //     as: 'filter_3',
+        //     model: GoodsAttributeModel, 
+        //     include: [
+        //         {   
+        //             model: AttributeModel
+        //         }
+        //     ]
+        // },
 
 
         if (group_id != null) query.group_id = group_id;
@@ -113,24 +127,15 @@ class ProductsService {
 
         let offset = page * limit - limit
 
-        console.log(sub_filters)
-        if (sub_filters[0]) {
-
+        console.log(filters)
+        if (filters[0]) {
 
 
             GoodModel.findAndCountAll({
-                raw: true,
+                nest: true,
                 distinct:true, 
                 include: [
-                    {   
-                        // where: filters,
-                        model: GoodsAttributeModel, 
-                        include: [
-                            {   
-                                model: AttributeModel
-                            }
-                        ]
-                    },
+                    ...filters,
                     {
                         model: GroupModel,
                     },
@@ -154,6 +159,7 @@ class ProductsService {
                 include: [
                     {
                         model: GoodsAttributeModel, 
+                        as: 'filter_1',
                         // where: filters,
                         include: [
                             {
