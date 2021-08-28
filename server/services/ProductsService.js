@@ -32,25 +32,27 @@ class ProductsService {
         // if (id != null) filters.id = id;
 
         for (let key in args) {
+
             const attr_id = key.slice(7);
             
             const values = args[key].split(',');
 
 
-            const tempSQL = sequelize.dialect.queryGenerator.selectQuery('goods_attributes',{
-                attributes: ['good_id'],
-                where: {
-                      attr_id: attr_id,
-                      value: [...values],
-                }})
-                .slice(0,-1); // to remove the ';' from the end of the SQL
+            // const tempSQL = sequelize.dialect.queryGenerator.selectQuery('goods_attributes',{
+            //     attributes: ['good_id'],
+            //     where: {
+            //           attr_id: attr_id,
+            //           value: [...values],
+            //     }})
+            //     .slice(0,-1); // to remove the ';' from the end of the SQL
 
             let attr_filter = [];
 
-            console.log(tempSQL)
+            // console.log(tempSQL)
 
             sub_filters.push({
-                guid: [sequelize.literal(`(${tempSQL})`)]
+                attr_id: attr_id,
+                value: [...values]
             })
         }
         
@@ -58,11 +60,11 @@ class ProductsService {
             [Sequelize.Op.and] : sub_filters
         }
 
-        if (sub_filters[0]) {
-            query = {
-                [Sequelize.Op.and] : sub_filters
-            }
-        }
+        // if (sub_filters[0]) {
+        //     query = {
+        //         [Sequelize.Op.and] : sub_filters
+        //     }
+        // }
 
 
         if (group_id != null) query.group_id = group_id;
@@ -117,13 +119,14 @@ class ProductsService {
 
 
             GoodModel.findAndCountAll({
-                nest: true,
+                raw: true,
                 distinct:true, 
                 include: [
-                    {
+                    {   
+                        // where: filters,
                         model: GoodsAttributeModel, 
                         include: [
-                            { 
+                            {   
                                 model: AttributeModel
                             }
                         ]
