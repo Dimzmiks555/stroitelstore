@@ -24,6 +24,18 @@ const Footer = () => {
                     </li>
                 </ul>
             </div>
+            <div className={styles.contact_info}>
+                <div>
+                    <h2>
+                        +7 (900) 300-13-12
+                    </h2>
+                    <h3>г. Лиски, ул. Коммунистическая, д. 25</h3>
+                    <h3>
+                    stroitel.office@gmail.com
+
+                    </h3>
+                </div>
+            </div>
         </div>
     )
 }

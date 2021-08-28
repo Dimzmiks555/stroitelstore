@@ -20,6 +20,11 @@ const Index = observer(() => {
     <Header />
     <div className={styles.page}>
       <Banner />
+      <div>
+        <h2>
+            Популярные категории
+        </h2>
+      </div>
       <NewGoods />
       <Offers />
     </div>

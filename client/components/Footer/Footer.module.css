@@ -21,3 +21,13 @@
 .menu ul li {
     margin-top: 20px;
 }
+.contact_info {
+    margin-left: auto;
+    text-align: right;
+}
+.contact_info h2 {
+    font-size: 42px;
+}
+.contact_info h3 {
+    font-weight: normal !important;
+}
