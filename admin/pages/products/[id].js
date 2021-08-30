@@ -75,6 +75,22 @@ import { useRouter} from 'next/router'
         }
     }
 
+    function handleImage(e) {
+        e.preventDefault()
+
+        const formData = new FormData(e.target.form);
+        
+        
+        fetch('http://localhost/api/upload', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(res => console.log(res))
+
+        
+
+    }
+
 
     useEffect(() => { 
         fetchData(router.query.id)
@@ -104,7 +120,15 @@ import { useRouter} from 'next/router'
                 <div className={styles.additional_info}>
                     <h2>Фотографии</h2>
                     <div className={styles.images_block}>
+                        <form className={styles.images_block_header} onSubmit={handleImage}>
+                            <input type="file" ></input>
+                            <button>
+                                Добавить
+                            </button>
+                        </form>
+                        <div>
 
+                        </div>
                     </div>
                     <h2>Характеристики</h2>
                     <div className={styles.attributes_block}>

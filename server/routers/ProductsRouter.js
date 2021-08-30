@@ -1,13 +1,20 @@
 import Router from 'express'
+import multer from 'multer'
+
+const upload = multer({dest:"uploads"});
 
 import ProductsController from '../controllers/ProductsController.js'
 import GroupsController from '../controllers/GroupsController.js'
 import AttributesController from '../controllers/AttributesController.js'
 import GoodsAttributesController from '../controllers/GoodsAttributesController.js'
+import ImageController from '../controllers/ImageController.js'
 
 
 
 const router = new Router();
+
+router.post('/upload/', upload.single("filedata") ,ImageController.create);
+
 
 router.get('/products/', ProductsController.getAll);
 router.get('/products_prices/', ProductsController.getPrices);

@@ -27,3 +27,11 @@
 .header button {
     padding: 10px 20px;
 }
+.images_block input {
+    margin-bottom: 10px;
+}
+
+.images_block_header {
+    display: flex;
+    justify-content: space-between;
+}
