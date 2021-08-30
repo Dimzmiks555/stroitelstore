@@ -30,6 +30,7 @@ class ImageController {
 
     async create(req, res) {
         try {
+            console.log(res.file)
             await ImageService.create(req.file);
             res.status(200)
 

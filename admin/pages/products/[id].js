@@ -80,6 +80,7 @@ import { useRouter} from 'next/router'
 
         const formData = new FormData(e.target.form);
         
+        console.log(formData.entries())
         
         fetch('http://localhost/api/upload', {
             method: 'POST',
@@ -121,7 +122,7 @@ import { useRouter} from 'next/router'
                     <h2>Фотографии</h2>
                     <div className={styles.images_block}>
                         <form className={styles.images_block_header} onSubmit={handleImage}>
-                            <input type="file" ></input>
+                            <input type="file" id="filedata" ></input>
                             <button>
                                 Добавить
                             </button>

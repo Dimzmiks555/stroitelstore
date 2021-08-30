@@ -9,6 +9,8 @@ class ImageService {
         
         console.log(body)
 
+        console.log(file.path)
+
         // ImageModel.create()
         // .then(goods => {
         //     console.log(goods)
