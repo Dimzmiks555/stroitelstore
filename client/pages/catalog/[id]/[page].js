@@ -20,7 +20,7 @@ const Category = observer(({mainTitle}) => {
 
     // Router
     const router = useRouter()
-    let {id, page, sort, ...args} = router.query
+    let {id, page, sort, priceFrom , ...args} = router.query
     console.log(router.query)
 
     //UseState
@@ -30,12 +30,13 @@ const Category = observer(({mainTitle}) => {
     const [filters, setFilters] = useState([]);
     const [categoryData, setCategoryData] = useState([]);
     const [prices, setPrices] = useState([]);
+    const [goodPrices, setGoodPrices] = useState([]);
     const [priceFilter, setPriceFilters] = useState([]);
     const [isLoading, setLoading] = useState([true]);
 
     const [URLParams, setURLParams] = useState(router.query);
 
-   
+    
     
     useEffect(() => {
         setLoading(true)
@@ -58,13 +59,24 @@ const Category = observer(({mainTitle}) => {
             }
 
 
+            if (priceFrom) {
+                
+                fetch(`http://localhost/api/products?page=${page}&group_id=${id}&priceFrom=${priceFrom}&limit=20${generate(parametrs)}`)
+                .then(res => res.json())
+                .then(json => {
+                    setData(json?.rows)
+                    setCountGoods(json?.count)
+                })
+            } else {
+                
+                fetch(`http://localhost/api/products?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
+                .then(res => res.json())
+                .then(json => {
+                    setData(json?.rows)
+                    setCountGoods(json?.count)
+                })
+            }
 
-            fetch(`http://localhost/api/products?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
-            .then(res => res.json())
-            .then(json => {
-                setData(json?.rows)
-                setCountGoods(json?.count)
-            })
 
             setLoading(false)
                 
@@ -78,6 +90,37 @@ const Category = observer(({mainTitle}) => {
 
                 setAttributes(json)
             })
+
+                
+        }
+        async function getGoodPrices(id, params){
+           
+            let parametrs = Object.entries(params)
+
+
+
+            function generate(parametrs) {
+                let string =''
+                parametrs.forEach((item, index) => {
+                    if(index == 0) {
+                        string = `&${item[0]}=${item[1]}`
+                    } else {
+                        string = string + `&${item[0]}=${item[1]}`
+                    }
+                })
+                return string
+            }
+
+
+
+            fetch(`http://localhost/api/products_prices?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
+            .then(res => res.json())
+            .then(json => {
+                setGoodPrices(json[0])
+                console.log(json)
+            })
+
+            setLoading(false)
 
                 
         }
@@ -104,6 +147,7 @@ const Category = observer(({mainTitle}) => {
 
         getCategoryData(id);
         getData(id, params)
+        getGoodPrices(id, params)
         getDataAttr(id)
         getDataAttrGoods(id)
 
@@ -264,18 +308,15 @@ const Category = observer(({mainTitle}) => {
                         <div className={styles.filter_price}>
                             <div className={styles.filter_title}>Цена</div>
                             <div className={styles.filter_inputs}>
-                                <input value={priceFilter[0]} defaultValue={prices[0]}></input>
-                                <input value={priceFilter[1]} defaultValue={prices[1]}></input>
+                                <div>
+                                    <label>От</label>
+                                    <input  defaultValue={goodPrices?.prices_and_count?.min}></input>
+                                </div>
+                                <div>
+                                    <label>До</label>
+                                    <input defaultValue={goodPrices?.prices_and_count?.max}></input>
+                                </div>
                             </div>
-                            <Range
-                             trackStyle={[{ backgroundColor: '#c33' }]} 
-                             handleStyle={[{ backgroundColor: '#fff', borderColor:'#c33'}]}
-                             railStyle={{ backgroundColor: 'f5f5f5'}}
-                             min={prices[0]} 
-                             max={prices[1]} 
-                             defaultValue={[0, prices[1]]}
-                             onChange={e => handleRange(e)}
-                             />
                         </div>
 
                         {

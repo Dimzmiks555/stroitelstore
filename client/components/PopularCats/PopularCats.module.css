@@ -1,0 +1,50 @@
+.popular h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+.popular__wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    align-items: center;
+}
+.popular__wrapper > div {
+    width: 47%;
+}
+.popular__wrapper > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.popular__wrapper > div:last-child .popular__block {
+    width: 49%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.popular__block {
+    
+    margin-bottom: 20px;
+    cursor: pointer;    
+    border-radius: 10px;
+    box-shadow:  0 10px 20px #ddd;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.popular__block img {
+    height: 300px;
+}
+.popular__block p {
+    font-size: 48px;
+}
+.popular__wrapper > div:last-child .popular__block img {
+    height: 140px;
+}
+.popular__wrapper > div:last-child .popular__block p {
+    font-size: 20px;
+    margin-top: 20px;
+}

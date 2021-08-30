@@ -15,6 +15,17 @@ class ProductsController {
         }
     }
     
+    async getPrices(req,res) {
+        try {
+            await ProductsService.getPrices(req.query, data => {
+                res.send(data)
+            });
+            res.status(200)
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    }
+
     async getOne(req, res) {
         try {
             await ProductsService.getOne(req.params.id, data => {

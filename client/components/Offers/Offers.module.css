@@ -4,6 +4,7 @@
 .offers__wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .offer {
     width: 49%;

@@ -10,6 +10,7 @@ import GoodsAttributesController from '../controllers/GoodsAttributesController.
 const router = new Router();
 
 router.get('/products/', ProductsController.getAll);
+router.get('/products_prices/', ProductsController.getPrices);
 router.get('/products/:id', ProductsController.getOne);
 
 router.get('/groups/', GroupsController.getAll);

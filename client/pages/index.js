@@ -7,6 +7,8 @@ import { observer } from 'mobx-react';
 import NewGoods from '../components/NewGoods';
 import Offers from '../components/Offers/Offers';
 import Footer from '../components/Footer/Footer';
+import PopularCats from '../components/PopularCats/PopularCats';
+
 
 const Index = observer(() => {
 
@@ -20,11 +22,8 @@ const Index = observer(() => {
     <Header />
     <div className={styles.page}>
       <Banner />
-      <div>
-        <h2>
-            Популярные категории
-        </h2>
-      </div>
+      <PopularCats>
+      </PopularCats>
       <NewGoods />
       <Offers />
     </div>

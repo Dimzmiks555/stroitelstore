@@ -32,19 +32,24 @@
     margin-bottom: 10px;
 }
 .category_filter .filter_inputs > div {
-    display: flex;
     width: 50%;
     align-items: center;
 }
 .category_filter .filter_inputs input {
+    display: block;
     font-family: inherit;
     background: none;
+    font-size: 16px;
     outline: none;
     width: 70%;
     height: 30px;
     border: none;
-    margin-right: 10px;
     border-bottom: 1px solid #d00;
+    display: block;
+}
+.category_filter .filter_inputs label {
+    margin-bottom: 10px;
+    display: block;
 }
 .category_goodsblock {
     flex-basis: 75%;

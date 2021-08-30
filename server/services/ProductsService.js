@@ -20,7 +20,7 @@ class ProductsService {
 
     async getAll(params ,result) {
         
-        let {limit, page, group_id, search, guid , ...args} = params
+        let {limit, page, group_id, search, guid, priceFrom, priceTo , order , ...args} = params
 
         let query = {}
 
@@ -75,6 +75,10 @@ class ProductsService {
 
         if (group_id != null) query.group_id = group_id;
 
+        // if (priceFrom != null) query.price = {[Sequelize.Op.gte] : +priceFrom };
+
+        // if (priceTo != null) query.price = {[Sequelize.Op.lte] : priceTo };
+
         if (search != null) query.title = {[Sequelize.Op.like] : `%${search}%` }
 
         // Просто делаем подзапрос и сравниваем айдишники
@@ -117,6 +121,15 @@ class ProductsService {
         limit = +limit || 10
         page = page || 1
 
+        let orderList = [];
+
+        if (order) {
+            // orderList = [[sequelize.cast(sequelize.col('prices_and_count.price'), "integer") , order]]
+            orderList = sequelize.literal('CAST(price as DECIMAL)')
+        } else {
+            // orderList = sequelize.col('title')
+        }
+
         let offset = page * limit - limit
 
         console.log(filters)
@@ -139,14 +152,17 @@ class ProductsService {
                 ],
                 where: query,
                 limit, 
-                offset
+                offset,
+                order: orderList
             })
             .then(goods => {
                 // console.log(filters)
-                console.log(goods)
-
+                // console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
+
+
+
         } else {
             GoodModel.findAndCountAll({
                 nest: true,
@@ -166,15 +182,16 @@ class ProductsService {
                         model: GroupModel
                     },
                     {
-                        model: PricesAndCountsModel
+                        model: PricesAndCountsModel,
                     }
                 ],
                 where: query,
                 limit, 
-                offset
+                offset,
+                order: [...orderList]
             })
             .then(goods => {
-                console.log(goods)
+                // console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
         }
@@ -184,6 +201,130 @@ class ProductsService {
 
         
     }
+
+    getPrices(params, result) {
+
+        let {limit, page, group_id, search, guid , ...args} = params
+
+        let query = {}
+
+
+        let filters = []
+
+
+        for (let key in args) {
+
+            const attr_id = key.slice(7);
+            
+            const values = args[key].split(',');
+
+            filters.push({
+                as: `filter_${attr_id}`,
+                where: {
+                    attr_id: attr_id,
+                    value: [...values]
+                },
+                model: GoodsAttributeModel, 
+                include: [
+                    {   
+                        model: AttributeModel
+                    }
+                ]
+            })
+        }
+       
+
+
+        if (guid != null) {
+
+            let arr = guid.split(',')
+
+
+
+            query.guid = arr
+        };
+
+        if (group_id != null) query.group_id = group_id;
+
+        if (search != null) query.title = {[Sequelize.Op.like] : `%${search}%` }
+
+
+
+        
+        limit = +limit || 10
+        page = page || 1
+
+        let offset = page * limit - limit
+
+        console.log(filters)
+        if (filters[0]) {
+
+            console.log('Фильтры есть')
+            console.log(filters[0])
+
+            GoodModel.findAll({
+                nest: true,
+                distinct:true, 
+                include: [
+                    ...filters,
+                    {
+                        model: GroupModel,
+                    },
+                    {
+                        model: PricesAndCountsModel,
+                        attributes: [
+                            [sequelize.fn('MAX', sequelize.cast(sequelize.col('price'), "integer")) , "max"],
+                            [sequelize.fn('MIN', sequelize.cast(sequelize.col('price'),"integer")), "min"],
+                        ],
+                    }
+                ],
+                where: query,
+            })
+            .then(max => {
+                // console.log(filters)
+                console.log(max)
+                result(max)
+
+            }).catch(err=>console.log(err));
+
+
+
+        } else {
+            GoodModel.findAll({
+                nest: true,
+                distinct:true, 
+                include: [
+                    {
+                        model: GoodsAttributeModel, 
+                        as: 'filter_1',
+                        // where: filters,
+                        include: [
+                            {
+                                model: AttributeModel
+                            }
+                        ]
+                    },
+                    {
+                        model: GroupModel
+                    },
+                    {
+                        attributes: [
+                            [sequelize.fn('MAX', sequelize.cast(sequelize.col('price'), "integer")) , "max"],
+                            [sequelize.fn('MIN', sequelize.cast(sequelize.col('price'),"integer")), "min"],
+                        ],
+                        model: PricesAndCountsModel
+                    }
+                ],
+                where: query,
+            })
+            .then(max => {
+                console.log(max)
+                result(max)
+            }).catch(err=>console.log(err));
+        }
+
+    }
+
 
     async getOne(params ,result) {
         
