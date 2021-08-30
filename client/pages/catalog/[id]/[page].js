@@ -20,7 +20,7 @@ const Category = observer(({mainTitle}) => {
 
     // Router
     const router = useRouter()
-    let {id, page, sort, priceFrom , ...args} = router.query
+    let {id, page, sort, price , ...args} = router.query
     console.log(router.query)
 
     //UseState
@@ -40,6 +40,7 @@ const Category = observer(({mainTitle}) => {
     
     useEffect(() => {
         setLoading(true)
+        setURLParams(router.query)
         async function getData(id, params){
             
             let parametrs = Object.entries(params)
@@ -59,23 +60,13 @@ const Category = observer(({mainTitle}) => {
             }
 
 
-            if (priceFrom) {
                 
-                fetch(`http://localhost/api/products?page=${page}&group_id=${id}&priceFrom=${priceFrom}&limit=20${generate(parametrs)}`)
-                .then(res => res.json())
-                .then(json => {
-                    setData(json?.rows)
-                    setCountGoods(json?.count)
-                })
-            } else {
-                
-                fetch(`http://localhost/api/products?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
-                .then(res => res.json())
-                .then(json => {
-                    setData(json?.rows)
-                    setCountGoods(json?.count)
-                })
-            }
+            fetch(`http://localhost/api/products?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json?.rows)
+                setCountGoods(json?.count)
+            })
 
 
             setLoading(false)
@@ -86,6 +77,7 @@ const Category = observer(({mainTitle}) => {
             fetch(`http://localhost/api/goods_attributes?group_id=${id}&group=value`)
             .then(res => res.json())
             .then(json => {
+
 
 
                 setAttributes(json)
@@ -134,18 +126,12 @@ const Category = observer(({mainTitle}) => {
 
                 
         }
-        async function getCategoryData(id){
-
-
-                
-        }
 
         let params = {}
         Object.assign(params, router.query)
         delete params['id']
         delete params['page']
 
-        getCategoryData(id);
         getData(id, params)
         getGoodPrices(id, params)
         getDataAttr(id)
@@ -153,35 +139,75 @@ const Category = observer(({mainTitle}) => {
 
     }, [router.query, page]);
     
-    // function handleSelect(value) {
-    //     if (value.value == 'default') {
-    //          delete params[`sort`]
-    //     } else {
-    //         params[`sort`] = value.value;
-    //     }
-    //     let parametrs = Object.entries(params)
-    //     function generate(parametrs) {
-    //         let string =''
-    //         parametrs.forEach((item, index) => {
-    //             if(index == 0) {
-    //                 string = `?${item[0]}=${item[1]}`
-    //             } else {
-    //                 string = string + `&${item[0]}=${item[1]}`
-    //             }
-    //         })
-    //         return string
-    //     }
-    //     router.push(`/catalog/${id}/1${generate(parametrs)}`)
-    // } 
-    // function handleRange(values) {
-    //     setPriceFilters(values)
-    //     let result = dataF.filter(item => {
-    //         if (item.price >= values[0] && item.price <= values[1]) {
-    //             return true
-    //         }
-    //     }) 
-    //     dataF = result;
-    // }
+    function handleSelect(value) {
+        if (value.value == 'default') {
+             delete URLParams[`order`]
+        } else {
+            URLParams[`order`] = value.value;
+        }
+
+
+        router.push({
+            pathname: `/catalog/[id]/1`,
+            query: URLParams
+        })
+    } 
+
+    function handlePrice(e) {
+        if (e.target.id == 'from' ) {
+
+            if (URLParams['price']) {
+
+                if(e.target.value.length == 0) {
+                    let arr = URLParams['price'].split(',')
+                
+                    arr[0] = goodPrices?.prices_and_count?.min
+                    e.target.value = goodPrices?.prices_and_count?.min
+    
+                    URLParams['price'] = arr.join(',')
+                } else {
+
+                    let arr = URLParams['price'].split(',')
+                
+                    arr[0] = e.target.value
+    
+                    URLParams['price'] = arr.join(',')
+                }
+
+
+            } else {
+                URLParams['price'] = `${e.target.value}, ${goodPrices?.prices_and_count?.max}`
+            }
+
+        } else if (e.target.id == 'to' ) {
+
+            if (URLParams['price']) {
+                if(e.target.value.length == 0) {
+                    let arr = URLParams['price'].split(',')
+                
+                    arr[1] = goodPrices?.prices_and_count?.max
+                    e.target.value = goodPrices?.prices_and_count?.max
+    
+                    URLParams['price'] = arr.join(',')
+                } else {
+                    let arr = URLParams['price'].split(',')
+                    
+                    arr[1] = e.target.value
+
+                    URLParams['price'] = arr.join(',')
+                }
+            } else {
+                URLParams['price'] = `${goodPrices?.prices_and_count?.min}, ${e.target.value}`
+            }
+            
+        }
+
+        router.push({
+            pathname: `/catalog/[id]/1`,
+            query: URLParams
+        })
+
+    }
 
     function handleFilter(e) {
 
@@ -251,7 +277,11 @@ const Category = observer(({mainTitle}) => {
                                     item?.prices_and_count?.price != '' ? (<p><span>{Number( item.prices_and_count?.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
                                 }
                             </div>
-                            <a id={item.guid} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a>
+                                {
+                                    item?.prices_and_count?.amount > 0 ? 
+                                        <a id={item.guid} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a> : 
+                                        <a id={item.guid} className={styles.outofstock}>Под заказ</a>
+                                }
                             
                         </div>
                         
@@ -310,11 +340,11 @@ const Category = observer(({mainTitle}) => {
                             <div className={styles.filter_inputs}>
                                 <div>
                                     <label>От</label>
-                                    <input  defaultValue={goodPrices?.prices_and_count?.min}></input>
+                                    <input id='from' onChange={handlePrice}  defaultValue={goodPrices?.prices_and_count?.min}></input>
                                 </div>
                                 <div>
                                     <label>До</label>
-                                    <input defaultValue={goodPrices?.prices_and_count?.max}></input>
+                                    <input id='to'  onChange={handlePrice} defaultValue={goodPrices?.prices_and_count?.max}></input>
                                 </div>
                             </div>
                         </div>

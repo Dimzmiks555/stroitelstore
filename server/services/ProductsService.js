@@ -20,10 +20,10 @@ class ProductsService {
 
     async getAll(params ,result) {
         
-        let {limit, page, group_id, search, guid, priceFrom, priceTo , order , ...args} = params
+        let {limit, page, group_id, search, guid, price , order , ...args} = params
 
         let query = {}
-
+        let priceFilter = {}
 
         let filters = []
 
@@ -68,14 +68,20 @@ class ProductsService {
 
             let arr = guid.split(',')
 
-
-
             query.guid = arr
+
         };
 
         if (group_id != null) query.group_id = group_id;
 
-        // if (priceFrom != null) query.price = {[Sequelize.Op.gte] : +priceFrom };
+        if (price != null) {
+
+            let arr = price.split(',');
+
+
+
+            priceFilter.price = {[Sequelize.Op.between] : arr }
+        };
 
         // if (priceTo != null) query.price = {[Sequelize.Op.lte] : priceTo };
 
@@ -117,56 +123,56 @@ class ProductsService {
         //     }
 
 
+        let options = {}
+
+
         
         limit = +limit || 10
         page = page || 1
 
-        let orderList = [];
-
-        if (order) {
-            // orderList = [[sequelize.cast(sequelize.col('prices_and_count.price'), "integer") , order]]
-            orderList = sequelize.literal('CAST(price as DECIMAL)')
-        } else {
-            // orderList = sequelize.col('title')
-        }
+        
 
         let offset = page * limit - limit
 
         console.log(filters)
+
+
+
+        
         if (filters[0]) {
+
+
+
 
             console.log('Фильтры есть')
             console.log(filters[0])
 
-            GoodModel.findAndCountAll({
+            options = {
                 nest: true,
                 distinct:true, 
+                where: query,
+                limit, 
+                offset,
                 include: [
                     ...filters,
                     {
                         model: GroupModel,
                     },
                     {
+                        where: priceFilter,
                         model: PricesAndCountsModel,
                     }
                 ],
+                subQuery:false
+            }
+            
+        } else {
+            options = {
+                nest: true,
+                distinct:true, 
                 where: query,
                 limit, 
                 offset,
-                order: orderList
-            })
-            .then(goods => {
-                // console.log(filters)
-                // console.log(goods)
-                result(goods)
-            }).catch(err=>console.log(err));
-
-
-
-        } else {
-            GoodModel.findAndCountAll({
-                nest: true,
-                distinct:true, 
                 include: [
                     {
                         model: GoodsAttributeModel, 
@@ -182,19 +188,32 @@ class ProductsService {
                         model: GroupModel
                     },
                     {
+                        where: priceFilter,
                         model: PricesAndCountsModel,
                     }
                 ],
-                where: query,
-                limit, 
-                offset,
-                order: [...orderList]
-            })
+                subQuery:false
+            }
+        }
+
+
+
+        if (order) {
+            options.order = [[PricesAndCountsModel, 'price', order]]
+        } else {
+            options.order = [['title']]
+        }
+
+
+            GoodModel.findAndCountAll(options)
             .then(goods => {
+                // console.log(filters)
                 // console.log(goods)
                 result(goods)
             }).catch(err=>console.log(err));
-        }
+
+
+        
 
 
         
@@ -204,10 +223,10 @@ class ProductsService {
 
     getPrices(params, result) {
 
-        let {limit, page, group_id, search, guid , ...args} = params
+        let {limit, page, group_id, search, guid, price , order , ...args} = params
 
         let query = {}
-
+        let priceFilter = {}
 
         let filters = []
 
@@ -248,7 +267,22 @@ class ProductsService {
 
         if (search != null) query.title = {[Sequelize.Op.like] : `%${search}%` }
 
+        if (price != null) {
 
+            let arr = price.split(',');
+
+
+
+            priceFilter.price = {[Sequelize.Op.between] : arr }
+        };
+
+        let orderList = []
+
+        if (order) {
+            orderList = [[PricesAndCountsModel, 'price', order]]
+        } else {
+            orderList = [['title']]
+        }
 
         
         limit = +limit || 10
