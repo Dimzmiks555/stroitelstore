@@ -45,7 +45,7 @@ const Search = observer(() => {
         CatalogStore.HideCatalog()
     }
     function handleSearchPage(e) {
-        router.push(`/search/${value}`)
+        router.push(`/search/${value}/1`)
     }
      
             

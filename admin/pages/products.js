@@ -1,4 +1,5 @@
 import Link from "next/link";
+import router from "next/router";
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import styles from './products.module.css'
@@ -79,7 +80,7 @@ import styles from './products.module.css'
                 <thead>
                     <tr>
                         <td>
-                            GUID
+                            Изображение
                         </td>
                         <td>
                             Артикул
@@ -106,7 +107,7 @@ import styles from './products.module.css'
                         data?.rows?.map(item => (
                             <tr>
                                 <td>
-                                    {item.guid}
+                                    <img className={styles.product_img} alt="" src={`http://localhost/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                 </td>
                                 <td>
                                     {item.prices_and_count?.sku}

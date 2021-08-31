@@ -34,6 +34,38 @@
 .images_block_header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.images_block_header button {
+    height: 50px;
+    width: 240px;
+}
+
+.drop_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 200px;
+    width: 400px;
+    border: 1px dashed #000;
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.drop_area:hover {
+    background: #fdd;
+}
+
+.drop_area input {
+    cursor: pointer;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 400px;
+    height: 200px;
 }
 
 .additional_info textarea {
@@ -62,4 +94,20 @@
 
 .back:hover {
     background: #d50;
+}
+
+
+.gallery {
+    margin-bottom: 40px;
+}
+
+.gallery img {
+    border: 1px solid #ccc;
+    height: 160px;
+    max-width: 160px;
+    object-fit: scale-down;
+}
+
+.main_img {
+    border: 3px solid #d00 !important;
 }

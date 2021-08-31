@@ -1,20 +1,24 @@
 
-// import { GroupModel, AttributeModel, ImageModel } from '../models/models.js';
+import { GroupModel, AttributeModel, ImageModel } from '../models/models.js';
 import multer from 'multer'
 
 
 class ImageService {
 
-    async create(body) {
+    async create(file, body) {
         
         console.log(body)
 
-        console.log(file.path)
+        console.log(body, body.name)
 
-        // ImageModel.create()
-        // .then(goods => {
-        //     console.log(goods)
-        // }).catch(err=>console.log(err));
+        ImageModel.create({
+            main: body.main,
+            good_id: body.name,
+            url: file.filename,
+        })
+        .then(goods => {
+            console.log(goods)
+        }).catch(err=>console.log(err));
 
 
     }

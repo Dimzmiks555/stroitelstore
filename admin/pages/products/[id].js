@@ -12,6 +12,9 @@ import { useRouter} from 'next/router'
     const [attributes, setAttributes] = useState([])
     const [attributeList, setAttributeList] = useState([])
 
+    const [file, setFile] = useState(null)
+    const [fileName, setFileName] = useState(null)
+
     const [newAttrId, setNewAttrId] = useState(null)
     const [newValue, setNewValue] = useState(null)
 
@@ -88,22 +91,36 @@ import { useRouter} from 'next/router'
     }
 
     function handleImage(e) {
-        e.preventDefault()
 
-        const formData = new FormData(e.target.form);
-        const data = new FormData();
-        const id = this.companyInput;
-        data.append('file', this.uploadInput.files[0]);
-        console.log(formData.entries())
+        console.log(file)
+
+        const fdata = new FormData();
+        fdata.append('file', file);
+        fdata.append('name', router.query.id);
+
+        console.log(data )
+
+        if(data[0]?.images.length > 0 ) {
+            fdata.append('main', 'false');
+        } else {
+            fdata.append('main', 'true');
+        }
+
+        console.log(fdata.body)
         
         fetch('http://localhost/api/upload', {
             method: 'POST',
-            body: formData,
+            body: fdata,
         })
         .then(res => console.log(res))
 
         
 
+    }
+
+    function handleImageInput(e) {
+        setFile(e.target.files[0]);
+        setFileName(e.target.value)
     }
 
 
@@ -164,8 +181,27 @@ import { useRouter} from 'next/router'
                 <div className={styles.additional_info}>
                     <h2>Фотографии</h2>
                     <div className={styles.images_block}>
+
+                        <div className={styles.gallery}>
+                            {data[0]?.images?.map(item => {
+                                return item.main == true ? (
+                                    <img className={styles.main_img} src={`http://localhost/uploads/${item.url}`}>
+    
+                                    </img>
+                                ) : (
+                                    <img src={`http://localhost/uploads/${item.url}`}>
+    
+                                    </img>
+                                )
+                            })}
+                        </div>
+
                         <form className={styles.images_block_header} onSubmit={handleImage} enctype="multipart/form-data">
-                            <input type="file" id="filedata" ></input>
+                            <div className={styles.drop_area}>
+                                <span>Нажмите или перебросьте для загрузки...</span>
+                                <span>{fileName}</span>
+                                <input type="file" id="filedata" onChange={handleImageInput}></input>
+                            </div>
                             <button>
                                 Добавить
                             </button>

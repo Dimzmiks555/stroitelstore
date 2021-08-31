@@ -25,8 +25,11 @@ const Search = observer(({mainTitle}) => {
     //UseState
     const [data, setData] = useState([]);
     const [prices, setPrices] = useState([]);
+    const [order, setOrder] = useState('');
     const [priceFilter, setPriceFilters] = useState([]);
     const [isLoading, setLoading] = useState([true]);
+    const [URLParams, setURLParams] = useState(router.query);
+    const [goodPrices, setGoodPrices] = useState([]);
 
     let paginationCount = [1]
     let count = +data?.count
@@ -39,20 +42,76 @@ const Search = observer(({mainTitle}) => {
     }
     
     useEffect(() => {
-        async function getData(request){
+
+        setURLParams(router.query)
+
+        async function getData(request, params){
            
-            fetch(`http://localhost:80/api/products?page=1&limit=20&search=${request}`)
+            let parametrs = Object.entries(params)
+
+
+
+            function generate(parametrs) {
+                let string =''
+                parametrs.forEach((item, index) => {
+                    if(index == 0) {
+                        string = `&${item[0]}=${item[1]}`
+                    } else {
+                        string = string + `&${item[0]}=${item[1]}`
+                    }
+                })
+                return string
+            }
+
+
+
+            fetch(`http://localhost:80/api/products?page=1&limit=20&search=${request}${generate(parametrs)}`)
             .then(result => result.json())
             .then(json => setData(json))
                 
         }
         
-        getData(request);
+
+        async function getGoodPrices(request, params){
+           
+            let parametrs = Object.entries(params)
 
 
+
+            function generate(parametrs) {
+                let string =''
+                parametrs.forEach((item, index) => {
+                    if(index == 0) {
+                        string = `&${item[0]}=${item[1]}`
+                    } else {
+                        string = string + `&${item[0]}=${item[1]}`
+                    }
+                })
+                return string
+            }
+
+
+
+            fetch(`http://localhost/api/products_prices?page=${page}&limit=20&search=${request}${generate(parametrs)}`)
+            .then(res => res.json())
+            .then(json => {
+                setGoodPrices(json[0])
+            })
+
+            setLoading(false)
+
+                
+        }
         
+        let params = {}
+        Object.assign(params, router.query)
+        delete params['request']
+        delete params['page']
 
-    }, [request]);
+        getData(request, params);
+        getGoodPrices(request, params);
+
+    }, [request, router.query]);
     
     
     function GetButton(pos) {
@@ -78,9 +137,81 @@ const Search = observer(({mainTitle}) => {
         }
         
     } 
-    function handleRange(values) {
-        setPriceFilters(values)
+
+    function handlePrice(e) {
+        if (e.target.id == 'from' ) {
+
+            if (URLParams['price']) {
+
+                if(e.target.value.length == 0) {
+                    let arr = URLParams['price'].split(',')
+                
+                    arr[0] = goodPrices?.prices_and_count?.min
+                    e.target.value = goodPrices?.prices_and_count?.min
+    
+                    URLParams['price'] = arr.join(',')
+                } else {
+
+                    let arr = URLParams['price'].split(',')
+                
+                    arr[0] = e.target.value
+    
+                    URLParams['price'] = arr.join(',')
+                }
+
+
+            } else {
+                URLParams['price'] = `${e.target.value}, ${goodPrices?.prices_and_count?.max}`
+            }
+
+        } else if (e.target.id == 'to' ) {
+
+            if (URLParams['price']) {
+                if(e.target.value.length == 0) {
+                    let arr = URLParams['price'].split(',')
+                
+                    arr[1] = goodPrices?.prices_and_count?.max
+                    e.target.value = goodPrices?.prices_and_count?.max
+    
+                    URLParams['price'] = arr.join(',')
+                } else {
+                    let arr = URLParams['price'].split(',')
+                    
+                    arr[1] = e.target.value
+
+                    URLParams['price'] = arr.join(',')
+                }
+            } else {
+                URLParams['price'] = `${goodPrices?.prices_and_count?.min}, ${e.target.value}`
+            }
+            
+        }
+
+        router.push({
+            pathname: `/search/[request]/1`,
+            query: URLParams
+        })
+
     }
+
+    function handleSelect(value) {
+
+        setOrder(value.value)
+
+        if (value.value == 'default') {
+             delete URLParams[`order`]
+        } else {
+            URLParams[`order`] = value.value;
+        }
+
+
+        router.push({
+            pathname: `/search/[request]/1`,
+            query: URLParams
+        })
+    } 
+
+
     if (isLoading == true) {
         return (
             <>
@@ -101,8 +232,8 @@ const Search = observer(({mainTitle}) => {
 
     const options = [
         { value: 'default', label: 'По умолчанию' },
-        { value: 'priceUp', label: 'По возрастанию цены' },
-        { value: 'priceDown', label: 'По уменьшению цены' }
+        { value: 'asc', label: 'По возрастанию цены' },
+        { value: 'desc', label: 'По уменьшению цены' }
     ]
     
     return (
@@ -116,18 +247,15 @@ const Search = observer(({mainTitle}) => {
                         <div className={styles.filter_price}>
                             <div className={styles.filter_title}>Цена</div>
                             <div className={styles.filter_inputs}>
-                                <input value={priceFilter[0]} defaultValue={prices[0]}></input>
-                                <input value={priceFilter[1]} defaultValue={prices[1]}></input>
+                                <div>
+                                    <label>От</label>
+                                    <input id='from' onChange={handlePrice}  defaultValue={goodPrices?.prices_and_count?.min}></input>
+                                </div>
+                                <div>
+                                    <label>До</label>
+                                    <input id='to'  onChange={handlePrice} defaultValue={goodPrices?.prices_and_count?.max}></input>
+                                </div>
                             </div>
-                            <Range
-                             trackStyle={[{ backgroundColor: '#c33' }]} 
-                             handleStyle={[{ backgroundColor: '#fff', borderColor:'#c33'}]}
-                             railStyle={{ backgroundColor: 'f5f5f5'}}
-                             min={prices[0]} 
-                             max={prices[1]} 
-                             defaultValue={[0, prices[1]]}
-                             onChange={e => handleRange(e)}
-                             />
                         </div>
                     </div>
                     <div className={styles.category_goodsblock}>
@@ -139,7 +267,7 @@ const Search = observer(({mainTitle}) => {
                                 </h3>
                                 
                                 <div className={styles.sorter}>                                    
-                                    <Select className={styles.select} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
+                                    <Select className={styles.select} value={order} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +280,7 @@ const Search = observer(({mainTitle}) => {
                                         <Link href={`/product/${item.guid}`}>
                                             <a>
                                                 <div className={styles.good_img}>
-                                                    {/* <img src={item?.images[0]?.src}></img> */}
+                                                <img alt="" src={`http://localhost/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                                 </div>
                                             </a>
                                         </Link>

@@ -64,3 +64,8 @@
 .products_table a:hover {
     color: #d00;
 }
+.product_img {
+    height: 100px;
+    width: 100px;
+    object-fit: scale-down;
+}

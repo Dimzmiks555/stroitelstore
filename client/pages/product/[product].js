@@ -43,37 +43,7 @@ const Product = observer(() => {
         }
     }
 
-    if (typeof window !== "undefined") {
-        window.addEventListener('scroll', () => {
-            if (document.getElementById('product__overview_img') !== null) {
-                let totalBlock = document.getElementById('product__overview_img')
-                let mainBlock = document.getElementById('product__overview_info')
-                let scrollHeight = document.body.scrollHeight;
-                let y = window.pageYOffset;
-                // console.log(scrollHeight,mainBlock.offsetHeight )
-                // console.log(y)
-                    if (y >= 150 && y <= (scrollHeight - mainBlock.offsetHeight)) {
-                        totalBlock.style.position = 'fixed';
-                        totalBlock.style.top = '80px';
-                        totalBlock.style.left = '10%';
-                        totalBlock.style.width = '43.6%'
-                        mainBlock.style.marginLeft = '54.5%'
-                    } else if (y > (scrollHeight - mainBlock.offsetHeight)){
-                        console.log('bolshe')
-                        totalBlock.style.position = 'fixed';
-                        mainBlock.style.marginLeft = '54.5%'
-                        totalBlock.style.bottom = '500px';
-                        totalBlock.style.left = '10%';
-                        totalBlock.style.width = '43.6%'
-                    }
-                    else {
-                        totalBlock.style = null;
-                        mainBlock.style = null
-                    }
-            }
-            
-        })
-    } 
+   
 
     let product_id = router.query.product;
     useEffect(() => {
@@ -125,7 +95,14 @@ const Product = observer(() => {
                     <div className={styles.product}>
                         <div className={styles.product__overview}>
                             <div className={styles.product__overview_img} id="product__overview_img">
-                                {/* <img src={data?.images ? data?.images[0]?.src : null}></img> */}
+                                <img alt="" src={`http://localhost/uploads/${data?.images?.length > 0 ? data?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                <div className={styles.gallery}>
+                                    {
+                                        data?.images?.map(image => (
+                                            <img alt="" src={`http://localhost/uploads/${image?.url}`}></img>
+                                        ))
+                                    }
+                                </div>
                             </div>
                             <div className={styles.product__overview_info} id="product__overview_info">
                                 <div className={styles.product__overview_title}>

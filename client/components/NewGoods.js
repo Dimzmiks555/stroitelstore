@@ -54,7 +54,7 @@ export default function NewGoods () {
                             <div>
                                 <Link href={`/product/${item.guid}`}>
                                     <div className={styles.good_img}>
-                                        {/* <img src={item?.images[0]?.src}></img> */}
+                                        <img alt="" src={`http://localhost/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </Link>
                                 <Link href={`/product/${item.guid}`}>

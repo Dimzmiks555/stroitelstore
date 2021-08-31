@@ -28,10 +28,8 @@ const Category = observer(({mainTitle}) => {
     const [countGoods, setCountGoods] = useState(0);
     const [attributes, setAttributes] = useState([]);
     const [filters, setFilters] = useState([]);
-    const [categoryData, setCategoryData] = useState([]);
-    const [prices, setPrices] = useState([]);
     const [goodPrices, setGoodPrices] = useState([]);
-    const [priceFilter, setPriceFilters] = useState([]);
+    const [order, setOrder] = useState('');
     const [isLoading, setLoading] = useState([true]);
 
     const [URLParams, setURLParams] = useState(router.query);
@@ -109,7 +107,6 @@ const Category = observer(({mainTitle}) => {
             .then(res => res.json())
             .then(json => {
                 setGoodPrices(json[0])
-                console.log(json)
             })
 
             setLoading(false)
@@ -133,13 +130,35 @@ const Category = observer(({mainTitle}) => {
         delete params['page']
 
         getData(id, params)
-        getGoodPrices(id, params)
+
+        
+        if (params['price']) {
+
+            let arr = params['price'].split(',')
+
+            setGoodPrices({
+                prices_and_count: {
+                    max: arr[1],
+                    min: arr[0]
+                }
+            })
+        } else {
+            getGoodPrices(id, params)
+        }
+
         getDataAttr(id)
         getDataAttrGoods(id)
+
+
+
+
 
     }, [router.query, page]);
     
     function handleSelect(value) {
+
+        setOrder(value.value)
+
         if (value.value == 'default') {
              delete URLParams[`order`]
         } else {
@@ -250,6 +269,18 @@ const Category = observer(({mainTitle}) => {
         
     }
 
+    function handlePage(e, page) {
+
+        URLParams['page'] = page
+
+        router.push({
+            pathname: `/catalog/[id]/${page}`,
+            query: URLParams
+        })
+
+    }
+
+
     function showGoods() {
         return data.map(item => {
                 return (
@@ -258,7 +289,7 @@ const Category = observer(({mainTitle}) => {
                             <Link href={`/product/${item.guid}`}>
                                 <a>
                                     <div className={styles.good_img}>
-                                        {/* <img src={item?.images[0]?.src}></img> */}
+                                        <img alt="" src={`http://localhost/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </a>
                             </Link>
@@ -356,7 +387,7 @@ const Category = observer(({mainTitle}) => {
                                     {
                                         attributes.filter(subitem => {return subitem.attr_id == item.id }).map(item => (
                                             <div className={styles.checkbox_filter} >
-                                                <input id={item?.id} value={item.value} data-request={item?.attribute?.id}  type='checkbox' onChange={e => {handleFilter(e)}}></input>
+                                                <input id={item?.id} value={item.value}  checked={router.query[`filter_${item?.attr_id}`] && router.query[`filter_${item?.attr_id}`].search(item?.value) != -1 ? true : false}     data-request={item?.attribute?.id}  type='checkbox' onChange={e => {handleFilter(e)}}></input>
                                                 <label for={item?.id}>{item.value}</label>
                                             </div>
                                         ))
@@ -378,7 +409,7 @@ const Category = observer(({mainTitle}) => {
                                 </div>
                                 
                                 <div className={styles.sorter}>                                    
-                                    <Select className={styles.select} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
+                                    <Select className={styles.select} value={order} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
                                 </div>
                             </div>
                         </div>
@@ -390,21 +421,19 @@ const Category = observer(({mainTitle}) => {
                             <ul>
                                 {
                                     +page !== 1 ? (
-                                        <Link href={`/catalog/${id}/${+page - 1}`}>
-                                            <li className={styles.pagination_left}>
-                                                {<svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    x="0"
-                                                    y="0"
-                                                    enableBackground="new 0 0 512.002 512.002"
-                                                    version="1.1"
-                                                    viewBox="0 0 512.002 512.002"
-                                                    xmlSpace="preserve"
-                                                    >
-                                                    <path d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061a19.8 19.8 0 0014.057 5.835 19.79 19.79 0 0014.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"></path>
-                                                </svg>}
-                                            </li>
-                                        </Link>
+                                        <li className={styles.pagination_left} onClick={e => handlePage(e, +page - 1)}>
+                                            {<svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                x="0"
+                                                y="0"
+                                                enableBackground="new 0 0 512.002 512.002"
+                                                version="1.1"
+                                                viewBox="0 0 512.002 512.002"
+                                                xmlSpace="preserve"
+                                                >
+                                                <path d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061a19.8 19.8 0 0014.057 5.835 19.79 19.79 0 0014.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"></path>
+                                            </svg>}
+                                        </li>
                                     ) : null
                                 }
                                 {paginationCount.map( pageNumber => {
@@ -414,16 +443,13 @@ const Category = observer(({mainTitle}) => {
                                         )
                                     } else {
                                         return (
-                                            <Link href={`/catalog/${id}/${pageNumber}`}>
-                                                <li>{pageNumber}</li>
-                                            </Link>
+                                                <li onClick={e => handlePage(e, pageNumber)}>{pageNumber}</li>
                                         )
                                     }
                                 } )}
                                 {
                                     (countGoods / 20) > page ? (
-                                        <Link href={`/catalog/${id}/${+page + 1}`}>
-                                            <li className={styles.pagination_right}>
+                                            <li className={styles.pagination_right} onClick={e => handlePage(e, +page + 1)}>
                                                 {<svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     x="0"
@@ -436,7 +462,6 @@ const Category = observer(({mainTitle}) => {
                                                     <path d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061a19.8 19.8 0 0014.057 5.835 19.79 19.79 0 0014.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"></path>
                                                 </svg>}
                                             </li>
-                                        </Link>
                                     ) : null
                                 }
                             </ul>

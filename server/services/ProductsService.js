@@ -3,7 +3,7 @@
 
 import mysql from 'mysql2'
 import Sequelize from "sequelize";
-import { GroupModel, GoodModel, PricesAndCountsModel, GoodsAttributeModel, AttributeModel, DescModel } from '../models/models.js';
+import { GroupModel, GoodModel, PricesAndCountsModel, GoodsAttributeModel, AttributeModel, DescModel, ImageModel } from '../models/models.js';
  
 
 const sequelize = new Sequelize("1c_base", "root", "root", {
@@ -161,6 +161,9 @@ class ProductsService {
                     {
                         where: priceFilter,
                         model: PricesAndCountsModel,
+                    },
+                    {
+                        model: ImageModel
                     }
                 ],
                 subQuery:false
@@ -190,6 +193,9 @@ class ProductsService {
                     {
                         where: priceFilter,
                         model: PricesAndCountsModel,
+                    },
+                    {
+                        model: ImageModel
                     }
                 ],
                 subQuery:false
@@ -310,6 +316,14 @@ class ProductsService {
                             [sequelize.fn('MAX', sequelize.cast(sequelize.col('price'), "integer")) , "max"],
                             [sequelize.fn('MIN', sequelize.cast(sequelize.col('price'),"integer")), "min"],
                         ],
+                    },
+                    
+                    
+                    {
+                        model: DescModel
+                    },
+                    {
+                        model: ImageModel
                     }
                 ],
                 where: query,
@@ -347,6 +361,12 @@ class ProductsService {
                             [sequelize.fn('MIN', sequelize.cast(sequelize.col('price'),"integer")), "min"],
                         ],
                         model: PricesAndCountsModel
+                    },
+                    {
+                        model: DescModel
+                    },
+                    {
+                        model: ImageModel
                     }
                 ],
                 where: query,
@@ -386,6 +406,9 @@ class ProductsService {
             },
             {
                 model: DescModel
+            },
+            {
+                model: ImageModel
             }
         ] 
         })

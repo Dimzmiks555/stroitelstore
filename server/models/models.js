@@ -104,6 +104,51 @@ const DescModel = sequelize.define('desc', {
     }
 })
 
+const ImageModel = sequelize.define('image', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    good_id: {
+        type: Sequelize.STRING
+    },
+    url: {
+        type: Sequelize.STRING
+    },
+    main: {
+        type: Sequelize.BOOLEAN
+    }
+})
+
+
+const UserModel = sequelize.define('user', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    name: {
+        type: Sequelize.STRING
+    },
+    surname: {
+        type: Sequelize.STRING
+    },
+    password: {
+        type: Sequelize.STRING
+    },
+    email: {
+        type: Sequelize.STRING,
+        unique: true
+    },
+    phone: {
+        type: Sequelize.STRING
+    },
+    role: {
+        type: Sequelize.STRING,
+        defaultValue: "USER"
+    }
+})
 
 GroupModel.hasMany(GoodModel, { foreignKey: 'group_id'})
 GoodModel.belongsTo(GroupModel, { foreignKey: 'group_id'})
@@ -131,6 +176,9 @@ GoodsAttributeModel.belongsTo(AttributeModel, { foreignKey: 'attr_id'})
 GoodModel.hasOne(DescModel, { foreignKey: 'good_id'})
 DescModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 
-// DescModel.sync({force: true})
+GoodModel.hasMany(ImageModel, { foreignKey: 'good_id'})
+ImageModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 
-export {GoodModel, GroupModel, PricesAndCountsModel, AttributeModel, GoodsAttributeModel, DescModel }
+// ImageModel.sync({force: true})
+
+export {GoodModel, GroupModel, PricesAndCountsModel, AttributeModel, GoodsAttributeModel, DescModel, ImageModel, UserModel }

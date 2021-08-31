@@ -126,7 +126,7 @@ const Busket = observer(() => {
                             <Link href={`/product/${item.guid}`}>
                                 <a className={styles.good_img}>
                                     <div>
-                                        {/* <img src={item?.data.images[0]?.src}></img> */}
+                                    <img alt="" src={`http://localhost/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </a>
                             </Link>
