@@ -15,11 +15,23 @@ import { useRouter} from 'next/router'
     const [newAttrId, setNewAttrId] = useState(null)
     const [newValue, setNewValue] = useState(null)
 
+    const [textarea, setTextArea] = useState('')
+
+
     function fetchData(id) {
         fetch(`http://kassa1/api/products/${id}`)
         .then(res => res.json())
         .then(json => {
             setData(json)
+            console.log(json)
+        })
+    }
+
+    function fetchDesc(id) {
+        fetch(`http://kassa1/api/descriptions/${id}`)
+        .then(res => res.json())
+        .then(json => {
+            setTextArea(json[0]?.text)
             console.log(json)
         })
     }
@@ -79,7 +91,9 @@ import { useRouter} from 'next/router'
         e.preventDefault()
 
         const formData = new FormData(e.target.form);
-        
+        const data = new FormData();
+        const id = this.companyInput;
+        data.append('file', this.uploadInput.files[0]);
         console.log(formData.entries())
         
         fetch('http://localhost/api/upload', {
@@ -93,10 +107,34 @@ import { useRouter} from 'next/router'
     }
 
 
+    function handleTextArea(e) {
+
+
+        let data = {
+            good_id: router.query.id,
+            text: textarea.trim()
+        }
+
+        fetch(`http://kassa1/api/descriptions`, {
+            method: 'POST',
+            headers: {
+                "Accept" : "application/json",
+                "Content-type" : "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+
+    }
+
+    function handleBack() {
+        router.back()
+    }
+
     useEffect(() => { 
         fetchData(router.query.id)
         fetchAttributes(router.query.id)
         fetchAttributeList(data[0]?.group_id)
+        fetchDesc(router.query.id)
     }, [ router.query.id, data[0]?.group_id])
 
 
@@ -105,15 +143,20 @@ import { useRouter} from 'next/router'
              
             <div className={styles.product}>
                 <div className={styles.main_info}>
+                    
+                    <button className={styles.back} onClick={handleBack}>
+                        Назад
+                    </button>
                     {
                         data[0] ? (
                             <div>
+                                <h3>ID: {data[0]?.guid}</h3>
                                 <h1>{data[0]?.title}</h1>
-                                <h3>{data[0]['prices_and_count.amount'] == 0 ? 'Нет в наличии' : ' В наличии '}</h3>
-                                <h2>Группа: {data[0]['group.title']}</h2>
-                                <h3>Артикул: {data[0]['prices_and_count.sku']}</h3>
-                                <h3>Цена: {data[0]['prices_and_count.price']}</h3>
-                                <h3>Количество: {data[0]['prices_and_count.amount']} {data[0]['prices_and_count.unit']}</h3>
+                                <h3>{data[0].prices_and_count?.amount == 0 ? 'Нет в наличии' : ' В наличии '}</h3>
+                                <h2>Группа: {data[0].group?.title}</h2>
+                                <h3>Артикул: {data[0].prices_and_count?.sku}</h3>
+                                <h3>Цена: {data[0]?.prices_and_count?.price}</h3>
+                                <h3>Количество: {data[0]?.prices_and_count?.amount} {data[0]?.prices_and_count?.unit}</h3>
                             </div>
                         ) : null
                     }
@@ -121,7 +164,7 @@ import { useRouter} from 'next/router'
                 <div className={styles.additional_info}>
                     <h2>Фотографии</h2>
                     <div className={styles.images_block}>
-                        <form className={styles.images_block_header} onSubmit={handleImage}>
+                        <form className={styles.images_block_header} onSubmit={handleImage} enctype="multipart/form-data">
                             <input type="file" id="filedata" ></input>
                             <button>
                                 Добавить
@@ -194,10 +237,15 @@ import { useRouter} from 'next/router'
                             </tbody>
                         </table>
                     </div>
-                    <h2>Описание</h2>
-                    <textarea>
+                    <div className={styles.desc__block}>
+                        <h2>Описание</h2>
+                        <button onClick={handleTextArea}>
+                            Сохранить
+                        </button>
+                        <textarea value={textarea} onChange={e => setTextArea(e.target.value)}>
 
-                    </textarea>
+                        </textarea>
+                    </div>
                 </div>
             </div>
 

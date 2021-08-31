@@ -131,7 +131,7 @@ import styles from './products.module.css'
                                             {item.title}
                                         </td>
                                         <td>
-                                            {item.group.title}
+                                            {item.group?.title}
                                         </td>
                                     </tr>
                                 ))

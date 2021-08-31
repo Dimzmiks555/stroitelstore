@@ -61,7 +61,7 @@ const PricesAndCountsModel = sequelize.define('prices_and_counts', {
 const AttributeModel = sequelize.define('attributes', {
     id: {
         type: Sequelize.STRING,
-        auto_increment: true,
+        autoIncrement: true,
         primaryKey: true
     },
     title: {
@@ -76,7 +76,7 @@ const AttributeModel = sequelize.define('attributes', {
 const GoodsAttributeModel = sequelize.define('goods_attributes', {
     id: {
         type: Sequelize.INTEGER,
-        auto_increment: true,
+        autoIncrement: true,
         primaryKey: true
     },
     attr_id: {
@@ -87,6 +87,20 @@ const GoodsAttributeModel = sequelize.define('goods_attributes', {
     },
     value: {
         type: Sequelize.STRING
+    }
+})
+
+const DescModel = sequelize.define('desc', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    good_id: {
+        type: Sequelize.STRING
+    },
+    text: {
+        type: Sequelize.TEXT
     }
 })
 
@@ -111,4 +125,12 @@ for (let i = 0; i < 1000; i++) {
 GoodsAttributeModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 GoodsAttributeModel.belongsTo(AttributeModel, { foreignKey: 'attr_id'})
 
-export {GoodModel, GroupModel, PricesAndCountsModel, AttributeModel, GoodsAttributeModel }
+
+
+
+GoodModel.hasOne(DescModel, { foreignKey: 'good_id'})
+DescModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
+
+// DescModel.sync({force: true})
+
+export {GoodModel, GroupModel, PricesAndCountsModel, AttributeModel, GoodsAttributeModel, DescModel }

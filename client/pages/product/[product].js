@@ -91,10 +91,13 @@ const Product = observer(() => {
             fetch(`http://localhost:80/api/products/${id}`)
             .then(result => result.json())
             .then(json => {
+                console.log(json[0])
                 setData(json[0]);
                 setLoading(false)
             })
         }
+
+        
         
         if (product_id != undefined) {  
             getData(product_id);
@@ -167,7 +170,7 @@ const Product = observer(() => {
                                         
                                         <div className={styles.attributes}>
                                             {
-                                                data?.filter_1?.map(item => (
+                                                data?.filter_1?.length > 0 ? data?.filter_1?.map(item => (
                                                     <div className={styles.attribute}>
                                                         <div>
                                                             {item?.attribute?.title}
@@ -176,14 +179,14 @@ const Product = observer(() => {
                                                             {item?.value}
                                                         </div>
                                                     </div>
-                                                ))
+                                                )) : 'Характеристики отсутствуют'
                                             }
                                         </div>
 
                                         <h2>
                                             Описание
                                         </h2>
-                                        <p>{data?.description?.replace(/<\/?[^>]+>/g,'')}</p>
+                                        <div>{data?.desc?.text ? data?.desc?.text : 'Описание отсутствует.'}</div>
 
                                     </div>
                                 </div>

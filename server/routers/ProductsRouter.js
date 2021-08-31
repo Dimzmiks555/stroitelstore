@@ -8,6 +8,7 @@ import GroupsController from '../controllers/GroupsController.js'
 import AttributesController from '../controllers/AttributesController.js'
 import GoodsAttributesController from '../controllers/GoodsAttributesController.js'
 import ImageController from '../controllers/ImageController.js'
+import DescController from '../controllers/DescController.js'
 
 
 
@@ -27,5 +28,9 @@ router.post('/attributes/', AttributesController.create);
 
 router.get('/goods_attributes/', GoodsAttributesController.getAll);
 router.post('/goods_attributes/', GoodsAttributesController.create);
+
+router.get('/descriptions/', DescController.getAll);
+router.get('/descriptions/:id', DescController.getOne);
+router.post('/descriptions/', DescController.create);
 
 export default router;
