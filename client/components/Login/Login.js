@@ -3,7 +3,8 @@ import styles from './Login.module.css';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import { useState } from 'react';
 import LoginStore from './LoginStore';
-export default function Login () {  
+import { observer } from 'mobx-react';
+const Login = observer(() => {  
 
     const [type, setType] = useState(['login'])
     const [username, setUsername] = useState([''])
@@ -22,11 +23,11 @@ export default function Login () {
         setLoading(true)
         setMessage('')
         let data = {
-            username: username,
+            email: username,
             password: password
         }
 
-        fetch('https://admin.stroitelstore.ru/wp-json/jwt-auth/v1/token',{
+        fetch('http://localhost/api/login',{
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -37,23 +38,13 @@ export default function Login () {
     .then(res => {return res.json()})
     .then(json => {
         console.log(json)
-        console.log(json.code)
-        if (json.code == '[jwt_auth] incorrect_password') {
-            setMessage('Введен неверный пароль')
-            setLoading(false)
-        } else if (json.code == '[jwt_auth] empty_username') {
-            setMessage('Не все поля заполнены!')
-            setLoading(false)
-        } else if (json.code == '[jwt_auth] empty_password') {
-            setMessage('Не все поля заполнены!')
-            setLoading(false)
-        } else if (json.code == '[jwt_auth] invalid_email') {
-            setMessage('Такого пользователя не существует')
+        console.log(json.token)
+        if (json.token.message) {
+            setMessage(json.token.message)
             setLoading(false)
         }
-        if (json.token[0]) {
+        if (!json.token.message && json.token) {
             localStorage.setItem('token', json.token)
-            localStorage.setItem('username', json.user_email)
             setLoading(false)
             window.location.href = '/'
         }
@@ -66,47 +57,35 @@ export default function Login () {
         console.log(LoginStore.registrationData)
 
         let data = {
-            username: LoginStore.registrationData.email,
+            phone: LoginStore.registrationData.phone,
             password: LoginStore.registrationData.password,
             email: LoginStore.registrationData.email,
-            first_name: LoginStore.registrationData.first_name,
-            last_name: LoginStore.registrationData.last_name,
-            shipping: {
-                first_name: LoginStore.registrationData.first_name,
-                last_name: LoginStore.registrationData.last_name,
-            },
-            billing: {
-                first_name: LoginStore.registrationData.first_name,
-                last_name: LoginStore.registrationData.last_name,
-                phone: LoginStore.registrationData.phone,
-                email: LoginStore.registrationData.email
-            }
+            surname: LoginStore.registrationData.name,
+            name: LoginStore.registrationData.surname
 
         }
 
-        const api = new WooCommerceRestApi({
-            url: "https://admin.stroitelstore.ru/",
-            consumerKey: "ck_9674d22e8a216dfff0369bc9aa3680f685ebda25",
-            consumerSecret: "cs_96cbffa422eef1b5620be5a553b8065937e91b76",
-            version: "wc/v3",
-            queryStringAuth: true,
-              axiosConfig: {
-                headers: {'Content-Type': 'application/json'},
-            }   
-            });
-        await api.post('customers', data)
-            .then( response => {
-                    console.log(response.data);
-                }
-            ).catch(err => {
-                console.log(err, err.response?.data)
-                console.log('fuck')
-            })
-        
+    
+        fetch('http://localhost/api/registration',{
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(json => {
+            if (!json.token.message && json.token) {
+                localStorage.setItem('token', json.token)
+                setLoading(false)
+                window.location.href = '/'
+            }
+        })
     }
     
     function handleChange(id, value) {
         LoginStore.setData(id, value)
+        console.log(LoginStore.registrationData)
     }
 
 
@@ -182,8 +161,8 @@ export default function Login () {
                         {
 
                         LoginStore.registrationData.email != '' &&
-                        LoginStore.registrationData.first_name != '' &&
-                        LoginStore.registrationData.last_name != '' &&
+                        LoginStore.registrationData.name != '' &&
+                        LoginStore.registrationData.surname != '' &&
                         LoginStore.registrationData.phone != '' &&
                         LoginStore.registrationData.password != '' ? (
                             <button className={styles.login__button} onClick={handleRegistrate}>Зарегистрироваться</button>
@@ -196,4 +175,6 @@ export default function Login () {
         </div>
     )
 }
-}
+}) 
+
+export default Login

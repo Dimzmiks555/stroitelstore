@@ -13,6 +13,8 @@ let storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+
+//Controllers
 import ProductsController from '../controllers/ProductsController.js'
 import GroupsController from '../controllers/GroupsController.js'
 import AttributesController from '../controllers/AttributesController.js'
@@ -20,6 +22,10 @@ import GoodsAttributesController from '../controllers/GoodsAttributesController.
 import ImageController from '../controllers/ImageController.js'
 import DescController from '../controllers/DescController.js'
 import UserController from '../controllers/UserController.js'
+import OrderController from '../controllers/OrderController.js'
+
+
+
 import authMiddleware from '../middlewares/authMiddleware.js'
 
 
@@ -46,7 +52,9 @@ router.get('/descriptions/:id', DescController.getOne);
 router.post('/descriptions/', DescController.create);
 
 
-
+router.post('/orders/', OrderController.create);
+router.get('/orders/:id', OrderController.getOne);
+router.get('/orders/', OrderController.getAll);
 
 // AUTHORIZATION
 

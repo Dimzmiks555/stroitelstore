@@ -388,29 +388,29 @@ class ProductsService {
             nest: true, 
             where: {guid: params}, 
             include: [
-            {
-            model: GoodsAttributeModel, 
-            as: 'filter_1',
-            // where: filters,
-            include: [
                 {
-                    model: AttributeModel
+                    model: GoodsAttributeModel, 
+                    as: 'filter_1',
+                    // where: filters,
+                    include: [
+                        {
+                            model: AttributeModel
+                        }
+                    ]
+                },
+                {
+                    model: GroupModel
+                },
+                {
+                    model: PricesAndCountsModel
+                },
+                {
+                    model: DescModel
+                },
+                {
+                    model: ImageModel
                 }
-            ]
-            },
-            {
-                model: GroupModel
-            },
-            {
-                model: PricesAndCountsModel
-            },
-            {
-                model: DescModel
-            },
-            {
-                model: ImageModel
-            }
-        ] 
+            ] 
         })
         .then(goods => {
             console.log(goods)

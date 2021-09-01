@@ -4,15 +4,25 @@ import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react';
 import HeaderStore from '../Header/HeaderStore';
 import CabinetStore from './CabinetStore';
+import BusketStore from '../Busket/BusketStore';
+import { useRouter } from 'next/router';
+
 
 
 const Cabinet = observer(() => {
 
-    
+
+
     useEffect(() => {
         CabinetStore.getOrders()
         console.log(CabinetStore.orders)
     }, [CabinetStore.orders[0]?.id])
+
+
+
+    if (typeof window != 'undefined') {
+
+    }
 
 
 
@@ -61,19 +71,9 @@ const Cabinet = observer(() => {
                         </div>
                         <div>
                             <h2>Заказы</h2>
-                            <p>Количество заказов: {CabinetStore.orders.length}</p>
-                            <p>Общая сумма заказов: {typeof CabinetStore.orders[0]?.total != 'object' && CabinetStore.orders[0]?.total ? (`${CabinetStore.orders?.reduce((a, b) => { return a + +b.total }, 0 )}`) : null}</p>
                         </div>
                     </div>
                 </Link>
-                <div className={styles.cashback}>
-                    <div className={styles.clientData__image}>
-                        10%
-                    </div>
-                    <div>
-                        <h2>Скидка</h2>
-                    </div>
-                </div>
                 <div className={styles.userData}>
                     <div className={styles.clientData__image}>
                         <svg
@@ -86,12 +86,12 @@ const Cabinet = observer(() => {
                         </svg>
                     </div>
                     <div>
-                        <h2>{HeaderStore.userData[0]?.first_name} {HeaderStore.userData[0]?.last_name}</h2>
-                        <p>E-mail: {HeaderStore.userData[0]?.email}</p>
-                        <p>Телефон: {HeaderStore.userData[0]?.billing.phone ? (HeaderStore.userData[0]?.billing.phone) : 'Не указан'}</p>
+                        <h2>{HeaderStore.userData?.name} {HeaderStore.userData[0]?.last_name}</h2>
+                        <p>E-mail: {HeaderStore.userData?.email}</p>
+                        <p>Телефон: {HeaderStore.userData?.phone}</p>
                     </div>
                 </div>
-                <div className={styles.receipts}>
+                {/* <div className={styles.receipts}>
                     <div className={styles.clientData__image}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +125,7 @@ const Cabinet = observer(() => {
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
         </>

@@ -121,6 +121,28 @@ const ImageModel = sequelize.define('image', {
     }
 })
 
+const DeliveryModel = sequelize.define('delivery', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    user_id: {
+        type: Sequelize.INTEGER
+    },
+    city: {
+        type: Sequelize.STRING
+    },
+    street: {
+        type: Sequelize.STRING
+    },
+    house: {
+        type: Sequelize.STRING
+    },
+    room: {
+        type: Sequelize.STRING
+    }
+})
 
 const UserModel = sequelize.define('user', {
     id: {
@@ -147,6 +169,53 @@ const UserModel = sequelize.define('user', {
     role: {
         type: Sequelize.STRING,
         defaultValue: "USER"
+    }
+})
+
+const OrderModel = sequelize.define('order', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    user_id: {
+        type: Sequelize.INTEGER
+    },
+    address: {
+        type: Sequelize.STRING
+    },
+    payment: {
+        type: Sequelize.STRING
+    },
+    total: {
+        type: Sequelize.INTEGER,
+    },
+    type: {
+        type: Sequelize.STRING
+    }
+})
+
+
+const OrderProductsModel = sequelize.define('order_product', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    order_id: {
+        type: Sequelize.INTEGER
+    },
+    good_id: {
+        type: Sequelize.STRING
+    },
+    count: {
+        type: Sequelize.INTEGER
+    },
+    price: {
+        type: Sequelize.INTEGER,
+    },
+    total: {
+        type: Sequelize.INTEGER
     }
 })
 
@@ -179,6 +248,25 @@ DescModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 GoodModel.hasMany(ImageModel, { foreignKey: 'good_id'})
 ImageModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 
-// UserModel.sync({force: true})
+OrderModel.hasMany(OrderProductsModel, { foreignKey: 'order_id'})
+OrderProductsModel.belongsTo(OrderModel, { foreignKey: 'order_id'})
 
-export {GoodModel, GroupModel, PricesAndCountsModel, AttributeModel, GoodsAttributeModel, DescModel, ImageModel, UserModel }
+
+GoodModel.hasMany(OrderProductsModel, { foreignKey: 'good_id'})
+OrderProductsModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
+
+// OrderProductsModel.sync({force: true})
+
+export {
+    GoodModel,
+    GroupModel, 
+    PricesAndCountsModel, 
+    AttributeModel, 
+    GoodsAttributeModel, 
+    DescModel, 
+    ImageModel, 
+    UserModel, 
+    DeliveryModel ,
+    OrderProductsModel,
+    OrderModel
+}

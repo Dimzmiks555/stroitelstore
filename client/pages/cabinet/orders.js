@@ -6,14 +6,24 @@ import Head from 'next/head';
 import { observer } from 'mobx-react';
 import Footer from '../../components/Footer/Footer';
 import CabinetStore from '../../components/Cabinet/CabinetStore';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Cabinet from '../../components/Cabinet/Cabinet';
+import HeaderStore from '../../components/Header/HeaderStore';
 const Index = observer(() => {
 
+    const [data, setData] = useState([])
+
+
     useEffect(() => {
-        CabinetStore.getOrders()
-        console.log(CabinetStore.orders)
-    }, [CabinetStore.orders[0]?.id])
+
+        fetch(`http://localhost/api/orders?user_id=${HeaderStore?.userData?.id}`)
+        .then(res => res.json())
+        .then(json => {
+            setData(json)
+            console.log(json)
+        })
+
+    }, [data[0]?.id])
 
 
     
@@ -28,7 +38,7 @@ const Index = observer(() => {
     <div className={Mainstyles.page}>
         <div className={styles.orders}>
         <h1>Мои заказы</h1>
-            {CabinetStore.orders.map((order, index) => (
+            {data.map((order, index) => (
                 <table border="1">
                 <thead>
                     <tr>
@@ -67,19 +77,19 @@ const Index = observer(() => {
                             Стоимость
                         </td>
                     </tr>
-                {CabinetStore.orders[index]?.line_items.map(item => (
+                {order?.order_products?.map(item => (
                     <tr>
                         <td>
-                            {item.product_id}
+                            {item?.id}
                         </td>
                         <td>
-                            {item.name}
+                            {item?.good?.guid}
                         </td>
                         <td>
                             {item.price} {order?.currency_symbol}
                         </td>
                         <td>
-                            {item.quantity}
+                            {item.count}
                         </td>
                         <td>
                             {item.total} {order?.currency_symbol}

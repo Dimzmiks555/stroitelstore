@@ -34,6 +34,7 @@ class UserService {
             return
         }
 
+        
         const hashPassword = await bcrypt.hash(password, 5)
 
         const user = await UserModel.create({
@@ -52,6 +53,8 @@ class UserService {
                 name,
                 surname,
                 role,
+                
+                phone: user.phone
             },
             secret_key,
             {
@@ -88,7 +91,11 @@ class UserService {
             {
                 id: user.id, 
                 email: email,
+                name: user.name,
+                surname: user.surname,
                 role: user.role,
+                
+                phone: user.phone
             },
             secret_key,
             {
@@ -113,7 +120,10 @@ class UserService {
             {
                 id: user.id, 
                 email: email,
+                name: user.name,
+                surname: user.surname,
                 role: user.role,
+                phone: user.phone
             },
             secret_key,
             {

@@ -48,6 +48,9 @@ const Busket = observer(() => {
 
     }, [BusketStore?.positions])
 
+
+
+
     if (HeaderStore.userData[0]?.email) {
         handleClientData('name', HeaderStore.userData[0]?.first_name);
         handleClientData('surname', HeaderStore.userData[0]?.last_name);
@@ -82,12 +85,88 @@ const Busket = observer(() => {
     } 
     function increment(e) {
         BusketStore.incrementCount(e.target.id)
+        let IDs = [];
+
+        BusketStore?.positions.forEach(item => {
+            IDs.push(item.guid)
+        })
+
+        console.log(IDs)
+
+        if (IDs[0]) {
+            fetch(`http://localhost/api/products?limit=20&guid=${IDs.join(',')}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json?.rows)
+
+                let total = null
+
+                json?.rows?.map((item, index) => {
+                    total += +item?.prices_and_count?.price * +BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
+                    console.log(total)
+                })
+
+                setTotal(total)
+
+            })
+        }
     }
     function decrement(e) {
         BusketStore.decrementCount(e.target.id)
+        let IDs = [];
+
+        BusketStore?.positions.forEach(item => {
+            IDs.push(item.guid)
+        })
+
+        console.log(IDs)
+
+        if (IDs[0]) {
+            fetch(`http://localhost/api/products?limit=20&guid=${IDs.join(',')}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json?.rows)
+
+                let total = null
+
+                json?.rows?.map((item, index) => {
+                    total += +item?.prices_and_count?.price * +BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
+                    console.log(total)
+                })
+
+                setTotal(total)
+
+            })
+        }
     }
     function handleChange(e) {
         BusketStore.setCount(e.target.id ,e.target.value)
+        
+        let IDs = [];
+
+        BusketStore?.positions.forEach(item => {
+            IDs.push(item.guid)
+        })
+
+        console.log(IDs)
+
+        if (IDs[0]) {
+            fetch(`http://localhost/api/products?limit=20&guid=${IDs.join(',')}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json?.rows)
+
+                let total = null
+
+                json?.rows?.map((item, index) => {
+                    total += +item?.prices_and_count?.price * +BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
+                    console.log(total)
+                })
+
+                setTotal(total)
+
+            })
+        }
     }
     function handleDelete(e) {
         BusketStore.delete(e.target.id, e.target.value)
@@ -251,25 +330,25 @@ const Busket = observer(() => {
                             <label className={styles.method} for="nal" >
                                 Наличными или картой при получении
                             </label>
-                            <input id="card" type="radio" name="payment" onClick={e => {handlePayment(e)}}></input>
+                            {/* <input id="card" type="radio" name="payment" onClick={e => {handlePayment(e)}}></input>
                             <label className={styles.method} for="card">
                                 Банковской картой онлайн
-                            </label>
+                            </label> */}
                         </div>
                     </div>
-                    {HeaderStore.userData[0]?.email ? (
+                    {HeaderStore.is_Auth ? (
                         <div className={styles.clientdata}>
                             <div className={styles.clientdata__title}>
                                 <h1>Ваши данные</h1>
                             </div>
                             <div className={styles.clientdata__inputs}>
-                                <h3>{HeaderStore.userData[0]?.first_name} {HeaderStore.userData[0]?.last_name}</h3>
+                                <h3>{HeaderStore.userData.name} {HeaderStore.userData.surname}</h3>
                             </div>
                             <div>
-                                <h3>{HeaderStore.userData[0]?.email}</h3>
+                                <h3>{HeaderStore.userData.email}</h3>
                             </div>
                             <div>
-                                <h3>{HeaderStore.userData[0]?.billing.phone}</h3>
+                                <h3>{HeaderStore.userData.phone}</h3>
                             </div>
                         </div>
                     ) : (

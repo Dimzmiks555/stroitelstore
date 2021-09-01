@@ -19,5 +19,8 @@
     "react-select": "^4.3.1",
     "react-transition-group": "^4.4.1",
     "woocommerce-api": "^1.5.0"
+  },
+  "devDependencies": {
+    "jwt-decode": "^3.1.2"
   }
 }

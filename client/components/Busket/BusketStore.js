@@ -2,6 +2,7 @@ import { makeAutoObservable, computed, observable, action} from "mobx"
 import { enableStaticRendering } from "mobx-react";
 import { useRouter } from "next/router";
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import HeaderStore from "../Header/HeaderStore";
 enableStaticRendering(typeof window === "undefined");
 
 class BusketStore {
@@ -178,52 +179,79 @@ class BusketStore {
         let line_items = []
 
         this.order.products.forEach(item => {
-            line_items.push({product_id: item.data.id, quantity: item.count})
+            line_items.push(item)
         })
-        let address = '', city = '';
 
-        if (this.order.delivery == 'delivery') {
-            address = `ул. ${this.order.address.street}, д. ${this.order.address.house}, кв. ${this.order.address.room}`
-            city = this.order.address.city
+        console.log(line_items)
+
+        if (this.order.delivery == 'shop') {
+            this.order.address.street = `Коммунистическая`
+            this.order.address.house = '25'
+            this.order.address.city = 'Лиски'
+            this.order.address.room = '1'
         }
 
-        const data = {
+        let data = {
             
-            billing: {
-              first_name: this.order.clientData.name,
-              last_name: this.order.clientData.surname,
-              email: this.order.clientData.mail,
-              phone: this.order.clientData.phone,
+            data: {
+                user_id: HeaderStore.userData.id,
+                payment: this.order.payment,
+                type: this.order.delivery,
+                address: `г. ${this.order.address.city}, ул. ${this.order.address.street}, д. ${this.order.address.house}, кв. ${this.order.address.room}`
             },
-            shipping: {
-                
-              city: city,
-              address_1: address
-            },
-            customer_id: this.order.clientData.customer_id,
-            line_items: line_items,
+            positions: line_items,
           };
         ////key for write
-        const api = new WooCommerceRestApi({
-            url: "https://admin.stroitelstore.ru/",
-            consumerKey: "ck_9674d22e8a216dfff0369bc9aa3680f685ebda25",
-            consumerSecret: "cs_96cbffa422eef1b5620be5a553b8065937e91b76",
-            version: "wc/v3",
-            queryStringAuth: true,
-              axiosConfig: {
-                headers: {'Content-Type': 'application/json'},
-            }   
-            });
-        await api.post('orders', data)
-            .then( response => {
-                    console.log(response.data)
-                    localStorage.removeItem('positions')
-                    window.location.href = `/completed_order/${response?.data?.id}`
-                }
-            ).catch(err => {
-                console.log(err, err.response?.data)
-                console.log('fuck')
+
+
+        let IDs = [];
+
+        this.positions.forEach(item => {
+            IDs.push(item.guid)
+        })
+
+
+        fetch(`http://localhost/api/products?limit=20&guid=${IDs.join(',')}`)
+        .then(res => res.json())
+        .then(json => {
+
+            let total = null
+
+            json?.rows?.map((item, index) => {
+                total += +item?.prices_and_count?.price * +this.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
+                console.log(total)
             })
+
+            data.data.total = total
+
+            fetch('http://localhost/api/orders', {
+                method: 'POST',
+                headers: {
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(json => {
+                  localStorage.removeItem('positions')
+                  console.log(json)
+                  window.location.href = `/completed_order/${json?.id}`
+            })
+
+        })
+          
+
+        // await api.post('orders', data)
+        //     .then( response => {
+        //             console.log(response.data)
+        //             localStorage.removeItem('positions')
+        //             window.location.href = `/completed_order/${response?.data?.id}`
+        //         }
+        //     ).catch(err => {
+        //         console.log(err, err.response?.data)
+        //         console.log('fuck')
+        //     })
         
     }
 

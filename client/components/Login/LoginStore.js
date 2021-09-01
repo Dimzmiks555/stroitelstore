@@ -23,9 +23,9 @@ class LoginStore {
         } else if (id == 'email') {
             this.registrationData.email = value;
         } else if (id == 'first_name') {
-            this.registrationData.first_name = value;
+            this.registrationData.name = value;
         } else if (id == 'last_name') {
-            this.registrationData.last_name = value;
+            this.registrationData.surname = value;
         } else if (id == 'phone') {
             this.registrationData.phone = value;
         }

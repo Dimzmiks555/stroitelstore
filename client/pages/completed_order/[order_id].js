@@ -6,20 +6,32 @@ import Catalog from "../../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
 import { useRouter } from "next/router";
-import Order_IdStore from '../../components/Orders/order_idStore'
 import Footer from '../../components/Footer/Footer';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import HeaderStore from '../../components/Header/HeaderStore';
 
  const Completed_Order = observer(() => {
 
 
   const router = useRouter();
+  const [data, setData] = useState([])
 
-  let {order_id} = router.query
+
+  const {order_id} = router.query
   
-  if (Order_IdStore.data[0] == undefined) {
-    Order_IdStore.getData()
-  }
+  useEffect(() => {
+
+    fetch(`http://localhost/api/orders/${order_id}`)
+    .then(res => res.json())
+    .then(json => {
+      setData(json)
+      console.log(json)
+    })
+
+  }, [order_id])
+
+
+  
    
 
   return (
@@ -38,20 +50,23 @@ import { useEffect } from 'react';
           </h1>
           
           <hr></hr>
-          <h2>Уважаемый {Order_IdStore.data[0]?.billing?.last_name} {Order_IdStore.data[0]?.billing?.first_name}!</h2>
+          <h2>Уважаемый {HeaderStore.userData.surname} {HeaderStore.userData.name}!</h2>
           <p>В ближайшее время с вами свяжется менеджер для подтверждения заказа.</p>
           <h2>Детали заказа</h2>
           <ul>
-            <li>Номер телефона: {Order_IdStore.data[0]?.billing?.phone ? Order_IdStore.data[0]?.billing?.phone : 'Отсутствует'}</li>
-            <li>Электронная почта: {Order_IdStore.data[0]?.billing?.email}</li>
-            <li>Способ выдачи: {Order_IdStore.data[0]?.billing?.address_1[0] == undefined ? 'Самовывоз' : 'Доставка' }</li>
-            <li>Адрес: {Order_IdStore.data[0]?.billing?.address_1[0] == undefined ? 'ул. Коммунистическая д.25' : Order_IdStore.data[0]?.billing?.address_1 }</li>
+            <li>Номер телефона: {HeaderStore.userData.phone}</li>
+            <li>Электронная почта: {HeaderStore.userData.email}</li>
+            <li>Способ выдачи: {data?.type == 'shop' ? 'Самовывоз' : 'Доставка' }</li>
+            <li>Адрес: {data?.address}</li>
           </ul>
           <button>
               Вернуться к покупкам
           </button>
         </div>
         <div className={styles.completed_order_block}> 
+            <div>
+              <h1>Итого {data?.total}</h1>
+            </div>
             <table border="1">
               <thead>
                   <tr>
@@ -73,19 +88,19 @@ import { useEffect } from 'react';
                   </tr>
               </thead>
               <tbody>
-              {Order_IdStore.data[0]?.line_items.map(item => (
+              {data?.order_products?.map(item => (
                   <tr>
                       <td>
-                        {item.product_id}
+                        {item.id}
                       </td>
                       <td>
-                        {item.name}
+                        {item?.good?.title}
                       </td>
                       <td>
                         {item.price} 
                       </td>
                       <td>
-                        {item.quantity}
+                        {item.count}
                       </td>
                       <td>
                         {item.total} 
