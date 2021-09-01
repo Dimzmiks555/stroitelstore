@@ -20,6 +20,7 @@ import GoodsAttributesController from '../controllers/GoodsAttributesController.
 import ImageController from '../controllers/ImageController.js'
 import DescController from '../controllers/DescController.js'
 import UserController from '../controllers/UserController.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 
 
@@ -45,6 +46,14 @@ router.get('/descriptions/:id', DescController.getOne);
 router.post('/descriptions/', DescController.create);
 
 
+
+
+// AUTHORIZATION
+
 router.post('/registration/', UserController.registration);
+
+router.post('/login/', UserController.login);
+
+router.post('/auth/', authMiddleware , UserController.check);
 
 export default router;

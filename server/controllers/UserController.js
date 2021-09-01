@@ -4,7 +4,8 @@ class UserController {
 
     async registration(req, res) {
         try {
-            await UserService.registration(req.body);
+            let token = await UserService.registration(req.body);
+            res.json({token})
             res.status(200)
 
         } catch (e) {
@@ -15,7 +16,8 @@ class UserController {
 
     async login(req, res) {
         try {
-            await UserService.login(req.body);
+            let token = await UserService.login(req.body);
+            res.json({token})
             res.status(200)
 
         } catch (e) {
@@ -26,7 +28,9 @@ class UserController {
 
     async check(req, res) {
         try {
-            res.json({message: 'ALL RIGHT'})
+            console.log(req.user)
+            let token = await UserService.check(req.user);
+            res.json({token})
             res.status(200)
 
         } catch (e) {

@@ -179,6 +179,6 @@ DescModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 GoodModel.hasMany(ImageModel, { foreignKey: 'good_id'})
 ImageModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 
-// ImageModel.sync({force: true})
+// UserModel.sync({force: true})
 
 export {GoodModel, GroupModel, PricesAndCountsModel, AttributeModel, GoodsAttributeModel, DescModel, ImageModel, UserModel }

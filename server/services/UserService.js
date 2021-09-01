@@ -49,6 +49,8 @@ class UserService {
             {
                 id: user.id, 
                 email: email,
+                name,
+                surname,
                 role,
             },
             secret_key,
@@ -70,22 +72,23 @@ class UserService {
         const user = await UserModel.findOne({where: {email}})
 
         if (!user) {
-            return
+            return {message: 'Пользователя не существует' }
         }
 
         let comparePassword = bcrypt.compareSync(password, user.password)
 
-        
-        let token;
 
         if(!comparePassword) {
-            return
+            return {message: 'Неверный пароль' }
         }
+
+        
+        console.log(comparePassword)
         const token = jwt.sign(
             {
                 id: user.id, 
                 email: email,
-                role,
+                role: user.role,
             },
             secret_key,
             {
@@ -103,14 +106,14 @@ class UserService {
 
         const {email, password} = body
 
-
+        const user = await UserModel.findOne({where: {email}})
         
         
         const token = jwt.sign(
             {
                 id: user.id, 
                 email: email,
-                role,
+                role: user.role,
             },
             secret_key,
             {
