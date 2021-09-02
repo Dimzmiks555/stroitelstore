@@ -5,6 +5,8 @@ import {useState, useEffect} from 'react'
 import Link from 'next/link';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import { useRouter } from 'next/router';
+import HOST from '../../HOST';
+
 
 const Search = observer(() => {
     const router = useRouter()
@@ -13,6 +15,8 @@ const Search = observer(() => {
     const [data, setData] = useState([]);
     const [catData, setCatData] = useState([]);
     const [isLoading, setLoading] = useState([true]);
+    
+
     
     function handleChange(e) {
         function Set() {
@@ -58,7 +62,7 @@ const Search = observer(() => {
                 setData([])
             } else {
                 
-                fetch(`http://localhost:5000/api/products?search=${text}`)
+                fetch(`http://${HOST.host}/api/products?search=${text}`)
                 .then(res => res.json())
                 .then(json => setData(json))
 
