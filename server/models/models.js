@@ -258,7 +258,7 @@ OrderProductsModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 UserModel.hasMany(OrderModel, { foreignKey: 'user_id'})
 OrderModel.belongsTo(UserModel, { foreignKey: 'user_id'})
 
-// sequelize.sync({force: true})
+sequelize.sync({force: true})
 
 export {
     GoodModel,
