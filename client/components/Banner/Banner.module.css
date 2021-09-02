@@ -1,3 +1,32 @@
+@media screen and (min-width: 1200px) and (max-width: 1370) {
+   
+}
+
+/* Portrait tablets and medium desktops */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media screen and (max-width: 767px) {
+
+}
+
+/* Landscape phones and smaller */
+@media screen and (max-width: 480px) {
+
+    .banner{
+        max-height: 600px !important;
+        margin-bottom: 40px !important;
+        border-radius: 0px !important;
+    }
+
+}
 .banner{
     max-height: 480px;
     overflow: hidden;

@@ -1,3 +1,31 @@
+@media screen and (max-width: 1370px) {
+    .catalog_h1 {
+        font-size: 32px !important;
+        margin-left: 100px !important;
+    }
+    .catalog__table {
+        margin-top: 0 !important;
+    }
+    .catalog{
+        font-size: 14px !important;
+    }
+    .catalog__nav_item img {
+        height: 30px !important;
+        width: 30px !important;
+    }
+    .catalog__nav_item {
+        padding: 4px 20px !important;
+        font-size: 14px !important;
+    }
+    .catalog_img {
+        height: 420px !important;
+    }
+    .catalog__items {
+        padding: 20px 40px !important;
+    }
+}
+
+
 .catalog{
     font-size: 20px;
     height: 100vh;
