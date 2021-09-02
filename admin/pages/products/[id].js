@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import styles from './id.module.css'
 import { useRouter} from 'next/router'
+import HOST from "../../../client/HOST";
+
 
  export default function Products() {
 
