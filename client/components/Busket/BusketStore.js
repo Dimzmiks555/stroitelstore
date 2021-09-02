@@ -225,7 +225,7 @@ class BusketStore {
 
             data.data.total = total
 
-            fetch('http://${HOST.host}/api/orders', {
+            fetch(`http://${HOST.host}/api/orders`, {
                 method: 'POST',
                 headers: {
                     "Accept": 'application/json',

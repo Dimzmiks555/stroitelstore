@@ -28,7 +28,7 @@ const Login = observer(() => {
             password: password
         }
 
-        fetch('http://${HOST.host}/api/login',{
+        fetch(`http://${HOST.host}/api/login`,{
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
