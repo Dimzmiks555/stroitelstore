@@ -65,7 +65,7 @@ const Search = observer(({mainTitle}) => {
 
 
 
-            fetch(`http://localhost:80/api/products?page=1&limit=20&search=${request}${generate(parametrs)}`)
+            fetch(`http://${HOST.host}/api/products?page=1&limit=20&search=${request}${generate(parametrs)}`)
             .then(result => result.json())
             .then(json => setData(json))
                 
@@ -92,7 +92,7 @@ const Search = observer(({mainTitle}) => {
 
 
 
-            fetch(`http://localhost/api/products_prices?page=${page}&limit=20&search=${request}${generate(parametrs)}`)
+            fetch(`http://${HOST.host}/api/products_prices?page=${page}&limit=20&search=${request}${generate(parametrs)}`)
             .then(res => res.json())
             .then(json => {
                 setGoodPrices(json[0])
@@ -280,7 +280,7 @@ const Search = observer(({mainTitle}) => {
                                         <Link href={`/product/${item.guid}`}>
                                             <a>
                                                 <div className={styles.good_img}>
-                                                <img alt="" src={`http://localhost/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                                <img alt="" src={`http://${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                                 </div>
                                             </a>
                                         </Link>

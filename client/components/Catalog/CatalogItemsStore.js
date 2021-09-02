@@ -19,7 +19,7 @@ class CatalogItemsStore {
     async getData(parent, board){
         if (parent) {
             
-            fetch(`http://localhost/api/groups?parent_group=${parent}`)
+            fetch(`http://${HOST.host}/api/groups?parent_group=${parent}`)
             .then(res => res.json())
             .then(json => {
                 this.props = ({data: json.rows, board: board});

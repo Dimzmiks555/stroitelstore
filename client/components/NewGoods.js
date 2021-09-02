@@ -2,8 +2,7 @@ import styles from './NewGoods.module.css';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import ip from 'ip'
-console.log(ip.address())
+import HOST from '../HOST';
 
 export default function NewGoods () {
 
@@ -11,7 +10,7 @@ export default function NewGoods () {
     useEffect(() => {
       async function getData(){
           
-          await fetch('http://127.0.0.1:5000/api/products?page=1')
+          await fetch(`http://${HOST.host}/api/products?page=1`)
           .then(result => result.json())
           .then(json => {
               json.rows.splice(0, 1)
@@ -57,7 +56,7 @@ export default function NewGoods () {
                             <div>
                                 <Link href={`/product/${item.guid}`}>
                                     <div className={styles.good_img}>
-                                        <img alt="" src={`http://127.0.0.1:5000/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                        <img alt="" src={`http://${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </Link>
                                 <Link href={`/product/${item.guid}`}>
