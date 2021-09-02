@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { observer } from "mobx-react";
 import { useEffect, useState } from 'react';
-import HOST from '../HOST';
+import HOST from '../../../HOST';
 import Footer from '../../../components/Footer/Footer';
 import BusketStore from '../../../components/Busket/BusketStore.js';
 import Select from 'react-select'

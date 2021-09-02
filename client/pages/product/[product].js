@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import Footer from '../../components/Footer/Footer';
 import BusketStore from '../../components/Busket/BusketStore';
-
+import HOST from '../../HOST';
 const Product = observer(() => {
     
     const [added, setAdded] = useState(false);
