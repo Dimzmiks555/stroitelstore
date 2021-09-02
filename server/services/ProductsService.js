@@ -249,6 +249,7 @@ class ProductsService {
                     attr_id: attr_id,
                     value: [...values]
                 },
+                distinct:true, 
                 model: GoodsAttributeModel, 
                 include: [
                     {   
@@ -342,7 +343,8 @@ class ProductsService {
                 nest: true,
                 distinct:true, 
                 include: [
-                    {
+                    {   
+                        distinct:true, 
                         model: GoodsAttributeModel, 
                         as: 'filter_1',
                         // where: filters,
