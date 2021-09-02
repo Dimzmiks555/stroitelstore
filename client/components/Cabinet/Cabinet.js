@@ -6,7 +6,7 @@ import HeaderStore from '../Header/HeaderStore';
 import CabinetStore from './CabinetStore';
 import BusketStore from '../Busket/BusketStore';
 import { useRouter } from 'next/router';
-
+import HOST from '../../HOST';
 
 
 const Cabinet = observer(() => {

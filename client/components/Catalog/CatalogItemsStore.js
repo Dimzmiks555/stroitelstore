@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx"
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import { useState } from "react";
+import HOST from '../../HOST';
 class CatalogItemsStore {
 
     props = []

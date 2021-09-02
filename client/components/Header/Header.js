@@ -8,7 +8,7 @@ import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import HeaderStore from './HeaderStore';
 import { useEffect } from 'react';
 import decode from 'jwt-decode'
-
+import HOST from '../../HOST';
 const Header = observer(() => {
 
 

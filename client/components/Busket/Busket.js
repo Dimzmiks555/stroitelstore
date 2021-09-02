@@ -4,6 +4,7 @@ import BusketStore from './BusketStore'
 import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react';
 import HeaderStore from '../Header/HeaderStore';
+import HOST from '../HOST';
 
 const Busket = observer(() => {
 

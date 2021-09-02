@@ -2,6 +2,7 @@ import { makeAutoObservable, computed, observable, action} from "mobx"
 import { enableStaticRendering } from "mobx-react";
 import { useRouter } from "next/router";
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import HOST from '../../HOST';
 import HeaderStore from "../Header/HeaderStore";
 enableStaticRendering(typeof window === "undefined");
 

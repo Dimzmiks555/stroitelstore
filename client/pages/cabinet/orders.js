@@ -9,6 +9,9 @@ import CabinetStore from '../../components/Cabinet/CabinetStore';
 import { useEffect, useState } from 'react';
 import Cabinet from '../../components/Cabinet/Cabinet';
 import HeaderStore from '../../components/Header/HeaderStore';
+
+import HOST from '../HOST';
+
 const Index = observer(() => {
 
     const [data, setData] = useState([])
