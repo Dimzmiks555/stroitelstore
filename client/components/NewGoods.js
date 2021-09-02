@@ -1,6 +1,10 @@
 import styles from './NewGoods.module.css';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+
+import ip from 'ip'
+console.log(ip.address())
+
 export default function NewGoods () {
 
     const [data, setData] = useState([]);
