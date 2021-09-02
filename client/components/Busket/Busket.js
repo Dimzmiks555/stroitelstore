@@ -29,7 +29,7 @@ const Busket = observer(() => {
         console.log(IDs)
 
         if (IDs[0]) {
-            fetch(`http://localhost/api/products?limit=20&guid=${IDs.join(',')}`)
+            fetch(`http://localhost:5000/api/products?limit=20&guid=${IDs.join(',')}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -94,7 +94,7 @@ const Busket = observer(() => {
         console.log(IDs)
 
         if (IDs[0]) {
-            fetch(`http://localhost/api/products?limit=20&guid=${IDs.join(',')}`)
+            fetch(`http://localhost:5000/api/products?limit=20&guid=${IDs.join(',')}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -122,7 +122,7 @@ const Busket = observer(() => {
         console.log(IDs)
 
         if (IDs[0]) {
-            fetch(`http://localhost/api/products?limit=20&guid=${IDs.join(',')}`)
+            fetch(`http://localhost:5000/api/products?limit=20&guid=${IDs.join(',')}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -151,7 +151,7 @@ const Busket = observer(() => {
         console.log(IDs)
 
         if (IDs[0]) {
-            fetch(`http://localhost/api/products?limit=20&guid=${IDs.join(',')}`)
+            fetch(`http://localhost:5000/api/products?limit=20&guid=${IDs.join(',')}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -205,7 +205,7 @@ const Busket = observer(() => {
                             <Link href={`/product/${item.guid}`}>
                                 <a className={styles.good_img}>
                                     <div>
-                                    <img alt="" src={`http://localhost/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                    <img alt="" src={`http://localhost:5000/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </a>
                             </Link>

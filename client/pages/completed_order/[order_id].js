@@ -21,7 +21,7 @@ import HeaderStore from '../../components/Header/HeaderStore';
   
   useEffect(() => {
 
-    fetch(`http://localhost/api/orders/${order_id}`)
+    fetch(`http://localhost:5000/api/orders/${order_id}`)
     .then(res => res.json())
     .then(json => {
       setData(json)

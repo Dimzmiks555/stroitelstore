@@ -38,7 +38,7 @@ const Header = observer(() => {
                 
                 console.log(token)
 
-                fetch('http://localhost/api/auth',{
+                fetch('http://localhost:5000/api/auth',{
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json',

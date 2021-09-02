@@ -2,8 +2,6 @@ import express from 'express';
 import OneCRouter from './routers/OneCRouter.js'
 import ProductsRouter from './routers/ProductsRouter.js'
 import cors from 'cors';
-import passport from 'passport'
-import { Strategy } from 'passport-local'
 
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -12,7 +10,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
-const port = 80;
+const port = 5000;
 
 
 

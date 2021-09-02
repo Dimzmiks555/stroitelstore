@@ -211,7 +211,7 @@ class BusketStore {
         })
 
 
-        fetch(`http://localhost/api/products?limit=20&guid=${IDs.join(',')}`)
+        fetch(`http://localhost:5000/api/products?limit=20&guid=${IDs.join(',')}`)
         .then(res => res.json())
         .then(json => {
 
@@ -224,7 +224,7 @@ class BusketStore {
 
             data.data.total = total
 
-            fetch('http://localhost/api/orders', {
+            fetch('http://localhost:5000/api/orders', {
                 method: 'POST',
                 headers: {
                     "Accept": 'application/json',
