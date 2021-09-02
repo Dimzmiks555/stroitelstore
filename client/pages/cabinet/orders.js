@@ -22,8 +22,8 @@ const Index = observer(() => {
         fetch(`http://${HOST.host}/api/orders?user_id=${HeaderStore?.userData?.id}`)
         .then(res => res.json())
         .then(json => {
-            setData(json)
-            console.log(json)
+            setData(json?.rows)
+            console.log(json?.rows)
         })
 
     }, [data[0]?.id])
