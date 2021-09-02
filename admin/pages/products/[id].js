@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import styles from './id.module.css'
 import { useRouter} from 'next/router'
-import HOST from "../../../client/HOST";
+import HOST from "../../HOST.js";
 
 
  export default function Products() {
