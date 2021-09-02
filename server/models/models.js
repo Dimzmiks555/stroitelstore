@@ -60,7 +60,7 @@ const PricesAndCountsModel = sequelize.define('prices_and_counts', {
 
 const AttributeModel = sequelize.define('attributes', {
     id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
