@@ -1,5 +1,5 @@
 
-import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodModel } from '../models/models.js';
+import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodModel, UserModel } from '../models/models.js';
  import nodemailer from 'nodemailer'
 
  let transporter = nodemailer.createTransport({
@@ -88,7 +88,7 @@ class OrderService {
 
         if (user_id) query.user_id = user_id
      
-        OrderModel.findAll({
+        OrderModel.findAndCountAll({
             include: [
                 {
                     model: OrderProductsModel,
@@ -97,6 +97,9 @@ class OrderService {
                             model: GoodModel
                         }
                     ]
+                },
+                {
+                    model: UserModel,
                 },
                 
             ],
