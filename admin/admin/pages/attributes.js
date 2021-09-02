@@ -3,14 +3,13 @@ import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import styles from './products.module.css'
 
-
  export default function Attributes() {
 
     const [data, setData] = useState([])
     const [pagination, setPagination] = useState(1)
 
     function fetchData(page) {
-        fetch(`http://localhost/api/products?page=${page}`)
+        fetch(`http://${HOST.host}/api/products?page=${page}`)
         .then(res => res.json())
         .then(json => {
             setData(json)

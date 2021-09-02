@@ -15,7 +15,7 @@ import styles from './products.module.css'
 
 
     function fetchData() {
-        fetch(`http://kassa1/api/groups`)
+        fetch(`http://${HOST.host}/api/groups`)
         .then(res => res.json())
         .then(json => {
 

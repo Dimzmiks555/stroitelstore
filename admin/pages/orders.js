@@ -9,7 +9,7 @@ import styles from './products.module.css'
     const [data, setData] = useState([])
 
     function fetchData(page) {
-        fetch(`http://localhost/api/orders`)
+        fetch(`http://${HOST.host}/api/orders`)
         .then(res => res.json())
         .then(json => {
             setData(json)

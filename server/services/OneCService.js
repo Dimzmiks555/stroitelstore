@@ -19,7 +19,7 @@ const connection = mysql.createConnection({
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 class OneCService {
-    
+
     async create(json) {
         
         let data = json
@@ -62,6 +62,7 @@ class OneCService {
  
             connection.query(sql, function(err, results) {
                 if(err) console.log(err);
+        
                 console.log(results);
             });
 
@@ -95,9 +96,8 @@ class OneCService {
 
         })
         
-        
-        console.log('complete')
 
+        console.log('complete')
     }
 
 

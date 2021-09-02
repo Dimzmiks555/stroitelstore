@@ -22,7 +22,7 @@ import { useRouter} from 'next/router'
 
 
     function fetchData(id) {
-        fetch(`http://kassa1/api/products/${id}`)
+        fetch(`http://${HOST.host}/api/products/${id}`)
         .then(res => res.json())
         .then(json => {
             setData(json)
@@ -31,7 +31,7 @@ import { useRouter} from 'next/router'
     }
 
     function fetchDesc(id) {
-        fetch(`http://kassa1/api/descriptions/${id}`)
+        fetch(`http://${HOST.host}/api/descriptions/${id}`)
         .then(res => res.json())
         .then(json => {
             setTextArea(json[0]?.text)
@@ -41,7 +41,7 @@ import { useRouter} from 'next/router'
 
 
     function fetchAttributes(id) {
-        fetch(`http://kassa1/api/goods_attributes?good_id=${id}`)
+        fetch(`http://${HOST.host}/api/goods_attributes?good_id=${id}`)
         .then(res => res.json())
         .then(json => {
             setAttributes(json)
@@ -50,7 +50,7 @@ import { useRouter} from 'next/router'
     }
 
     function fetchAttributeList(id) {
-        fetch(`http://kassa1/api/attributes?group_id=${id}`)
+        fetch(`http://${HOST.host}/api/attributes?group_id=${id}`)
         .then(res => res.json())
         .then(json => {
             setAttributeList(json.rows)
@@ -76,7 +76,7 @@ import { useRouter} from 'next/router'
                 value: newValue.trim()
             }
 
-            fetch(`http://kassa1/api/goods_attributes`, {
+            fetch(`http://${HOST.host}/api/goods_attributes`, {
                 method: 'POST',
                 headers: {
                     "Accept" : "application/json",
@@ -108,7 +108,7 @@ import { useRouter} from 'next/router'
 
         console.log(fdata.body)
         
-        fetch('http://localhost/api/upload', {
+        fetch(`http://${HOST.host}/api/upload`, {
             method: 'POST',
             body: fdata,
         })
@@ -132,7 +132,7 @@ import { useRouter} from 'next/router'
             text: textarea.trim()
         }
 
-        fetch(`http://kassa1/api/descriptions`, {
+        fetch(`http://${HOST.host}/api/descriptions`, {
             method: 'POST',
             headers: {
                 "Accept" : "application/json",
@@ -185,11 +185,11 @@ import { useRouter} from 'next/router'
                         <div className={styles.gallery}>
                             {data[0]?.images?.map(item => {
                                 return item.main == true ? (
-                                    <img className={styles.main_img} src={`http://localhost/uploads/${item.url}`}>
+                                    <img className={styles.main_img} src={`http://${HOST.host}/uploads/${item.url}`}>
     
                                     </img>
                                 ) : (
-                                    <img src={`http://localhost/uploads/${item.url}`}>
+                                    <img src={`http://${HOST.host}/uploads/${item.url}`}>
     
                                     </img>
                                 )

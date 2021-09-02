@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import styles from './products.module.css'
 
+import HOST from '../../HOST.js'
 
  export default function Attributes() {
 
@@ -12,7 +13,7 @@ import styles from './products.module.css'
     const [groupID, setGroupID] = useState([])
 
     function fetchData(page) {
-        fetch(`http://localhost/api/attributes`)
+        fetch(`http://${HOST.host}/api/attributes`)
         .then(res => res.json())
         .then(json => {
             setData(json)
@@ -22,7 +23,7 @@ import styles from './products.module.css'
 
 
     function fetchGroups(page) {
-        fetch(`http://localhost/api/groups`)
+        fetch(`http://${HOST.host}/api/groups`)
         .then(res => res.json())
         .then(json => {
             setGroups(json.rows)
@@ -46,7 +47,7 @@ import styles from './products.module.css'
                     title: attrValue
                 })
 
-        fetch(`http://localhost/api/attributes`, {
+        fetch(`http://${HOST.host}/api/attributes`, {
             method: 'POST',
             body: JSON.stringify({
                 group_id: groupID,

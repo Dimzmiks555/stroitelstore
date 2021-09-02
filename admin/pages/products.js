@@ -15,14 +15,14 @@ import styles from './products.module.css'
     function fetchData(page, group_id) {
         
         if (group_id != null) {
-            fetch(`http://kassa1/api/products?page=${page}&group_id=${group_id}`)
+            fetch(`http://${HOST.host}/api/products?page=${page}&group_id=${group_id}`)
             .then(res => res.json())
             .then(json => {
                 setData(json)
                 console.log(json)
             })
         } else {
-            fetch(`http://kassa1/api/products?page=${page}`)
+            fetch(`http://${HOST.host}/api/products?page=${page}`)
             .then(res => res.json())
             .then(json => {
                 setData(json)
@@ -33,7 +33,7 @@ import styles from './products.module.css'
     }
 
     function fetchGroups() {
-        fetch(`http://kassa1/api/groups`)
+        fetch(`http://${HOST.host}/api/groups`)
         .then(res => res.json())
         .then(json => {
             setGroups(json.rows)
@@ -107,7 +107,7 @@ import styles from './products.module.css'
                         data?.rows?.map(item => (
                             <tr>
                                 <td>
-                                    <img className={styles.product_img} alt="" src={`http://localhost/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                    <img className={styles.product_img} alt="" src={`http://${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                 </td>
                                 <td>
                                     {item.prices_and_count?.sku}
