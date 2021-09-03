@@ -116,7 +116,7 @@ import HOST from "../../HOST.js";
         })
         .then(res => {
             console.log(res);
-            router.reload();
+            window.location.reload();
         })
 
         
