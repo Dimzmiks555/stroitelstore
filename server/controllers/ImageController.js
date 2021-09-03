@@ -32,7 +32,6 @@ class ImageController {
         try {
             await ImageService.create(req.file, req.body);
             res.status(200).json({message: 'ok'})
-            res.send('ok')
 
         } catch (e) {
             // console.log(e);
