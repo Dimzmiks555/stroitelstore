@@ -1,3 +1,3 @@
 export default {
-    host: 'localhost:5000'
+    host: 'admin.stroitelstore.ru'
 }
