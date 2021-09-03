@@ -45,7 +45,7 @@ const PricesAndCountsModel = sequelize.define('prices_and_counts', {
         primaryKey: true
     },
     price: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
     },
     sku: {
         type: Sequelize.STRING
@@ -54,7 +54,7 @@ const PricesAndCountsModel = sequelize.define('prices_and_counts', {
         type: Sequelize.STRING
     },
     amount: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
     },
 })
 

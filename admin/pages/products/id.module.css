@@ -111,3 +111,28 @@
 .main_img {
     border: 3px solid #d00 !important;
 }
+
+
+
+.main_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.group {
+    padding: 10px 30px;
+    border: 2px solid #d00;
+    font-weight: bold;
+    color: #d00;
+    border-radius: 10px;
+}
+
+.additional_info > .id {
+    padding: 10px 30px;
+    border: 2px solid #333;
+    font-weight: bold;
+    color: #333;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}

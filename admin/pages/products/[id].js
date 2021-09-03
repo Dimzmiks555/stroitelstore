@@ -166,17 +166,21 @@ import HOST from "../../HOST.js";
             <div className={styles.product}>
                 <div className={styles.main_info}>
                     
-                    <button className={styles.back} onClick={handleBack}>
-                        Назад
-                    </button>
+                    <div className={styles.main_header}>
+                        <button className={styles.back} onClick={handleBack}>
+                            Назад
+                        </button>
+                        <div className={styles.group}>
+                            <span>{data[0]?.group?.title}</span>
+                        </div>
+                    </div>
                     {
                         data[0] ? (
                             <div>
-                                <h3>ID: {data[0]?.guid}</h3>
                                 <h1>{data[0]?.title}</h1>
-                                <h3>{data[0].prices_and_count?.amount == 0 ? 'Нет в наличии' : ' В наличии '}</h3>
-                                <h2>Группа: {data[0].group?.title}</h2>
-                                <h3>Артикул: {data[0].prices_and_count?.sku}</h3>
+                                <h3>{data[0]?.prices_and_count?.amount == 0 ? 'Нет в наличии' : ' В наличии '}</h3>
+                                
+                                <h3>Артикул: {data[0]?.prices_and_count?.sku}</h3>
                                 <h3>Цена: {data[0]?.prices_and_count?.price}</h3>
                                 <h3>Количество: {data[0]?.prices_and_count?.amount} {data[0]?.prices_and_count?.unit}</h3>
                             </div>
@@ -184,6 +188,8 @@ import HOST from "../../HOST.js";
                     }
                 </div>
                 <div className={styles.additional_info}>
+                    
+                    <div className={styles.id}>ID {data[0]?.guid}</div>
                     <h2>Фотографии</h2>
                     <div className={styles.images_block}>
 
