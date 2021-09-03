@@ -3,9 +3,9 @@ import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodM
  import nodemailer from 'nodemailer'
 
  let transporter = nodemailer.createTransport({
-    service: 'gmail', // no need to set host or port etc.
+    service: 'Mail.ru', // no need to set host or port etc.
     auth: {
-        user: 'stroitel.office@gmail.com',
+        user: 'stroitelstore@mail.ru',
         pass: '19Lipo82'
     }
 });
@@ -48,7 +48,7 @@ class OrderService {
 
 
                        transporter.sendMail({
-                        from: '"Магазин Строитель" <stroitel.office@gmail.com>',
+                        from: '"Магазин Строитель" <stroitelstore@mail.ru>',
                         to: 'anodaday@yandex.ru',
                         subject: `Заказ № ${order.id} успешно оформлен!`,
                         text: `Заказ № ${order.id} успешно оформлен! В ближайшее время с Вами свяжется менеджер`,

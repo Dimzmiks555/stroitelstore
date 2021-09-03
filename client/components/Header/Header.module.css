@@ -199,7 +199,11 @@
 .menu ul li a {
     color: #fff !important;
     display: block;
+    cursor: pointer;
 }
+.menu ul li a:hover {
+    color: #ddd !important;
+} 
 .cart svg {
     fill: #333;
     margin-right: 10px;

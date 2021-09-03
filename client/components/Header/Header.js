@@ -91,7 +91,9 @@ const Header = observer(() => {
                     <a>Сотрудничество</a>
                 </li>
                 <li>
+                    <Link href='/contacts'>
                     <a>Контакты</a>
+                    </Link>
                 </li>
             </ul>
             
