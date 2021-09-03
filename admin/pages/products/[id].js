@@ -93,7 +93,7 @@ import HOST from "../../HOST.js";
     }
 
     function handleImage(e) {
-
+        e.preventDefault()
         console.log(file)
 
         const fdata = new FormData();
@@ -114,7 +114,10 @@ import HOST from "../../HOST.js";
             method: 'POST',
             body: fdata,
         })
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res);
+            router.reload();
+        })
 
         
 
