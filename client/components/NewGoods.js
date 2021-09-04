@@ -67,11 +67,13 @@ export default function NewGoods () {
                             </div>
                             <div>
                                 <div className={styles.good_price}>
-                                    {(+item.prices_and_count.price).toLocaleString()} ₽ / шт.
+                                    <p>
+                                        <span>{(+item.prices_and_count.price).toLocaleString()}</span> ₽ / шт.
+                                    </p>
                                 </div>
                                 <Link href={`/product/${item.guid}`}>
                                 <a className={styles.to_cart}>
-                                    Подробнее
+                                    В корзину
                                 </a>
                                 </Link>
                             </div>

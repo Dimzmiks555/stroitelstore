@@ -55,21 +55,24 @@
     cursor: pointer;
     color: #d00;
 }
-.good_price{
-    margin-top: 20px;
-    font-size: 24px;
+.good_price {
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 20px;
+}
+.good_price span {
+    font-size: 32px !important;
 }
 .to_cart{
-    font-weight: bold;
     display: block;
     text-align: center;
     font-family: inherit;
-    font-size: 16px;
+    font-size: 18px;
     margin-top: 20px;
     border-radius: 5px;
     outline: none;
     width: 50%;
-    padding: 16px 20px;
+    padding: 14px 20px;
     cursor: pointer;
     background: #c00;
     color: #fff;

@@ -333,3 +333,55 @@ transform-origin: 0 0; /* see note above */
     background: #d00 !important ;
     border: 2px solid #d00;
 }
+
+
+.filter_stock .filter_inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter_stock .filter_inputs > div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.filter_stock .filter_inputs input[type='radio'] {
+    display: none;
+}
+
+.filter_stock .filter_inputs label {
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-left: 40px;
+    margin-bottom: 10px;
+    height: 30px;
+    position: relative;
+}
+
+.filter_stock .filter_inputs label:before {
+    top: 0;
+    left: -40px;
+    content: "";
+    display: block;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    border: 2px solid #aaa;
+    border-radius: 50%;
+}
+
+
+.filter_stock .filter_inputs input[type='radio']:checked + label:after {
+    top: 7px;
+    left: -33px;
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    background: #d00;
+    border-radius: 50%;
+}

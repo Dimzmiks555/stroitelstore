@@ -19,12 +19,39 @@ export default function PopularCats () {
 
                             </img>
                             <p>
-                                Входные
-                            <br></br>
-                            
-                            Двери 
+                                Входные двери 
                             </p>
                         </div>
+                    </Link>
+                    <Link href='/catalog/e4288d2c-b14d-11eb-943b-18c04d2a3938/1'>
+                    <div className={styles.popular__block}>
+                        <img src='./popular_cats/laser-level.svg'> 
+
+                        </img>
+                        <p>
+                            Лазерное оборудование
+                        </p>
+                    </div>
+                    </Link>
+                    <Link href='/catalog/3aa745d1-385b-11eb-9399-18c04d2a3938/1'>
+                    <div className={styles.popular__block}>
+                        <img src='./popular_cats/caulk-gun.svg'> 
+
+                        </img>
+                        <p>
+                            Клеи
+                        </p>
+                    </div>
+                    </Link>
+                    <Link href='/catalog/e4288d3e-b14d-11eb-943b-18c04d2a3938/1'>
+                    <div className={styles.popular__block}>
+                        <img src='./popular_cats/hammer.svg'> 
+
+                        </img>
+                        <p>
+                           Молотки
+                        </p>
+                    </div>
                     </Link>
                 </div>
                 <div>

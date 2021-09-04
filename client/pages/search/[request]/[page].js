@@ -244,6 +244,16 @@ const Search = observer(({mainTitle}) => {
             <div className={styles.category}>
                 <div className={styles.category_main}>
                     <div className={styles.category_filter}>
+                        <div className={styles.filter_stock}>
+                            <form className={styles.filter_inputs}>
+                                <input id="default" type='radio' name="default"></input>
+                                <label for="default">В наличии и под заказ</label>
+                                <input id="instock" type='radio' name="default"></input>
+                                <label for="instock">В наличии</label>
+                                <input id='outstock' type='radio' name="default"></input>
+                                <label for="outstock">Под заказ</label>
+                            </form>
+                        </div>
                         <div className={styles.filter_price}>
                             <div className={styles.filter_title}>Цена</div>
                             <div className={styles.filter_inputs}>
