@@ -267,8 +267,8 @@ UserModel.hasMany(OrderModel, { foreignKey: 'user_id'})
 OrderModel.belongsTo(UserModel, { foreignKey: 'user_id'})
 
 
-OrderModel.sync({force: true})
-// OrderProductsModel.sync({force: true})
+OrderModel.sync({alter: true})
+// OrderProductsModel.sync({alter: true})
 
 export {
     GoodModel,
