@@ -17,8 +17,7 @@ import HOST from "../../HOST.js";
     const [file, setFile] = useState(null)
     const [fileName, setFileName] = useState(null)
 
-    const [newAttrId, setNewAttrId] = useState(null)
-    const [newValue, setNewValue] = useState(null)
+    const [newAttr, setNewAttr] = useState({})
 
     const [textarea, setTextArea] = useState('')
 
@@ -60,22 +59,22 @@ import HOST from "../../HOST.js";
         })
     }
 
-    function handleSelect(e) {
-        setNewAttrId(e.target.value)
-    }
-
     function handleInput(e) {
         
-        setNewValue(e.target.value)
+        newAttr[`attr_${e.target.id}`] = e.target.value
+
+        console.log(newAttr)
+
+        // setNewAttr(e.target.value)
     }
 
     function handleSubmit(e) {
-        if (newValue != null || newAttrId != null) {
+        if (newAttr[`attr_${e.target.id}`] != null) {
 
             let data = {
                 good_id: router.query.id,
-                attr_id: +newAttrId,
-                value: newValue.trim()
+                attr_id: +e.target.id,
+                value: newAttr[`attr_${e.target.id}`]?.trim()
             }
 
             fetch(`http://${HOST.host}/api/goods_attributes`, {
@@ -86,6 +85,15 @@ import HOST from "../../HOST.js";
                 },
                 body: JSON.stringify(data)
             })
+            .then(res => res.json())
+            .then(json => {
+            })
+
+            function reload() {
+                
+            }
+
+            setTimeout(reload(), 3000)
 
             console.log(JSON.stringify(data))
 
@@ -224,65 +232,39 @@ import HOST from "../../HOST.js";
                     <h2>Характеристики</h2>
                     <div className={styles.attributes_block}>
 
-                        <div className={styles.header}>
 
-                            <div>
-                                <label>
-                                    Атрибут
-                                </label>
-                                <select onChange={handleSelect}>
-                                    <option value={null}>Выберите атрибут...</option>
-                                    {
-                                        attributeList.map(item => (
-                                            <option value={item?.id}>{item?.title}</option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
-                            <div>
-                                <label>
-                                    Значение
-                                </label>
-                                <input value={newValue} onChange={handleInput}></input>
-                            </div>
-                            <div>
-                                <button  onClick={handleSubmit}>
-                                    Добавить
-                                </button>
-                            </div>
+                        {
+                            attributeList.map(item => (
+                                attributes?.filter(attr => {return attr?.attr_id == item?.id}).length > 0 ? 
+                                (
+                                    <div className={styles.attribute} key={item?.id}>
+                                        <div>
+                                            {item?.title}
+                                        </div>
+                                        <div>
+                                            {attributes?.filter(attr => {return attr?.attr_id == item?.id})[0]?.value}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className={styles.attribute} key={item?.id}>
+                                        
+                                        {console.log(attributes, attributeList, 'YES')}
+                                        <div>
+                                            <label>
+                                                {item?.title}
+                                            </label>
+                                        </div>
+                                        <input id={item?.id} value={newAttr[`attr_${item?.id}`]} onChange={handleInput}></input>
+                                        <div>
+                                            <button id={item?.id}  onClick={handleSubmit}>
+                                                Добавить
+                                            </button>
+                                        </div>
+                                    </div>
+                                )
+                            ))
+                        }
 
-                        </div>
-
-                        <table>
-                            <thead>
-                                <td>
-                                    ID
-                                </td>
-                                <td>
-                                    Атрибут
-                                </td>
-                                <td>
-                                    Значение
-                                </td>
-                            </thead>
-                            <tbody>
-                               {
-                                   attributes.map(item => (
-                                       <tr>
-                                           <td>
-                                               {item?.id}
-                                           </td>
-                                           <td>
-                                               {item.attribute.title}
-                                           </td>
-                                           <td>
-                                               {item?.value}
-                                           </td>
-                                       </tr>
-                                   ))
-                               }
-                            </tbody>
-                        </table>
                     </div>
                     <div className={styles.desc__block}>
                         <h2>Описание</h2>

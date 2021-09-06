@@ -136,3 +136,19 @@
     border-radius: 10px;
     margin-bottom: 40px;
 }
+
+
+.attribute {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+.attribute input {
+    padding: 10px 14px;
+}
+.attribute button {
+    padding: 10px 14px;
+    min-width: 200px;
+}
