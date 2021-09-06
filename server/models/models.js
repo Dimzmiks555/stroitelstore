@@ -256,8 +256,8 @@ DescModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 GoodModel.hasMany(ImageModel, { foreignKey: 'good_id'})
 ImageModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 
-OrderModel.hasMany(OrderProductsModel, { foreignKey: 'order_id'})
-OrderProductsModel.belongsTo(OrderModel, { foreignKey: 'order_id'})
+// OrderModel.hasMany(OrderProductsModel, { foreignKey: 'order_id'})
+// OrderProductsModel.belongsTo(OrderModel, { foreignKey: 'order_id'})
 
 
 GoodModel.hasMany(OrderProductsModel, { foreignKey: 'good_id'})
