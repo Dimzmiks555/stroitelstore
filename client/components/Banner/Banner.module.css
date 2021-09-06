@@ -20,15 +20,15 @@
 /* Landscape phones and smaller */
 @media screen and (max-width: 480px) {
 
-    .banner{
+    /* .banner{
         max-height: 600px !important;
         margin-bottom: 40px !important;
         border-radius: 0px !important;
-    }
+    } */
 
 }
 .banner{
-    max-height: 480px;
+    /* max-height: 480px; */
     overflow: hidden;
     margin-bottom: 80px;
     background: #f4f4f4;

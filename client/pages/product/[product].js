@@ -96,13 +96,13 @@ const Product = observer(() => {
                         <div className={styles.product__overview}>
                             <div className={styles.product__overview_img} id="product__overview_img">
                                 <img alt="" src={`http://${HOST.host}/uploads/${data?.images?.length > 0 ? data?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
-                                <div className={styles.gallery}>
+                                {/* <div className={styles.gallery}>
                                     {
                                         data?.images?.map(image => (
                                             <img alt="" src={`http://${HOST.host}/uploads/${image?.url}`}></img>
                                         ))
                                     }
-                                </div>
+                                </div> */}
                             </div>
                             <div className={styles.product__overview_info} id="product__overview_info">
                                 <div className={styles.product__overview_title}>
@@ -123,14 +123,21 @@ const Product = observer(() => {
                                             −
                                         </button>
                                     </div>
-                                    {
+                                    {  
+                                         data?.prices_and_count?.amount == 0 ? (
+                                            <div className={styles.product__overview_cart}>
+                                                <button id={data?.guid} style={{background: '#aaa'}} >
+                                                    Под заказ
+                                                </button>
+                                            </div>
+                                        ) :
                                         added === false ? (
                                             <div className={styles.product__overview_cart}>
                                                 <button id={data?.guid} onClick={e => {handleClick(e)}}>
                                                     В корзину
                                                 </button>
                                             </div>
-                                        ) : (
+                                        ) :  (
                                             <div className={styles.product__overview_cart_added} disabled>
                                                 <button id={data?.guid} onClick={e => {handleClick(e)}}>
                                                     Добавлено

@@ -185,6 +185,7 @@ const Busket = observer(() => {
         BusketStore.setOrder()
     }
     function handleClientData(id, value) {
+        console.log(id, value)
         BusketStore.setClientData(id, value)
     }
     function handleCreateDelivery(id, value) {
@@ -361,14 +362,14 @@ const Busket = observer(() => {
                                 </Link>
                             </div>
                             <div className={styles.clientdata__inputs}>
-                                <input id="name" placeholder="Имя" onChange={e => handleClientData(e)}></input>
-                                <input id="surname" placeholder="Фамилия" onChange={e => handleClientData(e)}></input>
+                                <input id="name" placeholder="Имя" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                <input id="surname" placeholder="Фамилия" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
                             </div>
                             <div>
-                                <input id="phone" placeholder="Номер телефона" onChange={e => handleClientData(e)}></input>
+                                <input id="phone" placeholder="Номер телефона" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
                             </div>
                             <div>
-                                <input id="mail" placeholder="Электронная почта" onChange={e => handleClientData(e)}></input>
+                                <input id="mail" placeholder="Электронная почта (не обязательно)" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
                             </div>
                         </div>
                     )}
@@ -404,13 +405,10 @@ const Busket = observer(() => {
                     <h3>Способ оплаты <span>{payment == 'nal' ? 'Наличными' : payment == 'card' ? 'Картой' : 'Не указан'}</span></h3>
                 </div>
                 {
-                    HeaderStore.userData[0]?.email ? (
+                    HeaderStore.userData?.email ? (
                         <div>
                             { delivery != '' &&
-                            payment!= '' &&
-                            BusketStore.order.clientData.phone != ''  &&
-                            BusketStore.order.clientData.name != ''  &&
-                            BusketStore.order.clientData.surname != '' ?
+                            payment!= '' ?
                                 <button className={styles.to_pay} onClick={sendOrder}>Заказать</button> :
                                 <button className={styles.to_pay} style={{background: '#ccc', cursor: 'default'}}>Заказать</button>}
                         </div>
@@ -418,9 +416,9 @@ const Busket = observer(() => {
                         <div>
                             { delivery != '' &&
                             payment!= '' &&
-                            BusketStore.order.address.phone != ''  &&
-                            BusketStore.order.address.name != ''  &&
-                            BusketStore.order.address.surname != '' ?
+                            BusketStore.order.clientData.phone != ''  &&
+                            BusketStore.order.clientData.name != ''  &&
+                            BusketStore.order.clientData.surname != '' ?
                                 <button className={styles.to_pay} onClick={sendOrder}>Заказать</button> :
                                 <button className={styles.to_pay} style={{background: '#ccc', cursor: 'default'}}>Заказать</button>}
                         </div>

@@ -195,10 +195,11 @@ class BusketStore {
         let data = {
             
             data: {
-                user_id: HeaderStore.userData.id,
+                user_id: HeaderStore?.userData?.id,
                 payment: this.order.payment,
                 type: this.order.delivery,
-                address: `г. ${this.order.address.city}, ул. ${this.order.address.street}, д. ${this.order.address.house}, кв. ${this.order.address.room}`
+                address: `г. ${this.order.address.city}, ул. ${this.order.address.street}, д. ${this.order.address.house}, кв. ${this.order.address.room}`,
+                status: 'waiting'
             },
             positions: line_items,
           };

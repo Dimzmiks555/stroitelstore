@@ -238,22 +238,22 @@ const Category = observer(({mainTitle}) => {
             delete URLParams[attr_id]
         } else if (URLParams[attr_id]?.search(value) == -1 && URLParams[attr_id] != undefined) {
 
-            let arr = URLParams[attr_id].split(',')
+            let arr = URLParams[attr_id].split(';')
 
             arr.push(value)
 
 
-            URLParams[attr_id] = arr.join(',')
+            URLParams[attr_id] = arr.join(';')
 
         } else if (URLParams[attr_id]?.search(value) != -1 && URLParams[attr_id] != undefined) {
 
-            let arr = URLParams[attr_id].split(',')
+            let arr = URLParams[attr_id].split(';')
 
             let newArr = arr.filter(item => { return item !== value})
 
             console.log(newArr)
 
-            URLParams[attr_id] = newArr.join(',')
+            URLParams[attr_id] = newArr.join(';')
 
         } else {
             URLParams[attr_id] = value
@@ -269,6 +269,11 @@ const Category = observer(({mainTitle}) => {
         
     }
 
+
+    function addGood(e) {
+        BusketStore.AddPosition(e.target.id, 1)
+    }
+
     function handlePage(e, page) {
 
         URLParams['page'] = page
@@ -280,6 +285,22 @@ const Category = observer(({mainTitle}) => {
 
     }
 
+    function handleStock(e) {
+        
+        if (e.target.id == 'instock') {
+            URLParams['stock'] = 'instock'
+        } else if (e.target.id == 'outstock') {
+            URLParams['stock'] = 'outstock'
+        } else {
+            delete URLParams['stock']
+        }
+
+        router.push({
+            pathname: `/catalog/[id]/${page}`,
+            query: URLParams
+        })
+
+    }
 
     function showGoods() {
         return data.map(item => {
@@ -308,10 +329,17 @@ const Category = observer(({mainTitle}) => {
                                     item?.prices_and_count?.price != '' ? (<p><span>{Number( item.prices_and_count?.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
                                 }
                             </div>
+                            <div className={styles.good_amount}>
+                                
+                            {item?.prices_and_count?.amount > 0 ? <p style={{color: '#080'}}>{item?.prices_and_count?.amount}  в наличии </p > : <p style={{color: '#a00'}}>Нет в наличии</p>}
+
+                            </div>
                                 {
+                                    BusketStore?.order?.products.filter(f => f.guid == item.guid).length > 0 ? 
+                                    <a id={item.guid} className={styles.to_cart_added}>Добавлено</a> : 
                                     item?.prices_and_count?.amount > 0 ? 
-                                        <a id={item.guid} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a> : 
-                                        <a id={item.guid} className={styles.outofstock}>Под заказ</a>
+                                    <a id={item.guid} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a> : 
+                                    <a id={item.guid} className={styles.outofstock}>Под заказ</a>
                                 }
                             
                         </div>
@@ -358,6 +386,24 @@ const Category = observer(({mainTitle}) => {
         { value: 'desc', label: 'По уменьшению цены' }
     ]
     
+    let tags = [];
+
+    for (let key in URLParams) {
+        
+        if (key != 'page' && key != 'id' && key != 'order') {
+            
+            tags.push({
+                title: key,
+                value: URLParams[key]
+            })
+
+
+        }
+
+
+    }
+
+
     return (
         <>
         <Catalog />
@@ -369,11 +415,11 @@ const Category = observer(({mainTitle}) => {
 
                         <div className={styles.filter_stock}>
                             <form className={styles.filter_inputs}>
-                                <input id="default" type='radio' name="default"></input>
+                                {!URLParams.stock ? <input id="default"  type='radio' name="default" onClick={handleStock} checked></input> : <input id="default"  type='radio' name="default" onClick={handleStock} ></input>}
                                 <label for="default">В наличии и под заказ</label>
-                                <input id="instock" type='radio' name="default"></input>
+                                {URLParams.stock == 'instock' ? <input id="instock" type='radio' name="default" onClick={handleStock} checked></input> : <input id="instock" type='radio' name="default" onClick={handleStock}></input>}
                                 <label for="instock">В наличии</label>
-                                <input id='outstock' type='radio' name="default"></input>
+                                {URLParams.stock == 'outstock' ? <input id='outstock' type='radio' name="default" onClick={handleStock} checked></input> : <input id='outstock' type='radio' name="default" onClick={handleStock}></input>}
                                 <label for="outstock">Под заказ</label>
                             </form>
                         </div>
@@ -414,6 +460,15 @@ const Category = observer(({mainTitle}) => {
                     </div>
                     <div className={styles.category_goodsblock}>
                         <div className={styles.category_goodsblock_header}>
+                            <div className={styles.tags}>
+                                {/* {
+                                    tags.map(item => (
+                                        <div>
+                                            {item?.title}: {item?.value}
+                                        </div>
+                                    ))
+                                } */}
+                            </div>
                             <h1>{data[0] ? data[0]?.group?.title : null}</h1>
                             <div className={styles.toolbar}>
                                 <div>
@@ -421,7 +476,7 @@ const Category = observer(({mainTitle}) => {
                                 </div>
                                 
                                 <div className={styles.sorter}>                                    
-                                    <Select className={styles.select} value={order} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
+                                    <Select className={styles.select} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
                                 </div>
                             </div>
                         </div>

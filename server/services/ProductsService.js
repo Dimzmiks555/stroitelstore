@@ -20,7 +20,7 @@ class ProductsService {
 
     async getAll(params ,result) {
         
-        let {limit, page, group_id, search, guid, price , order , ...args} = params
+        let {limit, page, group_id, search, guid, price , order, stock , ...args} = params
 
         let query = {}
         let priceFilter = {}
@@ -32,7 +32,7 @@ class ProductsService {
 
             const attr_id = key.slice(7);
             
-            const values = args[key].split(',');
+            const values = args[key].split(';');
 
             filters.push({
                 as: `filter_${attr_id}`,
@@ -62,7 +62,13 @@ class ProductsService {
         //     ]
         // },
 
-
+        if (stock != null) {
+            if (stock == 'instock') {
+                priceFilter.amount = {[Sequelize.Op.gt] : 0 };
+            } else {
+                priceFilter.amount = {[Sequelize.Op.eq] : 0 };
+            }
+        }
 
         if (guid != null) {
 
@@ -229,7 +235,7 @@ class ProductsService {
 
     getPrices(params, result) {
 
-        let {limit, page, group_id, search, guid, price , order , ...args} = params
+        let {limit, page, group_id, search, guid, price , order, stock , ...args} = params
 
         let query = {}
         let priceFilter = {}
@@ -241,7 +247,7 @@ class ProductsService {
 
             const attr_id = key.slice(7);
             
-            const values = args[key].split(',');
+            const values = args[key].split(';');
 
             filters.push({
                 as: `filter_${attr_id}`,
@@ -269,6 +275,16 @@ class ProductsService {
 
             query.guid = arr
         };
+
+        
+        if (stock != null) {
+            if (stock == 'instock') {
+                priceFilter.amount = {[Sequelize.Op.gt] : 0 };
+            } else {
+                priceFilter.amount = {[Sequelize.Op.eq] : 0 };
+            }
+        }
+
 
         if (group_id != null) query.group_id = group_id;
 

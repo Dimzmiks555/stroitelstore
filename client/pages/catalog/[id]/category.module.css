@@ -145,9 +145,13 @@
     font-weight: bold;
     margin-top: 10px;
     font-size: 20px;
+    margin-bottom: 10px;
 }
 .good_price span {
     font-size: 32px;
+}
+.good_amount {
+    font-weight: bold;
 }
 .to_cart{
     display: block;
@@ -155,7 +159,7 @@
     font-family: inherit;
     font-size: 18px;
     color: #fff;
-    margin-top: 20px;
+    margin-top: 10px;
     background: #c00;
     border-radius: 5px;
     border: none;
@@ -168,15 +172,16 @@
     display: block;
     text-align: center;
     font-family: inherit;
+    font-weight: bold;
     font-size: 18px;
     color: #c00;
-    margin-top: 20px;
+    margin-top: 10px;
     background: #fff;
     border-radius: 5px;
     border: #c00 2px solid;
     outline: none;
     width: 70%;
-    padding: 12px 20px;
+    padding: 10px 20px;
     cursor: pointer;
 }
 .to_cart:hover{
@@ -189,7 +194,7 @@
     font-family: inherit;
     font-size: 20px;
     color: #fff;
-    margin-top: 20px;
+    margin-top: 10px;
     background: #888;
     border-radius: 5px;
     border: none;

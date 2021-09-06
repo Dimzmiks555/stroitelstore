@@ -49,13 +49,13 @@ const Index = observer(() => {
                             Заказ № {order?.id}
                         </td>
                         <td>
-                            Дата создания
+                            Дата создания {order?.createdAt}
                         </td>
                         <td>
                             
                         </td>
                         <td>
-                            Статус {order?.status == 'pending' ? (': на рассмотрении') : ''}
+                            Статус {order?.status}
                         </td>
                         <td>
                             Общая сумма заказа : {order?.total} {order?.currency_symbol}

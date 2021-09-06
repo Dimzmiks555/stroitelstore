@@ -192,7 +192,15 @@ const OrderModel = sequelize.define('order', {
     },
     type: {
         type: Sequelize.STRING
-    }
+    },
+    status: {
+        type: Sequelize.STRING
+    },
+    createdAt:{
+        type: 'TIMESTAMP',
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
+    },
 })
 
 
@@ -258,7 +266,9 @@ OrderProductsModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 UserModel.hasMany(OrderModel, { foreignKey: 'user_id'})
 OrderModel.belongsTo(UserModel, { foreignKey: 'user_id'})
 
-// sequelize.sync({force: true})
+
+// OrderModel.sync({force: true})
+// OrderModel.sync({force: true})
 
 export {
     GoodModel,
