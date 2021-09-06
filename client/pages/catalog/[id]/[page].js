@@ -59,7 +59,7 @@ const Category = observer(({mainTitle}) => {
 
 
                 
-            fetch(`http://${HOST.host}/api/products?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
+            fetch(`${HOST.host}/api/products?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -72,7 +72,7 @@ const Category = observer(({mainTitle}) => {
         }
         async function getDataAttrGoods(id){
            
-            fetch(`http://${HOST.host}/api/goods_attributes?group_id=${id}&group=value`)
+            fetch(`${HOST.host}/api/goods_attributes?group_id=${id}&group=value`)
             .then(res => res.json())
             .then(json => {
 
@@ -103,7 +103,7 @@ const Category = observer(({mainTitle}) => {
 
 
 
-            fetch(`http://${HOST.host}/api/products_prices?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
+            fetch(`${HOST.host}/api/products_prices?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
             .then(res => res.json())
             .then(json => {
                 setGoodPrices(json[0])
@@ -115,7 +115,7 @@ const Category = observer(({mainTitle}) => {
         }
         async function getDataAttr(id){
            
-            fetch(`http://${HOST.host}/api/attributes?group_id=${id}`)
+            fetch(`${HOST.host}/api/attributes?group_id=${id}`)
             .then(res => res.json())
             .then(json => {
                 setFilters(json.rows)
@@ -310,7 +310,7 @@ const Category = observer(({mainTitle}) => {
                             <Link href={`/product/${item.guid}`}>
                                 <a>
                                     <div className={styles.good_img}>
-                                        <img alt="" src={`http://${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                        <img alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </a>
                             </Link>

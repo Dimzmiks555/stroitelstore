@@ -62,7 +62,7 @@ const Search = observer(() => {
                 setData([])
             } else {
                 
-                fetch(`http://${HOST.host}/api/products?search=${text}`)
+                fetch(`${HOST.host}/api/products?search=${text}`)
                 .then(res => res.json())
                 .then(json => setData(json))
 

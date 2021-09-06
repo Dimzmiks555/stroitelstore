@@ -10,7 +10,7 @@ export default function NewGoods () {
     useEffect(() => {
       async function getData(){
           
-          await fetch(`http://${HOST.host}/api/products?page=1`)
+          await fetch(`${HOST.host}/api/products?page=1`)
           .then(result => result.json())
           .then(json => {
               json.rows.splice(0, 1)
@@ -56,7 +56,7 @@ export default function NewGoods () {
                             <div>
                                 <Link href={`/product/${item.guid}`}>
                                     <div className={styles.good_img}>
-                                        <img alt="" src={`http://${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                        <img alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </Link>
                                 <Link href={`/product/${item.guid}`}>

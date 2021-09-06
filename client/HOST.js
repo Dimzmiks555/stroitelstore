@@ -1,3 +1,3 @@
 export default {
-    host: 'admin.stroitelstore.ru'
+    host: 'https://admin.stroitelstore.ru'
 }

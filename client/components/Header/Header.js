@@ -38,7 +38,7 @@ const Header = observer(() => {
                 
                 console.log(token)
 
-                fetch(`http://${HOST.host}/api/auth`,{
+                fetch(`${HOST.host}/api/auth`,{
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json',
@@ -92,7 +92,7 @@ const Header = observer(() => {
                 </li>
                 <li>
                     <Link href='/contacts'>
-                    <a>Контакты</a>
+                        <a>Контакты</a>
                     </Link>
                 </li>
             </ul>
