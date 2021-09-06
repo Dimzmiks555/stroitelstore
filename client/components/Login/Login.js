@@ -28,7 +28,7 @@ const Login = observer(() => {
             password: password
         }
 
-        fetch(`http://${HOST.host}/api/login`,{
+        fetch(`${HOST.host}/api/login`,{
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -67,7 +67,7 @@ const Login = observer(() => {
         }
 
     
-        fetch(`http://${HOST.host}/api/registration`,{
+        fetch(`${HOST.host}/api/registration`,{
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
