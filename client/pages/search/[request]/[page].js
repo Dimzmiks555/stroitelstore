@@ -290,7 +290,7 @@ const Search = observer(({mainTitle}) => {
                                         <Link href={`/product/${item.guid}`}>
                                             <a>
                                                 <div className={styles.good_img}>
-                                                <img alt="" src={`http://${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                                <img alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                                 </div>
                                             </a>
                                         </Link>
