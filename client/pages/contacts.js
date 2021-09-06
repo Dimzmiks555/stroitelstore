@@ -56,7 +56,7 @@ const Index = observer(() => {
                 </h3>
             </div>
             <div className={styles.map}>
-                <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Abe9cfc9d9db30544ec97bc0f556f7a7bd9f325e507188d21967a1eea90b01017&amp;width=100%25&amp;height=611&amp;lang=ru_RU&amp;scroll=true"></script>
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Abe9cfc9d9db30544ec97bc0f556f7a7bd9f325e507188d21967a1eea90b01017&amp;source=constructor" width="100%" height="630" frameborder="0"></iframe>
             </div>
 
         </div>
