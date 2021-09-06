@@ -23,7 +23,7 @@ export default function PopularCats () {
                             </p>
                         </div>
                     </Link>
-                    <Link href='/catalog/e4288d2c-b14d-11eb-943b-18c04d2a3938/1'>
+                    <Link href='/catalog/e4288d27-b14d-11eb-943b-18c04d2a3938/1'>
                     <div className={styles.popular__block}>
                         <img src='./popular_cats/laser-level.svg'> 
 
@@ -33,7 +33,7 @@ export default function PopularCats () {
                         </p>
                     </div>
                     </Link>
-                    <Link href='/catalog/3aa745d1-385b-11eb-9399-18c04d2a3938/1'>
+                    <Link href='/catalog/1d96c33b-aef1-11eb-9438-18c04d2a3938/1'>
                     <div className={styles.popular__block}>
                         <img src='./popular_cats/caulk-gun.svg'> 
 
@@ -43,7 +43,7 @@ export default function PopularCats () {
                         </p>
                     </div>
                     </Link>
-                    <Link href='/catalog/e4288d3e-b14d-11eb-943b-18c04d2a3938/1'>
+                    <Link href='/catalog/9727eac2-cd96-11eb-9463-18c04d2a3938/1'>
                     <div className={styles.popular__block}>
                         <img src='./popular_cats/hammer.svg'> 
 
