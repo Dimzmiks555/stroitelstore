@@ -87,13 +87,9 @@ import HOST from "../../HOST.js";
             })
             .then(res => res.json())
             .then(json => {
+                window.location.reload()
             })
 
-            function reload() {
-                
-            }
-
-            setTimeout(reload(), 3000)
 
             console.log(JSON.stringify(data))
 
