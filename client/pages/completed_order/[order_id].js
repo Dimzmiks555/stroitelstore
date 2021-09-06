@@ -21,7 +21,7 @@ import HOST from '../../HOST';
   
   useEffect(() => {
 
-    fetch(`http://${HOST.host}/api/orders/${order_id}`)
+    fetch(`${HOST.host}/api/orders/${order_id}`)
     .then(res => res.json())
     .then(json => {
       setData(json)

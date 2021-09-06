@@ -30,7 +30,7 @@ const Busket = observer(() => {
         console.log(IDs)
 
         if (IDs[0]) {
-            fetch(`http://${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
+            fetch(`${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -95,7 +95,7 @@ const Busket = observer(() => {
         console.log(IDs)
 
         if (IDs[0]) {
-            fetch(`http://${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
+            fetch(`${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -123,7 +123,7 @@ const Busket = observer(() => {
         console.log(IDs)
 
         if (IDs[0]) {
-            fetch(`http://${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
+            fetch(`${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -152,7 +152,7 @@ const Busket = observer(() => {
         console.log(IDs)
 
         if (IDs[0]) {
-            fetch(`http://${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
+            fetch(`${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
@@ -207,7 +207,7 @@ const Busket = observer(() => {
                             <Link href={`/product/${item.guid}`}>
                                 <a className={styles.good_img}>
                                     <div>
-                                    <img alt="" src={`http://${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                    <img alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </a>
                             </Link>

@@ -58,7 +58,7 @@ const Product = observer(() => {
         async function getData(id){
             setLoading(true)
             setData([]) 
-            fetch(`http://${HOST.host}/api/products/${id}`)
+            fetch(`${HOST.host}/api/products/${id}`)
             .then(result => result.json())
             .then(json => {
                 console.log(json[0])
@@ -95,7 +95,7 @@ const Product = observer(() => {
                     <div className={styles.product}>
                         <div className={styles.product__overview}>
                             <div className={styles.product__overview_img} id="product__overview_img">
-                                <img alt="" src={`http://${HOST.host}/uploads/${data?.images?.length > 0 ? data?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                <img alt="" src={`${HOST.host}/uploads/${data?.images?.length > 0 ? data?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                 {/* <div className={styles.gallery}>
                                     {
                                         data?.images?.map(image => (

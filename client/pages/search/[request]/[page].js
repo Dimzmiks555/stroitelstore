@@ -65,7 +65,7 @@ const Search = observer(({mainTitle}) => {
 
 
 
-            fetch(`http://${HOST.host}/api/products?page=1&limit=20&search=${request}${generate(parametrs)}`)
+            fetch(`${HOST.host}/api/products?page=1&limit=20&search=${request}${generate(parametrs)}`)
             .then(result => result.json())
             .then(json => setData(json))
                 
@@ -92,7 +92,7 @@ const Search = observer(({mainTitle}) => {
 
 
 
-            fetch(`http://${HOST.host}/api/products_prices?page=${page}&limit=20&search=${request}${generate(parametrs)}`)
+            fetch(`${HOST.host}/api/products_prices?page=${page}&limit=20&search=${request}${generate(parametrs)}`)
             .then(res => res.json())
             .then(json => {
                 setGoodPrices(json[0])

@@ -19,7 +19,7 @@ const Index = observer(() => {
 
     useEffect(() => {
 
-        fetch(`http://${HOST.host}/api/orders?user_id=${HeaderStore?.userData?.id}`)
+        fetch(`${HOST.host}/api/orders?user_id=${HeaderStore?.userData?.id}`)
         .then(res => res.json())
         .then(json => {
             setData(json?.rows)
