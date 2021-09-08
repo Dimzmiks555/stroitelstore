@@ -1,0 +1,64 @@
+@media screen and (min-width: 1550px) and (max-width: 1700px) {
+  
+}
+
+@media screen and (min-width: 1370px) and (max-width: 1549px) {
+ 
+}
+
+@media screen and (max-width: 1369px) {
+    
+}
+
+
+/* Portrait tablets and medium desktops */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media screen and (max-width: 767px) {
+
+}
+
+/* Landscape phones and smaller */
+@media screen and (max-width: 480px) {
+    
+    .mobile_menu {
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        justify-content: space-between;
+    }
+
+}
+.mobile_menu {
+    background: #fff;
+    padding: 20px;
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    width: 100%;
+    display: none;
+}
+
+.mobile_button {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.mobile_menu svg {
+    height: 30px;
+    margin-bottom: 10px;
+    width: 30px;
+}

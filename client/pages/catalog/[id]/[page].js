@@ -12,6 +12,7 @@ import BusketStore from '../../../components/Busket/BusketStore.js';
 import Select from 'react-select'
 import Slider from 'rc-slider';
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
+import MobileMenu from '../components/MobileMenu/MobileMenu';
 const Range = createSliderWithTooltip(Slider.Range);
 import 'rc-slider/assets/index.css';
 
@@ -538,6 +539,7 @@ const Category = observer(({mainTitle}) => {
             </div>
         </div>
         <Footer />
+    <MobileMenu></MobileMenu>
         </>
     )
 }

@@ -61,29 +61,29 @@ const Busket = observer(() => {
     }
 
 
-    if (typeof window !== "undefined") {
-        window.addEventListener('scroll', () => {
-            if (document.getElementById('totalBlock') !== null) {
-                let totalBlock = document.getElementById('totalBlock')
-                let y = window.pageYOffset;
-                    if (y >= 180 && y <= 720) {
-                        totalBlock.style.position = 'fixed';
-                        totalBlock.style.top = '0';
-                        totalBlock.style.right = '10%';
-                        totalBlock.style.width = '24%'
-                    } else if (y > 720){
-                        totalBlock.style.position = 'fixed';
-                        totalBlock.style.bottom = '340px';
-                        totalBlock.style.right = '10%';
-                        totalBlock.style.width = '24%'
-                    }
-                    else {
-                        totalBlock.style = null;
-                    }
-            }
+    // if (typeof window !== "undefined") {
+    //     window.addEventListener('scroll', () => {
+    //         if (document.getElementById('totalBlock') !== null) {
+    //             let totalBlock = document.getElementById('totalBlock')
+    //             let y = window.pageYOffset;
+    //                 if (y >= 180 && y <= 720) {
+    //                     totalBlock.style.position = 'fixed';
+    //                     totalBlock.style.top = '0';
+    //                     totalBlock.style.right = '10%';
+    //                     totalBlock.style.width = '24%'
+    //                 } else if (y > 720){
+    //                     totalBlock.style.position = 'fixed';
+    //                     totalBlock.style.bottom = '340px';
+    //                     totalBlock.style.right = '10%';
+    //                     totalBlock.style.width = '24%'
+    //                 }
+    //                 else {
+    //                     totalBlock.style = null;
+    //                 }
+    //         }
             
-        })
-    } 
+    //     })
+    // } 
     function increment(e) {
         BusketStore.incrementCount(e.target.id)
         let IDs = [];

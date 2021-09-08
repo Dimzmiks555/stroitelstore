@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import Footer from '../../components/Footer/Footer';
 import { useEffect, useState } from 'react';
 import HeaderStore from '../../components/Header/HeaderStore';
+import MobileMenu from '../components/MobileMenu/MobileMenu';
 import HOST from '../../HOST';
  const Completed_Order = observer(() => {
 
@@ -115,6 +116,7 @@ import HOST from '../../HOST';
      </div>
     </div>
     <Footer></Footer>
+    <MobileMenu></MobileMenu>
     </>
   )
 

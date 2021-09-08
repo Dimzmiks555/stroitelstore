@@ -4,6 +4,7 @@ import Catalog from "../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
 import Login from '../components/Login/Login';
+import MobileMenu from '../components/MobileMenu/MobileMenu';
 import Footer from '../components/Footer/Footer';
 
 const Index = observer(() => {
@@ -21,6 +22,7 @@ const Index = observer(() => {
         </Login>
     </div>
     <Footer></Footer>
+    <MobileMenu></MobileMenu>
     </>
   )
 

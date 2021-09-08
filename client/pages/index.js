@@ -8,6 +8,7 @@ import NewGoods from '../components/NewGoods';
 import Offers from '../components/Offers/Offers';
 import Footer from '../components/Footer/Footer';
 import PopularCats from '../components/PopularCats/PopularCats';
+import MobileMenu from '../components/MobileMenu/MobileMenu';
 
 
 const Index = observer(() => {
@@ -28,6 +29,7 @@ const Index = observer(() => {
       <Offers />
     </div>
     <Footer />
+    <MobileMenu></MobileMenu>
     </>
   )
 

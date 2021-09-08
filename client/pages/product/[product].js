@@ -7,6 +7,7 @@ import { useRouter} from 'next/router'
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import MobileMenu from '../components/MobileMenu/MobileMenu';
 import Footer from '../../components/Footer/Footer';
 import BusketStore from '../../components/Busket/BusketStore';
 import HOST from '../../HOST';
@@ -189,6 +190,7 @@ const Product = observer(() => {
         <Header />
             {renderThis()}
         <Footer />
+    <MobileMenu></MobileMenu>
         </>
     )
 }) 

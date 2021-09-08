@@ -20,11 +20,11 @@
 /* Landscape phones and smaller */
 @media screen and (max-width: 480px) {
 
-    /* .banner{
-        max-height: 600px !important;
+    .banner{
+        /* max-height: 600px !important; */
         margin-bottom: 40px !important;
         border-radius: 0px !important;
-    } */
+    }
 
 }
 .banner{

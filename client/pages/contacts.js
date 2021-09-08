@@ -4,6 +4,7 @@ import styles from './contacts.module.css';
 import Catalog from "../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
+import MobileMenu from '../components/MobileMenu/MobileMenu';
 import Footer from '../components/Footer/Footer';
 
 
@@ -63,6 +64,7 @@ const Index = observer(() => {
 
     </div>
     <Footer />
+    <MobileMenu></MobileMenu>
     </>
   )
 
