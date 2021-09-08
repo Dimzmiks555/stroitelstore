@@ -1,6 +1,8 @@
-@media screen and (min-width: 1200px) and (max-width: 1370) {
+@media screen and (min-width: 1200px) and (max-width: 1700px) {
     .page {
         padding-top: 0px !important;
+        
+        width: 90% !important;
     }
 }
 

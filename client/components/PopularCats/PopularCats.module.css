@@ -6,10 +6,10 @@
     .popular__block img {
         height: 160px !important;
     }
-    .popular__wrapper > div:last-child .popular__block img {
+    .popular__wrapper > div .popular__block img {
         height: 80px !important;
     }
-    .popular__wrapper > div:last-child .popular__block p {
+    .popular__wrapper > div .popular__block p {
         font-size: 18px !important;
         margin-top: 20px;
     }
@@ -43,9 +43,6 @@
         margin-left: 20px;
         font-size: 24px !important;
     }
-    .popular__block img {
-        height: 100px !important;
-    }
     .popular h2 {
         font-size: 24px !important;
         text-align: center;
@@ -62,13 +59,13 @@
         align-items: center;
         justify-content: center !important;
     }
-    .popular__wrapper > div:last-child {
+    .popular__wrapper > div {
         text-align: center;
     }
-    .popular__wrapper > div:last-child .popular__block img {
+    .popular__wrapper > div .popular__block img {
         height: 60px !important;
     }
-    .popular__wrapper > div:last-child .popular__block p {
+    .popular__wrapper > div .popular__block p {
         font-size: 18px !important;
         margin-top: 20px;
         margin-left: 0 !important;
@@ -119,6 +116,6 @@
     height: 100px;
 }
 .popular__wrapper > div .popular__block p {
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 20px;
 }

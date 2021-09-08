@@ -159,12 +159,9 @@ const UserModel = sequelize.define('user', {
     password: {
         type: Sequelize.STRING
     },
-    email: {
+    phone: {
         type: Sequelize.STRING,
         unique: true
-    },
-    phone: {
-        type: Sequelize.STRING
     },
     role: {
         type: Sequelize.STRING,
@@ -267,7 +264,7 @@ UserModel.hasMany(OrderModel, { foreignKey: 'user_id'})
 OrderModel.belongsTo(UserModel, { foreignKey: 'user_id'})
 
 
-// OrderModel.sync({alter: true})
+UserModel.sync({alter: true})
 // OrderProductsModel.sync({alter: true})
 
 export {

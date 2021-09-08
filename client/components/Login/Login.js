@@ -24,7 +24,7 @@ const Login = observer(() => {
         setLoading(true)
         setMessage('')
         let data = {
-            email: username,
+            phone: username,
             password: password
         }
 
@@ -60,7 +60,6 @@ const Login = observer(() => {
         let data = {
             phone: LoginStore.registrationData.phone,
             password: LoginStore.registrationData.password,
-            email: LoginStore.registrationData.email,
             surname: LoginStore.registrationData.name,
             name: LoginStore.registrationData.surname
 
@@ -122,7 +121,7 @@ const Login = observer(() => {
                         <button style={type == 'registration' ? {background: '#d00', color: '#fff', border: '2px solid #d00'} : null} onClick={e => {handleclick('registration')}}>Регистрация</button>
                     </div>
                     <h1>Добро пожаловать!</h1>
-                    <input className={styles.login__input} placeholder="E-mail" onChange={e => {handleUserName(e)}}></input>
+                    <input className={styles.login__input} placeholder="Номер телефона" onChange={e => {handleUserName(e)}}></input>
                     <input className={styles.login__input} type='password' placeholder="Пароль"onChange={e => {handlePassword(e)}}></input>
                     <p>{message}</p>
                     <button className={styles.login__button} onClick={handleLogin}>Вход</button>
@@ -147,21 +146,16 @@ const Login = observer(() => {
                                 <input id="last_name" className={styles.login__input} onChange={e => {handleChange(e.target.id, e.target.value)}} placeholder="Фамилия"></input>
                             </div>
                             <div>
-                                <label for="email">E-mail</label>
-                                <input id="email" className={styles.login__input} onChange={e => {handleChange(e.target.id, e.target.value)}} placeholder="E-mail"></input>
+                                <label for="phone">Номер телефона</label>
+                                <input id="phone" className={styles.login__input} onChange={e => {handleChange(e.target.id, e.target.value)}} placeholder="Номер телефона"></input>
                             </div>
                             <div>
                                 <label for="password">Пароль</label>
                                 <input id="password" className={styles.login__input} type="password" onChange={e => {handleChange(e.target.id, e.target.value)}} placeholder="Пароль"></input>
                             </div>
-                            <div>
-                                <label for="phone">Номер телефона</label>
-                                <input id="phone" className={styles.login__input} onChange={e => {handleChange(e.target.id, e.target.value)}} placeholder="Номер телефона"></input>
-                            </div>
                         </div>
                         {
 
-                        LoginStore.registrationData.email != '' &&
                         LoginStore.registrationData.name != '' &&
                         LoginStore.registrationData.surname != '' &&
                         LoginStore.registrationData.phone != '' &&

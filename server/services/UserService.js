@@ -22,13 +22,13 @@ class UserService {
 
     async registration(body) {
 
-        const {email, password, name, surname, phone, role} = body
+        const { password, name, surname, phone, role} = body
 
-        if (!email || !password) {
+        if (!phone || !password) {
             return
         }
 
-        const candidate = await UserModel.findOne({where: {email}})
+        const candidate = await UserModel.findOne({where: {phone}})
 
         if (candidate) {
             return
@@ -38,7 +38,6 @@ class UserService {
         const hashPassword = await bcrypt.hash(password, 5)
 
         const user = await UserModel.create({
-            email, 
             role, 
             password: hashPassword, 
             phone, 
@@ -49,7 +48,6 @@ class UserService {
         const token = jwt.sign(
             {
                 id: user.id, 
-                email: email,
                 name,
                 surname,
                 role,
@@ -69,10 +67,10 @@ class UserService {
 
     async login(body) {
 
-        const {email, password} = body
+        const {phone, password} = body
 
 
-        const user = await UserModel.findOne({where: {email}})
+        const user = await UserModel.findOne({where: {phone}})
 
         if (!user) {
             return {message: 'Пользователя не существует' }
@@ -90,12 +88,11 @@ class UserService {
         const token = jwt.sign(
             {
                 id: user.id, 
-                email: email,
+                phone: phone,
                 name: user.name,
                 surname: user.surname,
                 role: user.role,
                 
-                phone: user.phone
             },
             secret_key,
             {
@@ -111,19 +108,18 @@ class UserService {
 
     async check(body) {
 
-        const {email, password} = body
+        const {phone, password} = body
 
-        const user = await UserModel.findOne({where: {email}})
+        const user = await UserModel.findOne({where: {phone}})
         
         
         const token = jwt.sign(
             {
                 id: user.id, 
-                email: email,
                 name: user.name,
                 surname: user.surname,
                 role: user.role,
-                phone: user.phone
+                phone: phone
             },
             secret_key,
             {
