@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { observer } from "mobx-react";
 import { useEffect, useState } from 'react';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
-import MobileMenu from '../components/MobileMenu/MobileMenu';
+import MobileMenu from '../../../components/MobileMenu/MobileMenu';
 import Footer from '../../../components/Footer/Footer';
 import BusketStore from '../../../components/Busket/BusketStore.js';
 import Select from 'react-select'
