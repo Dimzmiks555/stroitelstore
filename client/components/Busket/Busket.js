@@ -405,7 +405,7 @@ const Busket = observer(() => {
                     <h3>Способ оплаты <span>{payment == 'nal' ? 'Наличными' : payment == 'card' ? 'Картой' : 'Не указан'}</span></h3>
                 </div>
                 {
-                    HeaderStore.userData?.email ? (
+                    HeaderStore.userData?.phone ? (
                         <div>
                             { delivery != '' &&
                             payment!= '' ?

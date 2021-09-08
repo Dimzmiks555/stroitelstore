@@ -43,26 +43,32 @@ const Index = observer(() => {
         <div className={styles.orders}>
         <h1>Мои заказы</h1>
             {data.map((order, index) => (
+                <>
+                
+                <div className={styles.order}>
+                    <div>
+                        <div>
+                            Заказ № {order?.id} от {new Date(order?.createdAt).toLocaleDateString()} {new Date(order?.createdAt).toLocaleTimeString()} {order?.status}
+                        </div>
+                        <div>
+                            {order?.type == 'shop' ? 'Самовывоз' : 'Доставка'} по адресу {order?.address}
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Итого {order?.total}
+                        </div>
+                        <div>
+                            Оплата {order?.payment == 'nal' ? 'Наличными или картой при получении' : 'Банковская карта'}
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Подробнее
+                        </div>
+                    </div>
+                </div>
                 <table border="1">
-                <thead>
-                    <tr>
-                        <td>
-                            Заказ № {order?.id}
-                        </td>
-                        <td>
-                            Дата создания {order?.createdAt}
-                        </td>
-                        <td>
-                            
-                        </td>
-                        <td>
-                            Статус {order?.status}
-                        </td>
-                        <td>
-                            Общая сумма заказа : {order?.total} {order?.currency_symbol}
-                        </td>
-                    </tr>
-                </thead>
                 <tbody>
                 <tr>
                         <td>
@@ -87,7 +93,7 @@ const Index = observer(() => {
                             {item?.id}
                         </td>
                         <td>
-                            {item?.good?.guid}
+                            {item?.good?.title}
                         </td>
                         <td>
                             {item.price} {order?.currency_symbol}
@@ -103,6 +109,7 @@ const Index = observer(() => {
                 </tbody>
                 
                 </table>
+                </>
 
             ))}
         </div>

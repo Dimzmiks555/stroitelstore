@@ -63,3 +63,13 @@
     margin-bottom: 4px;
     width: 30px;
 }
+
+.active {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #d00;
+    fill: #d00;
+    font-weight: bold;
+}

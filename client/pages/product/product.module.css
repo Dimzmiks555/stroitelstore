@@ -51,6 +51,18 @@
     .product__overview_title {
         margin-bottom: 20px !important; 
     }
+    .product__to_cart__block {
+        flex-direction: column;
+    }
+    .product__overview_cart_added {
+        width: 80% !important;
+    }
+    .product__to_cart__block button {
+        width: 100% !important;
+    }
+    .product__counter {
+        margin-bottom: 30px !important;
+    }
 }
 .product {
     padding-top: 40px;

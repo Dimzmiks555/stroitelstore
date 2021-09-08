@@ -18,3 +18,13 @@
 .orders table td {
     padding: 10px;
 }
+
+.order {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px #ddd;
+    margin-bottom: 20px;
+}

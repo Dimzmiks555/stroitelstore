@@ -1,3 +1,52 @@
+@media screen and (min-width: 1550px) and (max-width: 1700px) {
+  
+}
+
+@media screen and (min-width: 1370px) and (max-width: 1549px) {
+   
+}
+
+@media screen and (max-width: 1369px) {
+ 
+}
+
+
+/* Portrait tablets and medium desktops */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media screen and (max-width: 767px) {
+
+}
+
+/* Landscape phones and smaller */
+@media screen and (max-width: 480px) {
+    .login {
+        padding-top: 0 !important;
+        flex-direction: column !important;
+    }
+    .info {
+        display: none !important;
+    }
+    .login h1 {
+        font-size: 32px !important;
+        margin-bottom: 30px !important;
+    }
+    .login__input {
+        margin-bottom: 20px !important;
+    }
+    .login__button {
+        margin-top: 20px !important;
+    }
+}
+
 .login {
     padding-top: 40px;
     display: flex;
@@ -6,7 +55,7 @@
 }
 .login h1 {
     font-size: 42px;
-    margin-bottom: 0px;
+    margin-bottom: 30px;
 }
 .login p {
     margin-top: 20px;
@@ -20,6 +69,7 @@
 .login__input {
     font-size: 16px;
     margin-top: 10px;
+    margin-bottom: 10px;
     width: 300px;
     height: 40px;
     border-radius: 4px;
@@ -36,7 +86,7 @@
     font-weight: bold;
     font-size: 18px;
     border-radius: 10px;
-    margin-top: 60px;
+    margin-top: 20px;
     width: 300px;
     cursor: pointer;
     height: 60px;

@@ -135,7 +135,6 @@ const Login = observer(() => {
                             <button style={type == 'registration' ? {background: '#d00', color: '#fff', border: '2px solid #d00'} : null} onClick={e => {handleclick('registration')}}>Регистрация</button>
                         </div>
                         <h1>Регистрация</h1>
-                        <h2>Основная информация</h2>
                         <div className={styles.main__inputs}>
                             <div>
                                 <label for="first_name">Имя</label>
