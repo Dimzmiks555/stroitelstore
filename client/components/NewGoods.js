@@ -2,6 +2,10 @@ import styles from './NewGoods.module.css';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
+
 import HOST from '../HOST';
 
 export default function NewGoods () {
@@ -28,29 +32,57 @@ export default function NewGoods () {
   
   }, []);
 
-    function handleRightScroll(e) {
-        let newgoods = document.getElementById('newgoods');
-        if (newgoods.style.transform == 'translateX(-100%)') {
-            return
-        } else {
-            newgoods.style.transform = 'translateX(-100%)'
-        }
-    }
-    function handleLeftScroll(e) {
-        let newgoods = document.getElementById('newgoods');
-        if (newgoods.style.transform == 'translateX(-100%)') {
-            newgoods.style.transform = 'translateX(0%)'
-        } else {
-            return
-        }
-    }
     return (
         <div className={styles.newgoods}>
             <h2>
                 Новинки
             </h2>
             <div className={styles.newgoods__wrapper} >
-                <div className={styles.newgoods__items} id="newgoods">
+                <Carousel
+                    additionalTransfrom={0}
+                    // autoPlay
+                    autoPlaySpeed={3000}
+                    centerMode={false}
+                    className=""
+                    containerClass="container"
+                    customLeftArrow={<div></div>}
+                    customRightArrow={<div></div>}
+                    dotListClass=""
+                    draggable
+                    focusOnSelect={false}
+                    infinite
+                    itemClass=""
+                    keyBoardControl
+                    minimumTouchDrag={80}
+                    renderButtonGroupOutside={false}
+                    renderDotsOutside={false}
+                    responsive={{
+                        desktop: {
+                        breakpoint: {
+                            max: 3000,
+                            min: 1024
+                        },
+                        items: 4
+                        },
+                        mobile: {
+                        breakpoint: {
+                            max: 464,
+                            min: 0
+                        },
+                        items: 2
+                        },
+                        tablet: {
+                        breakpoint: {
+                            max: 1024,
+                            min: 464
+                        },
+                        items: 3
+                        }
+                    }}
+                    sliderClass=""
+                    slidesToSlide={1}
+                    swipeable
+                    >
                     {data.map(item => (
                         <div className={styles.newgoods__item}>
                             <div>
@@ -80,11 +112,14 @@ export default function NewGoods () {
                         </div>
                     
                     ))}
+                </Carousel>
+                <div className={styles.newgoods__items} id="newgoods">
+                    
                 </div>
                 
             </div>
             
-            <div className={styles.newgoods__control_left} onClick={e => {handleLeftScroll(e)}}>
+            {/* <div className={styles.newgoods__control_left} onClick={e => {handleLeftScroll(e)}}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0"
@@ -109,7 +144,7 @@ export default function NewGoods () {
                 >
                 <path d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061a19.8 19.8 0 0014.057 5.835 19.79 19.79 0 0014.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"></path>
             </svg>
-            </div>
+            </div> */}
             
             
         </div>

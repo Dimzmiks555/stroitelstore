@@ -4,10 +4,9 @@
 .newgoods h2{
     font-size: 36px;
     margin-bottom: 60px;
+    text-align: center;
 }
 .newgoods__wrapper {
-    height: 500px;
-    position: relative;
     overflow: hidden;
 }
 .newgoods__items {
@@ -18,6 +17,8 @@
     transition: ease-in-out .5s all;
 }
 .newgoods__item {
+    /* height: 500px; */
+    padding: 0 20px;
     min-width: 20%;
     flex-basis: 20%;
     margin-left: 5%;
@@ -48,31 +49,34 @@
     object-fit: scale-down;
 }
 .good_title {
+    height: 60px;
+    overflow: hidden;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
 }
 .good_title:hover {
     cursor: pointer;
     color: #d00;
 }
 .good_price {
+    margin-top: auto;
     font-weight: bold;
     margin-top: 10px;
-    font-size: 20px;
+    font-size: 16px;
 }
 .good_price span {
-    font-size: 32px !important;
+    font-size: 24px !important;
 }
 .to_cart{
     display: block;
     text-align: center;
     font-family: inherit;
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 20px;
     border-radius: 5px;
     outline: none;
     width: 100%;
-    padding: 14px 20px;
+    padding: 10px 10px;
     cursor: pointer;
     background: #c00;
     color: #fff;

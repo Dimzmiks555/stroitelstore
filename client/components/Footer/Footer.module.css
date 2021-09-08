@@ -22,12 +22,25 @@
 @media screen and (max-width: 480px) {
     .footer {
         flex-direction: column !important;
+        padding-bottom: 120px !important;
+    }
+    .contact_info {
+        text-align: left !important;
+    }
+
+    .contact_info h2 {
+        margin-top: 20px;
+        font-size: 32px !important;
+        margin-bottom: 10px;
+    }
+    .contact_info h3 {
+        margin-top: 10px;
     }
 }
 
 .footer {
     background: linear-gradient(90deg, #a02,#d00);
-    height: 300px;
+    min-height: 300px;
     display: flex;
     padding: 40px 10%;
     opacity: 90%;

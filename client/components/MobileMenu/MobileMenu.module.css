@@ -40,12 +40,13 @@
 }
 .mobile_menu {
     background: #fff;
-    padding: 20px;
+    padding: 16px 20px ;
     bottom: 0;
     left: 0;
-    height: 100px;
+    /* height: 0px; */
     width: 100%;
     display: none;
+    box-shadow: 0 0 20px #aaa;
 }
 
 .mobile_button {
@@ -59,6 +60,6 @@
 
 .mobile_menu svg {
     height: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     width: 30px;
 }

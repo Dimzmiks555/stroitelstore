@@ -25,6 +25,32 @@
 /* Landscape phones and smaller */
 @media screen and (max-width: 480px) {
 
+    .product__overview {
+        flex-direction: column !important;
+    }
+    .product__overview_img {
+        height: auto !important;
+    }
+    .product__overview_info {
+        padding: 20px !important;
+        margin-top: 20px !important;
+    }
+    .product__overview > div {
+        width: 100% !important;
+    }
+    .back_button {
+        height: 40px !important;
+        font-size: 32px !important;
+        display: block !important;
+        position: unset !important;
+    }
+    .product__overview_title h1  {
+        font-size: 22px !important;
+        margin-top: 20px !important;
+    }
+    .product__overview_title {
+        margin-bottom: 20px !important; 
+    }
 }
 .product {
     padding-top: 40px;
