@@ -20,11 +20,14 @@
 }
 
 .order {
-    justify-content: space-between;
-    display: flex;
-    align-items: center;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 6px 20px #ddd;
     margin-bottom: 20px;
+}
+.header {
+    padding: 0 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

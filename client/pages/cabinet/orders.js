@@ -46,7 +46,7 @@ const Index = observer(() => {
                 <>
                 
                 <div className={styles.order}>
-                    <div>
+                    <div className={styles.header}>
                         <div>
                             <div>
                                 Заказ № {order?.id} от {new Date(order?.createdAt).toLocaleDateString()} {new Date(order?.createdAt).toLocaleTimeString()} {order?.status}
