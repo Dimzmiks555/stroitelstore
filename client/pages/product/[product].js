@@ -13,15 +13,15 @@ import MobileMenu from '../../components/MobileMenu/MobileMenu';
 import Footer from '../../components/Footer/Footer';
 import BusketStore from '../../components/Busket/BusketStore';
 import HOST from '../../HOST';
-const Product = observer(() => {
+const Product = observer(({data, group, parent_group}) => {
     
     const [added, setAdded] = useState(false);
     const router = useRouter(); 
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
     const [counter_value, setCV] = useState([1]);
     const [isLoading, setLoading] = useState([true]);
-    const [parentGroup, setParentGroup] = useState({})
-    const [group, setGroup] = useState({})
+    // const [parentGroup, setParentGroup] = useState({})
+    // const [group, setGroup] = useState({})
 
     function handleClick(e) {
         console.log(e.target.id)
@@ -61,26 +61,26 @@ const Product = observer(() => {
             setCV(BusketStore.positions[filter].count)
         }
         async function getData(id){
-            setLoading(true)
-            setData([]) 
-            fetch(`${HOST.host}/api/products/${id}`)
-            .then(result => result.json())
-            .then(json => {
-                console.log(json[0])
-                setData(json[0]);
-                setLoading(false)
-                setGroup(json[0]?.group)
+            // setLoading(true)
+            // setData([]) 
+            // fetch(`${HOST.host}/api/products/${id}`)
+            // .then(result => result.json())
+            // .then(json => {
+            //     console.log(json[0])
+            //     setData(json[0]);
+            //     setLoading(false)
+            //     setGroup(json[0]?.group)
 
-                let parent_id = json[0]?.group?.parent_group
+            //     let parent_id = json[0]?.group?.parent_group
 
-                fetch(`${HOST.host}/api/groups`)
-                .then(res => res.json())
-                .then(json => {
-                    let group = json?.rows?.filter(item => item.guid == parent_id)[0]
-                    setParentGroup(group)
-                })
+            //     fetch(`${HOST.host}/api/groups`)
+            //     .then(res => res.json())
+            //     .then(json => {
+            //         let group = json?.rows?.filter(item => item.guid == parent_id)[0]
+            //         setParentGroup(group)
+            //     })
 
-            })
+            // })
         }
 
         
@@ -89,7 +89,7 @@ const Product = observer(() => {
             getData(product_id);
         }
 
-    }, [product_id]);
+    }, [product_id, data]);
 
 
     function renderThis() {
@@ -121,7 +121,7 @@ const Product = observer(() => {
                                 </div> */}
                             </div>
                             <div className={styles.product__overview_info} id="product__overview_info">
-                            <div className={styles.breadcrumbs}><Link href='/categories'><a>Каталог</a></Link> / <Link href={`/categories/${parentGroup?.guid}`}><a>{parentGroup?.title}</a></Link> / <Link href={`/catalog/${group?.guid}/1`}><a>{group?.title}</a></Link> </div>
+                            <div className={styles.breadcrumbs}><Link href='/categories'><a>Каталог</a></Link> / <Link href={`/categories/${parent_group?.guid}`}><a>{parent_group?.title}</a></Link> / <Link href={`/catalog/${group?.guid}/1`}><a>{group?.title}</a></Link> </div>
                                 <div className={styles.product__overview_title}>
                                     <h1>{data?.title}</h1>
                                     <h4>Артикул: {data?.prices_and_count?.sku}</h4>
@@ -212,3 +212,32 @@ const Product = observer(() => {
 }) 
 
 export default Product  
+
+
+
+export async function getServerSideProps({params}) {
+
+    const result = await fetch(`${HOST.host}/api/products/${params?.product}`);
+    let json = await result.json();
+
+    let data = json[0]
+
+    let group = json[0]?.group
+
+    let parent_id = json[0]?.group?.parent_group
+
+
+    const groups = await fetch(`${HOST.host}/api/groups`);
+    
+    const grjson = await groups.json();
+    let parent_group = grjson?.rows?.filter(item => item.guid == parent_id)[0]
+
+
+    return {
+        props: {
+            data, group, parent_group
+        }
+    }
+
+    
+}

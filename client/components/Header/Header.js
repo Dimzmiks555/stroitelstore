@@ -84,12 +84,12 @@ const Header = observer(() => {
                 <li>
                     <a>О магазине</a>
                 </li>
-                <li>
+                {/* <li>
                     <a>Доставка и оплата</a>
                 </li>
                 <li>
                     <a>Сотрудничество</a>
-                </li>
+                </li> */}
                 <li>
                     <Link href='/contacts'>
                         <a>Контакты</a>

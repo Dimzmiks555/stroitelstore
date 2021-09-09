@@ -29,7 +29,7 @@
         flex-direction: column !important;
     }
     .product__overview_img {
-        height: auto !important;
+        height: 300px !important;
     }
     .product__overview_info {
         padding: 20px !important;
@@ -105,7 +105,7 @@
 }
 .product__overview_img img {
     width: 60%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
     cursor: pointer;
     transition: 0.1s ease-out all;
