@@ -48,67 +48,72 @@ const Index = observer(() => {
                 <div className={styles.order}>
                     <div>
                         <div>
-                            Заказ № {order?.id} от {new Date(order?.createdAt).toLocaleDateString()} {new Date(order?.createdAt).toLocaleTimeString()} {order?.status}
+                            <div>
+                                Заказ № {order?.id} от {new Date(order?.createdAt).toLocaleDateString()} {new Date(order?.createdAt).toLocaleTimeString()} {order?.status}
+                            </div>
+                            <div>
+                                {order?.type == 'shop' ? 'Самовывоз' : 'Доставка'} по адресу {order?.address}
+                            </div>
                         </div>
                         <div>
-                            {order?.type == 'shop' ? 'Самовывоз' : 'Доставка'} по адресу {order?.address}
+                            <div>
+                                Итого {order?.total}
+                            </div>
+                            <div>
+                                Оплата {order?.payment == 'nal' ? 'Наличными или картой при получении' : 'Банковская карта'}
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                Подробнее
+                            </div>
                         </div>
                     </div>
                     <div>
-                        <div>
-                            Итого {order?.total}
-                        </div>
-                        <div>
-                            Оплата {order?.payment == 'nal' ? 'Наличными или картой при получении' : 'Банковская карта'}
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Подробнее
-                        </div>
+                        <table border="1">
+                            <tbody>
+                            <tr>
+                                    <td>
+                                        ID
+                                    </td>
+                                    <td>
+                                        Наименование
+                                    </td>
+                                    <td>
+                                        Цена
+                                    </td>
+                                    <td>
+                                        Количество
+                                    </td>
+                                    <td>
+                                        Стоимость
+                                    </td>
+                                </tr>
+                            {order?.order_products?.map(item => (
+                                <tr>
+                                    <td>
+                                        {item?.id}
+                                    </td>
+                                    <td>
+                                        {item?.good?.title}
+                                    </td>
+                                    <td>
+                                        {item.price} {order?.currency_symbol}
+                                    </td>
+                                    <td>
+                                        {item.count}
+                                    </td>
+                                    <td>
+                                        {item.total} {order?.currency_symbol}
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                            
+                        </table>
                     </div>
                 </div>
-                <table border="1">
-                <tbody>
-                <tr>
-                        <td>
-                            ID
-                        </td>
-                        <td>
-                            Наименование
-                        </td>
-                        <td>
-                            Цена
-                        </td>
-                        <td>
-                            Количество
-                        </td>
-                        <td>
-                            Стоимость
-                        </td>
-                    </tr>
-                {order?.order_products?.map(item => (
-                    <tr>
-                        <td>
-                            {item?.id}
-                        </td>
-                        <td>
-                            {item?.good?.title}
-                        </td>
-                        <td>
-                            {item.price} {order?.currency_symbol}
-                        </td>
-                        <td>
-                            {item.count}
-                        </td>
-                        <td>
-                            {item.total} {order?.currency_symbol}
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
                 
-                </table>
                 </>
 
             ))}
