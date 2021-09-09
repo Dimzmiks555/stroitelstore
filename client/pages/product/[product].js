@@ -6,6 +6,8 @@ import ProductStore from '../../components/Product/productStore'
 import { useRouter} from 'next/router'
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
+import Link from 'next/link'
+
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import MobileMenu from '../../components/MobileMenu/MobileMenu';
 import Footer from '../../components/Footer/Footer';
@@ -18,6 +20,8 @@ const Product = observer(() => {
     const [data, setData] = useState([]);
     const [counter_value, setCV] = useState([1]);
     const [isLoading, setLoading] = useState([true]);
+    const [parentGroup, setParentGroup] = useState({})
+    const [group, setGroup] = useState({})
 
     function handleClick(e) {
         console.log(e.target.id)
@@ -65,6 +69,17 @@ const Product = observer(() => {
                 console.log(json[0])
                 setData(json[0]);
                 setLoading(false)
+                setGroup(json[0]?.group)
+
+                let parent_id = json[0]?.group?.parent_group
+
+                fetch(`${HOST.host}/api/groups`)
+                .then(res => res.json())
+                .then(json => {
+                    let group = json?.rows?.filter(item => item.guid == parent_id)[0]
+                    setParentGroup(group)
+                })
+
             })
         }
 
@@ -106,6 +121,7 @@ const Product = observer(() => {
                                 </div> */}
                             </div>
                             <div className={styles.product__overview_info} id="product__overview_info">
+                            <div className={styles.breadcrumbs}><Link href='/categories'><a>Каталог</a></Link> / <Link href={`/categories/${parentGroup?.guid}`}><a>{parentGroup?.title}</a></Link> / <Link href={`/catalog/${group?.guid}/1`}><a>{group?.title}</a></Link> </div>
                                 <div className={styles.product__overview_title}>
                                     <h1>{data?.title}</h1>
                                     <h4>Артикул: {data?.prices_and_count?.sku}</h4>

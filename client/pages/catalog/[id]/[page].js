@@ -32,6 +32,7 @@ const Category = observer(({mainTitle}) => {
     const [goodPrices, setGoodPrices] = useState([]);
     const [order, setOrder] = useState('');
     const [isLoading, setLoading] = useState([true]);
+    const [group, setGroup] = useState('')
 
     const [URLParams, setURLParams] = useState(router.query);
 
@@ -65,6 +66,17 @@ const Category = observer(({mainTitle}) => {
             .then(json => {
                 setData(json?.rows)
                 setCountGoods(json?.count)
+
+                let parent_id = json?.rows[0]?.group?.parent_group
+
+                fetch(`${HOST.host}/api/groups`)
+                .then(res => res.json())
+                .then(json => {
+                    let group = json?.rows?.filter(item => item.guid == parent_id)[0]
+                    setGroup(group)
+                })
+
+
             })
 
 
@@ -471,6 +483,8 @@ const Category = observer(({mainTitle}) => {
                                 } */}
                             </div>
                             <h1>{data[0] ? data[0]?.group?.title : null}</h1>
+                            <div className={styles.breadcrumbs}><Link href='/categories'><a>Каталог</a></Link> / <Link href={`/categories/${group?.guid}`}><a>{group?.title}</a></Link></div>
+
                             <div className={styles.toolbar}>
                                 <div>
                                     {countGoods} товаров
@@ -482,7 +496,7 @@ const Category = observer(({mainTitle}) => {
                             </div>
                         </div>
                         <div className={styles.category_goods}>
-                            {showGoods()}
+                            {showGoods()}           
                             
                         </div>
                         <div className={styles.pagination}>

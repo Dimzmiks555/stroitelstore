@@ -71,7 +71,7 @@
 .category h1{
     font-weight: bold;
     font-size: 42px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .toolbar {
     display: flex;
@@ -419,4 +419,19 @@ transform-origin: 0 0; /* see note above */
     position: absolute;
     background: #d00;
     border-radius: 50%;
+}
+
+
+.breadcrumbs {
+    display: flex;
+    margin-bottom: 30px;
+}
+.breadcrumbs a {
+    margin: 0 10px;
+}
+.breadcrumbs a:first-child {
+    margin: 0 10px 0 0 !important;
+}
+.breadcrumbs a:hover {
+    color: #d00;
 }
