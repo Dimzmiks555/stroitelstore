@@ -8,7 +8,7 @@ import { observer } from "mobx-react";
 import { useEffect, useState } from 'react';
 import MobileMenu from '../../../components/MobileMenu/MobileMenu';
 import Footer from '../../../components/Footer/Footer';
-import BusketStore from '../../../components/Busket/BusketStore.js';
+import Head from 'next/head';
 import Select from 'react-select'
 import Slider from 'rc-slider';
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
@@ -238,6 +238,11 @@ const Search = observer(({mainTitle}) => {
     
     return (
         <>
+        <Head>
+            <title>СТРОИТЕЛЬ - Поиск по запросу: {router?.query?.request}</title>
+            <meta name="description" content="СТРОИТЕЛЬ - лучший интернет-магазин строительных материалов в городе Лиски! Всегда актуальные цены и остатки!"/>
+            <meta name='keywords' content="магазин, интернет-магазин, СТРОИТЕЛЬ, строительные материалы, Лиски, Воронежская область, строительный магазин  "></meta>
+        </Head>
         <Catalog />
         <Header />
         <div className={Mainstyles.page}>

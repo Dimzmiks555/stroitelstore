@@ -38,7 +38,7 @@ import HOST from '../../HOST';
   return (
     <>
     <Head>
-      <title>Ваш заказ успешно создан!</title>
+      <title>Строитель - Ваш заказ успешно создан!</title>
     </Head>
 
     <Catalog />

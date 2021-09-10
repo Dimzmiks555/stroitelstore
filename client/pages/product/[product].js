@@ -7,7 +7,7 @@ import { useRouter} from 'next/router'
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
 import Link from 'next/link'
-
+import Head from 'next/head';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import MobileMenu from '../../components/MobileMenu/MobileMenu';
 import Footer from '../../components/Footer/Footer';
@@ -202,6 +202,11 @@ const Product = observer(({data, group, parent_group}) => {
 
     return (
         <>
+        <Head>
+            <title>СТРОИТЕЛЬ - {data?.title}</title>
+            <meta name="description" content="СТРОИТЕЛЬ - лучший интернет-магазин строительных материалов в городе Лиски! Всегда актуальные цены и остатки!"/>
+            <meta name='keywords' content={`магазин, интернет-магазин, СТРОИТЕЛЬ, строительные материалы, Лиски, Воронежская область, строительный магазин, ${data?.title}  `}></meta>
+        </Head>
         <Catalog />
         <Header />
             {renderThis()}

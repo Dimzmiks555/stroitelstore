@@ -34,7 +34,7 @@ const Index = observer(() => {
   return (
     <>
     <Head>
-      <title>Мои заказы</title>
+      <title>Строитель - Мои заказы</title>
     </Head>
     
     <Catalog />

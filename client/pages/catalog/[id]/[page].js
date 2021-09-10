@@ -4,6 +4,7 @@ import styles from './category.module.css'
 import Catalog from "../../../components/Catalog";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head'
 import { observer } from "mobx-react";
 import { useEffect, useState } from 'react';
 import HOST from '../../../HOST';
@@ -419,6 +420,11 @@ const Category = observer(({mainTitle}) => {
 
     return (
         <>
+        <Head>
+            <title>СТРОИТЕЛЬ - {group?.title}</title>
+            <meta name="description" content="СТРОИТЕЛЬ - лучший интернет-магазин строительных материалов в городе Лиски! Всегда актуальные цены и остатки!"/>
+            <meta name='keywords' content={`магазин, интернет-магазин, СТРОИТЕЛЬ, строительные материалы, Лиски, Воронежская область, строительный магазин, ${group?.title}  `}></meta>
+        </Head>
         <Catalog />
         <Header />
         <div className={Mainstyles.page}>
@@ -562,11 +568,15 @@ const Category = observer(({mainTitle}) => {
 
 
 
-export async function getServerSideProps({ params: { id } }) {
+export async function getServerSideProps({params}) {
         
+
+
+
 
     return {
       props: {
+
       },
     }
   }
