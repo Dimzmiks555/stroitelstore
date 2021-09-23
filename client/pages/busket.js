@@ -4,12 +4,16 @@ import Catalog from "../components/Catalog";
 import Head from 'next/head';
 import { observer } from 'mobx-react';
 import Busket from '../components/Busket/Busket';
+import MobileMenu from '../components/MobileMenu/MobileMenu';
+import Footer from '../components/Footer/Footer';
 
 const Index = observer(() => {
   return (
     <>
     <Head>
-      <title>Корзина</title>
+      <title>СТРОИТЕЛЬ - Корзина</title>
+      <meta name="description" content="СТРОИТЕЛЬ - лучший интернет-магазин строительных материалов в городе Лиски! Всегда актуальные цены и остатки!"/>
+      <meta name='keywords' content="магазин, интернет-магазин, СТРОИТЕЛЬ, строительные материалы, Лиски, Воронежская область, строительный магазин  "></meta>
     </Head>
     
     <Catalog />
@@ -19,6 +23,8 @@ const Index = observer(() => {
         
       </Busket>
     </div>
+    <Footer></Footer>
+    <MobileMenu></MobileMenu>
     </>
   )
 

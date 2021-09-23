@@ -1,7 +1,116 @@
+@media screen and (min-width: 1550px) and (max-width: 1700px) {
+  
+}
+
+@media screen and (min-width: 1370px) and (max-width: 1549px) {
+ 
+}
+
+@media screen and (max-width: 1369px) {
+    
+}
+
+
+/* Portrait tablets and medium desktops */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media screen and (max-width: 767px) {
+
+}
+
+/* Landscape phones and smaller */
+@media screen and (max-width: 480px) {
+    .busket {
+        flex-direction: column;
+    }
+    .busket h1{
+        text-align: center;
+    }
+    .busket_info{
+        width: 100% !important;
+    }
+
+    .busket_item {
+        padding: 20px;
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
+    .good_img {
+        flex-basis: 20% !important
+    }
+    .good_img img{
+        width: 120px;
+        height: 100px;
+        object-fit: scale-down;
+    }
+    .good_title{
+        font-weight: normal;
+        font-size: 16px;
+        flex-basis: 60% !important;
+        width: 80% !important;
+    }
+    .good__counter {
+        margin-top: 20px !important;
+        flex: 0 0 !important;
+        display: flex;
+        margin-right: 20px;
+        align-items: center;
+    }
+
+    .good_total {
+        margin-top: 20px;
+        font-weight: normal;
+        text-align: right;
+        font-size: 24px;
+        min-width: 10%;
+        margin-left: 0px;
+    }
+    .delete__good {
+        margin-top: 20px;
+        margin-left: auto;
+    }
+    .select__item {
+        border-radius: 0 !important;
+        width: 50% !important;
+    }
+    .select__item:first-of-type {
+        border-left: none !important;
+    }
+    .select__item:last-child {
+        border-left: none !important;
+        border-right: none !important ;
+    }
+    .select__item svg {
+        display: none;
+    }
+
+    .select__overview {
+        font-size: 14px !important;
+        padding: 20px !important;
+    }
+    .select__overview p {
+        font-size: 18px !important;
+    }
+    .payment_and_clientdata {
+        flex-direction: column !important;
+    }
+    .payment_and_clientdata > div {
+        width: 100% !important;
+        padding: 20px !important;
+    }
+}
 .busket {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: flex-start;
 }
 .busket h1{
     margin-bottom: 40px;
@@ -47,8 +156,11 @@
 }
 .good_title{
     font-weight: normal;
-    font-size: 20px;
+    font-size: 16px;
     flex: 6 0px; 
+}
+.good_title::first-letter {
+    text-transform: uppercase;
 }
 .good_title:hover{
     color: #d00;
@@ -65,7 +177,9 @@
     border-radius: 10px;
     box-shadow: #ddd 0px 0px 30px;
     padding: 40px;
-    width: 30%;
+    min-width: 24%;
+    width: 100%;
+    flex: 0.83;
 }
 .good_price {
     text-align: right;
@@ -75,15 +189,17 @@
     font-size: 24px;
 }
 .good_total {
+    font-weight: normal;
     text-align: right;
     font-size: 24px;
-    min-width: 7%;
+    min-width: 10%;
     margin-left: 0px;
 }
 .good__counter {
     flex: 0 auto;
     display: flex;
     margin-right: 20px;
+    align-items: center;
 }
 .good__counter input{
     outline: none;
@@ -92,7 +208,6 @@
     text-align: center;
     display: block;
     width: 70px;
-    margin: 0 10px;
     -moz-appearance: textfield;
 }
 .good__counter input::-webkit-inner-spin-button { 
@@ -111,8 +226,8 @@
     padding: 10px;
     border: 1px solid #eee;
     border-radius: 50%;
-    width: 42px;
-    height:42px;
+    width: 32px;
+    height:32px;
 }
 .good__counter button:hover {
     color: #d00;
@@ -130,6 +245,7 @@
     color: #d00;
 }
 .to_pay {
+    font-family: inherit;
     border-radius: 10px;
     font-weight: bold;
     text-transform: uppercase;
@@ -157,16 +273,17 @@
     margin-bottom: 60px;
 }
 .select__item {
+    font-weight: bold;
     font-size: 24px;
     padding: 20px 40px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: 2px solid #ddd;
 	user-select: none;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 80px;
-    width: 45%;
+    height: 100px;
+    width: 49%;
     cursor: pointer;
 }
 .select__item:hover {
@@ -199,9 +316,10 @@
 }
 .select input[type=radio]:checked + .select__item {
     background: rgb(233,2,142);
-background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, rgba(255,0,0,1) 88%);
+    background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, rgba(255,0,0,1) 88%);
     color: #fff;
     border: none;
+    cursor: default;
 }
 .select input[type=radio]:checked + .select__item svg{
     fill: #fff;
@@ -211,38 +329,133 @@ background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, 
 }
 .payment {
     margin-top: 60px;
+    width: 49%;
 }
 .payment__methods {
-    display: flex;
-    justify-content: space-between;
+    display: block;
 }
 .payment__methods .method{
-    font-size: 24px;
-    padding: 20px 40px;
-    border-radius: 25px;
-    border: 2px solid #ddd;
+    font-weight: 600;
+    line-height: 30px;
+    margin-bottom: 20px;
+    margin-left: 40px;
+    position: relative;
+    font-size: 18px;
 	user-select: none;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 80px;
-    width: 45%;
     cursor: pointer;
 }
+.payment__methods .method:before {
+    position: absolute;
+    left: -40px;
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: #eee;
+    border-radius: 50%;
+    box-shadow: #eee 0 0 10px;
+}
 .payment__methods .method:hover{
-    background: #d00;
-    color: #fff;
     border: none;
 }
 .payment input[type=radio] {
     display: none;
 }
-.payment input[type=radio]:checked + .method {
+.payment input[type=radio]:checked + .method:after {
+    position: absolute;
+    top: 7px;
+    left: -33px;
+    content: '';
+    width: 16px;
+    height: 16px;
     background: rgb(233,2,142);
-    background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, rgba(255,0,0,1) 88%);
-    color: #fff;
-    border: none;
+    background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, rgba(255,0,0,1) 88%);   
+    border-radius: 50%;
 }
 .payment input[type=radio]:checked + .method svg{
     fill: #fff;
+}
+.payment_and_clientdata {
+    display: flex;
+    justify-content: space-between;
+}
+.clientdata {
+    width: 47%;
+    margin-top: 60px;
+}
+.clientdata input {
+    padding: 10px 20px;
+    font-size: inherit;
+    font-family: inherit;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    border: #aaa solid 1px;
+    outline: none;
+    height: 50px;
+    width: 100%;
+}
+.clientdata__inputs {
+    display: flex;
+    justify-content: space-between;
+}
+.clientdata__inputs input {
+    width: 45%;
+}
+.clientdata__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.clientdata__title button {
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 34px;
+    color: #c00;
+    padding: 10px 20px;
+    border: 2px solid #c00;
+    background: #fff;
+}
+.clientdata__title button:hover {
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 34px;
+    padding: 10px 20px;
+    color: #fff;
+    border: 2px solid #c00;
+    background: #c00;
+}
+.select__overview .delivery__inputs input {
+    padding: 10px 20px;
+    font-size: inherit;
+    font-family: inherit;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    border: #aaa solid 1px;
+    outline: none;
+    height: 50px;
+    width: 100%;
+}
+.select__overview .delivery__inputs label {
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+.newDelivery__button {
+    background: rgb(233,2,142);
+    background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 50%, rgba(240,0,0,1) 88%);  
+    color: #fff;
+    font-weight: bold;
+    padding: 20px;
+    width: 300px;
+    border: none;
+    font-size: 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all .3s linear;
+}
+.newDelivery__button:hover {
+    background: linear-gradient(45deg, rgba(233,2,142,1) 0%, rgba(251,71,71,1) 00%, rgba(200,0,0,1) 88%);  
 }

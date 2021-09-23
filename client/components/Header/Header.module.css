@@ -1,3 +1,102 @@
+@media screen and (min-width: 1550px) and (max-width: 1700px) {
+    .header {
+        padding: 10px 5% !important;
+    }
+    .menu {
+        padding: 10px 5% !important;
+    }
+}
+
+@media screen and (min-width: 1370px) and (max-width: 1549px) {
+    .header {
+        padding: 10px 5% !important;
+    }
+    .menu {
+        padding: 10px 5% !important;
+    }
+    .underheader_mail {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1369px) {
+    .menu {
+        font-size: 8px !important;
+    }
+    .menu ul {
+        display: none !important;
+    }
+    .underheader_location {
+        font-size: 14px !important;
+    }
+    .underheader_mail {
+        font-size: 14px;
+    }
+    .underheader_phone {
+        font-size: 16px !important;
+    }
+    .logo{
+        width: 240px !important;
+        display: flex;
+        align-items: center;
+    }
+    .logo img {
+        width: 100%;
+    }
+    .catalog__button {
+        font-size: 13px !important;
+    }
+    .cart p {
+        display: none !important;
+    }
+    .cart svg {
+        margin:0 5px 0 2px !important;
+    }
+    .user p {
+        display: none !important;
+    }
+    .user svg {
+        margin:0 4px 0 4px !important;
+    }
+    .header {
+        padding: 10px 10% !important;
+    }
+}
+
+
+/* Portrait tablets and medium desktops */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media screen and (max-width: 767px) {
+
+}
+
+/* Landscape phones and smaller */
+@media screen and (max-width: 480px) {
+    .header {
+        flex-direction: column !important;
+        padding: 10px 0 !important;
+    }
+    .menu {
+        display: none !important;
+    }
+    .userblock {
+        display: none !important;
+    }
+    .catalog__button {
+        display: none !important;
+    }
+}
+
+
 .header {
     background: #fff;
     width: 100%;
@@ -38,50 +137,40 @@
 }
 .user{
     padding: 15px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     margin-left: 20px;
     cursor: pointer;
+    font-weight: bold;
 }
 .cart p {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     height: 32px;
-    color: #fff;
-}
-.cart div {
-    font-weight: bold;
-    color: #fff;
+    color: #333 !important;
 }
 .cart {
     justify-content: center;
-    border-radius: 50%;
+    border-radius: 20px;
     padding: 15px;
     display: flex;
     align-items: center;
     margin-left: 30px;
 }
 .underheader{
-    margin-left: 60px;
     color: #333333;
     font-size: 20px;
-    z-index: 999;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
-.underheader a {
-    text-align: center;
-}
+
 .underheader a:hover {
-    color: #d00;
+    color: #eee;
 
 }
 .underheader a img {
@@ -90,16 +179,18 @@
 }
 .underheader_location {
     font-size: 16px;
-    justify-content: center;
+    color: #fff;
+    width: 320px;
 }
 .underheader_phone {
-    margin-bottom: 10px;
+    text-align: right;
+    width: 300px;
+    color: #fff;
     font-weight: bold;
-    font-size: 26px;
+    font-size: 16px;
 }
 .underheader_mail {
     color: #fff;
-    font-weight: bold;
 }
 .userblock{
     margin-left: auto;
@@ -119,7 +210,6 @@
 .menu ul {
     width: 100%;
     display: flex;
-    color: #fff;
 }
 .menu ul li {
     margin-right: 60px;
@@ -128,23 +218,47 @@
     height: 60px;
 }
 .menu ul li a {
+    color: #fff !important;
     display: block;
+    cursor: pointer;
 }
+.menu ul li a:hover {
+    color: #ddd !important;
+} 
 .cart svg {
     fill: #333;
-    margin-right: 4px;
+    margin-right: 10px;
     height: 30px;
     width: 30px;
 }
 .cart:hover {
     background: #eee;
 }
-
+.cart__icon {
+    position: relative;
+}
 .user svg{
+    margin-right: 10px;
     fill: #333333;
     height: 30px;
     width: 30px;
 }
 .user:hover{
     background: #eee;
+}
+.cart_amount {
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    top: -14px;
+    right: -8px;
+    color: #fff !important;
+    background: #d00;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
 }

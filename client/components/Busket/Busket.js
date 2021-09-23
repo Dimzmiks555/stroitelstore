@@ -3,77 +3,237 @@ import Link from 'next/link'
 import BusketStore from './BusketStore'
 import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react';
-
+import HeaderStore from '../Header/HeaderStore';
+import HOST from '../../HOST';
 
 const Busket = observer(() => {
 
-    let total = null
+    
+
 
     const [delivery, setDelivery] = useState([])
+    const [payment, setPayment] = useState([])
+    const [data, setData] = useState([])
+    const [total, setTotal] = useState(null)
 
-    BusketStore.positions.map((item, index) => {
-        total += item.data?.price * item.count
-    })
+    
+    
 
+    useEffect(() => {
+
+        let IDs = [];
+
+        BusketStore?.positions.forEach(item => {
+            IDs.push(item.guid)
+        })
+
+        console.log(IDs)
+
+        if (IDs[0]) {
+            fetch(`${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json?.rows)
+
+                let total = null
+
+                json?.rows?.map((item, index) => {
+                    total += +item?.prices_and_count?.price * +BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
+                    console.log(total)
+                })
+
+                setTotal(total)
+
+            })
+        }
+
+    }, [BusketStore?.positions])
+
+
+
+
+    if (HeaderStore.userData[0]?.email) {
+        handleClientData('name', HeaderStore.userData[0]?.first_name);
+        handleClientData('surname', HeaderStore.userData[0]?.last_name);
+        handleClientData('phone', HeaderStore.userData[0]?.phone);
+        handleClientData('mail', HeaderStore.userData[0]?.email);
+        handleClientData('customer_id', HeaderStore.userData[0]?.id);
+    }
+
+
+    // if (typeof window !== "undefined") {
+    //     window.addEventListener('scroll', () => {
+    //         if (document.getElementById('totalBlock') !== null) {
+    //             let totalBlock = document.getElementById('totalBlock')
+    //             let y = window.pageYOffset;
+    //                 if (y >= 180 && y <= 720) {
+    //                     totalBlock.style.position = 'fixed';
+    //                     totalBlock.style.top = '0';
+    //                     totalBlock.style.right = '10%';
+    //                     totalBlock.style.width = '24%'
+    //                 } else if (y > 720){
+    //                     totalBlock.style.position = 'fixed';
+    //                     totalBlock.style.bottom = '340px';
+    //                     totalBlock.style.right = '10%';
+    //                     totalBlock.style.width = '24%'
+    //                 }
+    //                 else {
+    //                     totalBlock.style = null;
+    //                 }
+    //         }
+            
+    //     })
+    // } 
     function increment(e) {
-        console.log(e.target.id)
         BusketStore.incrementCount(e.target.id)
+        let IDs = [];
+
+        BusketStore?.positions.forEach(item => {
+            IDs.push(item.guid)
+        })
+
+        console.log(IDs)
+
+        if (IDs[0]) {
+            fetch(`${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json?.rows)
+
+                let total = null
+
+                json?.rows?.map((item, index) => {
+                    total += +item?.prices_and_count?.price * +BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
+                    console.log(total)
+                })
+
+                setTotal(total)
+
+            })
+        }
     }
     function decrement(e) {
         BusketStore.decrementCount(e.target.id)
+        let IDs = [];
+
+        BusketStore?.positions.forEach(item => {
+            IDs.push(item.guid)
+        })
+
+        console.log(IDs)
+
+        if (IDs[0]) {
+            fetch(`${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json?.rows)
+
+                let total = null
+
+                json?.rows?.map((item, index) => {
+                    total += +item?.prices_and_count?.price * +BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
+                    console.log(total)
+                })
+
+                setTotal(total)
+
+            })
+        }
     }
     function handleChange(e) {
         BusketStore.setCount(e.target.id ,e.target.value)
+        
+        let IDs = [];
+
+        BusketStore?.positions.forEach(item => {
+            IDs.push(item.guid)
+        })
+
+        console.log(IDs)
+
+        if (IDs[0]) {
+            fetch(`${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
+            .then(res => res.json())
+            .then(json => {
+                setData(json?.rows)
+
+                let total = null
+
+                json?.rows?.map((item, index) => {
+                    total += +item?.prices_and_count?.price * +BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
+                    console.log(total)
+                })
+
+                setTotal(total)
+
+            })
+        }
     }
     function handleDelete(e) {
-        BusketStore.delete(e.target.id)
+        BusketStore.delete(e.target.id, e.target.value)
+        
     }
     function handleRadio(e) {
-        console.log(e.currentTarget.id)
         setDelivery(e.currentTarget.id)
-        console.log(delivery)
+        BusketStore.setDelivery(e.currentTarget.id)
+    }
+    function handlePayment(e) {
+        setPayment(e.currentTarget.id)
+        BusketStore.setPayment(e.currentTarget.id)
+    }
+    function sendOrder(e) {
+        BusketStore.setOrder()
+    }
+    function handleClientData(id, value) {
+        console.log(id, value)
+        BusketStore.setClientData(id, value)
+    }
+    function handleCreateDelivery(id, value) {
+        BusketStore.createDelivery(id,value)
+    }
+    function addDelivery() {
+        BusketStore.addDelivery()
     }
     return (
         <>
         <div className={styles.busket}>
             <div className={styles.busket_info}>
-                <h1>Заказ</h1>
-                <div className={styles.busket_items}>
-                    {BusketStore.positions.map((item, index) => (
-                        <div key={item.data.id} className={styles.busket_item}>
-                            <Link href={`/product/${item?.data.id}`}>
+                <h1>Корзина</h1>
+                {BusketStore.positions[0] ? (
+                <>
+                    <div className={styles.busket_items}>
+                    {BusketStore?.order?.products?.length != 0 ? data?.map((item, index) => (
+                        <div key={item.guid} className={styles.busket_item}>
+                            <Link href={`/product/${item.guid}`}>
                                 <a className={styles.good_img}>
                                     <div>
-                                        <img src={item?.data.images[0]?.src}></img>
+                                    <img alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </a>
                             </Link>
-                            <Link href={`/product/${item?.data.id}`}>
+                            <Link href={`/product/${item?.guid}`}>
                                 <a className={styles.good_title}>
-                                    {item?.data.name}
+                                    {item?.title}
                                 </a>
                             </Link>
-                            <div className={styles.good_price}>
-                                {Number(item?.data.price).toLocaleString()} ₽
-                            </div>
                             <div className={styles.good__counter}>
-                                <button id={index} onClick={increment}>
+                                <button id={item.guid} onClick={increment}>
                                     +
                                 </button>
-                                <input id={index} value={item.count} onChange={handleChange} type="number">
+                                <input id={item.guid} value={BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count} onChange={handleChange} type="number">
                                 </input>
-                                <button id={index} onClick={decrement}>
+                                <button id={item.guid} onClick={decrement}>
                                     −
                                 </button>
                             </div>
                             <div className={styles.good_total}>
-                                 {(item?.data.price * item.count).toLocaleString()} ₽
+                                 <b>{(item?.prices_and_count.price * BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count).toLocaleString()}</b> ₽
                             </div>
                             <div className={styles.delete__good}>
-                                 <button id={index} onClick={handleDelete}>✖</button>
+                                 <button id={index} value={item?.guid} onClick={handleDelete}>✖</button>
                             </div>
                         </div>
-                    ))}
+                    )) : 'Пусто'}
                     
                 </div>
                 
@@ -128,42 +288,143 @@ const Busket = observer(() => {
                     </div>
                     <div className={styles.select__overview}>
                         <div className="shop_block" style={{display: delivery == 'shop' ? 'block' : 'none'}}>
-                            <p><b>Ваш заказ вы сможете забрать по адресу:</b></p>
-                            <br></br>
-                            <p>Воронежская обл., г. Лиски, ул. Коммунистическая, д. 25</p>
+                            <h2><b>Ваш заказ вы сможете забрать по адресу:</b></h2>
+                            <p><b>Воронежская область</b>, город <b>Лиски</b>, улица <b>Коммунистическая</b>, дом <b>25</b></p>
                         </div>
                         <div className="delivery_block" style={{display: delivery == 'delivery' ? 'block' : 'none'}}>
-                            <h1>Доставка</h1>
+                            <h1>Адрес</h1>
+                            {HeaderStore.userData[0]?.shipping?.city?.length < 1 && HeaderStore.userData[0]?.email ? (
+                                <div className={styles.delivery__inputs}>
+                                    <label for="city">Город</label>
+                                    <input id="city" placeholder="Город" onChange={e => handleCreateDelivery(e.target.id, e.target.value)}></input>
+                                    <label for="street">Улица</label>
+                                    <input id="street" placeholder="Улица" onChange={e => handleCreateDelivery(e.target.id, e.target.value)}></input>
+                                    <label for="house">Дом</label>
+                                    <input id="house" placeholder="Номер дома" onChange={e => handleCreateDelivery(e.target.id, e.target.value)}></input>
+                                    <label for="room">Квартира</label>
+                                    <input id="room" placeholder="Номер квартиры" onChange={e => handleCreateDelivery(e.target.id, e.target.value)}></input>
+                                    <button className={styles.newDelivery__button} onClick={addDelivery}>Сохранить</button>
+                                </div>
+                            ) : HeaderStore.userData[0]?.shipping?.address_1?.length > 1  && HeaderStore.userData[0]?.email ? (
+                                <div className={styles.delivery__inputs}>
+                                    <p>Город <b>{HeaderStore.userData[0]?.shipping?.city}</b>, {HeaderStore.userData[0]?.shipping?.address_1}</p>
+                                </div>
+                            ) : (
+                                <div className={styles.delivery__inputs}>
+                                    <label for="city">Город</label>
+                                    <input id="city" placeholder="Город" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                    <label for="street">Улица</label>
+                                    <input id="street" placeholder="Улица" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                    <label for="house">Дом</label>
+                                    <input id="house" placeholder="Номер дома" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                    <label for="room">Квартира</label>
+                                    <input id="room" placeholder="Номер квартиры" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
-                <div className={styles.payment}>
-                    <h1>Способ оплаты</h1>
-                    <div className={styles.payment__methods}>
-                        
-                        <input id="nal" type="radio" name="payment" ></input>
-                        <label className={styles.method} for="nal">
-                            Наличными
-                        </label>
-                        <input id="card" type="radio" name="payment" ></input>
-                        <label className={styles.method} for="card">
-                            Картой
-                        </label>
+                <div className={styles.payment_and_clientdata}>
+                    <div className={styles.payment}>
+                        <h1>Способ оплаты</h1>
+                        <div className={styles.payment__methods}>
+                            <input id="nal" type="radio" name="payment" onClick={e => {handlePayment(e)}} ></input>
+                            <label className={styles.method} for="nal" >
+                                Наличными или картой при получении
+                            </label>
+                            {/* <input id="card" type="radio" name="payment" onClick={e => {handlePayment(e)}}></input>
+                            <label className={styles.method} for="card">
+                                Банковской картой онлайн
+                            </label> */}
+                        </div>
                     </div>
+                    {HeaderStore.is_Auth ? (
+                        <div className={styles.clientdata}>
+                            <div className={styles.clientdata__title}>
+                                <h1>Ваши данные</h1>
+                            </div>
+                            <div className={styles.clientdata__inputs}>
+                                <h3>{HeaderStore.userData.name} {HeaderStore.userData.surname}</h3>
+                            </div>
+                            <div>
+                                <h3>{HeaderStore.userData.email}</h3>
+                            </div>
+                            <div>
+                                <h3>{HeaderStore.userData.phone}</h3>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className={styles.clientdata}>
+                            <div className={styles.clientdata__title}>
+                                <h1>Ваши данные</h1>
+                                <Link href="login">
+                                    <button>Войти</button>
+                                </Link>
+                            </div>
+                            <div className={styles.clientdata__inputs}>
+                                <input id="name" placeholder="Имя" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                <input id="surname" placeholder="Фамилия" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                            </div>
+                            <div>
+                                <input id="phone" placeholder="Номер телефона" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                            </div>
+                            <div>
+                                <input id="mail" placeholder="Электронная почта (не обязательно)" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                            </div>
+                        </div>
+                    )}
                 </div>
+                </>) : (<h2>В корзине пока ничего нет</h2>)}
+                
             </div>
-            <div className={styles.busket_mainblock}>
+            {BusketStore.positions[0] ? (
+            <div className={styles.busket_mainblock} id='totalBlock'>
                 <div>
-                    <h2>Итого <span>{total?.toLocaleString()} ₽</span></h2>
+                    <h2>Итого <span>{total?.toLocaleString()} <i>₽</i></span></h2>
                     <h3>Всего позиций <span>{BusketStore.positions.length}</span></h3>
                     <h3>Способ доставки <span>{delivery == 'delivery' ? 'Доставка' : delivery == 'shop' ? 'Самовывоз' : 'Не выбран'}</span></h3>
-                    <h3>Адрес <span>{delivery == 'delivery' ? 'Не указан' : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}</span></h3>
-                    <h3>Способ оплаты <span>Наличными</span></h3>
+                    {
+                        HeaderStore.userData[0]?.email ? (
+                            <h3>Адрес 
+                                <span>
+                                    {delivery == 'delivery' ?
+                                    `г. ${HeaderStore.userData[0]?.shipping.city}, ${HeaderStore.userData[0]?.shipping.address_1}` 
+                                    : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}
+                                </span>
+                            </h3>
+                        ) : (
+                            <h3>Адрес 
+                                <span>
+                                    {delivery == 'delivery' ?
+                                    `г. ${BusketStore.order.address.city}, ул. ${BusketStore.order.address.street}, д. ${BusketStore.order.address.house}, кв. ${BusketStore.order.address.room}` 
+                                    : delivery == 'shop' ? ' г. Лиски, ул. Коммунистическая, д. 25' : 'Не указан'}
+                                </span>
+                            </h3>
+                        )
+                    }
+                    <h3>Способ оплаты <span>{payment == 'nal' ? 'Наличными' : payment == 'card' ? 'Картой' : 'Не указан'}</span></h3>
                 </div>
-                <div>
-                    <button className={styles.to_pay}>Оплатить заказ</button>
-                </div>
-            </div>
+                {
+                    HeaderStore.userData?.phone ? (
+                        <div>
+                            { delivery != '' &&
+                            payment!= '' ?
+                                <button className={styles.to_pay} onClick={sendOrder}>Заказать</button> :
+                                <button className={styles.to_pay} style={{background: '#ccc', cursor: 'default'}}>Заказать</button>}
+                        </div>
+                    ) : (
+                        <div>
+                            { delivery != '' &&
+                            payment!= '' &&
+                            BusketStore.order.clientData.phone != ''  &&
+                            BusketStore.order.clientData.name != ''  &&
+                            BusketStore.order.clientData.surname != '' ?
+                                <button className={styles.to_pay} onClick={sendOrder}>Заказать</button> :
+                                <button className={styles.to_pay} style={{background: '#ccc', cursor: 'default'}}>Заказать</button>}
+                        </div>
+                    )
+                }
+            </div>) : null}
         </div>
         </>
     )

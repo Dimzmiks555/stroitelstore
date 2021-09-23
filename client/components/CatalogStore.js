@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx"
 import { enableStaticRendering } from "mobx-react";
+import CatalogItemsStore from './Catalog/CatalogItemsStore.js'
 enableStaticRendering(typeof window === "undefined");
 class CatalogStore {
 
@@ -9,307 +10,69 @@ class CatalogStore {
             {   
                 board: '/catalog/img/metiz.jpg',
                 category: 'Крепеж',
+                id: '0fb5fdea-35ed-11eb-9395-18c04d2a3938',
                 url: '/catalog/screw.svg',
-                subcats: [
-                    {
-                        name: 'Болты',
-                        route: 'bolts'
-                    },
-                    {
-                        name: 'Саморезы',
-                        route: 'screws'
-                    },
-                    {
-                        name: 'Шайбы',
-                        route: 'shims'
-                    },
-                ]
+                
             },
             {
                 board: '/catalog/img/doors.jpg',
                 category: 'Двери, напольные покрытия',
                 url: '/catalog/door.svg',
-                subcats: [
-                    {
-                        name: 'Арки',
-                        route: 'arcs',
-                        id: 27
-                    },
-                    {
-                        name: 'Входные двери',
-                        route: 'enterdoors',
-                        id: 17
-                    },
-                    {
-                        name: 'Линолеум',
-                        route: 'linoleum',
-                        id: 23
-                    },
-                    {
-                        name: 'Доборы дверные',
-                        route: 'door_dobors',
-                        id: 28
-                    },
-                    {
-                        name: 'Капители',
-                        route: 'kapitels',
-                        id: 29
-                    },
-                    {
-                        name: 'Компл. для плинтусов',
-                        route: 'compl_for_plint',
-                        id: 24
-                    },
-                    {
-                        name: 'Компл. для подоконников',
-                        route: 'compl_for_podokonnik',
-                        id: 32
-                    },
-                    {
-                        name: 'Коробки дверные',
-                        route: 'door_box',
-                        id: 18
-                    },
-                    {
-                        name: 'Ламинат',
-                        route: 'laminat',
-                        id: 21
-                    },
-                    {
-                        name: 'Межкомнатные двери',
-                        route: 'interdoors',
-                        id: 26
-                    },
-                    {
-                        name: 'Наличники дверные',
-                        route: 'nalichniki',
-                        id: 19
-                    },
-                    {
-                        name: 'Плинтус',
-                        route: 'plintus',
-                        id: 20
-                    },
-                    {
-                        name: 'Погонаж',
-                        route: 'pogonazh',
-                        id: 31
-                    },
-                    {
-                        name: 'Подоконники',
-                        route: 'podokonnik',
-                        id: 22
-                    },
-                    {
-                        name: 'Пороги и углы',
-                        route: 'porogi',
-                        id: 25
-                    },
-                    {
-                        name: 'Раздвижные системы',
-                        route: 'razdvig_system',
-                        id: 30
-                    },
-                ]
+                id: '2cf30f47-3ecb-11eb-93a4-18c04d2a3938',
             },
             {
                 board: '/catalog/img/e-tool.jpg',
                 category: 'Электроинструмент',
+                id: '3aa745ce-385b-11eb-9399-18c04d2a3938',
                 url: '/catalog/drill.svg',
-                subcats: [
-                    {
-                        name: 'Дрели',
-                        route: 'bolts'
-                    },
-                    {
-                        name: 'Перфораторы',
-                        route: 'screws'
-                    },
-                    {
-                        name: 'Бензопилы',
-                        route: 'shims'
-                    },
-                ]
             },
             {
                 board: '/catalog/img/m-tool.jpg',
                 category: 'Ручной инструмент',
                 url: '/catalog/hammer.svg',
-                subcats: [
-                    {
-                        name: 'Молотки',
-                        route: 'bolts'
-                    },
-                    {
-                        name: 'Отвертки',
-                        route: 'screws'
-                    },
-                    {
-                        name: 'Плоскогубцы',
-                        route: 'shims'
-                    },
-                ]
+                id: '3aa745cf-385b-11eb-9399-18c04d2a3938',
             },
             {
                 board: '/catalog/img/paint.jpg',
                 category: 'Краски и малярный инструмент',
                 url: '/catalog/paint-bucket.svg',
-                subcats: [
-                    {
-                        name: 'Краски ПФ-115',
-                        route: 'bolts'
-                    },
-                    {
-                        name: 'Аэрозольные краски',
-                        route: 'screws'
-                    },
-                    {
-                        name: 'Грунт-эмали',
-                        route: 'shims'
-                    },
-                ]
+                id: 'ee3fc6c2-3854-11eb-9399-18c04d2a3938',
             },
             {
                 board: '/catalog/img/cement.jpg',
                 category: 'Сухие смеси',
+                id: '49c9eb8c-3f93-11eb-93a5-18c04d2a3938',
                 url: '/catalog/cement.svg',
-                subcats: [
-                    {
-                        name: 'Штукатурка',
-                        route: 'shtukaturka',
-                        id: 39
-                    },
-                    {
-                        name: 'Шпаклевка',
-                        route: 'spaklevka_smesi',
-                        id: 40
-                    },
-                    {
-                        name: 'Цемент',
-                        route: 'cement',
-                        id: 38
-                    },
-                    {
-                        name: 'Клей для плитки',
-                        route: 'glue_plitka',
-                        id: 37
-                    },
-                    {
-                        name: 'Клей для газоблоков',
-                        route: 'glue_gazoblock',
-                        id: 42
-                    },
-                    {
-                        name: 'Известь',
-                        route: 'izvest',
-                        id: 41
-                    },
-                    {
-                        name: 'Затирки',
-                        route: 'zatirki',
-                        id: 36
-                    },
-                    {
-                        name: 'Алебастр',
-                        route: 'alebastr',
-                        id: 35
-                    },
-                ]
             },
             {
                 board: '/catalog/img/garden.jpg',
                 category: 'Хозяйственный инвентарь',
                 url: '/catalog/garden.svg',
-                subcats: [
-                    {
-                        name: 'Тачки',
-                        route: 'bolts'
-                    },
-                    {
-                        name: 'Грабли',
-                        route: 'screws'
-                    },
-                    {
-                        name: 'Лопаты',
-                        route: 'shims'
-                    },
-                ]
+                id: '3aa745d8-385b-11eb-9399-18c04d2a3938',
             },
             {
                 board: '/catalog/img/sealant.jpg',
                 category: 'Клеи, герметики, пены',
                 url: '/catalog/sealant-gun.svg',
-                subcats: [
-                    {
-                        name: 'Клеи',
-                        route: 'bolts'
-                    },
-                    {
-                        name: 'Герметики',
-                        route: 'screws'
-                    },
-                    {
-                        name: 'Пены монтажные',
-                        route: 'shims'
-                    },
-                ]
+                id: '3aa745cc-385b-11eb-9399-18c04d2a3938',
             },
             {
                 board: '/catalog/img/lock.jpg',
-                category: 'Замочно-скобяные изделия',
+                category: 'Дверная фурнитура',
                 url: '/catalog/lock.svg',
-                subcats: [
-                    {
-                        name: 'Замки',
-                        route: 'bolts'
-                    },
-                    {
-                        name: 'Петли',
-                        route: 'screws'
-                    },
-                    {
-                        name: 'Задвижки',
-                        route: 'shims'
-                    },
-                ]
+                id: '2cf30f48-3ecb-11eb-93a4-18c04d2a3938',
             },
             {
                 board: '/catalog/img/osnastka.jpg',
                 category: 'Оснастка и расх. материалы',
                 url: '/catalog/saw.svg',
-                subcats: [
-                    {
-                        name: 'Замки',
-                        route: 'bolts'
-                    },
-                    {
-                        name: 'Петли',
-                        route: 'screws'
-                    },
-                    {
-                        name: 'Задвижки',
-                        route: 'shims'
-                    },
-                ]
+                id: '3aa745d0-385b-11eb-9399-18c04d2a3938',
             },
             {
                 board: '/catalog/img/roof.jpg',
                 category: 'Кровельные материалы',
                 url: '/catalog/roof.svg',
-                subcats: [
-                    {
-                        name: 'Замки',
-                        route: 'bolts'
-                    },
-                    {
-                        name: 'Петли',
-                        route: 'screws'
-                    },
-                    {
-                        name: 'Задвижки',
-                        route: 'shims'
-                    },
-                ]
+                id: '53b60c08-41f1-11eb-93a8-18c04d2a3938',
             }
         ]
     }
@@ -319,6 +82,7 @@ class CatalogStore {
     }
     AppendCatalog() {
         this.props.display = 'block';
+        CatalogItemsStore.getData(this.props.categories[0].id, this.props.categories[0].board)
     }
     HideCatalog() {
         this.props.display = 'none';

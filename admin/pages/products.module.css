@@ -1,0 +1,71 @@
+.header {
+    margin-bottom: 40px;
+}
+.pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+.pagination ul {
+    display: flex;
+}
+.pagination li a {
+    margin-left: 10px;
+    min-width: 50px;
+    padding: 5px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+.pagination li a:hover {
+    background: #d00;
+    border: 1px solid #d00;
+    color: white
+}
+
+.attributes {
+    display: flex;
+    justify-content: space-between;
+}
+.attributes > div {
+    width: 48%;
+}
+
+.attributes label {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.attributes input {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.attributes select {
+    padding: 6px 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.attributes button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+.filters label {
+    margin-bottom: 10px;
+}
+.products_table a:hover {
+    color: #d00;
+}
+.product_img {
+    height: 100px;
+    width: 100px;
+    object-fit: scale-down;
+}

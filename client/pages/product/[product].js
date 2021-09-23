@@ -6,19 +6,25 @@ import ProductStore from '../../components/Product/productStore'
 import { useRouter} from 'next/router'
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
+import Link from 'next/link'
+import Head from 'next/head';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import MobileMenu from '../../components/MobileMenu/MobileMenu';
 import Footer from '../../components/Footer/Footer';
 import BusketStore from '../../components/Busket/BusketStore';
-
-const Product = observer(() => {
+import HOST from '../../HOST';
+const Product = observer(({data, group, parent_group}) => {
     
     const [added, setAdded] = useState(false);
     const router = useRouter(); 
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
     const [counter_value, setCV] = useState([1]);
     const [isLoading, setLoading] = useState([true]);
+    // const [parentGroup, setParentGroup] = useState({})
+    // const [group, setGroup] = useState({})
 
     function handleClick(e) {
+        console.log(e.target.id)
         BusketStore.AddPosition(e.target.id, counter_value)
         setAdded(true);
         
@@ -42,11 +48,11 @@ const Product = observer(() => {
         }
     }
 
-
+   
 
     let product_id = router.query.product;
     useEffect(() => {
-        let filter = BusketStore.positions.findIndex(item => item.data.id == product_id)
+        let filter = BusketStore.positions.findIndex(item => item.guid == product_id)
         if (filter == -1) {
             setAdded(false)
             setCV(1)
@@ -55,28 +61,35 @@ const Product = observer(() => {
             setCV(BusketStore.positions[filter].count)
         }
         async function getData(id){
-            setLoading(true)
-            setData([]) 
-            const api = new WooCommerceRestApi({
-                url: "http://admin.stroitelstore.ru/",
-                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-                version: "wc/v3"
-                });
-            await api.get(`products/${id}`)
-                .then( result => {
-                        setData(result.data);
-                        setLoading(false)
-                    }
-                )
-            
+            // setLoading(true)
+            // setData([]) 
+            // fetch(`${HOST.host}/api/products/${id}`)
+            // .then(result => result.json())
+            // .then(json => {
+            //     console.log(json[0])
+            //     setData(json[0]);
+            //     setLoading(false)
+            //     setGroup(json[0]?.group)
+
+            //     let parent_id = json[0]?.group?.parent_group
+
+            //     fetch(`${HOST.host}/api/groups`)
+            //     .then(res => res.json())
+            //     .then(json => {
+            //         let group = json?.rows?.filter(item => item.guid == parent_id)[0]
+            //         setParentGroup(group)
+            //     })
+
+            // })
         }
+
+        
         
         if (product_id != undefined) {  
             getData(product_id);
         }
 
-    }, [product_id]);
+    }, [product_id, data]);
 
 
     function renderThis() {
@@ -97,16 +110,24 @@ const Product = observer(() => {
                     </a>
                     <div className={styles.product}>
                         <div className={styles.product__overview}>
-                            <div className={styles.product__overview_img}>
-                                <img src={data?.images ? data?.images[0]?.src : null}></img>
+                            <div className={styles.product__overview_img} id="product__overview_img">
+                                <img alt="" src={`${HOST.host}/uploads/${data?.images?.length > 0 ? data?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                {/* <div className={styles.gallery}>
+                                    {
+                                        data?.images?.map(image => (
+                                            <img alt="" src={`http://${HOST.host}/uploads/${image?.url}`}></img>
+                                        ))
+                                    }
+                                </div> */}
                             </div>
-                            <div className={styles.product__overview_info}>
+                            <div className={styles.product__overview_info} id="product__overview_info">
+                            <div className={styles.breadcrumbs}><Link href='/categories'><a>Каталог</a></Link> / <Link href={`/categories/${parent_group?.guid}`}><a>{parent_group?.title}</a></Link> / <Link href={`/catalog/${group?.guid}/1`}><a>{group?.title}</a></Link> </div>
                                 <div className={styles.product__overview_title}>
-                                    <h1>{data?.name}</h1>
-                                    <h4>Артикул: {data?.sku}</h4>
+                                    <h1>{data?.title}</h1>
+                                    <h4>Артикул: {data?.prices_and_count?.sku}</h4>
                                 </div>
                                 <div className={styles.product__overview_price}>
-                                    {data.price ? (<p><span>{Number(data?.price).toLocaleString()}</span> ₽ / шт.</p>) : <p>Цена по запросу</p>} 
+                                    {data?.prices_and_count?.price ? (<p><span>{(+data?.prices_and_count?.price).toLocaleString()}</span> ₽ / шт.</p>) : <p>Цена по запросу</p>} 
                                 </div>
                                 <div className={styles.product__to_cart__block}>
                                     <div className={styles.product__counter}>
@@ -119,35 +140,60 @@ const Product = observer(() => {
                                             −
                                         </button>
                                     </div>
-                                    {
+                                    {  
+                                         data?.prices_and_count?.amount == 0 ? (
+                                            <div className={styles.product__overview_cart}>
+                                                <button id={data?.guid} style={{background: '#aaa'}} >
+                                                    Под заказ
+                                                </button>
+                                            </div>
+                                        ) :
                                         added === false ? (
                                             <div className={styles.product__overview_cart}>
-                                                <button id={data?.id} onClick={e => {handleClick(e)}}>
+                                                <button id={data?.guid} onClick={e => {handleClick(e)}}>
                                                     В корзину
                                                 </button>
                                             </div>
-                                        ) : (
+                                        ) :  (
                                             <div className={styles.product__overview_cart_added} disabled>
-                                                <button id={data?.id} onClick={e => {handleClick(e)}}>
+                                                <button id={data?.guid} onClick={e => {handleClick(e)}}>
                                                     Добавлено
                                                 </button>
                                             </div>
                                         )
                                     }
                                 </div>
-                                
+                                <div className={styles.product__infoblock}>
+                                    <div className={styles.product__description}>
+                                        <h2>
+                                            Характеристики
+                                        </h2>
+                                        
+                                        <div className={styles.attributes}>
+                                            {
+                                                data?.filter_1?.length > 0 ? data?.filter_1?.map(item => (
+                                                    <div className={styles.attribute}>
+                                                        <div>
+                                                            {item?.attribute?.title}
+                                                        </div>
+                                                        <div>
+                                                            {item?.value}
+                                                        </div>
+                                                    </div>
+                                                )) : 'Характеристики отсутствуют'
+                                            }
+                                        </div>
+
+                                        <h2>
+                                            Описание
+                                        </h2>
+                                        <div>{data?.desc?.text ? data?.desc?.text : 'Описание отсутствует.'}</div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className={styles.product__infoblock}>
-                            <div className={styles.product__description}>
-                                <h2>
-                                    Описание
-                                </h2>
-                                <p>
-                                    Рекомендуется для работ по сложным основаниям: старым плиточным покрытиям, нагреваемым поверхностям и пр. Предназначен для наружной облицовки зданий выше цокольной части, плиточных работ во внутренних помещениях с нормальной и повышенной влажностью; для ванных комнат, балконов и террас.
-                                </p>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             )
@@ -156,12 +202,47 @@ const Product = observer(() => {
 
     return (
         <>
+        <Head>
+            <title>СТРОИТЕЛЬ - {data?.title}</title>
+            <meta name="description" content="СТРОИТЕЛЬ - лучший интернет-магазин строительных материалов в городе Лиски! Всегда актуальные цены и остатки!"/>
+            <meta name='keywords' content={`магазин, интернет-магазин, СТРОИТЕЛЬ, строительные материалы, Лиски, Воронежская область, строительный магазин, ${data?.title}  `}></meta>
+        </Head>
         <Catalog />
         <Header />
             {renderThis()}
         <Footer />
+    <MobileMenu></MobileMenu>
         </>
     )
 }) 
 
 export default Product  
+
+
+
+export async function getServerSideProps({params}) {
+
+    const result = await fetch(`${HOST.host}/api/products/${params?.product}`);
+    let json = await result.json();
+
+    let data = json[0]
+
+    let group = json[0]?.group
+
+    let parent_id = json[0]?.group?.parent_group
+
+
+    const groups = await fetch(`${HOST.host}/api/groups`);
+    
+    const grjson = await groups.json();
+    let parent_group = grjson?.rows?.filter(item => item.guid == parent_id)[0]
+
+
+    return {
+        props: {
+            data, group, parent_group
+        }
+    }
+
+    
+}

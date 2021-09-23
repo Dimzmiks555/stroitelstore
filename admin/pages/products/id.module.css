@@ -1,0 +1,154 @@
+.product {
+    display:flex;
+    justify-content: space-between;
+
+}
+.main_info {
+    width: 48%
+}
+.additional_info {
+    width: 50%
+}
+.header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.header label {
+    margin-bottom: 10px;
+}
+.header input {
+    padding: 10px;
+}
+.header select {
+    padding: 10px;
+}
+.header button {
+    padding: 10px 20px;
+}
+.images_block input {
+    margin-bottom: 10px;
+}
+
+.images_block_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.images_block_header button {
+    height: 50px;
+    width: 240px;
+}
+
+.drop_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 200px;
+    width: 400px;
+    border: 1px dashed #000;
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.drop_area:hover {
+    background: #fdd;
+}
+
+.drop_area input {
+    cursor: pointer;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 400px;
+    height: 200px;
+}
+
+.additional_info textarea {
+    width: 100%;
+    resize: none;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 16px;
+    height: 400px;
+}
+
+.desc__block button{
+    margin-bottom: 20px;
+    padding: 10px 30px;
+}
+
+.back {
+    padding: 10px 30px;
+    background: #d00;
+    font-weight: bold;
+    border: none;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.back:hover {
+    background: #d50;
+}
+
+
+.gallery {
+    margin-bottom: 40px;
+}
+
+.gallery img {
+    border: 1px solid #ccc;
+    height: 160px;
+    max-width: 160px;
+    object-fit: scale-down;
+}
+
+.main_img {
+    border: 3px solid #d00 !important;
+}
+
+
+
+.main_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.group {
+    padding: 10px 30px;
+    border: 2px solid #d00;
+    font-weight: bold;
+    color: #d00;
+    border-radius: 10px;
+}
+
+.additional_info > .id {
+    padding: 10px 30px;
+    border: 2px solid #333;
+    font-weight: bold;
+    color: #333;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+
+.attribute {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+.attribute input {
+    padding: 10px 14px;
+}
+.attribute button {
+    padding: 10px 14px;
+    min-width: 200px;
+}

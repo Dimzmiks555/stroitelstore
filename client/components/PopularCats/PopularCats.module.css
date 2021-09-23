@@ -1,0 +1,121 @@
+
+@media screen and (min-width: 1200px) and (max-width: 1370px) {
+    .popular__block p {
+        font-size: 32px !important;
+    }
+    .popular__block img {
+        height: 160px !important;
+    }
+    .popular__wrapper > div .popular__block img {
+        height: 80px !important;
+    }
+    .popular__wrapper > div .popular__block p {
+        font-size: 18px !important;
+        margin-top: 20px;
+    }
+}
+
+/* Portrait tablets and medium desktops */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media screen and (max-width: 767px) {
+
+}
+
+/* Landscape phones and smaller */
+@media screen and (max-width: 480px) {
+
+    .popular__wrapper {
+        flex-direction: column !important;
+    }
+    .popular__wrapper > div {
+        width: 90% !important;
+    }
+    .popular__block p {
+        margin-left: 20px;
+        font-size: 24px !important;
+    }
+    .popular h2 {
+        font-size: 24px !important;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .popular__block {
+    
+        margin-bottom: 20px;
+        cursor: pointer;    
+        border-radius: 10px;
+        box-shadow:  0 10px 20px #ddd;
+        padding: 20px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center !important;
+    }
+    .popular__wrapper > div {
+        text-align: center;
+    }
+    .popular__wrapper > div .popular__block img {
+        height: 60px !important;
+    }
+    .popular__wrapper > div .popular__block p {
+        font-size: 18px !important;
+        margin-top: 20px;
+        margin-left: 0 !important;
+    }
+}
+
+
+.popular h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+.popular__wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    align-items: center;
+}
+.popular__wrapper > div {
+    width: 49%;
+}
+.popular__wrapper > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.popular__wrapper > div .popular__block {
+    width: 48%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.popular__block {
+    margin-bottom: 20px;
+    cursor: pointer;    
+    border-radius: 10px;
+    box-shadow:  0 10px 20px #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.popular__block:hover {
+    background: #f8f8f8;
+
+}
+.popular__wrapper > div .popular__block img {
+    height: 100px;
+}
+.popular__wrapper > div .popular__block p {
+    font-size: 20px;
+    margin-top: 20px;
+}

@@ -1,0 +1,41 @@
+.completed_order_blocks {
+    display: flex;
+    justify-content: space-between;
+}
+.completed_order_block {
+    width: 47%;
+}
+.completed_order_block h1 {
+    margin-bottom: 10px;
+}
+.completed_order_block h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.completed_order_block ul {
+    margin-top: 10px;
+}
+.completed_order_block hr {
+    margin-top: 16px;
+    border: 1px solid #d00;
+}
+.completed_order_block ul li {
+    margin-top: 10px;
+}
+.completed_order_block table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.completed_order_block td{
+    padding: 10px 20px;
+}
+.completed_order_block button {
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top: 40px;
+    padding: 20px;
+    border: none;
+    background: #c00;
+    color: #fff;
+    font-size: 18px;
+}

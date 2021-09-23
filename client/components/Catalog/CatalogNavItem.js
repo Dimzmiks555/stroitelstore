@@ -1,12 +1,18 @@
 import { observer } from "mobx-react";
 import styles from '../Catalog.module.css'
 import CatalogItemsStore from './CatalogItemsStore'
+
 const CatalogNavItem = observer(({category}) => {
 
-    
+
+
     function SetCategory(e) {
-        CatalogItemsStore.SetCategory(category)
+        console.log(category?.id)
+        CatalogItemsStore.getData(category?.id, category.board)
     }
+
+    
+
 
     return (
         <div className={styles.catalog__nav_item} onMouseEnter={SetCategory}>

@@ -1,33 +1,39 @@
 import { makeAutoObservable } from "mobx"
-import { enableStaticRendering } from "mobx-react";
-enableStaticRendering(typeof window === "undefined");
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import { useState } from "react";
+import HOST from '../../HOST';
 class CatalogItemsStore {
 
-    props = {
-        board: '/catalog/img/metiz.jpg',
-        category: 'Крепеж',
-        url: '/catalog/screw.svg',
-        subcats: [
-            {
-                name: 'Болты',
-                route: 'bolts'
-            },
-            {
-                name: 'Саморезы',
-                route: 'screws'
-            },
-            {
-                name: 'Шайбы',
-                route: 'shims'
-            },
-        ]
-        }
+    props = []
+    promise = 'pending'
 
     constructor() {
         makeAutoObservable(this);
     }
     SetCategory(category) {
         this.props = category;
+        console.log(this.promise)
+    }
+    setPending(value) {
+        this.promise = value 
+    }
+    async getData(parent, board){
+        if (parent) {
+            
+            fetch(`${HOST.host}/api/groups?parent_group=${parent}`)
+            .then(res => res.json())
+            .then(json => {
+                this.props = ({data: json.rows, board: board});
+                this.promise = 'done';
+                
+                console.log(json)
+            })
+
+        } else {
+            this.props = ({data: [], board: board})
+        }
+            
+            
     }
 }
 

@@ -4,13 +4,19 @@ import {observer} from "mobx-react";
 import {useState, useEffect} from 'react'
 import Link from 'next/link';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import { useRouter } from 'next/router';
+import HOST from '../../HOST';
+
 
 const Search = observer(() => {
+    const router = useRouter()
     const [display, setDisplay] = useState('none')
     const [value, setValue] = useState('')
     const [data, setData] = useState([]);
     const [catData, setCatData] = useState([]);
     const [isLoading, setLoading] = useState([true]);
+    
+
     
     function handleChange(e) {
         function Set() {
@@ -19,13 +25,17 @@ const Search = observer(() => {
                     return e.target.value
                 });
             } else {
+                setDisplay('block');
                 setValue(null)
             }
         }
+        setDisplay('block');
         Set()
     }
     function handleFocus(e) {
-        setDisplay('block');
+            if (value != '' && value != null) {
+                setDisplay('block');
+            }
     }
     function handleBlur(e) {
         if (!e.currentTarget.contains(e.relatedTarget)) {
@@ -38,88 +48,24 @@ const Search = observer(() => {
         setValue('')
         CatalogStore.HideCatalog()
     }
-     async function getData(text){
-
-            const api = new WooCommerceRestApi({
-                url: "http://admin.stroitelstore.ru/",
-                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-                version: "wc/v3"
-                });
-
-            if (text == '' || text == null) {
-                setData(prevState => {
-                    return []
-                })
-            } else {
-                await api.get("products", {
-                    per_page: 10,
-                    search: text// 18 products per page
-                })
-                .then( result => {
-                        setData(prevState => {
-                            return prevState.result.data
-                        });
-                        setLoading(false)
-                    }
-                );
-
-                await api.get("products/categories", {
-                    per_page: 10,
-                    search: text// 18 products per page
-                })
-                .then( result => {
-                        setCatData(prevState => {
-                            console.log(prevState)
-                            console.log(result.data)
-                            return prevState.result.data
-                        });
-                        setLoading(false)
-                    }
-                    )
-                }
-                
-            }
+    function handleSearchPage(e) {
+        router.push(`/search/${value}/1`)
+    }
+     
             
     useEffect(() => {
         setLoading(true)
         async function getData(text){
 
-            const api = new WooCommerceRestApi({
-                url: "http://admin.stroitelstore.ru/",
-                consumerKey: "ck_f3179856b9f88fc14315e11fd4c231397f53759e",
-                consumerSecret: "cs_51824080e7aea0de3cec00f7f409f4d1a67e881d",
-                version: "wc/v3"
-                });
 
             if (text == '' || text == null) {
                 setData([])
             } else {
-                await api.get("products", {
-                    per_page: 10,
-                    search: text// 18 products per page
-                })
-                .then( result => {
-                        setData(prevState => {
-                            return result.data
-                        });
-                        setLoading(false)
-                    }
-                );
+                
+                fetch(`${HOST.host}/api/products?search=${text}`)
+                .then(res => res.json())
+                .then(json => setData(json))
 
-                await api.get("products/categories", {
-                    per_page: 10,
-                    search: text// 18 products per page
-                })
-                .then( result => {
-                        setCatData(prevState => {
-                            console.log(prevState)
-                            console.log(result.data)
-                            return result.data
-                        });
-                        setLoading(false)
-                    }
-                    )
                 }
                 
             }
@@ -130,18 +76,21 @@ const Search = observer(() => {
             getData(value);
         } else {
             setData([])
-            setCatData([])
+            // setCatData([])
         }
 
 
     }, [value]);
 
     return (
-        <div className={styles.search__box} onBlur={e => {handleBlur(e)}} onFocus={handleFocus} >
-            <input className={styles.search} placeholder="Поиск..." value={value} onChange={e => {handleChange(e)}} ></input>
+        <div className={styles.search__box} onBlur={e => {handleBlur(e)}} >
+            <div className={styles.search__tool} onFocus={handleFocus} >
+                <input className={styles.search} placeholder="Поиск..." value={value} onChange={e => {handleChange(e)}} ></input>
+                <button onClick={e => handleSearchPage(e)}>Найти</button>
+            </div>
             <div className={styles.result} style={{display: display}}>
                 {value != null ? catData.map(item => (
-                    item.parent != 0 ? (<Link href={`/catalog/${item.id}`}>
+                    item.parent != 0 ? (<Link href={`/catalog/${item.guid}`}>
                             
                     <a className={styles.result__item} onClick={handleClick}>
                         <div className={styles.result__cat_item_title}>
@@ -151,16 +100,16 @@ const Search = observer(() => {
                     
                     </Link>) : null
                 )) : null}
-                {value != null ? data.map(item => (
+                {value != null ? data?.rows?.map(item => (
                     
-                    <Link href={`/product/${item.id}`}>
+                    <Link href={`/product/${item.guid}`}>
                             
                     <a className={styles.result__item} onClick={handleClick}>
                         <div className={styles.result__item_title}>
-                            {item.name}
+                            {item.title}
                         </div>
                         <div className={styles.result__item_price}>
-                            {item.price} ₽
+                            {item?.prices_and_count?.price} ₽
                         </div>
                     </a>
                     
