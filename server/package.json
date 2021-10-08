@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bookshelf": "^1.2.0",
+    "bootstrap": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.95.10",
@@ -24,6 +25,7 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "python": "0.0.4",
+    "react-bootstrap": "^2.0.0-rc.0",
     "request": "^2.88.2",
     "sequelize": "^6.6.5",
     "xml-js": "^1.6.11",

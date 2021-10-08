@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import styles from './products.module.css'
-
+import {Input, Button, Table} from 'react-bootstrap';
 import HOST from '../HOST.js'
  export default function Groups() {
 
@@ -51,7 +51,7 @@ import HOST from '../HOST.js'
              <div className={styles.header}>
                 Всего групп: {data?.count}
             </div>
-            <table>
+            <Table bordered>
                 <thead>
                     <tr>
                         <td>
@@ -87,7 +87,7 @@ import HOST from '../HOST.js'
                         ))
                     }
                 </tbody>
-            </table>
+            </Table>
 
 
          </Layout>

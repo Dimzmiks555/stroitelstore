@@ -3,7 +3,7 @@ import Layout from "../../components/Layout";
 import styles from './id.module.css'
 import { useRouter} from 'next/router'
 import HOST from "../../HOST.js";
-
+import {Input, Button} from 'react-bootstrap';
 
  export default function Products() {
 
@@ -171,9 +171,9 @@ import HOST from "../../HOST.js";
                 <div className={styles.main_info}>
                     
                     <div className={styles.main_header}>
-                        <button className={styles.back} onClick={handleBack}>
+                        <Button variant='danger' onClick={handleBack}>
                             Назад
-                        </button>
+                        </Button>
                         <div className={styles.group}>
                             <span>{data[0]?.group?.title}</span>
                         </div>

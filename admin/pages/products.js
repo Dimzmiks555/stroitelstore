@@ -3,6 +3,8 @@ import router from "next/router";
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import styles from './products.module.css'
+import {Input, Button, Table} from 'react-bootstrap';
+import {Select} from 'react-bootstrap/Form';
 import HOST from '../HOST.js'
 
  export default function Products() {
@@ -63,20 +65,22 @@ import HOST from '../HOST.js'
                 Всего продуктов: {data?.count}
             </div>
             <div className={styles.filters}>
-                <label>
-                    Группа
-                </label>
-                <select onChange={handleSelect}>
-                    {
-                        groups?.map(item => (
-                            <option value={item?.guid}>
-                                {item.title}
-                            </option>
-                        ))
-                    }
-                </select>
+                {/* <Form> */}
+                    <label>
+                        Группа
+                    </label>
+                    <Select onChange={handleSelect}>
+                        {
+                            groups?.map(item => (
+                                <option value={item?.guid}>
+                                    {item.title}
+                                </option>
+                            ))
+                        }
+                    </Select>
+                {/* </Form> */}
             </div>
-            <table className={styles.products_table}>
+            <Table  bordered hover>
                 <thead>
                     <tr>
                         <td>
@@ -133,7 +137,7 @@ import HOST from '../HOST.js'
                         ))
                     }
                 </tbody>
-            </table>
+            </Table>
 
             <div className={styles.pagination}>
                 <ul>
