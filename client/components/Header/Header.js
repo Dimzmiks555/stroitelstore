@@ -101,9 +101,9 @@ const Header = observer(() => {
                 <a className={styles.underheader_location} href="https://yandex.ru/maps/10678/lisky/house/kommunisticheskaya_ulitsa_25/Z0AYcwdjS0wPQFtqfXV5dX5jZg==/?ll=39.503298%2C50.984202&utm_source=main_stripe_big&z=16.56">г. Лиски, ул. Коммунистическая, д. 25</a>
 
             </div>
-            <div className={styles.underheader_mail}>stroitel.office@gmail.com</div>
+            <div className={styles.underheader_mail}>stroitelstore@mail.ru</div>
             
-            <div className={styles.underheader_phone}>+7 (900) 300-13-12</div>
+            <div className={styles.underheader_phone}>+7 (919) 242-13-12</div>
         </div>
         <div className={styles.header}>
             <div className={styles.logo}  onClick={e => {handleClickLogo(e)}}>
