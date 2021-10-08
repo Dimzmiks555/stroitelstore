@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import HeaderStore from '../../components/Header/HeaderStore';
 import MobileMenu from '../../components/MobileMenu/MobileMenu';
 import HOST from '../../HOST';
+import Link from 'next/link'
  const Completed_Order = observer(() => {
 
 
@@ -60,9 +61,11 @@ import HOST from '../../HOST';
             <li>Способ выдачи: {data?.type == 'shop' ? 'Самовывоз' : 'Доставка' }</li>
             <li>Адрес: {data?.address}</li>
           </ul>
-          <button>
-              Вернуться к покупкам
-          </button>
+          <Link href="/">
+              <button>
+                  Вернуться к покупкам
+              </button>
+          </Link>
         </div>
         <div className={styles.completed_order_block}> 
             <div>

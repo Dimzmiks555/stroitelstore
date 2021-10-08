@@ -31,11 +31,13 @@
 }
 .completed_order_block button {
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 50px;
     margin-top: 40px;
-    padding: 20px;
+    font-weight: 600;
+    padding: 20px 40px;
     border: none;
-    background: #c00;
+    background: #d00;
     color: #fff;
     font-size: 18px;
+    box-shadow: 0 20px 50px #d66;
 }
