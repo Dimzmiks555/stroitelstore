@@ -4,6 +4,8 @@ import Layout from "../components/Layout";
 import styles from './products.module.css'
 
 import HOST from '../HOST.js'
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Box, TextField, FormControl, InputLabel, Select, MenuItem, Autocomplete, Button } from "@mui/material";
+// import { Box } from "@mui/system";
 
  export default function Attributes() {
 
@@ -11,6 +13,7 @@ import HOST from '../HOST.js'
     const [groups, setGroups] = useState([])
     const [attrValue, setAttrValue] = useState([])
     const [groupID, setGroupID] = useState([])
+    const [options, setOptions] = useState([])
 
     function fetchData(page) {
         fetch(`http://${HOST.host}/api/attributes`)
@@ -27,7 +30,13 @@ import HOST from '../HOST.js'
         .then(res => res.json())
         .then(json => {
             setGroups(json.rows)
-            console.log(json)
+
+            let opts = json.rows?.map(item => {
+                return {label: item?.title, id: item?.guid}
+            })
+            setOptions(opts)
+
+            console.log(opts)
         })
     }
 
@@ -77,28 +86,48 @@ import HOST from '../HOST.js'
 
                     <h2>Создать атрибут</h2>
 
-                    <form onSubmit={handleSubmit}>
-                        <label>
-                            Название
-                        </label>
-                        <input value={attrValue} onChange={handleAttrValue}>
-                        </input>
-                        <label>
-                            Группа
-                        </label>
-                        <select value={groupID} onChange={handleSelect}>
-                            {
-                                groups?.map(item => (
-                                    <option value={item.guid}>{item.title}</option>
-                                ))
-                            }
-                        </select>
+                    <Box component='form' onSubmit={handleSubmit} sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between'
+                    }} >
+                        <TextField 
+                            label='Название'
+                            value={attrValue}
+                            onChange={handleAttrValue}
+                        />
+                        {/* <FormControl fullWidth>
+                            <InputLabel id="group">Группа</InputLabel>
+                            <Select 
+                                autoWidth
+                                labelId="group"
+                                id="demo-simple-select"
+                                value={groupID}
+                                label="Группа"
+                                onChange={handleSelect}
+                            >
+                                {
+                                    groups?.map(item => (
+                                        <MenuItem value={item.guid}>{item.title}</MenuItem>
+                                    ))
+                                }
+                                <MenuItem value={10}>Ten</MenuItem>
+                                <MenuItem value={20}>Twenty</MenuItem>
+                                <MenuItem value={30}>Thirty</MenuItem>
+                            </Select>
+                        </FormControl> */}
 
-                        <button>
+                        <Autocomplete
+                            options={options}
+                            disablePortal
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="Группа" />}
+                        />
+
+                        <Button variant="contained">
                             Создать
-                        </button>
+                        </Button>
 
-                    </form>
+                    </Box>
 
 
 
@@ -107,38 +136,42 @@ import HOST from '../HOST.js'
                     <div className={styles.header}>
                         Всего атрибутов: {data?.count}
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>
-                                    ID
-                                </td>
-                                <td>
-                                    Название
-                                </td>
-                                <td>
-                                    Группа
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                data?.rows?.map(item => (
-                                    <tr>
-                                        <td>
-                                            {item.id}
-                                        </td>
-                                        <td>
-                                            {item.title}
-                                        </td>
-                                        <td>
-                                            {item.group?.title}
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
+                    <Paper sx={{ width: '100%', mb: 2 }}>
+                        <TableContainer>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>
+                                            ID
+                                        </TableCell>
+                                        <TableCell>
+                                            Название
+                                        </TableCell>
+                                        <TableCell>
+                                            Группа
+                                        </TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {
+                                        data?.rows?.map(item => (
+                                            <TableRow>
+                                                <TableCell>
+                                                    {item.id}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {item.title}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {item.group?.title}
+                                                </TableCell>
+                                            </TableRow>
+                                        ))
+                                    }
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Paper>
                  </div>
              </div>
 

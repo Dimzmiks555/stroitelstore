@@ -1,7 +1,7 @@
 .header {
     margin-bottom: 40px;
 }
-.pagination {
+/* .pagination {
     margin-top: 30px;
     display: flex;
     justify-content: flex-end;
@@ -24,7 +24,7 @@
     background: #d00;
     border: 1px solid #d00;
     color: white
-}
+} */
 
 .attributes {
     display: flex;
@@ -34,38 +34,42 @@
     width: 48%;
 }
 
-.attributes label {
+/* .attributes label {
     margin-bottom: 10px;
     font-size: 20px;
-}
-.attributes input {
+} */
+/* .attributes input {
     padding: 10px 20px;
     margin-bottom: 20px;
     font-size: 16px;
-}
-.attributes select {
+} */
+/* .attributes select {
     padding: 6px 10px;
     margin-bottom: 20px;
     font-size: 16px;
-}
-.attributes button {
+} */
+/* .attributes button {
     margin-top: 20px;
     padding: 10px 20px;
     margin-bottom: 20px;
     font-size: 16px;
-}
+} */
 
 .filters {
     margin-bottom: 20px;
+    display: flex;
 }
-.filters label {
+.filters > div {
+    margin-right: 20px;
+}
+/* .filters label {
     margin-bottom: 10px;
-}
+} */
 .products_table a:hover {
     color: #d00;
 }
 .product_img {
-    height: 100px;
-    width: 100px;
+    height: 40px;
+    width: 40px;
     object-fit: scale-down;
 }

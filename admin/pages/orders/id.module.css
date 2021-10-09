@@ -1,4 +1,4 @@
-.product {
+.order {
     display:flex;
     justify-content: space-between;
 
@@ -116,6 +116,7 @@
 
 .main_header {
     display: flex;
+    align-items: start;
     justify-content: space-between;
     margin-bottom: 40px;
 }
@@ -154,8 +155,8 @@
 } */
 
 
-
-.actions {
+.buttons {
+    margin-top: 40px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
 }

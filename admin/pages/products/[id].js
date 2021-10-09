@@ -3,7 +3,8 @@ import Layout from "../../components/Layout";
 import styles from './id.module.css'
 import { useRouter} from 'next/router'
 import HOST from "../../HOST.js";
-import {Input, Button} from 'react-bootstrap';
+import {Button, TextField} from '@mui/material'
+
 
  export default function Products() {
 
@@ -171,7 +172,7 @@ import {Input, Button} from 'react-bootstrap';
                 <div className={styles.main_info}>
                     
                     <div className={styles.main_header}>
-                        <Button variant='danger' onClick={handleBack}>
+                        <Button variant='outlined' onClick={handleBack}>
                             Назад
                         </Button>
                         <div className={styles.group}>
@@ -240,21 +241,25 @@ import {Input, Button} from 'react-bootstrap';
                                         <div>
                                             {attributes?.filter(attr => {return attr?.attr_id == item?.id})[0]?.value}
                                         </div>
+                                        <div className={styles.actions}>
+                                            <Button variant='outlined' id={item?.id} >
+                                                Изменить
+                                            </Button>
+                                            <Button variant='text' color='error' id={item?.id} >
+                                                Удалить
+                                            </Button>
+                                        </div>
                                     </div>
                                 ) : (
                                     <div className={styles.attribute} key={item?.id}>
                                         
                                         {console.log(attributes, attributeList, 'YES')}
+                                    
+                                        <TextField label={item?.title} id={item?.id} value={newAttr[`attr_${item?.id}`]} onChange={handleInput}></TextField>
                                         <div>
-                                            <label>
-                                                {item?.title}
-                                            </label>
-                                        </div>
-                                        <input id={item?.id} value={newAttr[`attr_${item?.id}`]} onChange={handleInput}></input>
-                                        <div>
-                                            <button id={item?.id}  onClick={handleSubmit}>
+                                            <Button variant='contained' id={item?.id}  onClick={handleSubmit}>
                                                 Добавить
-                                            </button>
+                                            </Button>
                                         </div>
                                     </div>
                                 )
