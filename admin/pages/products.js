@@ -77,6 +77,13 @@ import Text from "antd/lib/typography/Text";
         setSelected([])
     }
 
+    function handleAttribute(e) {
+        
+        
+
+
+    }
+
     function handleCheckBox(e, id) {
 
         let newSelected = [];
@@ -133,7 +140,7 @@ import Text from "antd/lib/typography/Text";
                 (selected?.length > 0 && group_id != null && group_id != undefined) && (
                     <div className={styles.filters}>
                         <Autocomplete
-                            // onChange={(e, value) => {handleSelect(value)}}
+                            onChange={(e, value) => {handleAttribute(value)}}
                             options={attrOpt}
                             disablePortal
                             sx={{ width: 300 }}
