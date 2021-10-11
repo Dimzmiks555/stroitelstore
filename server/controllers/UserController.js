@@ -2,6 +2,20 @@ import UserService from "../services/UserService.js";
 
 class UserController {
 
+    async getAll(req, res) {
+        try {
+            await UserService.getAll(req.query, data => {
+                res.send(data)
+            });
+            res.status(200)
+
+        } catch (e) {
+            // console.log(e);
+            res.status(500).json(e)
+        }
+    }
+
+
     async registration(req, res) {
         try {
             let token = await UserService.registration(req.body);

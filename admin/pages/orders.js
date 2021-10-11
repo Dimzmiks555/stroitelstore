@@ -171,7 +171,14 @@ import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Autoc
                                                 {item?.payment == 'nal' ? "Наличные" : "Карта"}
                                             </TableCell>
                                             <TableCell>
-                                                {item?.status == 'waiting' ? (<Chip color='default' label='На рассмотрении'></Chip>) : null}
+                                                {
+                                                item?.status == 'waiting' ? (<Chip color='default' label='На рассмотрении'></Chip>)  :
+                                                item?.status == 'ready' ? (<Chip color='info' label='Готов к выдаче'></Chip>) : 
+                                                item?.status == 'complete' ? (<Chip color='success' label='Выполнен'></Chip>) :
+                                                item?.status == 'cancel' ? (<Chip color='error' label='Отменен'></Chip>) : 
+                                                item?.status == 'work' ? (<Chip color='warning' label='В работе'></Chip>) : 
+                                                null
+                                                }
                                             </TableCell>
                                             <TableCell>
                                                 {item?.total}

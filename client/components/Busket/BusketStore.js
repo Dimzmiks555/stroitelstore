@@ -235,10 +235,24 @@ class BusketStore {
                 body: JSON.stringify(data)
             })
             .then(res => res.json())
-            .then(json => {
-                  localStorage.removeItem('positions')
-                  console.log(json)
-                  window.location.href = `/completed_order/${json?.id}`
+            .then(order => {
+
+                if(HeaderStore?.is_Auth) {
+                    fetch(`https://smsc.ru/sys/send.php?login=masnagetto&psw=19Lipo82&phones=${HeaderStore?.userData?.phone}&mes=${HeaderStore?.userData?.name}, Ваш заказ № ${order?.id} на сумму ${data.data.total} руб. успешно создан! Ожидайте, в ближайшее время с Вами свяжется менеджер.`)
+                    .then(res => {
+                        console.log(res)
+                        localStorage.removeItem('positions')
+                        console.log(json)
+                        window.location.href = `/completed_order/${order?.id}`
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        localStorage.removeItem('positions')
+                        console.log(json)
+                        window.location.href = `/completed_order/${order?.id}`
+                    })
+                }
+
             })
 
         })

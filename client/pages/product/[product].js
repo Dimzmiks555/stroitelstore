@@ -17,7 +17,7 @@ const Product = observer(({data, group, parent_group}) => {
     
     const [added, setAdded] = useState(false);
     const router = useRouter(); 
-    // const [data, setData] = useState([]);
+    const [image, setImage] = useState('');
     const [counter_value, setCV] = useState([1]);
     const [isLoading, setLoading] = useState([true]);
     // const [parentGroup, setParentGroup] = useState({})
@@ -60,6 +60,9 @@ const Product = observer(({data, group, parent_group}) => {
             setAdded(true)
             setCV(BusketStore.positions[filter].count)
         }
+
+        setImage(data?.images?.length > 0 ? data?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg')
+
         async function getData(id){
             // setLoading(true)
             // setData([]) 
@@ -92,6 +95,11 @@ const Product = observer(({data, group, parent_group}) => {
     }, [product_id, data]);
 
 
+    function handleHover(e) {
+        setImage(e)
+    }
+
+
     function renderThis() {
         if (isLoading == true) {
             return (
@@ -111,14 +119,20 @@ const Product = observer(({data, group, parent_group}) => {
                     <div className={styles.product}>
                         <div className={styles.product__overview}>
                             <div className={styles.product__overview_img} id="product__overview_img">
-                                <img alt="" src={`${HOST.host}/uploads/${data?.images?.length > 0 ? data?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
-                                {/* <div className={styles.gallery}>
-                                    {
-                                        data?.images?.map(image => (
-                                            <img alt="" src={`http://${HOST.host}/uploads/${image?.url}`}></img>
-                                        ))
-                                    }
-                                </div> */}
+                                <div className={styles.product__overview_main_img}>
+                                    <img alt="" src={`${HOST.host}/uploads/${data?.images?.length > 0 ? image : 'empty.jpeg'}`}></img>
+                                </div>
+                                {
+                                    data?.images?.length > 0 && (
+                                        <div className={styles.gallery}>
+                                            {
+                                                data?.images?.map(image => (
+                                                    <img alt="" onMouseEnter={e => handleHover(image?.url)} src={`${HOST.host}/uploads/${image?.url}`}></img>
+                                                ))
+                                            }
+                                        </div>
+                                    )
+                                }
                             </div>
                             <div className={styles.product__overview_info} id="product__overview_info">
                             <div className={styles.breadcrumbs}><Link href='/categories'><a>Каталог</a></Link> / <Link href={`/categories/${parent_group?.guid}`}><a>{parent_group?.title}</a></Link> / <Link href={`/catalog/${group?.guid}/1`}><a>{group?.title}</a></Link> </div>

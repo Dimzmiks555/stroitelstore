@@ -2,9 +2,9 @@ import Layout from "../components/Layout";
 
  export default function Home() {
      return (
-         <Layout>
+         <Layout title='Главная'>
              <div>
-                Дом
+                Хиты
             </div>
          </Layout>
      )

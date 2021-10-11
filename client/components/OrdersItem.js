@@ -24,7 +24,15 @@ export default function OrdersItem({data}) {
             <div className={styles.header}>
                 <div>
                     <div className={styles.order_info}>
-                        <p>Заказ № {data?.id} от {new Date(data?.createdAt).toLocaleDateString()} {new Date(data?.createdAt).toLocaleTimeString()}{data?.status == 'waiting' ? (<span className={styles.waiting}>На рассмотрении</span>) : null}</p>
+                        <p>Заказ № {data?.id} от {new Date(data?.createdAt).toLocaleDateString()} {new Date(data?.createdAt).toLocaleTimeString()}
+                        {
+                            data?.status == 'waiting' ? (<span className={styles.waiting}>На рассмотрении</span>) :
+                            data?.status == 'work' ? (<span className={styles.work}>В работе</span>) :
+                            data?.status == 'cancel' ? (<span className={styles.cancel}>Отменен</span>) :
+                            data?.status == 'complete' ? (<span className={styles.completed}>Завершен</span>) :
+                            data?.status == 'ready' ? (<span className={styles.ready}>Готов к выдаче</span>) :
+                            null
+                        }</p>
                     </div>
                     <div>
                         {data?.type == 'shop' ? 'Самовывоз' : 'Доставка'} по адресу {data?.address}

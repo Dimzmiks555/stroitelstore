@@ -132,6 +132,21 @@ class UserService {
 
     }
 
+    async getAll(query ,result) {
+
+        
+        UserModel.findAll()
+        .then(res => {
+            result(res)
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+
+    }
+
 }
 
 

@@ -55,6 +55,11 @@ router.post('/descriptions/', DescController.create);
 router.post('/orders/', OrderController.create);
 router.get('/orders/:id', OrderController.getOne);
 router.get('/orders/', OrderController.getAll);
+router.post('/orders/:id', OrderController.update);
+
+
+router.get('/users/', UserController.getAll);
+
 
 // AUTHORIZATION
 

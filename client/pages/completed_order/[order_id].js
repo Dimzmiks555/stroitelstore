@@ -57,7 +57,6 @@ import Link from 'next/link'
           <h2>Детали заказа</h2>
           <ul>
             <li>Номер телефона: {HeaderStore.userData.phone}</li>
-            <li>Электронная почта: {HeaderStore.userData.email}</li>
             <li>Способ выдачи: {data?.type == 'shop' ? 'Самовывоз' : 'Доставка' }</li>
             <li>Адрес: {data?.address}</li>
           </ul>

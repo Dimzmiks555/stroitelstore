@@ -40,6 +40,21 @@ class OrderController {
             res.status(500).json(e)
         }
     }
+
+    async update(req, res) {
+        try {
+            console.log(req.body)
+            console.log(req.params.id)
+            await OrderService.update(req.params.id, req.body, (result) => {
+                res.json(result)
+            });
+            res.status(200)
+
+        } catch (e) {
+            // console.log(e);
+            res.status(500).json(e)
+        }
+    }
 }
 
 

@@ -87,6 +87,8 @@ class OrderService {
         let query = {}
 
         if (user_id) query.user_id = user_id
+
+        
      
         OrderModel.findAndCountAll({
             include: [
@@ -103,7 +105,10 @@ class OrderService {
                 },
                 
             ],
-            where: query
+            where: query,
+            order: [['createdAt', 'DESC']]
+                
+            
         })
         .then(res => {
             result(res)
@@ -128,6 +133,20 @@ class OrderService {
                 },
                 
             ],
+            where: {id: params}
+        })
+        .then(res => {
+            result(res)
+            console.log(res)
+        })
+     
+
+    }
+
+
+    async update(params, data , result) {
+
+        OrderModel.update({status: data?.status}, {
             where: {id: params}
         })
         .then(res => {

@@ -17,7 +17,7 @@ import {Button, TableContainer, TextField, Table, TableHead, TableBody, TableRow
     const [attributeList, setAttributeList] = useState([])
 
     const [file, setFile] = useState(null)
-    const [fileName, setFileName] = useState(null)
+    const [users, setUsers] = useState([])
 
     const [newAttr, setNewAttr] = useState({})
 
@@ -29,6 +29,15 @@ import {Button, TableContainer, TextField, Table, TableHead, TableBody, TableRow
         .then(res => res.json())
         .then(json => {
             setData(json)
+            console.log(json)
+        })
+    }
+
+    function fetchUsers() {
+        fetch(`http://${HOST.host}/api/users/`)
+        .then(res => res.json())
+        .then(json => {
+            setUsers(json)
             console.log(json)
         })
     }
@@ -98,52 +107,21 @@ import {Button, TableContainer, TextField, Table, TableHead, TableBody, TableRow
         }
     }
 
-    function handleImage(e) {
-        e.preventDefault()
-        console.log(file)
 
-        const fdata = new FormData();
-        fdata.append('file', file);
-        fdata.append('name', router.query.id);
 
-        console.log(data )
-
-        if(data[0]?.images.length > 0 ) {
-            fdata.append('main', 'false');
-        } else {
-            fdata.append('main', 'true');
-        }
-
-        console.log(fdata.body)
-        
-        fetch(`http://${HOST.host}/api/upload`, {
-            method: 'POST',
-            body: fdata,
-        })
-        .then(res => {
-            console.log(res);
-            window.location.reload();
-        })
-
-        
-
+    function handleBack() {
+        router.back()
     }
 
-    function handleImageInput(e) {
-        setFile(e.target.files[0]);
-        setFileName(e.target.value)
-    }
-
-
-    function handleTextArea(e) {
-
+    function handleStatus(e) {
 
         let data = {
-            good_id: router.query.id,
-            text: textarea.trim()
+            status: e.target.id
         }
 
-        fetch(`http://${HOST.host}/api/descriptions`, {
+        console.log(data)
+
+        fetch(`http://${HOST.host}/api/orders/${router.query.id}`, {
             method: 'POST',
             headers: {
                 "Accept" : "application/json",
@@ -151,11 +129,10 @@ import {Button, TableContainer, TextField, Table, TableHead, TableBody, TableRow
             },
             body: JSON.stringify(data)
         })
-
-    }
-
-    function handleBack() {
-        router.back()
+        .then(res => res.json())
+        .then(data => {
+            router.reload()
+        })
     }
 
     useEffect(() => { 
@@ -163,6 +140,7 @@ import {Button, TableContainer, TextField, Table, TableHead, TableBody, TableRow
         fetchAttributes(router.query.id)
         fetchAttributeList(data[0]?.group_id)
         fetchDesc(router.query.id)
+        fetchUsers()
     }, [ router.query.id, data[0]?.group_id])
 
 
@@ -176,7 +154,14 @@ import {Button, TableContainer, TextField, Table, TableHead, TableBody, TableRow
                         <Button variant='outlined' onClick={handleBack}>
                             Назад
                         </Button>
-                        <Chip color='default' label='На рассмотрении'></Chip>
+                        {
+                        data?.status == 'waiting' ? (<Chip color='default' label='На рассмотрении'></Chip>)  :
+                        data?.status == 'ready' ? (<Chip color='info' label='Готов к выдаче'></Chip>) : 
+                        data?.status == 'complete' ? (<Chip color='success' label='Выполнен'></Chip>) :
+                        data?.status == 'cancel' ? (<Chip color='error' label='Отменен'></Chip>) : 
+                        data?.status == 'work' ? (<Chip color='warning' label='В работе'></Chip>) : 
+                        null
+                        }
                     </div>
                     {
                         data ? (
@@ -192,13 +177,33 @@ import {Button, TableContainer, TextField, Table, TableHead, TableBody, TableRow
                         Действия
                     </Divider>
                     <div className={styles.buttons}>
-                        <Button variant='contained' size="large">
-                            Подтвердить
+                        <Button id='work' variant='contained' color='warning' size="large" onClick={handleStatus}>
+                            В работу
                         </Button>
-                        <Button variant='contained' color='success' size="large" >
-                            Готово
-                        </Button>
-                        <Button variant='text' color='error' size="large" >
+                        
+                        {
+                            data?.status == 'work' ? (
+                                <Button id='ready' variant='contained' color='info' size="large" onClick={handleStatus} >
+                                    Готов к выдаче
+                                </Button>
+                            ) : (
+                                <Button id='complete'disabled variant='contained' color='success' size="large">
+                                    Готов к выдаче
+                                </Button>
+                            )
+                        }
+                        {
+                            data?.status == 'ready' ? (
+                                <Button id='complete' variant='contained' color='success' size="large" onClick={handleStatus} >
+                                    Выполнен
+                                </Button>
+                            ) : (
+                                <Button id='complete'disabled variant='contained' color='success' size="large">
+                                    Выполнен
+                                </Button>
+                            )
+                        }
+                        <Button id='cancel' variant='text' color='error' size="large" onClick={handleStatus} >
                             Отменить
                         </Button>
                     </div>
