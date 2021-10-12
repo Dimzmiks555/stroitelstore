@@ -45,16 +45,16 @@ import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper
     }
 
     function handleSelect(e) {
-        setGroupID(e.target.value)
+        setGroupID(e.id)
     }
 
     
     function handleSubmit(e) {
 
         console.log({
-                    group_id: groupID,
-                    title: attrValue
-                })
+            group_id: groupID,
+            title: attrValue
+        })
 
         fetch(`http://${HOST.host}/api/attributes`, {
             method: 'POST',
@@ -86,7 +86,7 @@ import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper
 
                     <h2>Создать атрибут</h2>
 
-                    <Box component='form' onSubmit={handleSubmit} sx={{
+                    <Box component='form' sx={{
                         display: 'flex',
                         justifyContent: 'space-between'
                     }} >
@@ -119,11 +119,12 @@ import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper
                         <Autocomplete
                             options={options}
                             disablePortal
+                            onChange={(e, newValue) => handleSelect(newValue)}
                             sx={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="Группа" />}
                         />
 
-                        <Button variant="contained">
+                        <Button onClick={handleSubmit} variant="contained">
                             Создать
                         </Button>
 

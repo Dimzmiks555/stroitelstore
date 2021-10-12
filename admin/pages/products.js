@@ -189,9 +189,9 @@ import StarIcon from '@mui/icons-material/Star';
             }
             <Paper variant='outlined'>
                 <TableContainer>
-                    <Table size='small'>
+                    <Table hover size='small'>
                         <TableHead>
-                            <TableRow>
+                            <TableRow >
                                 <TableCell padding="checkbox">
                                     <Checkbox
                                     color="primary"
@@ -233,7 +233,7 @@ import StarIcon from '@mui/icons-material/Star';
                         <TableBody>
                             {
                                 data?.rows?.map(item => (
-                                    <TableRow role="checkbox">
+                                    <TableRow hover role="checkbox">
                                         <TableCell padding="checkbox">
                                             <Checkbox
                                             color="primary"

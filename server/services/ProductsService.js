@@ -155,11 +155,11 @@ class ProductsService {
             console.log(filters[0])
 
             options = {
+                limit, 
+                offset,
                 nest: true,
                 distinct:true, 
                 where: query,
-                limit, 
-                offset,
                 include: [
                     ...filters,
                     {
@@ -181,11 +181,11 @@ class ProductsService {
             
         } else {
             options = {
+                limit, 
+                offset,
                 nest: true,
                 distinct:true, 
                 where: query,
-                limit, 
-                offset,
                 include: [
                     {
                         model: GoodsAttributeModel, 
