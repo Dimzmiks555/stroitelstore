@@ -9,6 +9,7 @@ import Offers from '../components/Offers/Offers';
 import Footer from '../components/Footer/Footer';
 import PopularCats from '../components/PopularCats/PopularCats';
 import MobileMenu from '../components/MobileMenu/MobileMenu';
+import Hits from '../components/Hits/Hits';
 
 
 const Index = observer(() => {
@@ -27,6 +28,7 @@ const Index = observer(() => {
       <Banner />
       <PopularCats>
       </PopularCats>
+      <Hits/>
       <NewGoods />
       <Offers />
     </div>

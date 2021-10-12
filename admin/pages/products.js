@@ -5,7 +5,7 @@ import styles from './products.module.css'
 import {  Table, TableContainer , FormGroup, FormControlLabel, Checkbox, TableHead, TableRow, TableCell,Button, TableBody, TablePagination, Autocomplete, TextField, InputBase, Paper, Chip } from '@mui/material';
 // import { DataGrid } from '@mui/x-data-grid';
 import HOST from '../HOST.js'
-import Text from "antd/lib/typography/Text";
+import StarIcon from '@mui/icons-material/Star';
 
  export default function Products() {
 
@@ -17,6 +17,8 @@ import Text from "antd/lib/typography/Text";
     const [groupOpt, setGroupOpt] = useState([])
     const [attrOpt, setAttrOpt] = useState([])
     const [attributeList, setAttributeList] = useState([])
+    const [selectedAttr, setselectedAttr] = useState(null)
+    const [newAttrValue, setNewAttrValue]  = useState('')
 
 
     function fetchData(page, group_id) {
@@ -79,7 +81,7 @@ import Text from "antd/lib/typography/Text";
 
     function handleAttribute(e) {
         
-        
+        setselectedAttr(e)
 
 
     }
@@ -106,6 +108,39 @@ import Text from "antd/lib/typography/Text";
 
         setSelected(newSelected)
 
+
+    }
+
+    function handleCreateValue(e) {
+
+
+
+
+        let body = []
+
+        selected?.forEach(item => {
+            body.push({
+                good_id: item,
+                value: newAttrValue,
+                attr_id: selectedAttr?.id
+            })
+        })
+
+        fetch(`http://${HOST.host}/api/goods_attributes/bulk`, {
+            method: 'POST',
+            headers: {
+                "Accept" : "application/json",
+                "Content-type" : "application/json"
+            },
+            body: JSON.stringify(body)
+        })
+        .then(res => res.json())
+        .then(json => {
+            window.location.reload()
+        })
+
+
+        console.log(body)
 
     }
 
@@ -142,12 +177,13 @@ import Text from "antd/lib/typography/Text";
                         <Autocomplete
                             onChange={(e, value) => {handleAttribute(value)}}
                             options={attrOpt}
+                            value={selectedAttr}
                             disablePortal
                             sx={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="Атрибут" />}
                         />
-                        <TextField label='Значение'></TextField>
-                        <Button variant='contained'>Добавить аттрибут</Button>
+                        <TextField value={newAttrValue} onChange={e => {setNewAttrValue(e.target.value)}} label='Значение'></TextField>
+                        <Button onClick={handleCreateValue} variant='contained'>Добавить аттрибут</Button>
                     </div>
                 )
             }
@@ -164,6 +200,9 @@ import Text from "antd/lib/typography/Text";
                                     //     'aria-labelledby': labelId,
                                     // }}
                                     />
+                                </TableCell>
+                                <TableCell>
+                                    Хит
                                 </TableCell>
                                 <TableCell>
                                     Изображение
@@ -204,6 +243,10 @@ import Text from "antd/lib/typography/Text";
                                             //     'aria-labelledby': labelId,
                                             // }}
                                             />
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.hits?.[0]?.hit && <StarIcon></StarIcon>}
+                                            
                                         </TableCell>
                                         <TableCell>
                                             <img className={styles.product_img} alt="" src={`http://${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>

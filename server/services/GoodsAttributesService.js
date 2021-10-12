@@ -19,6 +19,19 @@ class GoodsAttributesService {
 
     }
 
+    async createBulk(data) {
+        
+
+
+        GoodsAttributeModel.bulkCreate(data)
+        .then(goods => {
+            console.log(goods)
+            // result(goods)
+        }).catch(err=>console.log(err));
+
+
+    }
+
     async getAll(params ,result) {
         
         let {good_id, group_id, group} = params

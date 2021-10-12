@@ -3,7 +3,8 @@
 
 import mysql from 'mysql2'
 import Sequelize from "sequelize";
-import { GroupModel, GoodModel, PricesAndCountsModel, GoodsAttributeModel, AttributeModel, DescModel, ImageModel } from '../models/models.js';
+import { GroupModel, GoodModel, PricesAndCountsModel, GoodsAttributeModel, AttributeModel, DescModel, ImageModel, HitModel } from '../models/models.js';
+import HitsService from './HitsService.js';
  
 
 const sequelize = new Sequelize("1c_base", "root", "root", {
@@ -170,6 +171,9 @@ class ProductsService {
                     },
                     {
                         model: ImageModel
+                    },
+                    {
+                        model: HitModel
                     }
                 ],
                 subQuery:false
@@ -202,6 +206,9 @@ class ProductsService {
                     },
                     {
                         model: ImageModel
+                    },
+                    {
+                        model: HitModel
                     }
                 ],
                 subQuery:false
@@ -427,6 +434,9 @@ class ProductsService {
                 },
                 {
                     model: ImageModel
+                },
+                {
+                    model: HitModel
                 }
             ] 
         })

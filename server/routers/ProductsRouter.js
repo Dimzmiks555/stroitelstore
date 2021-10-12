@@ -27,6 +27,7 @@ import OrderController from '../controllers/OrderController.js'
 
 
 import authMiddleware from '../middlewares/authMiddleware.js'
+import HitsController from '../controllers/HitsController.js'
 
 
 
@@ -46,6 +47,7 @@ router.post('/attributes/', AttributesController.create);
 
 router.get('/goods_attributes/', GoodsAttributesController.getAll);
 router.post('/goods_attributes/', GoodsAttributesController.create);
+router.post('/goods_attributes/bulk/', GoodsAttributesController.createBulk);
 
 router.get('/descriptions/', DescController.getAll);
 router.get('/descriptions/:id', DescController.getOne);
@@ -57,6 +59,10 @@ router.get('/orders/:id', OrderController.getOne);
 router.get('/orders/', OrderController.getAll);
 router.post('/orders/:id', OrderController.update);
 
+router.post('/hits/', HitsController.create);
+router.get('/hits/:id', HitsController.getOne);
+router.get('/hits/', HitsController.getAll);
+router.delete('/hits/:id', HitsController.delete);
 
 router.get('/users/', UserController.getAll);
 

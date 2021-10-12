@@ -104,6 +104,20 @@ const DescModel = sequelize.define('desc', {
     }
 })
 
+const HitModel = sequelize.define('hit', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    good_id: {
+        type: Sequelize.STRING
+    },
+    hit: {
+        type: Sequelize.BOOLEAN
+    }
+})
+
 const ImageModel = sequelize.define('image', {
     id: {
         type: Sequelize.INTEGER,
@@ -256,6 +270,10 @@ ImageModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 OrderModel.hasMany(OrderProductsModel, { foreignKey: 'order_id'})
 OrderProductsModel.belongsTo(OrderModel, { foreignKey: 'order_id'})
 
+GoodModel.hasMany(HitModel, { foreignKey: 'good_id'})
+HitModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
+
+
 
 GoodModel.hasMany(OrderProductsModel, { foreignKey: 'good_id'})
 OrderProductsModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
@@ -264,7 +282,7 @@ UserModel.hasMany(OrderModel, { foreignKey: 'user_id'})
 OrderModel.belongsTo(UserModel, { foreignKey: 'user_id'})
 
 
-UserModel.sync({alter: true})
+HitModel.sync({alter: true})
 // OrderProductsModel.sync({alter: true})
 
 export {
@@ -278,5 +296,6 @@ export {
     UserModel, 
     DeliveryModel ,
     OrderProductsModel,
-    OrderModel
+    OrderModel,
+    HitModel
 }

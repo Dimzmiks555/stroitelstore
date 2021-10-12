@@ -3,7 +3,8 @@ import Layout from "../../components/Layout";
 import styles from './id.module.css'
 import { useRouter} from 'next/router'
 import HOST from "../../HOST.js";
-import {Button, TextField} from '@mui/material'
+import {Button, Divider, FormControlLabel, FormGroup, Switch, TextField} from '@mui/material'
+import { Box } from "@mui/system";
 
 
  export default function Products() {
@@ -19,6 +20,7 @@ import {Button, TextField} from '@mui/material'
     const [fileName, setFileName] = useState(null)
 
     const [newAttr, setNewAttr] = useState({})
+    const [hit, setHit] = useState(false)
 
     const [textarea, setTextArea] = useState('')
 
@@ -28,6 +30,7 @@ import {Button, TextField} from '@mui/material'
         .then(res => res.json())
         .then(json => {
             setData(json)
+            setHit(json[0]?.hits?.[0]?.hit)
             console.log(json)
         })
     }
@@ -133,6 +136,37 @@ import {Button, TextField} from '@mui/material'
         setFileName(e.target.value)
     }
 
+    function handleHit(e) {
+
+        if (!hit) {
+            let data = {
+                good_id: router.query.id,
+                hit: true
+            }
+    
+    
+            fetch(`http://${HOST.host}/api/hits`, {
+                method: 'POST',
+                headers: {
+                    "Accept" : "application/json",
+                    "Content-type" : "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+
+            setHit(true)
+
+
+        } else {
+
+            fetch(`http://${HOST.host}/api/hits/${router.query.id}`, {
+                method: 'DELETE'
+            })
+
+            setHit(false)
+
+        }
+    }
 
     function handleTextArea(e) {
 
@@ -191,6 +225,20 @@ import {Button, TextField} from '@mui/material'
                             </div>
                         ) : null
                     }
+                    <Divider sx={{mb: 2}}>
+
+                    </Divider>
+                    <Box>
+                                
+                        
+                        <FormGroup>
+                            <FormControlLabel control={<Switch checked={hit} onClick={handleHit} />} label="Хит" />
+                            {/* <FormControlLabel disabled control={<Switch />} label="Disabled" /> */}
+                        </FormGroup>
+                        {console.log(data[0]?.hits?.[0]?.hit)}
+                    </Box>
+
+
                 </div>
                 <div className={styles.additional_info}>
                     

@@ -103,7 +103,7 @@
     margin-bottom: 20px;
     cursor: pointer;    
     border-radius: 10px;
-    box-shadow:  0 10px 20px #ddd;
+    border: 1px solid #ddd;
     display: flex;
     align-items: center;
     justify-content: space-around;
