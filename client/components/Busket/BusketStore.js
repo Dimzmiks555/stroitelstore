@@ -4,6 +4,9 @@ import { useRouter } from "next/router";
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import HOST from '../../HOST';
 import HeaderStore from "../Header/HeaderStore";
+
+
+
 enableStaticRendering(typeof window === "undefined");
 
 class BusketStore {
@@ -176,7 +179,7 @@ class BusketStore {
         }
         
     }
-    async setOrder() {
+    async setOrder(url) {
         let line_items = []
 
         this.order.products.forEach(item => {
@@ -226,34 +229,37 @@ class BusketStore {
 
             data.data.total = total
 
-            fetch(`${HOST.host}/api/orders`, {
-                method: 'POST',
-                headers: {
-                    "Accept": 'application/json',
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(order => {
+            if (this.order.payment == 'card') {
 
-                if(HeaderStore?.is_Auth) {
-                    fetch(`https://smsc.ru/sys/send.php?login=masnagetto&psw=19Lipo82&phones=${HeaderStore?.userData?.phone}&mes=${HeaderStore?.userData?.name}, Ваш заказ № ${order?.id} на сумму ${data.data.total} руб. успешно создан! Ожидайте, в ближайшее время с Вами свяжется менеджер.`)
-                    .then(res => {
-                        console.log(res)
-                        localStorage.removeItem('positions')
-                        console.log(json)
-                        window.location.href = `/completed_order/${order?.id}`
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        localStorage.removeItem('positions')
-                        console.log(json)
-                        window.location.href = `/completed_order/${order?.id}`
-                    })
-                }
-
-            })
+                fetch(`${HOST.host}/api/payment`, {
+                    method: 'POST',
+                    headers: {
+                        "Accept": 'application/json',
+                        "Content-Type": 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(payment => {
+                    console.log(payment)
+                    url(payment?.confirmation?.confirmation_url)
+                })
+            } else {
+                fetch(`${HOST.host}/api/orders`, {
+                    method: 'POST',
+                    headers: {
+                        "Accept": 'application/json',
+                        "Content-Type": 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(order => {
+    
+                    
+    
+                })
+            }
 
         })
           

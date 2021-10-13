@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 import HeaderStore from '../Header/HeaderStore';
 import { YooCheckout  } from '@a2seven/yoo-checkout';
 import HOST from '../../HOST';
+import router from 'next/router';
 
 const Busket = observer(() => {
 
@@ -207,30 +208,64 @@ const Busket = observer(() => {
     }
     async function sendOrder(e) {
         if (payment == 'card') {
-            const checkout = new YooCheckout({ shopId: '842984', secretKey: 'test_klyiqPckiN92TXRsAjv4gbfaJCIyQZ1NMQPPQmBHQLc' });
+            // const checkout = new YooCheckout({ shopId: '842984', secretKey: 'test_klyiqPckiN92TXRsAjv4gbfaJCIyQZ1NMQPPQmBHQLc' });
 
-            const idempotenceKey = '02347fc4-a1f0-49db-807e-f0d67c2ed5a5';
+            // const idempotenceKey = '02347fc4-a1f0-49db-807e-f0d67c2ed5a5';
 
-            const createPayload = {
-                amount: {
-                    value: '2.00',
-                    currency: 'RUB'
-                },
-                payment_method_data: {
-                    type: 'bank_card'
-                },
-                confirmation: {
-                    type: 'redirect',
-                    return_url: 'test'
-                }
-            };
+            // const createPayload = {
+            //     amount: {
+            //         value: '2.00',
+            //         currency: 'RUB'
+            //     },
+            //     payment_method_data: {
+            //         type: 'bank_card'
+            //     },
+            //     confirmation: {
+            //         type: 'redirect',
+            //         return_url: 'test'
+            //     }
+            // };
 
-            try {
-                const paymentL = await checkout.createPayment(createPayload, idempotenceKey);
-                console.log(paymentL)
-            } catch (error) {
-                console.error(error);
-            }
+            // try {
+            //     const paymentL = await checkout.createPayment(createPayload, idempotenceKey);
+            //     console.log(paymentL)
+            // } catch (error) {
+            //     console.error(error);
+            // }
+
+
+            // const parametrs = {
+            //     "amount": {
+            //       "value": "100.00",
+            //       "currency": "RUB"
+            //     },
+            //     "capture": true,
+            //     "confirmation": {
+            //       "type": "redirect",
+            //       "return_url": "https://stroitelstore.ru"
+            //     },
+            //     "description": "Заказ №1"
+            //   }
+
+            // fetch('https://api.yookassa.ru/v3/payments', {
+            //     method: 'POST',
+            //     'Authorization': `842984:test_klyiqPckiN92TXRsAjv4gbfaJCIyQZ1NMQPPQmBHQLc`,
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(parametrs)
+            // }).then(res => res.json())
+            // .then(json => {
+            //     console.log(json)
+            // })
+            // .catch(err => {
+            //     console.log(err)
+            // })
+            BusketStore.setOrder(url => {
+                window.location.href = url
+            })
+
         } else {
             BusketStore.setOrder()
         }

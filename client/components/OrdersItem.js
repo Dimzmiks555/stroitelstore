@@ -26,6 +26,7 @@ export default function OrdersItem({data}) {
                     <div className={styles.order_info}>
                         <p>Заказ № {data?.id} от {new Date(data?.createdAt).toLocaleDateString()} {new Date(data?.createdAt).toLocaleTimeString()}
                         {
+                            data?.status == 'waiting_for_payment' ? (<span className={styles.work}>Ожидает оплаты</span>) :
                             data?.status == 'waiting' ? (<span className={styles.waiting}>На рассмотрении</span>) :
                             data?.status == 'work' ? (<span className={styles.work}>В работе</span>) :
                             data?.status == 'cancel' ? (<span className={styles.cancel}>Отменен</span>) :

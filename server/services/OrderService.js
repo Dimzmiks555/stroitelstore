@@ -1,14 +1,6 @@
 
 import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodModel, UserModel } from '../models/models.js';
- import nodemailer from 'nodemailer'
 
- let transporter = nodemailer.createTransport({
-    service: 'Mail.ru', // no need to set host or port etc.
-    auth: {
-        user: 'stroitelstore@mail.ru',
-        pass: '19Lipo82'
-    }
-});
 
 class OrderService {
 
@@ -45,18 +37,6 @@ class OrderService {
                     OrderProductsModel.create(data)
 
                     .then(res => {
-
-
-                       transporter.sendMail({
-                        from: '"Магазин Строитель" <stroitelstore@mail.ru>',
-                        to: 'anodaday@yandex.ru',
-                        subject: `Заказ № ${order.id} успешно оформлен!`,
-                        text: `Заказ № ${order.id} успешно оформлен! В ближайшее время с Вами свяжется менеджер`,
-                        html:
-                          `Заказ № ${order.id} успешно оформлен! В ближайшее время с Вами свяжется менеджер`,
-                      }, (err, info) => {
-                          console.log(err, info)
-                      })
 
 
                         console.log(res)

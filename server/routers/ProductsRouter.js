@@ -28,6 +28,7 @@ import OrderController from '../controllers/OrderController.js'
 
 import authMiddleware from '../middlewares/authMiddleware.js'
 import HitsController from '../controllers/HitsController.js'
+import PaymentController from '../controllers/PaymentController.js'
 
 
 
@@ -66,6 +67,9 @@ router.delete('/hits/:id', HitsController.delete);
 
 router.get('/users/', UserController.getAll);
 
+
+router.post('/payment/', PaymentController.create);
+router.post('/payment/notification/', PaymentController.update);
 
 // AUTHORIZATION
 
