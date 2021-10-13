@@ -4,6 +4,7 @@ import BusketStore from './BusketStore'
 import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react';
 import HeaderStore from '../Header/HeaderStore';
+import { YooCheckout  } from '@a2seven/yoo-checkout';
 import HOST from '../../HOST';
 
 const Busket = observer(() => {
@@ -46,6 +47,29 @@ const Busket = observer(() => {
 
             })
         }
+
+        
+        // const checkout = new window.YooMoneyCheckoutWidget({
+        //     confirmation_token: 'test_klyiqPckiN92TXRsAjv4gbfaJCIyQZ1NMQPPQmBHQLc', //Токен, который перед проведением оплаты нужно получить от ЮKassa
+        //     return_url: 'https://example.com', //Ссылка на страницу завершения оплаты
+        
+        //     //Настройка виджета
+        //     customization: {
+        //         //Настройка способа отображения
+        //         modal: true
+        //     },
+        //     error_callback: function(error) {
+        //         //Обработка ошибок инициализации
+        //     }
+        // });
+    
+
+        // checkout.render()
+        // //Метод возвращает Promise, исполнение которого говорит о полной загрузке платежной формы (можно не использовать).
+        // .then(() => {
+        //     //Код, который нужно выполнить после отображения платежной формы.
+        // });
+        
 
     }, [BusketStore?.positions])
 
@@ -181,8 +205,35 @@ const Busket = observer(() => {
         setPayment(e.currentTarget.id)
         BusketStore.setPayment(e.currentTarget.id)
     }
-    function sendOrder(e) {
-        BusketStore.setOrder()
+    async function sendOrder(e) {
+        if (payment == 'card') {
+            const checkout = new YooCheckout({ shopId: '842984', secretKey: 'test_klyiqPckiN92TXRsAjv4gbfaJCIyQZ1NMQPPQmBHQLc' });
+
+            const idempotenceKey = '02347fc4-a1f0-49db-807e-f0d67c2ed5a5';
+
+            const createPayload = {
+                amount: {
+                    value: '2.00',
+                    currency: 'RUB'
+                },
+                payment_method_data: {
+                    type: 'bank_card'
+                },
+                confirmation: {
+                    type: 'redirect',
+                    return_url: 'test'
+                }
+            };
+
+            try {
+                const paymentL = await checkout.createPayment(createPayload, idempotenceKey);
+                console.log(paymentL)
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            BusketStore.setOrder()
+        }
     }
     function handleClientData(id, value) {
         console.log(id, value)
@@ -194,6 +245,13 @@ const Busket = observer(() => {
     function addDelivery() {
         BusketStore.addDelivery()
     }
+
+    function YooKassa() {
+
+
+    }
+
+
     return (
         <>
         <div className={styles.busket}>
@@ -207,7 +265,7 @@ const Busket = observer(() => {
                             <Link href={`/product/${item.guid}`}>
                                 <a className={styles.good_img}>
                                     <div>
-                                    <img alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                        <img alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </a>
                             </Link>
@@ -332,10 +390,10 @@ const Busket = observer(() => {
                             <label className={styles.method} for="nal" >
                                 Наличными или картой при получении
                             </label>
-                            {/* <input id="card" type="radio" name="payment" onClick={e => {handlePayment(e)}}></input>
+                            <input id="card" type="radio" name="payment" onClick={e => {handlePayment(e)}}></input>
                             <label className={styles.method} for="card">
                                 Банковской картой онлайн
-                            </label> */}
+                            </label>
                         </div>
                     </div>
                     {HeaderStore.is_Auth ? (
