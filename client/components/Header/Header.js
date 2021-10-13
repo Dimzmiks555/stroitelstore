@@ -82,12 +82,16 @@ const Header = observer(() => {
         <div className={styles.menu}>
             <ul>
                 <li>
-                    <a>О магазине</a>
-                </li>
-                {/* <li>
-                    <a>Доставка и оплата</a>
+                    <Link href='/about'>
+                        <a>О магазине</a>
+                    </Link>
                 </li>
                 <li>
+                    <Link href='/payment_and_delivery'>
+                        <a>Доставка и оплата</a>
+                    </Link>
+                </li>
+                {/* <li>
                     <a>Сотрудничество</a>
                 </li> */}
                 <li>
