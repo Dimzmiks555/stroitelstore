@@ -193,13 +193,17 @@ class PaymentService {
 
         console.log(data)
 
-    //    OrderModel.update({status: data?.status}, {
-    //        where: {id: params}
-    //    })
-    //    .then(res => {
-    //        result(res)
-    //        console.log(res)
-    //    })
+       PaymentModel.update({
+           status: data?.object?.status, 
+           paid: data?.object?.paid,
+           refundable: data?.object?.refundable,
+        }, {
+           where: {uuid: data?.object?.id}
+       })
+       .then(res => {
+           result(res)
+           console.log(res)
+       })
     
 
    }

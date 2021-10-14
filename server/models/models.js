@@ -315,6 +315,10 @@ UserModel.hasMany(OrderModel, { foreignKey: 'user_id'})
 OrderModel.belongsTo(UserModel, { foreignKey: 'user_id'})
 
 
+OrderModel.hasOne(PaymentModel, { foreignKey: 'order_id'})
+PaymentModel.belongsTo(UserModel, { foreignKey: 'order_id'})
+
+
 PaymentModel.sync({alter: true})
 // OrderProductsModel.sync({alter: true})
 
