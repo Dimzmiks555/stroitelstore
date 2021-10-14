@@ -149,7 +149,7 @@ class OneCService {
                         console.log(err)
                     })
                 } else {
-                    PricesAndCountsModel.update({sku: object.sku, unit: object.unit, price: object.price, amount: object.amount},{where: { guid: object.guid }})
+                    PricesAndCountsModel.update({sku: object.sku, unit: object.unit, price: object.price, amount: object.amount},{where: { good_guid: object.good_guid }})
                     .then(res => {
                         console.log(res)
                     })
