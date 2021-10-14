@@ -315,7 +315,7 @@ UserModel.hasMany(OrderModel, { foreignKey: 'user_id'})
 OrderModel.belongsTo(UserModel, { foreignKey: 'user_id'})
 
 
-OrderModel.hasOne(PaymentModel, { foreignKey: 'order_id'})
+OrderModel.hasMany(PaymentModel, { foreignKey: 'order_id'})
 PaymentModel.belongsTo(UserModel, { foreignKey: 'order_id'})
 
 
