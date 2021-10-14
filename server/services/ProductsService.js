@@ -158,7 +158,7 @@ class ProductsService {
                 limit, 
                 offset,
                 nest: true,
-                // distinct:true, 
+                distinct:true, 
                 where: query,
                 include: [
                     ...filters,
@@ -184,7 +184,7 @@ class ProductsService {
                 limit, 
                 offset,
                 nest: true,
-                // distinct:true, 
+                distinct:true, 
                 where: query,
                 include: [
                     {
