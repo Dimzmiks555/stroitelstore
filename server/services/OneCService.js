@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 import mysql from 'mysql2'
 import Sequelize from "sequelize";
-import { GoodModel } from '../models/Models';
+import { GoodModel } from '../models/models.js';
  
 
 
