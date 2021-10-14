@@ -23,6 +23,11 @@ import Link from 'next/link'
   
   useEffect(() => {
 
+    if (typeof window !== 'undefined') {
+      localStorage.clear()
+    }
+
+
     fetch(`${HOST.host}/api/orders/${order_id}`)
     .then(res => res.json())
     .then(json => {
