@@ -76,7 +76,7 @@ class PaymentService {
                },
                confirmation: {
                    type: 'redirect',
-                   return_url: 'https://stroitelstore.ru'
+                   return_url: `https://stroitelstore.ru/completed_order/${order.id}`
                }
            };
            
