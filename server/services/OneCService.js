@@ -84,26 +84,28 @@ class OneCService {
 
                 
 
-                const good = await GoodModel.findOne({where: { guid: object.guid }})
+                async function createGoods() {
+                    const good = await GoodModel.findOne({where: { guid: object.guid }})
 
-                if (!good) {
-                    GoodModel.create(object).then(res => {
-                        console.log(res)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
-                } else {
-                    GoodModel.update({title: object.title, group_id: object.group_id},{where: { guid: object.guid }})
-                    .then(res => {
-                        console.log(res)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
+                    if (!good) {
+                        GoodModel.create(object).then(res => {
+                            console.log(res)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                    } else {
+                        GoodModel.update({title: object.title, group_id: object.group_id},{where: { guid: object.guid }})
+                        .then(res => {
+                            console.log(res)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                    }
                 }
 
-
+                createGoods()
                 // const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}')`;
  
                 // connection.query(sql, function(err, results) {
