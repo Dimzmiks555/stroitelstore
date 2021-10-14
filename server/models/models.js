@@ -238,6 +238,39 @@ const OrderProductsModel = sequelize.define('order_product', {
     }
 })
 
+const PaymentModel = sequelize.define('payment', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    uuid: {
+        type: Sequelize.STRING,
+        unique: true
+    },
+    order_id: {
+        type: Sequelize.INTEGER
+    },
+    paid: {
+        type: Sequelize.BOOLEAN
+    },
+    status: {
+        type: Sequelize.STRING
+    },
+    total: {
+        type: Sequelize.INTEGER
+    },
+    confirmation_url: {
+        type: Sequelize.STRING
+    },
+    description: {
+        type: Sequelize.STRING
+    },
+    refundable: {
+        type: Sequelize.BOOLEAN
+    }
+})
+
 GroupModel.hasMany(GoodModel, { foreignKey: 'group_id'})
 GoodModel.belongsTo(GroupModel, { foreignKey: 'group_id'})
 
@@ -282,7 +315,7 @@ UserModel.hasMany(OrderModel, { foreignKey: 'user_id'})
 OrderModel.belongsTo(UserModel, { foreignKey: 'user_id'})
 
 
-HitModel.sync({alter: true})
+PaymentModel.sync({alter: true})
 // OrderProductsModel.sync({alter: true})
 
 export {
@@ -297,5 +330,6 @@ export {
     DeliveryModel ,
     OrderProductsModel,
     OrderModel,
-    HitModel
+    HitModel,
+    PaymentModel
 }

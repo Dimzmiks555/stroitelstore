@@ -10,18 +10,24 @@ const Footer = () => {
             </div>
             <div className={styles.menu}>
                 <ul>
+                    <Link href="/about">
+                        <li>
+                            <a>О магазине</a>
+                        </li>
+                    </Link>
+                    <Link href="/payment_and_delivery">
                     <li>
-                        О магазине
+                        <a>Доставка и оплата</a>
                     </li>
-                    <li>
-                        Доставка и оплата
-                    </li>
-                    <li>
+                    </Link>
+                    {/* <li>
                         Сотрудничество
-                    </li>
+                    </li> */}
+                    <Link href='/contacts'>
                     <li>
-                        Контакты
+                        <a>Контакты</a>
                     </li>
+                    </Link>
                 </ul>
             </div>
             <div className={styles.contact_info}>

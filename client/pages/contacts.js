@@ -57,7 +57,7 @@ const Index = observer(() => {
                 <h2>
                     Электронная почта
                 </h2>
-                <h3>
+                <h3> 
                     stroitelstore@mail.ru
                 </h3>
                 <h2>

@@ -61,6 +61,9 @@
 .menu ul li {
     margin-top: 20px;
 }
+.menu ul li a {
+    cursor: pointer;
+}
 .contact_info {
     margin-left: auto;
     text-align: right;

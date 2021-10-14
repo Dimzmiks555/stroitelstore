@@ -1,5 +1,5 @@
 
-import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodModel, UserModel } from '../models/models.js';
+import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodModel, UserModel, PaymentModel } from '../models/models.js';
 import { YooCheckout  } from '@a2seven/yoo-checkout';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,7 +12,7 @@ class PaymentService {
        console.log(body)
 
 
-       body.data.status = 'waiting_for_payment'
+    //    body.data.status = 'waiting_for_payment'
 
        await OrderModel.create(body.data)
        .then(order => {
@@ -67,6 +67,9 @@ class PaymentService {
                    currency: 'RUB'
                },
                description: `Оплата заказа № ${order.id}`,
+               metadata: {
+                    order_id: order.id  
+               },
                payment_method_data: {
                    type: 'bank_card'
                },
@@ -81,7 +84,28 @@ class PaymentService {
                 try {
                     const payment = await checkout.createPayment(createPayload, idempotenceKey);
                     console.log(payment)
-                    result(payment)
+
+                    let data = {
+                        uuid: payment.id,
+                        status: payment.status,
+                        order_id: order.id,
+                        confirmation_url: payment?.confirmation?.confirmation_url,
+                        description: payment.description,
+                        refundable: payment.refundable,
+                        paid: payment.paid,
+                        total: body?.data?.total
+                    }
+
+
+                    PaymentModel.create(data)
+                    .then(res => {
+                        console.log(res)
+                        result(payment)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+
                 } catch (error) {
                     console.error(error);
                 }
