@@ -58,7 +58,9 @@ import Link from 'next/link'
           <ul>
             <li>Номер телефона: {HeaderStore.userData.phone}</li>
             <li>Способ выдачи: {data?.type == 'shop' ? 'Самовывоз' : 'Доставка' }</li>
+            <li>Способ оплаты: {data?.type == 'nal' ? 'Наличными или картой при получении' : 'Банковской картой онлайн' }</li>
             <li>Адрес: {data?.address}</li>
+            {data?.payments?.[0]?.paid == true ? <li>Статус: оплачен</li> : data?.payments?.[0]?.paid == false ? <li>Статус: не оплачен</li> : null }
           </ul>
           <Link href="/">
               <button>
