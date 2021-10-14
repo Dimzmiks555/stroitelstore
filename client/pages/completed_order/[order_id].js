@@ -12,6 +12,7 @@ import HeaderStore from '../../components/Header/HeaderStore';
 import MobileMenu from '../../components/MobileMenu/MobileMenu';
 import HOST from '../../HOST';
 import Link from 'next/link'
+import BusketStore from '../../components/Busket/BusketStore';
  const Completed_Order = observer(() => {
 
 
@@ -28,8 +29,9 @@ import Link from 'next/link'
     fetch(`${HOST.host}/api/orders/${order_id}`)
     .then(res => res.json())
     .then(json => {
-      localStorage.clear()
       setData(json)
+      BusketStore.initialSet([])
+      localStorage.clear()
       console.log(json)
     })
 
