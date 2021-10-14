@@ -158,7 +158,7 @@ class ProductsService {
                 limit, 
                 offset,
                 nest: true,
-                distinct:true, 
+                // distinct:true, 
                 where: query,
                 include: [
                     ...filters,
@@ -176,7 +176,7 @@ class ProductsService {
                         model: HitModel
                     }
                 ],
-                subQuery:false
+                // subQuery:false
             }
             
         } else {
@@ -184,7 +184,7 @@ class ProductsService {
                 limit, 
                 offset,
                 nest: true,
-                distinct:true, 
+                // distinct:true, 
                 where: query,
                 include: [
                     {
@@ -211,7 +211,7 @@ class ProductsService {
                         model: HitModel
                     }
                 ],
-                subQuery:false
+                // subQuery:false
             }
         }
 
