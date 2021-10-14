@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 import mysql from 'mysql2'
 import Sequelize from "sequelize";
-import { GoodModel } from '../models/models.js';
+import { GoodModel, PricesAndCountsModel } from '../models/models.js';
  
 
 
@@ -138,14 +138,35 @@ class OneCService {
                 amount: +item['Количество'][0],
             }
 
+            async function createGoodsAndPrices() {
+                const prices_and_counts = await PricesAndCountsModel.findOne({where: { good_guid: object.good_guid }})
+
+                if (!prices_and_counts) {
+                    PricesAndCountsModel.create(object).then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                } else {
+                    PricesAndCountsModel.update({sku: object.sku, unit: object.unit, price: object.price, amount: object.amount},{where: { guid: object.guid }})
+                    .then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                }
+            }
+
+            createGoodsAndPrices()
             
-            
-            const sql = `INSERT INTO prices_and_counts(good_guid, sku, unit, price, amount) VALUES('${object.good_guid}', '${object.sku}', '${object.unit}', '${object.price}', ${object.amount}) `;
+            // const sql = `INSERT INTO prices_and_counts(good_guid, sku, unit, price, amount) VALUES('${object.good_guid}', '${object.sku}', '${object.unit}', '${object.price}', ${object.amount}) `;
  
-            connection.query(sql, function(err, results) {
-                if(err) console.log(err);
-                console.log(results);
-            });
+            // connection.query(sql, function(err, results) {
+            //     if(err) console.log(err);
+            //     console.log(results);
+            // });
             
 
         })
