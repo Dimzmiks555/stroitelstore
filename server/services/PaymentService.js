@@ -67,6 +67,7 @@ class PaymentService {
                    currency: 'RUB'
                },
                description: `Оплата заказа № ${order.id}`,
+               capture: true,
                metadata: {
                     order_id: order.id  
                },

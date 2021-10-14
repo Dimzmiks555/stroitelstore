@@ -33,6 +33,10 @@ export default function OrdersItem({data}) {
                             data?.status == 'complete' ? (<span className={styles.completed}>Завершен</span>) :
                             data?.status == 'ready' ? (<span className={styles.ready}>Готов к выдаче</span>) :
                             null
+                        } {
+                            data?.payments?.[0]?.paid == true ? (<span className={styles.completed}>Оплачено</span>) :
+                            data?.payments?.[0]?.paid == false ? (<span className={styles.waiting}>Ожидает оплаты</span>) :
+                            null
                         }</p>
                     </div>
                     <div>
