@@ -1,5 +1,5 @@
 
-import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodModel, UserModel } from '../models/models.js';
+import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodModel, UserModel, PaymentModel } from '../models/models.js';
 
 
 class OrderService {
@@ -83,6 +83,9 @@ class OrderService {
                 {
                     model: UserModel,
                 },
+                {
+                    model: PaymentModel,
+                },
                 
             ],
             where: query,
@@ -111,7 +114,9 @@ class OrderService {
                         }
                     ]
                 },
-                
+                {
+                    model: PaymentModel,
+                },
             ],
             where: {id: params}
         })
