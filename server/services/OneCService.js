@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 
 import mysql from 'mysql2'
 import Sequelize from "sequelize";
+import { GoodModel } from '../models/Models';
  
 
 
@@ -83,12 +84,32 @@ class OneCService {
 
                 
 
-                const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}')`;
+                const good = await GoodModel.findOne({where: { guid: object.guid }})
+
+                if (!good) {
+                    GoodModel.create(object).then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                } else {
+                    GoodModel.update({title: object.title, group_id: object.group_id},{where: { guid: object.guid }})
+                    .then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                }
+
+
+                // const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}')`;
  
-                connection.query(sql, function(err, results) {
-                    if(err) console.log(err);
-                    console.log(results);
-                });
+                // connection.query(sql, function(err, results) {
+                //     if(err) console.log(err);
+                //     console.log(results);
+                // });
 
             }
 
