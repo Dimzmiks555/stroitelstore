@@ -145,11 +145,11 @@ const Login = observer(() => {
                                 <input id="last_name" className={styles.login__input} onChange={e => {handleChange(e.target.id, e.target.value)}} placeholder="Фамилия"></input>
                             </div>
                             <div>
-                                <label for="phone">Номер телефона</label>
-                                <input id="phone" className={styles.login__input} onChange={e => {handleChange(e.target.id, e.target.value)}} placeholder="Номер телефона"></input>
+                                <label for="phone">Номер телефона (начиная с 8)</label>
+                                <input id="phone" type='number' className={styles.login__input} onChange={e => {handleChange(e.target.id, e.target.value)}} placeholder="Номер телефона "></input>
                             </div>
                             <div>
-                                <label for="password">Пароль</label>
+                                <label for="password">Пароль (минимум 8 символов)</label>
                                 <input id="password" className={styles.login__input} type="password" onChange={e => {handleChange(e.target.id, e.target.value)}} placeholder="Пароль"></input>
                             </div>
                         </div>
@@ -158,6 +158,9 @@ const Login = observer(() => {
                         LoginStore.registrationData.name != '' &&
                         LoginStore.registrationData.surname != '' &&
                         LoginStore.registrationData.phone != '' &&
+                        LoginStore.registrationData.phone.length == 11 &&
+                        LoginStore.registrationData.phone[0] == '8' &&
+                        LoginStore.registrationData.password.length >= 8 &&
                         LoginStore.registrationData.password != '' ? (
                             <button className={styles.login__button} onClick={handleRegistrate}>Зарегистрироваться</button>
                         ) : (

@@ -10,6 +10,7 @@ import Footer from '../components/Footer/Footer';
 import PopularCats from '../components/PopularCats/PopularCats';
 import MobileMenu from '../components/MobileMenu/MobileMenu';
 import Hits from '../components/Hits/Hits';
+import RecentGoods from '../components/RecentGoods/RecentGoods';
 
 
 const Index = observer(() => {
@@ -31,6 +32,7 @@ const Index = observer(() => {
       <Hits/>
       <NewGoods />
       <Offers />
+      <RecentGoods/>
     </div>
     <Footer />
     <MobileMenu></MobileMenu>

@@ -63,34 +63,40 @@ const Product = observer(({data, group, parent_group}) => {
 
         setImage(data?.images?.length > 0 ? data?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg')
 
-        async function getData(id){
-            // setLoading(true)
-            // setData([]) 
-            // fetch(`${HOST.host}/api/products/${id}`)
-            // .then(result => result.json())
-            // .then(json => {
-            //     console.log(json[0])
-            //     setData(json[0]);
-            //     setLoading(false)
-            //     setGroup(json[0]?.group)
+        if (typeof window !== 'undefined') {
+            let recent_goods = localStorage.getItem('recentGoods')
+            let new_recent_goods = []
 
-            //     let parent_id = json[0]?.group?.parent_group
 
-            //     fetch(`${HOST.host}/api/groups`)
-            //     .then(res => res.json())
-            //     .then(json => {
-            //         let group = json?.rows?.filter(item => item.guid == parent_id)[0]
-            //         setParentGroup(group)
-            //     })
+            if (recent_goods == null) {
+                new_recent_goods.push(product_id)
+                localStorage.setItem('recentGoods', JSON.stringify(new_recent_goods))
 
-            // })
+
+            } else {
+
+                recent_goods = JSON.parse(recent_goods)
+
+
+                console.log(recent_goods)
+
+                if (recent_goods.includes(product_id) != true && recent_goods.length < 10) {
+                    new_recent_goods = [...recent_goods, product_id]
+
+                    localStorage.setItem('recentGoods', JSON.stringify(new_recent_goods))
+                } else if (recent_goods.includes(product_id) != true && recent_goods.length >= 10) {
+                    recent_goods.shift()
+                    new_recent_goods = [...recent_goods, product_id]
+
+                    localStorage.setItem('recentGoods', JSON.stringify(new_recent_goods))
+                }
+
+            }
+
+
         }
 
-        
-        
-        if (product_id != undefined) {  
-            getData(product_id);
-        }
+
 
     }, [product_id, data]);
 

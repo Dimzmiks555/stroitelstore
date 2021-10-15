@@ -447,6 +447,53 @@ class ProductsService {
 
 
     }
+
+    async getRecent(params ,result) {
+        
+        
+
+        let ids = params.goods.split(',')
+
+        console.log(ids)
+
+        GoodModel.findAll({
+            nest: true, 
+            where: {guid: ids}, 
+            include: [
+                {
+                    model: GoodsAttributeModel, 
+                    as: 'filter_1',
+                    // where: filters,
+                    include: [
+                        {
+                            model: AttributeModel
+                        }
+                    ]
+                },
+                {
+                    model: GroupModel
+                },
+                {
+                    model: PricesAndCountsModel
+                },
+                {
+                    model: DescModel
+                },
+                {
+                    model: ImageModel
+                },
+                {
+                    model: HitModel
+                }
+            ] 
+        })
+        .then(goods => {
+            console.log(goods)
+            result(goods)
+        }).catch(err=>console.log(err));
+
+
+    }
 }
 
 

@@ -208,60 +208,6 @@ const Busket = observer(() => {
     }
     async function sendOrder(e) {
         if (payment == 'card') {
-            // const checkout = new YooCheckout({ shopId: '842984', secretKey: 'test_klyiqPckiN92TXRsAjv4gbfaJCIyQZ1NMQPPQmBHQLc' });
-
-            // const idempotenceKey = '02347fc4-a1f0-49db-807e-f0d67c2ed5a5';
-
-            // const createPayload = {
-            //     amount: {
-            //         value: '2.00',
-            //         currency: 'RUB'
-            //     },
-            //     payment_method_data: {
-            //         type: 'bank_card'
-            //     },
-            //     confirmation: {
-            //         type: 'redirect',
-            //         return_url: 'test'
-            //     }
-            // };
-
-            // try {
-            //     const paymentL = await checkout.createPayment(createPayload, idempotenceKey);
-            //     console.log(paymentL)
-            // } catch (error) {
-            //     console.error(error);
-            // }
-
-
-            // const parametrs = {
-            //     "amount": {
-            //       "value": "100.00",
-            //       "currency": "RUB"
-            //     },
-            //     "capture": true,
-            //     "confirmation": {
-            //       "type": "redirect",
-            //       "return_url": "https://stroitelstore.ru"
-            //     },
-            //     "description": "Заказ №1"
-            //   }
-
-            // fetch('https://api.yookassa.ru/v3/payments', {
-            //     method: 'POST',
-            //     'Authorization': `842984:test_klyiqPckiN92TXRsAjv4gbfaJCIyQZ1NMQPPQmBHQLc`,
-            //     headers: {
-            //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(parametrs)
-            // }).then(res => res.json())
-            // .then(json => {
-            //     console.log(json)
-            // })
-            // .catch(err => {
-            //     console.log(err)
-            // })
             BusketStore.setOrder(url => {
                 window.location.href = url
             })
@@ -271,7 +217,8 @@ const Busket = observer(() => {
         }
     }
     function handleClientData(id, value) {
-        console.log(id, value)
+        console.log(id, value, BusketStore.order.clientData.phone[0])
+        
         BusketStore.setClientData(id, value)
     }
     function handleCreateDelivery(id, value) {
@@ -459,10 +406,7 @@ const Busket = observer(() => {
                                 <input id="surname" placeholder="Фамилия" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
                             </div>
                             <div>
-                                <input id="phone" placeholder="Номер телефона" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
-                            </div>
-                            <div>
-                                <input id="mail" placeholder="Электронная почта (не обязательно)" onChange={e => handleClientData(e.target.id, e.target.value)}></input>
+                                <input id="phone" placeholder="Номер телефона (начиная с 8)" type='number' onChange={e => handleClientData(e.target.id, e.target.value)}></input>
                             </div>
                         </div>
                     )}
@@ -509,7 +453,8 @@ const Busket = observer(() => {
                         <div>
                             { delivery != '' &&
                             payment!= '' &&
-                            BusketStore.order.clientData.phone != ''  &&
+                            BusketStore.order.clientData.phone.length == 11  &&
+                            BusketStore.order.clientData.phone[0] == '8'  &&
                             BusketStore.order.clientData.name != ''  &&
                             BusketStore.order.clientData.surname != '' ?
                                 <button className={styles.to_pay} onClick={sendOrder}>Заказать</button> :

@@ -14,6 +14,19 @@ class ProductsController {
             res.status(500).json(e)
         }
     }
+
+    async getRecent(req, res) {
+        try {
+            await ProductsService.getRecent(req.query, data => {
+                res.send(data)
+            });
+            res.status(200)
+
+        } catch (e) {
+            // console.log(e);
+            res.status(500).json(e)
+        }
+    }
     
     async getPrices(req,res) {
         try {

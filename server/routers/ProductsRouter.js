@@ -41,6 +41,9 @@ router.get('/products/', ProductsController.getAll);
 router.get('/products_prices/', ProductsController.getPrices);
 router.get('/products/:id', ProductsController.getOne);
 
+
+router.get('/recent/', ProductsController.getRecent);
+
 router.get('/groups/', GroupsController.getAll);
 
 router.get('/attributes/', AttributesController.getAll);
