@@ -13,6 +13,7 @@ import MobileMenu from '../../components/MobileMenu/MobileMenu';
 import Footer from '../../components/Footer/Footer';
 import BusketStore from '../../components/Busket/BusketStore';
 import HOST from '../../HOST';
+import RecentGoods from '../../components/RecentGoods/RecentGoods';
 const Product = observer(({data, group, parent_group}) => {
     
     const [added, setAdded] = useState(false);
@@ -208,13 +209,16 @@ const Product = observer(({data, group, parent_group}) => {
                                             Описание
                                         </h2>
                                         <div>{data?.desc?.text ? data?.desc?.text : 'Описание отсутствует.'}</div>
-
+                                        
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                         
                     </div>
+                    
+                    <RecentGoods/>
                 </div>
             )
         }
@@ -230,6 +234,7 @@ const Product = observer(({data, group, parent_group}) => {
         <Catalog />
         <Header />
             {renderThis()}
+
         <Footer />
     <MobileMenu></MobileMenu>
         </>

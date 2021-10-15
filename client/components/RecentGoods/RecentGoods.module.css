@@ -2,10 +2,9 @@
     position: relative;
 }
 .newgoods h2{
-    margin-top: 40px;
+    margin-top: 60px;
     font-size: 36px;
     margin-bottom: 60px;
-    text-align: center;
 }
 .newgoods__wrapper {
     overflow: hidden;
