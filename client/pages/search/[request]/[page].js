@@ -15,6 +15,7 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 import 'rc-slider/assets/index.css';
 import HOST from '../../../HOST';
+import BusketStore from '../../../components/Busket/BusketStore';
 
 const Search = observer(({mainTitle}) => {
 
@@ -65,7 +66,7 @@ const Search = observer(({mainTitle}) => {
 
 
 
-            fetch(`${HOST.host}/api/products?page=1&limit=20&search=${request}${generate(parametrs)}`)
+            fetch(`${HOST.host}/api/products?page=${page}&limit=20&search=${request}${generate(parametrs)}`)
             .then(result => result.json())
             .then(json => setData(json))
                 
@@ -111,7 +112,7 @@ const Search = observer(({mainTitle}) => {
         getData(request, params);
         getGoodPrices(request, params);
 
-    }, [request, router.query]);
+    }, [request, router.query, page]);
     
     
     function GetButton(pos) {
@@ -127,16 +128,24 @@ const Search = observer(({mainTitle}) => {
                 )
         }
     }
-    function handleSelect(value) {
-        if (value.value == 'priceUp') {
-            router.push(`./${request}?sort=asc`)
-        } else if (value.value == 'priceDown') {
-            router.push(`./${request}?sort=desc`)
-        } else if (value.value == 'default') {
-            router.push(`./${request}`)
-        }
+
+    function handleStock(e) {
         
-    } 
+        if (e.target.id == 'instock') {
+            URLParams['stock'] = 'instock'
+        } else if (e.target.id == 'outstock') {
+            URLParams['stock'] = 'outstock'
+        } else {
+            delete URLParams['stock']
+        }
+
+        router.push({
+            pathname: `/search/[request]/${page}`,
+            query: URLParams
+        })
+
+    }
+
 
     function handlePrice(e) {
         if (e.target.id == 'from' ) {
@@ -192,6 +201,10 @@ const Search = observer(({mainTitle}) => {
             query: URLParams
         })
 
+    }
+
+    function addGood(e) {
+        BusketStore.AddPosition(e.target.id, 1)
     }
 
     function handleSelect(value) {
@@ -251,11 +264,11 @@ const Search = observer(({mainTitle}) => {
                     <div className={styles.category_filter}>
                         <div className={styles.filter_stock}>
                             <form className={styles.filter_inputs}>
-                                <input id="default" type='radio' name="default"></input>
+                                {!URLParams.stock ? <input id="default"  type='radio' name="default" onClick={handleStock} checked></input> : <input id="default"  type='radio' name="default" onClick={handleStock} ></input>}
                                 <label for="default">В наличии и под заказ</label>
-                                <input id="instock" type='radio' name="default"></input>
+                                {URLParams.stock == 'instock' ? <input id="instock" type='radio' name="default" onClick={handleStock} checked></input> : <input id="instock" type='radio' name="default" onClick={handleStock}></input>}
                                 <label for="instock">В наличии</label>
-                                <input id='outstock' type='radio' name="default"></input>
+                                {URLParams.stock == 'outstock' ? <input id='outstock' type='radio' name="default" onClick={handleStock} checked></input> : <input id='outstock' type='radio' name="default" onClick={handleStock}></input>}
                                 <label for="outstock">Под заказ</label>
                             </form>
                         </div>
@@ -282,7 +295,7 @@ const Search = observer(({mainTitle}) => {
                                 </h3>
                                 
                                 <div className={styles.sorter}>                                    
-                                    <Select className={styles.select} value={order} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
+                                    <Select className={styles.select} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
                                 </div>
                             </div>
                         </div>
@@ -309,12 +322,23 @@ const Search = observer(({mainTitle}) => {
                                     </div>
                                     <div>
                                         
-                                        <div className={styles.good_price}>
-                                            {
-                                                item.price != '' ? (<p><span>{Number(item.prices_and_count.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
-                                            }
-                                        </div>
-                                        {GetButton(item)}
+                                    <div className={styles.good_price}>
+                                        {
+                                            item?.prices_and_count?.price != '' ? (<p><span>{Number( item.prices_and_count?.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
+                                        }
+                                    </div>
+                                    <div className={styles.good_amount}>
+                                        
+                                    {item?.prices_and_count?.amount > 0 ? <p style={{color: '#080'}}>{item?.prices_and_count?.amount}  в наличии </p > : <p style={{color: '#a00'}}>Нет в наличии</p>}
+
+                                    </div>
+                                        {
+                                            BusketStore?.order?.products.filter(f => f.guid == item.guid).length > 0 ? 
+                                            <a id={item.guid} className={styles.to_cart_added}>Добавлено</a> : 
+                                            item?.prices_and_count?.amount > 0 ? 
+                                            <a id={item.guid} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a> : 
+                                            <a id={item.guid} className={styles.outofstock}>Под заказ</a>
+                                        }
                                         
                                     </div>
                                 </div>

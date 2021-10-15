@@ -328,7 +328,7 @@ OrderModel.hasMany(PaymentModel, { foreignKey: 'order_id'})
 PaymentModel.belongsTo(UserModel, { foreignKey: 'order_id'})
 
 
-OrderModel.sync({alter: true})
+PricesAndCountsModel.sync({alter: true})
 // OrderProductsModel.sync({alter: true})
 
 export {
