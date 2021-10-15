@@ -162,7 +162,7 @@ import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Autoc
                                                 {item?.address}
                                             </TableCell>
                                             <TableCell>
-                                                {item.user?.surname} {item.user?.name}
+                                                {item.surname} {item.name}
                                             </TableCell>
                                             <TableCell>
                                                 {item?.type == 'shop' ? "Самовывоз" : "Доставка"}

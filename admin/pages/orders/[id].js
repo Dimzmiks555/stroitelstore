@@ -163,6 +163,9 @@ import {Button, TableContainer, TextField, Table, TableHead, TableBody, TableRow
                         null
                         }
                     </div>
+
+                    <h1>{data?.surname + ' ' + data.name}</h1>
+                    <h2>{data?.phone}</h2>
                     {
                         data ? (
                             <div>

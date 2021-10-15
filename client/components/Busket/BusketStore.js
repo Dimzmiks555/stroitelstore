@@ -209,6 +209,17 @@ class BusketStore {
         ////key for write
 
 
+        if (HeaderStore.is_Auth) {
+            data.data.name = HeaderStore?.userData?.name
+            data.data.surname = HeaderStore?.userData?.surname
+            data.data.phone = HeaderStore?.userData?.phone
+        } else {
+            data.data.name = this.order.clientData?.name
+            data.data.surname = this.order.clientData?.surname
+            data.data.phone = this.order.clientData?.phone
+        }
+
+
         let IDs = [];
 
         this.positions.forEach(item => {
@@ -256,9 +267,12 @@ class BusketStore {
                 .then(res => res.json())
                 .then(order => {
     
-                    
+                    window.location.href = `/completed_order/${order.id}`
     
                 })
+
+                console.log(data)
+
             }
 
         })

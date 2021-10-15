@@ -57,13 +57,13 @@ import BusketStore from '../../components/Busket/BusketStore';
           </h1>
           
           <hr></hr>
-          <h2>Уважаемый {HeaderStore.userData.surname} {HeaderStore.userData.name}!</h2>
+          <h2>Уважаемый {data?.surname} {data?.name}!</h2>
           <p>В ближайшее время с вами свяжется менеджер для подтверждения заказа.</p>
           <h2>Детали заказа</h2>
           <ul>
-            <li>Номер телефона: {HeaderStore.userData.phone}</li>
+            <li>Номер телефона: {data?.phone}</li>
             <li>Способ выдачи: {data?.type == 'shop' ? 'Самовывоз' : 'Доставка' }</li>
-            <li>Способ оплаты: {data?.type == 'nal' ? 'Наличными или картой при получении' : 'Банковской картой онлайн' }</li>
+            <li>Способ оплаты: {data?.payment == 'nal' ? 'Наличными или картой при получении' : 'Банковской картой онлайн' }</li>
             <li>Адрес: {data?.address}</li>
             {data?.payments?.[0]?.paid == true ? <li>Статус: оплачен</li> : data?.payments?.[0]?.paid == false ? <li>Статус: не оплачен</li> : null }
           </ul>

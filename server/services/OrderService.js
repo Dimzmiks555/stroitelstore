@@ -29,7 +29,7 @@ class OrderService {
                         order_id: order.id,
                         good_id: item.guid,
                         price: +price,
-                        total: +price * +item.count
+                        total: +price * +item.count,
                     }
     
                     console.log(data, price)
