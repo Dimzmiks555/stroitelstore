@@ -66,7 +66,7 @@ const Category = observer(({mainTitle}) => {
             .then(res => res.json())
             .then(json => {
                 setData(json?.rows)
-                setCountGoods(json?.count)
+                setCountGoods(json?.count?.length)
 
                 let parent_id = json?.rows[0]?.group?.parent_group
 

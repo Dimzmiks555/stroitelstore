@@ -158,6 +158,7 @@ class ProductsService {
                 limit, 
                 offset,
                 nest: true,
+                group: ['guid'],
                 distinct:true, 
                 where: query,
                 include: [
@@ -181,11 +182,13 @@ class ProductsService {
             
         } else {
             options = {
+                nest: true,
                 limit, 
                 offset,
-                nest: true,
-                distinct:true, 
                 where: query,
+                // order: [[PricesAndCountsModel, 'price', 'asc']],
+                group: ['guid'],
+                // distinct:true, 
                 include: [
                     {
                         model: GoodsAttributeModel, 
@@ -195,7 +198,8 @@ class ProductsService {
                             {
                                 model: AttributeModel
                             }
-                        ]
+                        ],
+                        
                     },
                     {
                         model: GroupModel
@@ -203,6 +207,7 @@ class ProductsService {
                     {
                         where: priceFilter,
                         model: PricesAndCountsModel,
+                        
                     },
                     {
                         model: ImageModel
@@ -211,7 +216,8 @@ class ProductsService {
                         model: HitModel
                     }
                 ],
-                // subQuery:false
+                // limit: [offset, limit]
+                subQuery:false
             }
         }
 

@@ -33,7 +33,7 @@ const Search = observer(({mainTitle}) => {
     const [goodPrices, setGoodPrices] = useState([]);
 
     let paginationCount = [1]
-    let count = +data?.count
+    let count = data?.count?.length
     for (let i = count; i > 20; i = i - 20) {
         if (paginationCount.length == '0') {
             return;
@@ -291,7 +291,7 @@ const Search = observer(({mainTitle}) => {
                             <h1>Поиск по запросу: {request}</h1>
                             <div className={styles.toolbar}>
                                 <h3>
-                                    {data?.count} товаров
+                                    {data?.count?.length} товаров
                                 </h3>
                                 
                                 <div className={styles.sorter}>                                    
@@ -382,7 +382,7 @@ const Search = observer(({mainTitle}) => {
                                     }
                                 } )}
                                 {
-                                    (data?.count / 20) > page ? (
+                                    (data?.count?.length / 20) > page ? (
                                         <Link href={`/search/${request}/${+page + 1}`}>
                                             <li className={styles.pagination_right}>
                                                 {<svg
