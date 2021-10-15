@@ -21,7 +21,8 @@
 /* Landscape phones and smaller */
 @media screen and (max-width: 480px) {
     .search__box {
-        display: none !important;
+        /* display: none !important; */
+        width: 100% !important;
     }
 }
 .search__box {
@@ -37,8 +38,9 @@
     margin-left: 60px;
     height: 40px;
     width: 100%;
-    border: none;
-    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    /* background: #f4f4f4; */
     outline: none;
     padding: 0 20px;
 }
@@ -48,7 +50,8 @@
     border: 1px solid #ddd;
     background: #fff;
     position: absolute;
-    width: 86%;
+    width: 89%;
+    border-radius: 8px;
 }
 .result__item {
     padding: 10px 20px;
@@ -77,19 +80,21 @@
     display: flex;
 }
 .search__tool button {
+    right: 0;
+    position: absolute;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 0px 8px 8px 0px;
     font-family: inherit;
-    padding: 10px 20px;
+    padding: 11px 20px;
     background: #d00;
     color: #fff;
     border: none;
     cursor: pointer;
 }
 .search__tool button:hover {
-    border-radius: 5px;
+    border-radius: 0px 8px 8px 0px;
     font-family: inherit;
-    padding: 10px 20px;
+    padding: 11px 20px;
     background: #900;
     color: #fff;
     border: none;
