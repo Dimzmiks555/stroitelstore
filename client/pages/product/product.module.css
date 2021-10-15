@@ -69,6 +69,9 @@
     .breadcrumbs {
         display: none !important;
     }
+    .gallery {
+        display: none !important;
+    }
 }
 .product {
     padding-top: 40px;
