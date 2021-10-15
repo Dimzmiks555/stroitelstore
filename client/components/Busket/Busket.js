@@ -109,33 +109,40 @@ const Busket = observer(() => {
             
     //     })
     // } 
-    function increment(e) {
-        BusketStore.incrementCount(e.target.id)
-        let IDs = [];
+    function increment(e, maxCount, guid) {
+        
+        if (BusketStore?.positions?.filter(subitem => subitem.guid == e.target.id)[0]?.count < maxCount ) {
+            BusketStore.incrementCount(e.target.id)
+            let IDs = [];
 
-        BusketStore?.positions.forEach(item => {
-            IDs.push(item.guid)
-        })
-
-        console.log(IDs)
-
-        if (IDs[0]) {
-            fetch(`${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
-            .then(res => res.json())
-            .then(json => {
-                setData(json?.rows)
-
-                let total = null
-
-                json?.rows?.map((item, index) => {
-                    total += +item?.prices_and_count?.price * +BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
-                    console.log(total)
-                })
-
-                setTotal(total)
-
+            BusketStore?.positions.forEach(item => {
+                IDs.push(item.guid)
             })
+
+            console.log(IDs)
+
+            if (IDs[0]) {
+                fetch(`${HOST.host}/api/products?limit=20&guid=${IDs.join(',')}`)
+                .then(res => res.json())
+                .then(json => {
+                    setData(json?.rows)
+
+                    let total = null
+
+                    json?.rows?.map((item, index) => {
+                        total += +item?.prices_and_count?.price * +BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count
+                        console.log(total)
+                    })
+
+                    setTotal(total)
+
+                })
+            }
+        } else {
+            
         }
+
+
     }
     function decrement(e) {
         BusketStore.decrementCount(e.target.id)
@@ -254,10 +261,12 @@ const Busket = observer(() => {
                             <Link href={`/product/${item?.guid}`}>
                                 <a className={styles.good_title}>
                                     {item?.title}
+                                    <b>{item?.prices_and_count?.amount > 0 ? <p style={{color: '#080'}}>{item?.prices_and_count?.amount}  в наличии </p > : <p style={{color: '#a00'}}>Нет в наличии</p>}</b>
                                 </a>
+                                
                             </Link>
                             <div className={styles.good__counter}>
-                                <button id={item.guid} onClick={increment}>
+                                <button id={item.guid} onClick={e => increment(e, item?.prices_and_count?.amount)}>
                                     +
                                 </button>
                                 <input id={item.guid} value={BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count} onChange={handleChange} type="number">
@@ -266,11 +275,15 @@ const Busket = observer(() => {
                                     −
                                 </button>
                             </div>
+                            
                             <div className={styles.good_total}>
                                  <b>{(item?.prices_and_count.price * BusketStore?.positions?.filter(subitem => subitem.guid == item.guid)[0]?.count).toLocaleString()}</b> ₽
+                                 
                             </div>
+                            
                             <div className={styles.delete__good}>
                                  <button id={index} value={item?.guid} onClick={handleDelete}>✖</button>
+                                 
                             </div>
                         </div>
                     )) : 'Пусто'}

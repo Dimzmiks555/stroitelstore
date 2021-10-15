@@ -279,3 +279,7 @@
 .breadcrumbs a:hover {
     color: #d00;
 }
+
+.amount {
+    margin-left: auto;
+}

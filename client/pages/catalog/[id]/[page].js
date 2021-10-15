@@ -167,7 +167,7 @@ const Category = observer(({mainTitle}) => {
 
 
 
-    }, [router.query, page]);
+    }, [router.query, page, order]);
     
     function handleSelect(value) {
 

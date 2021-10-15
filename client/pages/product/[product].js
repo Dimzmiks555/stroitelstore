@@ -40,7 +40,11 @@ const Product = observer(({data, group, parent_group}) => {
     }
     function increment() {
         setAdded(false);
-        setCV(+counter_value + 1)
+        if (data?.prices_and_count?.amount < counter_value + 1 ) {
+            setCV(+counter_value)
+        } else {
+            setCV(+counter_value + 1)
+        }
     }
     function decrement() {
         setAdded(false);
@@ -182,7 +186,12 @@ const Product = observer(({data, group, parent_group}) => {
                                                 </button>
                                             </div>
                                         )
-                                    }
+                                    } 
+                                    <div className={styles.amount}>
+                                        
+                                        {data?.prices_and_count?.amount > 0 ? <p style={{color: '#080'}}>{data?.prices_and_count?.amount}  в наличии </p > : <p style={{color: '#a00'}}>Нет в наличии</p>}
+
+                                    </div>
                                 </div>
                                 <div className={styles.product__infoblock}>
                                     <div className={styles.product__description}>

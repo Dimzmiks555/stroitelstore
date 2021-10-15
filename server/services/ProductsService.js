@@ -159,7 +159,7 @@ class ProductsService {
                 offset,
                 nest: true,
                 group: ['guid'],
-                distinct:true, 
+                // distinct:true, 
                 where: query,
                 include: [
                     ...filters,
@@ -177,7 +177,7 @@ class ProductsService {
                         model: HitModel
                     }
                 ],
-                // subQuery:false
+                subQuery:false
             }
             
         } else {
