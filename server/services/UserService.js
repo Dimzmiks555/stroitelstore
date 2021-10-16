@@ -135,7 +135,9 @@ class UserService {
     async getAll(query ,result) {
 
         
-        UserModel.findAll()
+        UserModel.findAll({
+            where: {role: 'MANAGER'}
+        })
         .then(res => {
             result(res)
             console.log(res)

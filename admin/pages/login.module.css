@@ -1,0 +1,12 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    /* margin-top: 200px; */
+}
+.logo img {
+    width: 400px;
+    height: auto;
+}
