@@ -14,7 +14,7 @@ export default function NewGoods () {
     useEffect(() => {
       async function getData(){
           
-          await fetch(`${HOST.host}/api/products?page=1`)
+          await fetch(`${HOST.host}/api/products?page=1&order_by=createdAt`)
           .then(result => result.json())
           .then(json => {
               json.rows.splice(0, 1)

@@ -21,7 +21,7 @@ class ProductsService {
 
     async getAll(params ,result) {
         
-        let {limit, page, group_id, search, guid, price , order, stock , ...args} = params
+        let {limit, page, group_id, search, guid, price , order, stock, order_by , ...args} = params
 
         let query = {}
         let priceFilter = {}
@@ -221,7 +221,11 @@ class ProductsService {
             }
         }
 
-
+        if (order_by) {
+            options.order = [[order_by, 'asc']]
+        } else {
+            options.order = [['title']]
+        }
 
         if (order) {
             options.order = [[PricesAndCountsModel, 'price', order]]
