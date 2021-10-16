@@ -221,11 +221,6 @@ class ProductsService {
             }
         }
 
-        if (order_by) {
-            options.order = [[order_by, 'asc']]
-        } else {
-            options.order = [['title']]
-        }
 
         if (order) {
             options.order = [[PricesAndCountsModel, 'price', order]]
@@ -233,6 +228,9 @@ class ProductsService {
             options.order = [['title']]
         }
 
+        if (order_by) {
+            options.order = [[order_by, 'asc']]
+        } 
 
             GoodModel.findAndCountAll(options)
             .then(goods => {
