@@ -154,7 +154,7 @@ import StarIcon from '@mui/icons-material/Star';
      return (
          <Layout title="Продукты">
              <div className={styles.header}>
-                Всего продуктов: {data?.count}
+                Всего продуктов: {data?.count?.length}
             </div>
             <div className={styles.filters}>
                 <Autocomplete
@@ -297,7 +297,7 @@ import StarIcon from '@mui/icons-material/Star';
                 <TablePagination
                     rowsPerPageOptions={[100]}
                     component="div"
-                    count={data?.count}
+                    count={data?.count?.length}
                     rowsPerPage={100}
                     page={pagination}
                     onPageChange={handlePagination}
