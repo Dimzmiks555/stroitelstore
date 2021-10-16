@@ -131,10 +131,19 @@ class OrderService {
 
     async update(params, data , result) {
 
+
+
+
         OrderModel.update({status: data?.status}, {
             where: {id: params}
         })
         .then(res => {
+
+
+            if (data?.status == 'ready' && res?.type == 'shop') {
+                fetch(`https://anodaday@yandex.ru:j61RchfLZRqXcMpUZQynoS0Iu6A@gate.smsaero.ru/v2/sms/send?&numbers[]=${res?.phone}&text=Ваш заказ № ${res?.id} готов к выдаче!&sign=SMS Aero`)
+            }
+
             result(res)
             console.log(res)
         })
