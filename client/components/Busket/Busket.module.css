@@ -324,7 +324,7 @@
 .select {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 .select__item {
     font-weight: bold;
@@ -381,9 +381,12 @@
 .select__overview p {
     font-size: 24px;
 }
+.select__overview h4 {
+    margin-bottom: 10px; 
+}
 .payment {
     margin-top: 60px;
-    width: 49%;
+    width: 100%;
 }
 .payment__methods {
     display: block;
@@ -431,6 +434,9 @@
 .payment_and_clientdata {
     display: flex;
     justify-content: space-between;
+}
+.payment_and_clientdata > div {
+    width: 48%;
 }
 .clientdata {
     width: 47%;

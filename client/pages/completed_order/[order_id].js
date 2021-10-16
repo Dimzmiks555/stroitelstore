@@ -57,7 +57,7 @@ import BusketStore from '../../components/Busket/BusketStore';
           </h1>
           
           <hr></hr>
-          <h2>Уважаемый {data?.surname} {data?.name}!</h2>
+          <h2>Благодарим за заказ, {data?.name}!</h2>
           <p>В ближайшее время с вами свяжется менеджер для подтверждения заказа.</p>
           <h2>Детали заказа</h2>
           <ul>

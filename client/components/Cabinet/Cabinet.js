@@ -11,12 +11,22 @@ import HOST from '../../HOST';
 
 const Cabinet = observer(() => {
 
-
+    const [deliveries, setDeliveries] = useState([])
 
     useEffect(() => {
         CabinetStore.getOrders()
         console.log(CabinetStore.orders)
-    }, [CabinetStore.orders[0]?.id])
+
+        if (HeaderStore?.is_Auth) {
+            fetch(`${HOST.host}/api/deliveries?user_id=${HeaderStore.userData?.id}`)
+            .then(res => res.json())
+            .then(json => {
+                setDeliveries(json)
+                console.log('del', json)
+            })
+        } 
+
+    }, [CabinetStore.orders[0]?.id, HeaderStore.is_Auth])
 
 
 
@@ -91,7 +101,7 @@ const Cabinet = observer(() => {
                         <p>Телефон: {HeaderStore.userData?.phone}</p>
                     </div>
                 </div>
-                {/* <div className={styles.receipts}>
+                <div className={styles.receipts}>
                     <div className={styles.clientData__image}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -120,12 +130,12 @@ const Cabinet = observer(() => {
                         <div>
                             <p>
                                 {
-                                    HeaderStore.userData[0]?.shipping.city.length > 1 ? (`г. ${HeaderStore.userData[0]?.shipping.city}, ул. ${HeaderStore.userData[0]?.shipping.address_1}`) : (`не указан`)   
+                                    deliveries.length >= 1 ? (`г. ${deliveries?.[0]?.city}, ул. ${deliveries?.[0]?.street}, д. ${deliveries?.[0]?.house}, кв. ${deliveries?.[0]?.room}`) : (`не указан`)   
                                 }
                             </p>
                         </div>
                     </div>
-                </div> */}
+                </div>
             </div>
         </div>
         </>

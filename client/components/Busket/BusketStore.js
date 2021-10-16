@@ -147,11 +147,29 @@ class BusketStore {
         city = this.newDelivery.city
 
         let data = {
-            shipping: {
-              city: city,
-              address_1: address
+            user_id: HeaderStore?.userData?.id,
+            city: this.newDelivery.city,
+            street: this.newDelivery.street,
+            house: this.newDelivery.house,
+            room: this.newDelivery.room
+        };
+
+
+        fetch(`${HOST.host}/api/deliveries`, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json',
             },
-          };
+            body: JSON.stringify(data)
+        }).then(res => res.json())
+        .then(json => {
+            console.log(json)
+            window.location.reload()
+        })
+
+        
+
 
     }
     setClientData(id, value) {

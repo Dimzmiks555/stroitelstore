@@ -29,6 +29,7 @@ import OrderController from '../controllers/OrderController.js'
 import authMiddleware from '../middlewares/authMiddleware.js'
 import HitsController from '../controllers/HitsController.js'
 import PaymentController from '../controllers/PaymentController.js'
+import DeliveryController from '../controllers/DeliveryController.js'
 
 
 
@@ -69,6 +70,9 @@ router.get('/hits/', HitsController.getAll);
 router.delete('/hits/:id', HitsController.delete);
 
 router.get('/users/', UserController.getAll);
+
+router.post('/deliveries/', DeliveryController.create);
+router.get('/deliveries/', DeliveryController.getAll);
 
 
 router.post('/payment/', PaymentController.create);
