@@ -1,6 +1,6 @@
 
 import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodModel, UserModel, PaymentModel } from '../models/models.js';
-
+import fetch from 'node-fetch'
 
 class OrderService {
 
@@ -122,7 +122,7 @@ class OrderService {
         })
         .then(res => {
             result(res)
-            console.log(res)
+            // console.log(res)
         })
      
 
@@ -139,13 +139,33 @@ class OrderService {
         })
         .then(res => {
 
+            OrderModel.findOne({
+                where: {id: params}
+            }).then(res => {
+                if (data.status == 'ready' && res?.type == 'shop') {
 
-            if (data?.status == 'ready' && res?.type == 'shop') {
-                fetch(`https://anodaday@yandex.ru:j61RchfLZRqXcMpUZQynoS0Iu6A@gate.smsaero.ru/v2/sms/send?&numbers[]=${res?.phone}&text=Ваш заказ № ${res?.id} готов к выдаче!&sign=SMS Aero`)
-            }
+                    let uri = `https://anodaday@yandex.ru:j61RchfLZRqXcMpUZQynoS0Iu6A@gate.smsaero.ru/v2/sms/send?&numbers[]=${res?.phone}&text=Ваш заказ № ${res?.id} в интернет-магазине "Строитель" готов к выдаче!&sign=SMS Aero`
+
+                    let EncURI = encodeURI(uri)
+
+                    console.log('ahahhahahahahhaHAHAHHAHAH')
+                    fetch(EncURI)
+                    .then(res => {
+                        console.log(res)
+                        res.json()
+                    })
+                    .then(json => {
+                        console.log(json)
+                    })
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
 
             result(res)
-            console.log(res)
+            // console.log(res)
         })
      
 
