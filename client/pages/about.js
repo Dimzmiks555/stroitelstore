@@ -82,7 +82,7 @@ const About = observer(() => {
                             src={`/about/${number}.jpeg`}
                             style={{
                             display: 'block',
-                            height: '420px',
+                            height: 'auto',
                             margin: 'auto',
                             width: '100%'
                             }}

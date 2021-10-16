@@ -168,7 +168,8 @@ import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Autoc
                                                 {item?.type == 'shop' ? "Самовывоз" : "Доставка"}
                                             </TableCell>
                                             <TableCell>
-                                                {item?.payment == 'nal' ? "Наличные" : "Карта"}
+                                                {item?.payment == 'nal' ? "Наличные" : <div>Карта </div>} 
+                                                
                                             </TableCell>
                                             <TableCell>
                                                 {
@@ -178,6 +179,11 @@ import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Autoc
                                                 item?.status == 'cancel' ? (<Chip color='error' label='Отменен'></Chip>) : 
                                                 item?.status == 'work' ? (<Chip color='warning' label='В работе'></Chip>) : 
                                                 null
+                                                }
+                                                {
+                                                    item?.payments?.[0]?.paid == true ? (<Chip  color='success' sx={{mt: 1}} label='Оплачено'></Chip>) :
+                                                    item?.payments?.[0]?.paid == false ? (<Chip color='error' sx={{mt: 1}} label='Нe оплачено'></Chip>) :
+                                                    null
                                                 }
                                             </TableCell>
                                             <TableCell>

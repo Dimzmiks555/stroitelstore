@@ -39,6 +39,7 @@ const GroupModel = sequelize.define('group', {
     }
 })
 
+
 const PricesAndCountsModel = sequelize.define('prices_and_counts', {
     good_guid: {
         type: Sequelize.STRING,
@@ -322,6 +323,9 @@ OrderProductsModel.belongsTo(GoodModel, { foreignKey: 'good_id'})
 
 UserModel.hasMany(OrderModel, { foreignKey: 'user_id'})
 OrderModel.belongsTo(UserModel, { foreignKey: 'user_id'})
+
+UserModel.hasMany(DeliveryModel, { foreignKey: 'user_id'})
+DeliveryModel.belongsTo(UserModel, { foreignKey: 'user_id'})
 
 
 OrderModel.hasMany(PaymentModel, { foreignKey: 'order_id'})

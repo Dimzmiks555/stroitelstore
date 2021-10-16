@@ -72,6 +72,15 @@
     .gallery {
         display: none !important;
     }
+    .amount {
+        margin-left: 0 !important;
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    .product__infoblock {
+        padding-top: 0px !important;
+    }
 }
 .product {
     padding-top: 40px;

@@ -500,6 +500,11 @@ const Category = observer(({mainTitle}) => {
                                     <Select className={styles.select} options={options} placeholder='Сортировка' onChange={e => handleSelect(e)}></Select>
                                 </div>
                             </div>
+                            <div className={styles.mobile_filter}>
+                                <button className={styles.mobile_filter__button}>
+                                    Фильтры
+                                </button>
+                            </div>
                         </div>
                         <div className={styles.category_goods}>
                             {showGoods()}           

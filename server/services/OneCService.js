@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 import mysql from 'mysql2'
 import Sequelize from "sequelize";
-import { GoodModel, PricesAndCountsModel } from '../models/models.js';
+import { GoodModel, GroupModel, PricesAndCountsModel } from '../models/models.js';
  
 
 
@@ -37,6 +37,30 @@ class OneCService {
                 title: item['Наименование'][0],
                 parent_group: null
             }
+
+            
+            async function createGroups(obj) {
+                const group = await GroupModel.findOne({where: { guid: obj.guid }})
+
+                if (!group) {
+                    GroupModel.create(obj).then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                } else {
+                    GroupModel.update({title: obj.title, guid: obj.guid, parent_group: obj.parent_group},{where: { guid: obj.guid }})
+                    .then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                }
+            }
+
+            createGroups(object)
             
             if (item['Группы']) {
 
@@ -48,24 +72,18 @@ class OneCService {
                             parent_group: item['Ид'][0]
                         }
 
-
-                    let subsql = `INSERT INTO \`groups\` (guid, title, parent_group) VALUES('${subobject.guid}', '${subobject.title}', '${subobject.parent_group}')  `;
- 
-                    connection.query(subsql, function(err, results) {
-                        if(err) console.log(err);
-                        console.log(results);
-                    });
+                    createGroups(subobject)
 
                 })
 
             }
-            const sql = `INSERT INTO \`groups\` (guid, title, parent_group) VALUES('${object.guid}', '${object.title}', '${object.parent_group}')  `;
+
  
-            connection.query(sql, function(err, results) {
-                if(err) console.log(err);
+            // connection.query(sql, function(err, results) {
+            //     if(err) console.log(err);
         
-                console.log(results);
-            });
+            //     console.log(results);
+            // });
 
 
         })

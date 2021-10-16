@@ -31,7 +31,7 @@ import BusketStore from '../../components/Busket/BusketStore';
     .then(json => {
       setData(json)
       BusketStore.initialSet([])
-      localStorage.clear()
+      localStorage.removeItem('positions')
       console.log(json)
     })
 
@@ -81,9 +81,6 @@ import BusketStore from '../../components/Busket/BusketStore';
               <thead>
                   <tr>
                       <td>
-                        ID
-                      </td>
-                      <td>
                         Наименование
                       </td>
                       <td>
@@ -100,9 +97,6 @@ import BusketStore from '../../components/Busket/BusketStore';
               <tbody>
               {data?.order_products?.map(item => (
                   <tr>
-                      <td>
-                        {item.id}
-                      </td>
                       <td>
                         {item?.good?.title}
                       </td>

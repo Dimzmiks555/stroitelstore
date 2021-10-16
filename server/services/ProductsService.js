@@ -491,7 +491,7 @@ class ProductsService {
                 {
                     model: HitModel
                 }
-            ] 
+            ],
         })
         .then(goods => {
             console.log(goods)

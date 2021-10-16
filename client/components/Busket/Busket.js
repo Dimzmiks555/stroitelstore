@@ -291,7 +291,7 @@ const Busket = observer(() => {
                 </div>
                 
                 <div className={styles.dilivery}>
-                    <h1>Способ доставки</h1>
+                    <h1>Способ получения</h1>
                     <div className={styles.select}>
 
                             <input id="shop" type="radio" name="delivery"  ></input>
@@ -346,7 +346,7 @@ const Busket = observer(() => {
                         </div>
                         <div className="delivery_block" style={{display: delivery == 'delivery' ? 'block' : 'none'}}>
                             <h1>Адрес</h1>
-                            {HeaderStore.userData[0]?.shipping?.city?.length < 1 && HeaderStore.userData[0]?.email ? (
+                            {HeaderStore.userData[0]?.shipping?.city?.length < 1 && HeaderStore.is_Auth ? (
                                 <div className={styles.delivery__inputs}>
                                     <label for="city">Город</label>
                                     <input id="city" placeholder="Город" onChange={e => handleCreateDelivery(e.target.id, e.target.value)}></input>
@@ -358,7 +358,7 @@ const Busket = observer(() => {
                                     <input id="room" placeholder="Номер квартиры" onChange={e => handleCreateDelivery(e.target.id, e.target.value)}></input>
                                     <button className={styles.newDelivery__button} onClick={addDelivery}>Сохранить</button>
                                 </div>
-                            ) : HeaderStore.userData[0]?.shipping?.address_1?.length > 1  && HeaderStore.userData[0]?.email ? (
+                            ) : HeaderStore.userData[0]?.shipping?.address_1?.length > 1  && HeaderStore.is_Auth ? (
                                 <div className={styles.delivery__inputs}>
                                     <p>Город <b>{HeaderStore.userData[0]?.shipping?.city}</b>, {HeaderStore.userData[0]?.shipping?.address_1}</p>
                                 </div>

@@ -67,6 +67,14 @@
     .category h1 {
         margin-bottom: 30px !important;
     }
+    .breadcrumbs {
+        display: none !important; 
+        margin-bottom: 30px;
+    }
+        
+    .mobile_filter {
+        display:  block !important;
+    }
 }
 .category h1{
     font-weight: bold;
@@ -76,6 +84,7 @@
 .toolbar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .category_main {
     display: flex;
@@ -434,4 +443,22 @@ transform-origin: 0 0; /* see note above */
 }
 .breadcrumbs a:hover {
     color: #d00;
+}
+
+.mobile_filter {
+    display: none;
+}
+
+
+.mobile_filter button {
+    padding: 16px;
+    cursor: pointer;
+    background: #d00;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    margin-top: 20px;
+    width: 100%;
 }

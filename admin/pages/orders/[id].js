@@ -155,6 +155,11 @@ import {Button, TableContainer, TextField, Table, TableHead, TableBody, TableRow
                             Назад
                         </Button>
                         {
+                            data?.payments?.[0]?.paid == true ? (<Chip  color='success' label='Оплачено'></Chip>) :
+                            data?.payments?.[0]?.paid == false ? (<Chip color='error' label='Нe оплачено'></Chip>) :
+                            null
+                        }
+                        {
                         data?.status == 'waiting' ? (<Chip color='default' label='На рассмотрении'></Chip>)  :
                         data?.status == 'ready' ? (<Chip color='info' label='Готов к выдаче'></Chip>) : 
                         data?.status == 'complete' ? (<Chip color='success' label='Выполнен'></Chip>) :

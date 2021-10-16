@@ -40,8 +40,8 @@ const Footer = () => {
                     stroitel.office@gmail.com
 
                     </h3>
-                    <img src='footer/sber.svg'></img>
-                    <img src='footer/visa.png'></img>
+                    <img src='/footer/sber.svg'></img>
+                    <img src='/footer/visa.png'></img>
                 </div>
             </div>
         </div>
