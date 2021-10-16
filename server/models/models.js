@@ -3,10 +3,7 @@ import Sequelize from "sequelize";
 
 const sequelize = new Sequelize("1c_base", "root", "root", {
   dialect: "mysql",
-  host: "localhost",
-  define: {
-      timestamps: false
-  }
+  host: "localhost"
 });
 
 
