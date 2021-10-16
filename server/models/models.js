@@ -329,8 +329,11 @@ OrderModel.hasMany(PaymentModel, { foreignKey: 'order_id'})
 PaymentModel.belongsTo(UserModel, { foreignKey: 'order_id'})
 
 
-PricesAndCountsModel.sync({alter: true})
+// PricesAndCountsModel.sync({alter: true})
 // OrderProductsModel.sync({alter: true})
+
+await sequelize.sync({ alter: true });
+console.log("All models were synchronized successfully.");
 
 export {
     GoodModel,
