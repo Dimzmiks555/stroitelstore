@@ -73,7 +73,7 @@ const Category = observer(({mainTitle}) => {
                 fetch(`${HOST.host}/api/groups`)
                 .then(res => res.json())
                 .then(json => {
-                    let group = json?.rows?.filter(item => item.guid == parent_id)[0]
+                    let group = json?.rows?.filter(item => item.guid == parent_id)?.rows?.[0]
                     setGroup(group)
                 })
 
