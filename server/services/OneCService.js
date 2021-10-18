@@ -112,11 +112,11 @@ class OneCService {
 
                 
 
-                async function createGoods() {
-                    const good = await GoodModel.findOne({where: { guid: object.guid }})
+                async function createGoods(obj) {
+                    const good = await GoodModel.findOne({where: { guid: obj.guid }})
 
                     if (!good) {
-                        GoodModel.create(object).then(res => {
+                        GoodModel.create(obj).then(res => {
                             console.log(res)
                         })
                         .catch(err => {
@@ -124,9 +124,9 @@ class OneCService {
                         })
                     } else {
                         
-                        console.log(object.status)
-                        if (object.status == 'Удален') {
-                            GoodModel.destroy({where: { guid: object.guid }})
+                        console.log(obj.status)
+                        if (obj.status == 'Удален') {
+                            GoodModel.destroy({where: { guid: obj.guid }})
                             .then(res => {
                                 console.log(res)
                             })
@@ -136,7 +136,7 @@ class OneCService {
 
                         } else {
                             
-                            GoodModel.update({title: object.title, group_id: object.group_id},{where: { guid: object.guid }})
+                            GoodModel.update({title: obj.title, group_id: obj.group_id},{where: { guid: obj.guid }})
                             .then(res => {
                                 console.log(res)
                             })
@@ -150,7 +150,7 @@ class OneCService {
                     }
                 }
 
-                createGoods()
+                createGoods(object)
                 // const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}')`;
  
                 // connection.query(sql, function(err, results) {
