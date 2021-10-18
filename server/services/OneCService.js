@@ -123,9 +123,9 @@ class OneCService {
                             console.log(err)
                         })
                     } else {
-
+                        
+                        console.log(object.status)
                         if (object.status == 'Удален') {
-
                             GoodModel.destroy({where: { guid: object.guid }})
                             .then(res => {
                                 console.log(res)
