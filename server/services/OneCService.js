@@ -117,7 +117,7 @@ class OneCService {
 
                     if (!good) {
                         GoodModel.create(obj).then(res => {
-                            console.log(res)
+                            // console.log(res)
                         })
                         .catch(err => {
                             console.log(err)
@@ -128,7 +128,7 @@ class OneCService {
                         if (obj.status == 'Удален') {
                             GoodModel.destroy({where: { guid: obj.guid }})
                             .then(res => {
-                                console.log(res)
+                                // console.log(res)
                             })
                             .catch(err => {
                                 console.log(err)
@@ -138,7 +138,7 @@ class OneCService {
                             
                             GoodModel.update({title: obj.title, group_id: obj.group_id},{where: { guid: obj.guid }})
                             .then(res => {
-                                console.log(res)
+                                // console.log(res)
                             })
                             .catch(err => {
                                 console.log(err)
@@ -160,7 +160,7 @@ class OneCService {
 
             }
 
-            
+            console.log(catalog[0]['Товары'][0]['Товар']?.length)
 
         })
         
