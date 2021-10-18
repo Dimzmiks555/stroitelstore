@@ -47,7 +47,7 @@ class OneCService {
 
                 if (!group) {
                     GroupModel.create(obj).then(res => {
-                        console.log(res)
+                        // console.log(res)
                     })
                     .catch(err => {
                         console.log(err)
@@ -55,7 +55,7 @@ class OneCService {
                 } else {
                     GroupModel.update({title: obj.title, guid: obj.guid, parent_group: obj.parent_group},{where: { guid: obj.guid }})
                     .then(res => {
-                        console.log(res)
+                        // console.log(res)
                     })
                     .catch(err => {
                         console.log(err)
@@ -104,11 +104,7 @@ class OneCService {
                     group_id: item['Группы'][0]['Ид'][0],
                 }
 
-
-                
-                if (object.guid == 'f0ba30e8-751d-11eb-93ec-18c04d2a3938') {
-                    search = catalog[0]['Товары'][0]['Товар']?.[index]
-                }
+                console.log(index)
 
                 
 
