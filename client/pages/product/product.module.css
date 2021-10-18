@@ -88,6 +88,7 @@
 .back_button {
     position: fixed;
     z-index:100;
+    left: 3%;
     height: 80px;
     width: 80px;
     display: flex;

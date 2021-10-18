@@ -92,7 +92,7 @@
 }
 .category_filter {
     flex-basis: 22%;
-    padding: 10px 30px;
+    /* padding: 10px 30px; */
 }
 .category_filter .filter_price {
     margin-bottom: 20px;

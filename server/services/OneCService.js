@@ -30,6 +30,8 @@ class OneCService {
         let classificator = data['Классификатор']
         let catalog = data['Каталог']
 
+        let search = ''
+
         classificator[0]['Группы'][0]['Группа'].forEach(item => {
 
             let object = {
@@ -38,6 +40,7 @@ class OneCService {
                 parent_group: null
             }
 
+            
             
             async function createGroups(obj) {
                 const group = await GroupModel.findOne({where: { guid: obj.guid }})
@@ -88,16 +91,23 @@ class OneCService {
 
         })
 
-        catalog[0]['Товары'][0]['Товар'].forEach(item => {
+        catalog[0]['Товары'][0]['Товар'].forEach((item, index) => {
 
 
             if (item['Группы'] != undefined) {
 
 
                 let object = {
+                    status: item['$']["Статус"],
                     guid: item['Ид'][0],
                     title: item['Наименование'][0],
                     group_id: item['Группы'][0]['Ид'][0],
+                }
+
+
+                
+                if (object.guid == 'f0ba30e8-751d-11eb-93ec-18c04d2a3938') {
+                    search = catalog[0]['Товары'][0]['Товар']?.[index]
                 }
 
                 
@@ -113,13 +123,30 @@ class OneCService {
                             console.log(err)
                         })
                     } else {
-                        GoodModel.update({title: object.title, group_id: object.group_id},{where: { guid: object.guid }})
-                        .then(res => {
-                            console.log(res)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
+
+                        if (object.status == 'Удален') {
+
+                            GoodModel.destroy({where: { guid: object.guid }})
+                            .then(res => {
+                                console.log(res)
+                            })
+                            .catch(err => {
+                                console.log(err)
+                            })
+
+                        } else {
+                            
+                            GoodModel.update({title: object.title, group_id: object.group_id},{where: { guid: object.guid }})
+                            .then(res => {
+                                console.log(res)
+                            })
+                            .catch(err => {
+                                console.log(err)
+                            })
+                        }
+
+
+                        
                     }
                 }
 
