@@ -151,6 +151,7 @@ const Product = observer(({data, group, parent_group}) => {
                                     <h1>{data?.title}</h1>
                                     <h4>Артикул: {data?.prices_and_count?.sku}</h4>
                                 </div>
+                                {console.log(group)}
                                 <div className={styles.product__overview_price}>
                                     {data?.prices_and_count?.price ? (<p><span>{(+data?.prices_and_count?.price).toLocaleString()}</span> ₽ / шт.</p>) : <p>Цена по запросу</p>} 
                                 </div>
@@ -269,12 +270,15 @@ export async function getServerSideProps({params}) {
     const groups = await fetch(`${HOST.host}/api/groups`);
     
     const grjson = await groups.json();
-    let parent_group = grjson?.rows?.filter(item => item.guid == parent_id)[0]
+    let parent_group = grjson?.rows?.filter(item => item.guid == parent_id)?.[0]
+    console.log(grjson)
 
 
     return {
         props: {
-            data, group, parent_group
+            data, 
+            group, 
+            // parent_group
         }
     }
 
