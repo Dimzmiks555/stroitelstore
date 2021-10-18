@@ -2,7 +2,7 @@
 // import GoodModel from '../models/GoodModel.js'
 
 import mysql from 'mysql2'
-import Sequelize from "sequelize";
+import Sequelize, { Op } from "sequelize";
 import { GroupModel, GoodModel, PricesAndCountsModel, GoodsAttributeModel, AttributeModel, DescModel, ImageModel, HitModel } from '../models/models.js';
 import HitsService from './HitsService.js';
  
@@ -23,7 +23,9 @@ class ProductsService {
         
         let {limit, page, group_id, search, guid, price , order, stock, order_by , ...args} = params
 
-        let query = {}
+        let query = {
+            parent_group: {[Op.not] : null}
+        }
         let priceFilter = {}
 
         let filters = []
@@ -252,7 +254,8 @@ class ProductsService {
 
         let {limit, page, group_id, search, guid, price , order, stock , ...args} = params
 
-        let query = {}
+        let query = {
+        }
         let priceFilter = {}
 
         let filters = []

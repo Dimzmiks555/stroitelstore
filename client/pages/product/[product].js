@@ -278,7 +278,7 @@ export async function getServerSideProps({params}) {
         props: {
             data, 
             group, 
-            // parent_group
+            parent_group
         }
     }
 
