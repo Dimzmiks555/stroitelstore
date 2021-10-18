@@ -329,7 +329,7 @@ OrderModel.hasMany(PaymentModel, { foreignKey: 'order_id'})
 PaymentModel.belongsTo(UserModel, { foreignKey: 'order_id'})
 
 
-// PricesAndCountsModel.sync({alter: true})
+GoodModel.sync({force: true})
 // OrderProductsModel.sync({alter: true})
 
 // await sequelize.sync({ alter: true });
