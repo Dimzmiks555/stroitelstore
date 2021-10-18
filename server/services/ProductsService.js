@@ -166,7 +166,10 @@ class ProductsService {
                     ...filters,
                     {
                         model: GroupModel,
-                        parent_group: {[Sequelize.Op.not] : null}
+                        where: {
+                            
+                            parent_group: {[Sequelize.Op.not] : null}
+                        }
                     },
                     {
                         where: priceFilter,
@@ -205,7 +208,10 @@ class ProductsService {
                     },
                     {
                         model: GroupModel,
-                        parent_group: {[Sequelize.Op.not] : null}
+                        where: {
+                            
+                            parent_group: {[Sequelize.Op.not] : null}
+                        }
                     },
                     {
                         where: priceFilter,
