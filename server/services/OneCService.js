@@ -98,11 +98,13 @@ class OneCService {
 
 
                 let object = {
-                    status: item['$']["Статус"],
                     guid: item['Ид'][0],
                     title: item['Наименование'][0],
                     group_id: item['Группы'][0]['Ид'][0],
                 }
+
+
+                if (item['$']) { object.status = item['$']["Статус"] }
 
                 console.log(index)
 
