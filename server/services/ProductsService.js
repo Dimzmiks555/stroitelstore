@@ -24,7 +24,6 @@ class ProductsService {
         let {limit, page, group_id, search, guid, price , order, stock, order_by , ...args} = params
 
         let query = {
-            parent_group: {[Sequelize.Op.not] : null}
         }
         let priceFilter = {}
 
@@ -167,6 +166,7 @@ class ProductsService {
                     ...filters,
                     {
                         model: GroupModel,
+                        parent_group: {[Sequelize.Op.not] : null}
                     },
                     {
                         where: priceFilter,
@@ -204,7 +204,8 @@ class ProductsService {
                         
                     },
                     {
-                        model: GroupModel
+                        model: GroupModel,
+                        parent_group: {[Sequelize.Op.not] : null}
                     },
                     {
                         where: priceFilter,
