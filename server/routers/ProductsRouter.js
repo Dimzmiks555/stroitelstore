@@ -30,6 +30,7 @@ import authMiddleware from '../middlewares/authMiddleware.js'
 import HitsController from '../controllers/HitsController.js'
 import PaymentController from '../controllers/PaymentController.js'
 import DeliveryController from '../controllers/DeliveryController.js'
+import MailController from '../controllers/MailController.js'
 
 
 
@@ -77,6 +78,9 @@ router.get('/deliveries/', DeliveryController.getAll);
 
 router.post('/payment/', PaymentController.create);
 router.post('/payment/notification/', PaymentController.update);
+
+router.post('/mail/', MailController.create);
+
 
 // AUTHORIZATION
 

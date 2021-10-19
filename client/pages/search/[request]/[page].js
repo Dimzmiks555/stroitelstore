@@ -10,12 +10,11 @@ import MobileMenu from '../../../components/MobileMenu/MobileMenu';
 import Footer from '../../../components/Footer/Footer';
 import Head from 'next/head';
 import Select from 'react-select'
-import Slider from 'rc-slider';
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
-const Range = createSliderWithTooltip(Slider.Range);
 import 'rc-slider/assets/index.css';
 import HOST from '../../../HOST';
+import Modal from '../../../components/Modal/Modal.jsx'
 import BusketStore from '../../../components/Busket/BusketStore';
+import ModalStore from '../../../components/Modal/ModalStore';
 
 const Search = observer(({mainTitle}) => {
 
@@ -224,6 +223,10 @@ const Search = observer(({mainTitle}) => {
         })
     } 
 
+    function handleOrder(e, guid) {
+        ModalStore.setIsOpen(true)
+        ModalStore.setGood(guid)
+    }
 
     if (isLoading == true) {
         return (
@@ -337,7 +340,7 @@ const Search = observer(({mainTitle}) => {
                                             <a id={item.guid} className={styles.to_cart_added}>Добавлено</a> : 
                                             item?.prices_and_count?.amount > 0 ? 
                                             <a id={item.guid} className={styles.to_cart} onClick={e => {addGood(e)}}>В корзину</a> : 
-                                            <a id={item.guid} className={styles.outofstock}>Под заказ</a>
+                                            <a id={item.guid} className={styles.outofstock} onClick={e => {handleOrder(e, item.guid)}}>Под заказ</a>
                                         }
                                         
                                     </div>
@@ -407,6 +410,7 @@ const Search = observer(({mainTitle}) => {
             </div>
         </div>
         <Footer />
+        <Modal></Modal>
     <MobileMenu></MobileMenu>
         </>
     )

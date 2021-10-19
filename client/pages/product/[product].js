@@ -14,6 +14,8 @@ import Footer from '../../components/Footer/Footer';
 import BusketStore from '../../components/Busket/BusketStore';
 import HOST from '../../HOST';
 import RecentGoods from '../../components/RecentGoods/RecentGoods';
+import Modal from '../../components/Modal/Modal.jsx';
+import ModalStore from '../../components/Modal/ModalStore';
 const Product = observer(({data, group, parent_group}) => {
     
     const [added, setAdded] = useState(false);
@@ -109,7 +111,10 @@ const Product = observer(({data, group, parent_group}) => {
     function handleHover(e) {
         setImage(e)
     }
-
+    function handleOrder(e, guid) {
+        ModalStore.setIsOpen(true)
+        ModalStore.setGood(guid)
+    }
 
     function renderThis() {
         if (isLoading == true) {
@@ -169,7 +174,7 @@ const Product = observer(({data, group, parent_group}) => {
                                     {  
                                          data?.prices_and_count?.amount == 0 ? (
                                             <div className={styles.product__overview_cart}>
-                                                <button id={data?.guid} style={{background: '#aaa'}} >
+                                                <button id={data?.guid} style={{background: '#aaa'}} onClick={e => handleOrder(e, data?.guid)} >
                                                     Под заказ
                                                 </button>
                                             </div>
@@ -246,6 +251,7 @@ const Product = observer(({data, group, parent_group}) => {
             {renderThis()}
 
         <Footer />
+        <Modal></Modal>
     <MobileMenu></MobileMenu>
         </>
     )
