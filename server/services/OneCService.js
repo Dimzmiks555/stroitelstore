@@ -94,7 +94,7 @@ class OneCService {
         catalog[0]['Товары'][0]['Товар'].forEach((item, index) => {
 
 
-            if (item['Группы'] != undefined && item['Группы']?.[0]['Ид'][0] != '5ebd7f05-afbb-11eb-9439-18c04d2a3938') {
+            if (item['Группы'] != undefined && item['Группы']?.[0]?.['Ид']?.[0] != '5ebd7f05-afbb-11eb-9439-18c04d2a3938') {
 
 
                 let object = {
