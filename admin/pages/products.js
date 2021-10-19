@@ -18,7 +18,9 @@ import StarIcon from '@mui/icons-material/Star';
     const [attrOpt, setAttrOpt] = useState([])
     const [attributeList, setAttributeList] = useState([])
     const [selectedAttr, setselectedAttr] = useState(null)
-    const [newAttrValue, setNewAttrValue]  = useState('')
+    const [newAttrValue, setNewAttrValue]  = useState('') 
+    const [file, setFile] = useState(null)
+    const [fileName, setFileName] = useState(null)
 
 
     function fetchData(page, group_id) {
@@ -144,6 +146,50 @@ import StarIcon from '@mui/icons-material/Star';
 
     }
 
+    function handleImage(e) {
+        e.preventDefault()
+        console.log(file)
+
+        selected?.forEach((item, index) => {
+            const fdata = new FormData();
+            fdata.append('file', file);
+            fdata.append('name', item);
+
+            console.log(data )
+
+            if(data[0]?.images.length > 0 ) {
+                fdata.append('main', 'false');
+            } else {
+                fdata.append('main', 'true');
+            }
+
+            console.log(fdata.body)
+            
+            fetch(`http://${HOST.host}/api/upload`, {
+                method: 'POST',
+                body: fdata,
+            })
+            .then(res => {
+                console.log(res);
+                if (index == selected.length - 1 ) {
+                    window.location.reload()
+                }
+            })
+
+
+
+
+        })
+
+        
+
+    }
+
+    function handleImageInput(e) {
+        setFile(e.target.files[0]);
+        setFileName(e.target.value)
+    }
+
     useEffect(() => {
         fetchData(pagination, group_id)
         fetchGroups()
@@ -184,9 +230,21 @@ import StarIcon from '@mui/icons-material/Star';
                         />
                         <TextField value={newAttrValue} onChange={e => {setNewAttrValue(e.target.value)}} label='Значение'></TextField>
                         <Button onClick={handleCreateValue} variant='contained'>Добавить аттрибут</Button>
+                        
+                            <form className={styles.images_block_header} onSubmit={handleImage} enctype="multipart/form-data">
+                                <div className={styles.drop_area}>
+                                    <span>{fileName}</span>
+                                    <input type="file" id="filedata" onChange={handleImageInput}></input>
+                                </div>
+                                <Button type='submit' variant='contained'>
+                                    Добавить изображение
+                                </Button>
+                            </form>
                     </div>
+                    
                 )
             }
+            
             <Paper variant='outlined'>
                 <TableContainer>
                     <Table hover size='small'>

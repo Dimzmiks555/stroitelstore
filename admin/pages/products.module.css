@@ -73,3 +73,8 @@
     width: 40px;
     object-fit: scale-down;
 }
+
+.images_block_header {
+    margin-left: 40px;
+    display: flex;
+}
