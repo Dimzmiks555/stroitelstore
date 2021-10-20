@@ -40,7 +40,7 @@ class OneCService {
                 parent_group: null
             }
 
-            
+            if (item['$']) { object.status = item['$']["Статус"] }
             
             async function createGroups(obj) {
                 const group = await GroupModel.findOne({where: { guid: obj.guid }})
@@ -53,13 +53,27 @@ class OneCService {
                         console.log(err)
                     })
                 } else {
-                    GroupModel.update({title: obj.title, guid: obj.guid, parent_group: obj.parent_group},{where: { guid: obj.guid }})
-                    .then(res => {
-                        // console.log(res)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
+
+
+                    if (obj.status == 'Удален') {
+                        GroupModel.destroy({where: { guid: obj.guid }})
+                        .then(res => {
+                            // console.log(res)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+
+                    } else {
+                        GroupModel.update({title: obj.title, guid: obj.guid, parent_group: obj.parent_group},{where: { guid: obj.guid }})
+                        .then(res => {
+                            // console.log(res)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                    }
+
                 }
             }
 
@@ -74,6 +88,10 @@ class OneCService {
                             title: subitem['Наименование'][0],
                             parent_group: item['Ид'][0]
                         }
+
+
+                    if (item['$']) { object.status = item['$']["Статус"] }
+
 
                     createGroups(subobject)
 
