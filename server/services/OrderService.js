@@ -1,6 +1,7 @@
 
 import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodModel, UserModel, PaymentModel } from '../models/models.js';
 import fetch from 'node-fetch'
+import MailService from './MailService.js';
 
 class OrderService {
 
@@ -8,6 +9,11 @@ class OrderService {
         
         console.log(body.positions)
 
+        await MailService.create({
+            to: 'anodaday@yandex.ru',
+            subject: 'Новый заказ',
+            text: 'Новый заказ, проверьте админ панель http://phpmyadmin.stroitelstore.ru'
+        })
 
         await OrderModel.create(body.data)
         .then(order => {

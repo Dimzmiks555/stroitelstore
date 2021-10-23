@@ -41,6 +41,8 @@ class OneCService {
             }
 
             if (item['$']) { object.status = item['$']["Статус"] }
+
+            console.log(object)
             
             async function createGroups(obj) {
                 const group = await GroupModel.findOne({where: { guid: obj.guid }})
@@ -124,7 +126,7 @@ class OneCService {
 
                 if (item['$']) { object.status = item['$']["Статус"] }
 
-                console.log(index)
+                // console.log(index)
 
                 
 
