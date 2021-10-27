@@ -57,7 +57,7 @@ class PaymentService {
 
            
 
-           const checkout = new YooCheckout({ shopId: '842984', secretKey: 'test_klyiqPckiN92TXRsAjv4gbfaJCIyQZ1NMQPPQmBHQLc' });
+           const checkout = new YooCheckout({ shopId: '830448', secretKey: 'live_PurotfCxaaQyhEZKun3Yz2E29fGSOD-gLGFER7s4n8Y' });
 
            const idempotenceKey = uuidv4();;
            
