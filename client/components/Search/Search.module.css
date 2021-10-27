@@ -1,5 +1,11 @@
 @media screen and (max-width: 1370px) {
-   
+    .search__box {
+        border-radius: 20px;
+        margin-right: 0 !important;
+        display: block;
+        width: 50% !important;
+        position: relative;
+    }
 }
 
 
@@ -24,10 +30,36 @@
         /* display: none !important; */
         width: 100% !important;
     }
+    .search{
+        font-size: inherit;
+        font-family: inherit;
+        margin-left: 0 !important;
+        height: 40px;
+        width: 70%;
+        border-right: none !important;
+        border-left: none !important;
+        border-radius: 0 !important;
+        /* background: #f4f4f4; */
+        outline: none;
+        padding: 30px 5% !important;
+    }
+    .search__tool button {
+        border-radius: 0 !important;
+        padding: 22px 5% !important;
+    }
+    .result {
+        z-index: 999;
+        left: 0px !important;
+        border: 1px solid #ddd;
+        background: #fff;
+        position: absolute;
+        width: 100% !important;
+        border-radius: 0 !important;
+    }
 }
 .search__box {
     border-radius: 20px;
-    margin-right: 60px;
+    margin-right: 20px;
     display: block;
     width: 35%;
     position: relative;
@@ -36,7 +68,7 @@
     font-size: inherit;
     font-family: inherit;
     margin-left: 60px;
-    height: 40px;
+    height: 50px;
     width: 100%;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -85,7 +117,7 @@
     font-weight: bold;
     border-radius: 0px 8px 8px 0px;
     font-family: inherit;
-    padding: 11px 20px;
+    padding: 16px 20px;
     background: #d00;
     color: #fff;
     border: none;
@@ -94,7 +126,7 @@
 .search__tool button:hover {
     border-radius: 0px 8px 8px 0px;
     font-family: inherit;
-    padding: 11px 20px;
+    padding: 16px 20px;
     background: #900;
     color: #fff;
     border: none;
