@@ -2,7 +2,7 @@
 import { GroupModel, OrderProductsModel, OrderModel, PricesAndCountsModel, GoodModel, UserModel, PaymentModel } from '../models/models.js';
 import { YooCheckout  } from '@a2seven/yoo-checkout';
 import { v4 as uuidv4 } from 'uuid';
-
+import MailService from './MailService.js';
 
 
 class PaymentService {
@@ -11,7 +11,11 @@ class PaymentService {
        
        console.log(body)
 
-
+       await MailService.create({
+            to: 'anodaday@yandex.ru',
+            subject: 'Новый заказ',
+            text: 'Новый заказ, проверьте админ панель http://phpmyadmin.stroitelstore.ru'
+        })
     //    body.data.status = 'waiting_for_payment'
 
        await OrderModel.create(body.data)
@@ -191,6 +195,11 @@ class PaymentService {
 
    async update(params, data , result) {
 
+        await MailService.create({
+            to: 'anodaday@yandex.ru',
+            subject: `Оплата по заказу # ${data?.object?.id}`,
+            text: `Оплата по заказу № ${data?.object?.id}, проверьте админ панель http://phpmyadmin.stroitelstore.ru`
+        })
 
         console.log(data)
 
