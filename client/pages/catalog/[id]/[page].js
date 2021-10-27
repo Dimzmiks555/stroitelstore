@@ -502,7 +502,7 @@ const Category = observer(({mainTitle}) => {
                         
 
                         <button className={styles.mobile_filter__button_accept} onClick={handleClose}>
-                            Применить
+                            Применить ({countGoods})
                         </button>
 
                     </div>
