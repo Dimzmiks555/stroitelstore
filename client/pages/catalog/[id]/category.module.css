@@ -497,7 +497,7 @@ transform-origin: 0 0; /* see note above */
 .category_filter__mobile_header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: start;
 }
 
 .close {
