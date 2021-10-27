@@ -16,6 +16,7 @@ import HOST from '../../HOST';
 import RecentGoods from '../../components/RecentGoods/RecentGoods';
 import Modal from '../../components/Modal/Modal.jsx';
 import ModalStore from '../../components/Modal/ModalStore';
+import Loader from '../../components/Loader/Loader';
 const Product = observer(({data, group, parent_group}) => {
     
     const [added, setAdded] = useState(false);
@@ -132,7 +133,12 @@ const Product = observer(({data, group, parent_group}) => {
                     <a className={styles.back_button} onClick={() => router.back()}>
                     ⟵
                     </a>
-                    <div className={styles.product}>
+                    {
+                        data?.guid != router.query.product  ? (
+                            <Loader></Loader>
+                        ) : 
+                        <div className={styles.product}>
+                            {console.log(data)}
                         <div className={styles.product__overview}>
                             <div className={styles.product__overview_img} id="product__overview_img">
                                 <div className={styles.product__overview_main_img}>
@@ -232,6 +238,7 @@ const Product = observer(({data, group, parent_group}) => {
                         </div>
                         
                     </div>
+                    }
                     
                     <RecentGoods/>
                 </div>

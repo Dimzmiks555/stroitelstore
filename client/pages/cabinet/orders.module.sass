@@ -1,6 +1,12 @@
-.orders
+
+
+    
+.orders 
     h1
         margin-bottom: 40px
+
+        @media screen and (max-width: 480px) 
+        padding: 10px 5% !important
 
     table 
         border-collapse: collapse
@@ -24,6 +30,10 @@
     box-shadow: 0 6px 20px #ddd
     margin-bottom: 20px
 
+    @media screen and (max-width: 480px) 
+        border-radius: 0 !important
+        padding: 10px 0 !important
+
 .header 
     padding: 0 20px 0px
     display: flex
@@ -33,30 +43,133 @@
         margin-left: auto
         text-align: right
 
+    .status_info 
+        font-size: 18px
+        
+        .waiting
+            color: #888
+        .work
+            color: #a80
+        .completed
+            color: #080
+        .cancel
+            color: #800
+        .ready
+            color: #008
+
+            
+        
+
+        @media screen and (min-width: 1200px) and (max-width: 1370px) 
+
+
+
+        /* Portrait tablets and medium desktops */
+        @media screen and (min-width: 992px) and (max-width: 1199px) 
+
+
+        /* Portrait tablets and small desktops */
+        @media screen and (min-width: 768px) and (max-width: 991px) 
+
+
+
+        /* Landscape phones and portrait tablets */
+        @media screen and (max-width: 767px) 
+
+
+
+        /* Landscape phones and smaller */
+        @media screen and (max-width: 480px) 
+            word-break: none !important
+            word-wrap: none
+            font-size: 14px !important
 
     .total 
         font-size: 32px
         font-weight: 600
 
+        @media screen and (min-width: 1200px) and (max-width: 1370px) 
+
+
+
+        /* Portrait tablets and medium desktops */
+        @media screen and (min-width: 992px) and (max-width: 1199px) 
+
+
+        /* Portrait tablets and small desktops */
+        @media screen and (min-width: 768px) and (max-width: 991px) 
+
+
+
+        /* Landscape phones and portrait tablets */
+        @media screen and (max-width: 767px) 
+
+
+
+        /* Landscape phones and smaller */
+        @media screen and (max-width: 480px) 
+            font-size: 18px !important
+            width: auto !important
+            white-space: nowrap !important
+
     .order_info 
         font-size: 20px
         font-weight: 600
         margin-bottom: 10px
-        
-        p 
-            .waiting
-                color: #888
-            .work
-                color: #a80
-            .completed
-                color: #080
-            .cancel
-                color: #800
-            .ready
-                color: #008
 
-        span 
-            margin-left: 20px
+
+        i
+            @media screen and (max-width: 480px) 
+                display: none !important
+
+    
+
+    
+    .delivery_address
+        
+        @media screen and (min-width: 1200px) and (max-width: 1370px) 
+
+
+
+        /* Portrait tablets and medium desktops */
+        @media screen and (min-width: 992px) and (max-width: 1199px) 
+
+
+        /* Portrait tablets and small desktops */
+        @media screen and (min-width: 768px) and (max-width: 991px) 
+
+
+
+        /* Landscape phones and portrait tablets */
+        @media screen and (max-width: 767px) 
+
+
+
+        /* Landscape phones and smaller */
+        @media screen and (max-width: 480px) 
+            display: none !important
+    .payment_method
+        @media screen and (min-width: 1200px) and (max-width: 1370px) 
+
+
+
+        /* Portrait tablets and medium desktops */
+        @media screen and (min-width: 992px) and (max-width: 1199px) 
+
+
+        /* Portrait tablets and small desktops */
+        @media screen and (min-width: 768px) and (max-width: 991px) 
+
+
+
+        /* Landscape phones and portrait tablets */
+        @media screen and (max-width: 767px) 
+
+
+
+        /* Landscape phones and smaller */
+        @media screen and (max-width: 480px) 
+            display: none !important
 
 .more
     cursor: pointer
@@ -76,16 +189,89 @@
     margin-top: 30px
     border-top: 2px solid #dcc
     padding: 20px
+    
 
     & > div 
         display: flex
 
+        
+
+        @media screen and (min-width: 1200px) and (max-width: 1370px) 
+
+
+
+        /* Portrait tablets and medium desktops */
+        @media screen and (min-width: 992px) and (max-width: 1199px) 
+
+
+        /* Portrait tablets and small desktops */
+        @media screen and (min-width: 768px) and (max-width: 991px) 
+
+
+
+        /* Landscape phones and portrait tablets */
+        @media screen and (max-width: 767px) 
+
+
+
+        /* Landscape phones and smaller */
+        @media screen and (max-width: 480px) 
+            // flex-direction: column !important
+
     .id 
         padding: 10px
         width: 5%
+        
+        @media screen and (min-width: 1200px) and (max-width: 1370px) 
+
+
+
+        /* Portrait tablets and medium desktops */
+        @media screen and (min-width: 992px) and (max-width: 1199px) 
+
+
+        /* Portrait tablets and small desktops */
+        @media screen and (min-width: 768px) and (max-width: 991px) 
+
+
+
+        /* Landscape phones and portrait tablets */
+        @media screen and (max-width: 767px) 
+
+
+
+        /* Landscape phones and smaller */
+        @media screen and (max-width: 480px) 
+
+            display: none !important
+
     .title
         padding: 10px
         width: 60%
+
+        
+
+        @media screen and (min-width: 1200px) and (max-width: 1370px) 
+
+
+
+        /* Portrait tablets and medium desktops */
+        @media screen and (min-width: 992px) and (max-width: 1199px) 
+
+
+        /* Portrait tablets and small desktops */
+        @media screen and (min-width: 768px) and (max-width: 991px) 
+
+
+
+        /* Landscape phones and portrait tablets */
+        @media screen and (max-width: 767px) 
+
+
+
+        /* Landscape phones and smaller */
+        @media screen and (max-width: 480px) 
+            padding: 0 !important
     .price 
         padding: 10px
         width: 10%
@@ -98,3 +284,33 @@
     .head 
         font-weight: 700
         color: #555
+        /* Landscape phones and smaller */
+        @media screen and (max-width: 480px) 
+            padding: 0 !important
+            display: none !important
+            // margin-top: 20px !important
+
+
+    
+    @media screen and (min-width: 1200px) and (max-width: 1370px) 
+
+
+
+    /* Portrait tablets and medium desktops */
+    @media screen and (min-width: 992px) and (max-width: 1199px) 
+
+
+    /* Portrait tablets and small desktops */
+    @media screen and (min-width: 768px) and (max-width: 991px) 
+
+
+
+    /* Landscape phones and portrait tablets */
+    @media screen and (max-width: 767px) 
+
+
+
+    /* Landscape phones and smaller */
+    @media screen and (max-width: 480px) 
+        padding: 20px !important
+        font-size: 12px !important

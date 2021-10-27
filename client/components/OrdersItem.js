@@ -24,7 +24,8 @@ export default function OrdersItem({data}) {
             <div className={styles.header}>
                 <div>
                     <div className={styles.order_info}>
-                        <p>Заказ № {data?.id} от {new Date(data?.createdAt).toLocaleDateString()} {new Date(data?.createdAt).toLocaleTimeString()}
+                        <p>Заказ № {data?.id} от {new Date(data?.createdAt).toLocaleDateString()} <i>{new Date(data?.createdAt).toLocaleTimeString()}</i></p>
+                        <div className={styles.status_info}>
                         {
                             data?.status == 'waiting_for_payment' ? (<span className={styles.work}>Ожидает оплаты</span>) :
                             data?.status == 'waiting' ? (<span className={styles.waiting}>На рассмотрении</span>) :
@@ -37,17 +38,18 @@ export default function OrdersItem({data}) {
                             data?.payments?.[0]?.paid == true ? (<span className={styles.completed}>Оплачено</span>) :
                             data?.payments?.[0]?.paid == false ? (<span className={styles.waiting}>Ожидает оплаты</span>) :
                             null
-                        }</p>
+                        }
+                        </div>
                     </div>
-                    <div>
+                    <div className={styles.delivery_address}>
                         {data?.type == 'shop' ? 'Самовывоз' : 'Доставка'} по адресу {data?.address}
                     </div>
                 </div>
                 <div>
                     <div className={styles.total}>
-                        {data?.total} ₽
+                        <p>{data?.total} ₽</p>
                     </div>
-                    <div>
+                    <div className={styles.payment_method}>
                         {data?.payment == 'nal' ? 'Наличными или картой при получении' : 'Банковская карта'}
                     </div>
                 </div>

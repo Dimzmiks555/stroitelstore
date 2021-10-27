@@ -6,6 +6,7 @@ import {  Table, TableContainer , FormGroup, FormControlLabel, Checkbox, TableHe
 // import { DataGrid } from '@mui/x-data-grid';
 import HOST from '../HOST.js'
 import StarIcon from '@mui/icons-material/Star';
+import Loader from "../components/Loader/Loader";
 
  export default function Products() {
 
@@ -245,7 +246,8 @@ import StarIcon from '@mui/icons-material/Star';
                 )
             }
             
-            <Paper variant='outlined'>
+            {
+                data?.rows?.length > 0 ? <Paper variant='outlined'>
                 <TableContainer>
                     <Table hover size='small'>
                         <TableHead>
@@ -361,7 +363,8 @@ import StarIcon from '@mui/icons-material/Star';
                     onPageChange={handlePagination}
                     // onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-            </Paper>
+            </Paper> : <Loader></Loader>
+            }
 
            
 

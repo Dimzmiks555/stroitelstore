@@ -18,6 +18,7 @@ class CatalogItemsStore {
         this.promise = value 
     }
     async getData(parent, board){
+        this.promise = 'pending';
         if (parent) {
             
             fetch(`${HOST.host}/api/groups?parent_group=${parent}`)

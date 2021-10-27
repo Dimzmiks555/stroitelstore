@@ -15,6 +15,7 @@ import Modal from '../../../components/Modal/Modal.jsx'
 import MobileMenu from '../../../components/MobileMenu/MobileMenu';
 import 'rc-slider/assets/index.css';
 import ModalStore from '../../../components/Modal/ModalStore';
+import Loader from '../../../components/Loader/Loader';
 
 
 const Category = observer(({mainTitle}) => {
@@ -482,17 +483,11 @@ const Category = observer(({mainTitle}) => {
 
 
                     </div>
+                    
                     <div className={styles.category_goodsblock}>
+                    {data?.[0]?.group?.guid != router.query.id  ? <Loader></Loader> :
+                        <>
                         <div className={styles.category_goodsblock_header}>
-                            <div className={styles.tags}>
-                                {/* {
-                                    tags.map(item => (
-                                        <div>
-                                            {item?.title}: {item?.value}
-                                        </div>
-                                    ))
-                                } */}
-                            </div>
                             <h1>{data[0] ? data[0]?.group?.title : null}</h1>
                             <div className={styles.breadcrumbs}><Link href='/categories'><a>Каталог</a></Link> / <Link href={`/categories/${group?.guid}`}><a>{group?.title}</a></Link></div>
 
@@ -512,8 +507,7 @@ const Category = observer(({mainTitle}) => {
                             </div>
                         </div>
                         <div className={styles.category_goods}>
-                            {showGoods()}           
-                            
+                            {showGoods()}       
                         </div>
                         <div className={styles.pagination}>
                             <ul>
@@ -564,6 +558,8 @@ const Category = observer(({mainTitle}) => {
                                 }
                             </ul>
                         </div>
+                        </>
+                        }
                     </div>
                 </div>
             </div>

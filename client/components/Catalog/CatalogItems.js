@@ -5,6 +5,7 @@ import Link from 'next/link'
 import CatalogStore from "../CatalogStore";
 import CategoryStore from "./category/categoryStore";
 import { useEffect, useState } from "react";
+import Loader from "../Loader/Loader";
 const CatalogItems = observer(() => {
 
     function handleClick( e) {
@@ -14,9 +15,10 @@ const CatalogItems = observer(() => {
 
     return (
         <div className={styles.catalog__items}>
+        {CatalogItemsStore.promise == 'done' ? (
+            <>
             <div className={styles.catalog__itemsblock}>
                 <h1>{CatalogItemsStore.props.category}</h1>
-                {CatalogItemsStore.promise == 'done' ? (
                     <div className={styles.catalog__itemslist}>
                     {CatalogItemsStore.props?.data?.map((subcat) => (
                         
@@ -25,12 +27,13 @@ const CatalogItems = observer(() => {
                         </Link>
                     ))} 
                     </div>
-                ) : null}
             </div>
             <div className={styles.catalog_img}>
                 <img src={CatalogItemsStore.props.board}>
                 </img>
             </div>
+            </>
+                ) : <Loader></Loader>}
         </div>
         
     )

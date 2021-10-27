@@ -4,18 +4,29 @@
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-import mysql from 'mysql2'
+// import mysql from 'mysql2'
 import Sequelize from "sequelize";
 import { GoodModel, GroupModel, PricesAndCountsModel } from '../models/models.js';
  
 
 
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: '1c_base',
-    password: "root"
-})
+// const connection = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     database: '1c_base',
+//     password: "root"
+// })
+
+
+const sequelize = new Sequelize("1c_base", "root", "root", {
+  dialect: "mysql",
+  host: "localhost",
+  pool: { 
+    max: 100,
+    min: 0,
+    acquire: 1000000,
+  }
+});
 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -25,162 +36,175 @@ class OneCService {
         
         let data = json
 
-        console.log(json)
+        sequelize.authenticate()
+        .then(() => {
+          console.log('Connection has been established successfully.');
 
-        let classificator = data['Классификатор']
-        let catalog = data['Каталог']
+          console.log(json)
 
-        let search = ''
+          let classificator = data['Классификатор']
+          let catalog = data['Каталог']
+  
+          let search = ''
+  
+          classificator[0]['Группы'][0]['Группа'].forEach(item => {
+  
+              let object = {
+                  guid: item['Ид'][0],
+                  title: item['Наименование'][0],
+                  parent_group: null
+              }
+  
+              if (item['$']) { object.status = item['$']["Статус"] }
+  
+              console.log(object)
+              
+              async function createGroups(obj) {
+                  const group = await GroupModel.findOne({where: { guid: obj.guid }})
+  
+                  if (!group) {
+                      GroupModel.create(obj).then(res => {
+                          // console.log(res)
+                      })
+                      .catch(err => {
+                          console.log(err)
+                      })
+                  } else {
+  
+  
+                      if (obj.status == 'Удален') {
+                          GroupModel.destroy({where: { guid: obj.guid }})
+                          .then(res => {
+                              // console.log(res)
+                          })
+                          .catch(err => {
+                              console.log(err)
+                          })
+  
+                      } else {
+                          GroupModel.update({title: obj.title, guid: obj.guid, parent_group: obj.parent_group},{where: { guid: obj.guid }})
+                          .then(res => {
+                              // console.log(res)
+                          })
+                          .catch(err => {
+                              console.log(err)
+                          })
+                      }
+  
+                  }
+              }
+  
+              createGroups(object)
+              
+              if (item['Группы']) {
+  
+                  item['Группы'][0]['Группа'].forEach(subitem => {
+  
+                      let subobject = {
+                              guid: subitem['Ид'][0],
+                              title: subitem['Наименование'][0],
+                              parent_group: item['Ид'][0]
+                          }
+  
+  
+                      if (item['$']) { object.status = item['$']["Статус"] }
+  
+  
+                      createGroups(subobject)
+  
+                  })
+  
+              }
+  
+   
+              // connection.query(sql, function(err, results) {
+              //     if(err) console.log(err);
+          
+              //     console.log(results);
+              // });
+  
+  
+          })
+  
+          catalog[0]['Товары'][0]['Товар'].forEach((item, index) => {
+  
+  
+              if (item['Группы'] != undefined && item['Группы']?.[0]?.['Ид']?.[0] != '5ebd7f05-afbb-11eb-9439-18c04d2a3938') {
+  
+  
+                  let object = {
+                      guid: item['Ид'][0],
+                      title: item['Наименование'][0],
+                      group_id: item['Группы'][0]['Ид'][0],
+                  }
+  
+  
+                  if (item['$']) { object.status = item['$']["Статус"] }
+  
+                  // console.log(index)
+  
+                  
+  
+                  async function createGoods(obj) {
+                      const good = await GoodModel.findOne({where: { guid: obj.guid }})
+  
+                      if (!good) {
+                          GoodModel.create(obj).then(res => {
+                              // console.log(res)
+                          })
+                          .catch(err => {
+                              console.log(err)
+                          })
+                      } else {
+                          
+                          console.log(obj.status)
+                          if (obj.status == 'Удален') {
+                              GoodModel.destroy({where: { guid: obj.guid }})
+                              .then(res => {
+                                  // console.log(res)
+                              })
+                              .catch(err => {
+                                  console.log(err)
+                              })
+  
+                          } else {
+                              
+                              GoodModel.update({title: obj.title, group_id: obj.group_id},{where: { guid: obj.guid }})
+                              .then(res => {
+                                  // console.log(res)
+                              })
+                              .catch(err => {
+                                  console.log(err)
+                              })
+                          }
+  
+  
+                          
+                      }
+                  }
+  
+                  createGoods(object)
+                  // const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}')`;
+   
+                  // connection.query(sql, function(err, results) {
+                  //     if(err) console.log(err);
+                  //     console.log(results);
+                  // });
+  
+              }
+  
+              console.log(catalog[0]['Товары'][0]['Товар']?.length)
+  
+          })
 
-        classificator[0]['Группы'][0]['Группа'].forEach(item => {
 
-            let object = {
-                guid: item['Ид'][0],
-                title: item['Наименование'][0],
-                parent_group: null
-            }
-
-            if (item['$']) { object.status = item['$']["Статус"] }
-
-            console.log(object)
-            
-            async function createGroups(obj) {
-                const group = await GroupModel.findOne({where: { guid: obj.guid }})
-
-                if (!group) {
-                    GroupModel.create(obj).then(res => {
-                        // console.log(res)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
-                } else {
+        })
+        .catch(err => {
+          console.error('Unable to connect to the database:', err);
+        });
 
 
-                    if (obj.status == 'Удален') {
-                        GroupModel.destroy({where: { guid: obj.guid }})
-                        .then(res => {
-                            // console.log(res)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
-
-                    } else {
-                        GroupModel.update({title: obj.title, guid: obj.guid, parent_group: obj.parent_group},{where: { guid: obj.guid }})
-                        .then(res => {
-                            // console.log(res)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
-                    }
-
-                }
-            }
-
-            createGroups(object)
-            
-            if (item['Группы']) {
-
-                item['Группы'][0]['Группа'].forEach(subitem => {
-
-                    let subobject = {
-                            guid: subitem['Ид'][0],
-                            title: subitem['Наименование'][0],
-                            parent_group: item['Ид'][0]
-                        }
-
-
-                    if (item['$']) { object.status = item['$']["Статус"] }
-
-
-                    createGroups(subobject)
-
-                })
-
-            }
-
- 
-            // connection.query(sql, function(err, results) {
-            //     if(err) console.log(err);
         
-            //     console.log(results);
-            // });
-
-
-        })
-
-        catalog[0]['Товары'][0]['Товар'].forEach((item, index) => {
-
-
-            if (item['Группы'] != undefined && item['Группы']?.[0]?.['Ид']?.[0] != '5ebd7f05-afbb-11eb-9439-18c04d2a3938') {
-
-
-                let object = {
-                    guid: item['Ид'][0],
-                    title: item['Наименование'][0],
-                    group_id: item['Группы'][0]['Ид'][0],
-                }
-
-
-                if (item['$']) { object.status = item['$']["Статус"] }
-
-                // console.log(index)
-
-                
-
-                async function createGoods(obj) {
-                    const good = await GoodModel.findOne({where: { guid: obj.guid }})
-
-                    if (!good) {
-                        GoodModel.create(obj).then(res => {
-                            // console.log(res)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
-                    } else {
-                        
-                        console.log(obj.status)
-                        if (obj.status == 'Удален') {
-                            GoodModel.destroy({where: { guid: obj.guid }})
-                            .then(res => {
-                                // console.log(res)
-                            })
-                            .catch(err => {
-                                console.log(err)
-                            })
-
-                        } else {
-                            
-                            GoodModel.update({title: obj.title, group_id: obj.group_id},{where: { guid: obj.guid }})
-                            .then(res => {
-                                // console.log(res)
-                            })
-                            .catch(err => {
-                                console.log(err)
-                            })
-                        }
-
-
-                        
-                    }
-                }
-
-                createGoods(object)
-                // const sql = `INSERT INTO goods(guid, title, group_id) VALUES('${object.guid}', '${object.title}', '${object.group_id}')`;
- 
-                // connection.query(sql, function(err, results) {
-                //     if(err) console.log(err);
-                //     console.log(results);
-                // });
-
-            }
-
-            console.log(catalog[0]['Товары'][0]['Товар']?.length)
-
-        })
         
 
         console.log('complete')

@@ -7,6 +7,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 
 import HOST from '../../HOST';
+import Loader from '../Loader/Loader';
 
 export default function Hits () {
 
@@ -38,7 +39,8 @@ export default function Hits () {
                 Хиты
             </h2>
             <div className={styles.newgoods__wrapper} >
-                <Carousel
+                {
+                    data.length > 0 ? <Carousel
                     additionalTransfrom={0}
                     // autoPlay
                     autoPlaySpeed={3000}
@@ -112,7 +114,8 @@ export default function Hits () {
                         </div>
                     
                     ))}
-                </Carousel>
+                </Carousel> : <Loader/>
+                }
                 <div className={styles.newgoods__items} id="newgoods">
                     
                 </div>

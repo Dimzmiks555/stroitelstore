@@ -1,3 +1,67 @@
+
+@media screen and (min-width: 1200px) and (max-width: 1370px) {
+  
+}
+
+/* Portrait tablets and medium desktops */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media screen and (max-width: 767px) {
+
+}
+
+/* Landscape phones and smaller */
+@media screen and (max-width: 480px) {
+    .cabinet__header {
+        padding: 0 5% !important;
+        margin-top: 20px;
+        flex-direction: column !important;
+        margin-bottom: 40px;
+    }
+    .blocks {
+        flex-direction: column;
+        width: 100% !important;
+    }
+    .clientData {
+        width: 100% !important;
+        border-radius: 0 !important;
+        margin-bottom: 0 !important; 
+        border-left: 0 !important;
+        border-right: none !important;
+        border-bottom: 0 !important;
+        
+    }
+    .userData {
+        width: 100% !important;
+        border-radius: 0 !important;
+        
+        margin-bottom: 0 !important; 
+        border-left: 0 !important;
+        border-bottom: 0 !important;
+        border-right: none !important;
+    }
+    .receipts {
+        width: 100% !important;
+        border-radius: 0 !important;
+        margin-bottom: 0 !important; 
+        border-left: 0 !important;
+        border-right: none !important;
+    }
+    .clientData__image {
+        display: none !important;
+    }
+    .cabinet h1 {
+        margin-bottom: 20px !important;
+    }
+}
 .cabinet h1 {
     font-size: 36px;
     margin-bottom: 40px;

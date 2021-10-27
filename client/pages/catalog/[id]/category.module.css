@@ -132,6 +132,8 @@
 }
 .category_goodsblock {
     flex-basis: 75%;
+    display: flex;
+    flex-direction: column;
 }
 .category_goodsblock_header {
     padding: 10px 0;
