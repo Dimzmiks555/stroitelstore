@@ -22,6 +22,16 @@
 @media screen and (max-width: 480px) {
     .category_filter {
         display: none !important;
+        
+    }
+    .category_filter__mobile {
+        position: fixed;
+        z-index: 99999;
+        top: 0;
+        width: 100%;
+        background: #fff;
+        padding: 40px 10% 100px;
+        height: 100vh;
     }
     .category h1{
         text-align: center;
@@ -75,6 +85,9 @@
     .mobile_filter {
         display:  block !important;
     }
+    .mobile_filter__button_accept {
+        /* display: block !important; */
+    }
 }
 .category h1{
     font-weight: bold;
@@ -94,27 +107,27 @@
     flex-basis: 22%;
     /* padding: 10px 30px; */
 }
-.category_filter .filter_price {
+ .filter_price {
     margin-bottom: 20px;
 }
-.category_filter .filter_title {
+.filter_title {
     font-weight: bold;
     font-size: 24px;
     margin-bottom: 20px;
 }
-.category_filter .filter_inputs{
+.filter_inputs{
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
-.category_filter .filter_checkboxes > div {
+ .filter_checkboxes > div {
     margin-bottom: 10px;
 }
-.category_filter .filter_inputs > div {
+.filter_inputs > div {
     width: 50%;
     align-items: center;
 }
-.category_filter .filter_inputs input {
+.filter_inputs input {
     display: block;
     font-family: inherit;
     background: none;
@@ -463,4 +476,38 @@ transform-origin: 0 0; /* see note above */
     font-size: 16px;
     margin-top: 20px;
     width: 100%;
+}
+
+.mobile_filter__button_accept {
+    padding: 24px;
+    cursor: pointer;
+    background: #d00;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    margin-top: 20px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    /* display: none ; */
+}
+
+.category_filter__mobile_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.close {
+    background: none;
+    color: #888;
+    border: none;
+    font-size: 32px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+.category_filter__mobile_header h2 {
+    margin-top: 6px;
 }

@@ -34,6 +34,8 @@ const Category = observer(({mainTitle}) => {
     const [order, setOrder] = useState('');
     const [isLoading, setLoading] = useState([true]);
     const [group, setGroup] = useState('')
+    const [showFilters, setShowFilters] = useState('none')
+    const [scroll, setScroll] = useState('hidden')
 
     const [URLParams, setURLParams] = useState(router.query);
 
@@ -322,6 +324,22 @@ const Category = observer(({mainTitle}) => {
         ModalStore.setGood(guid)
     }
 
+    function handleShowFilter(e) {
+        setShowFilters('block')
+        setScroll('scroll')
+        if (document.body.style.overflow !== "hidden") {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "scroll";
+        }
+    }
+
+    function handleClose(e) {
+        setShowFilters('none')
+        setScroll('hidden')
+        document.body.style.overflow = "scroll";
+    }
+
     function showGoods() {
         return data.map(item => {
                 return (
@@ -436,8 +454,60 @@ const Category = observer(({mainTitle}) => {
         <div className={Mainstyles.page}>
             <div className={styles.category}>
                 <div className={styles.category_main}>
-                    <div className={styles.category_filter}>
+                    <div className={styles.category_filter__mobile}  style={{display: showFilters, overflow: scroll}} >
+                        <div className={styles.category_filter__mobile_header}>
+                            <h2 className={styles.filter_title}>Фильтры</h2>
+                            <span className={styles.close} onClick={handleClose}>&#215;</span>
+                        </div>
+                        <div className={styles.filter_stock}>
+                            <form className={styles.filter_inputs}>
+                                {!URLParams.stock ? <input id="default"  type='radio' name="default" onClick={handleStock} checked></input> : <input id="default"  type='radio' name="default" onClick={handleStock} ></input>}
+                                <label for="default">В наличии и под заказ</label>
+                                {URLParams.stock == 'instock' ? <input id="instock" type='radio' name="default" onClick={handleStock} checked></input> : <input id="instock" type='radio' name="default" onClick={handleStock}></input>}
+                                <label for="instock">В наличии</label>
+                                {URLParams.stock == 'outstock' ? <input id='outstock' type='radio' name="default" onClick={handleStock} checked></input> : <input id='outstock' type='radio' name="default" onClick={handleStock}></input>}
+                                <label for="outstock">Под заказ</label>
+                            </form>
+                        </div>
 
+                        <div className={styles.filter_price}>
+                            <div className={styles.filter_title}>Цена</div>
+                            <div className={styles.filter_inputs}>
+                                <div>
+                                    <label>От</label>
+                                    <input id='from' onChange={handlePrice}  defaultValue={goodPrices?.prices_and_count?.min}></input>
+                                </div>
+                                <div>
+                                    <label>До</label>
+                                    <input id='to'  onChange={handlePrice} defaultValue={goodPrices?.prices_and_count?.max}></input>
+                                </div>
+                            </div>
+                        </div>
+
+                        {
+                            filters.map(item => (                                   
+                                <div key={item.id}>
+                                    <div className={styles.filter_title}>{item.title}</div>
+                                    {
+                                        attributes.filter(subitem => {return subitem.attr_id == item.id }).map(item => (
+                                            <div className={styles.checkbox_filter} >
+                                                <input id={item?.id} value={item.value}  checked={router.query[`filter_${item?.attr_id}`] && router.query[`filter_${item?.attr_id}`].search(item?.value) != -1 ? true : false}     data-request={item?.attribute?.id}  type='checkbox' onChange={e => {handleFilter(e)}}></input>
+                                                <label for={item?.id}>{item.value}</label>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            ))
+                        }
+                        
+
+                        <button className={styles.mobile_filter__button_accept} onClick={handleClose}>
+                            Применить
+                        </button>
+
+                    </div>
+
+                    <div className={styles.category_filter}>
                         <div className={styles.filter_stock}>
                             <form className={styles.filter_inputs}>
                                 {!URLParams.stock ? <input id="default"  type='radio' name="default" onClick={handleStock} checked></input> : <input id="default"  type='radio' name="default" onClick={handleStock} ></input>}
@@ -481,7 +551,6 @@ const Category = observer(({mainTitle}) => {
                         
 
 
-
                     </div>
                     
                     <div className={styles.category_goodsblock}>
@@ -501,7 +570,7 @@ const Category = observer(({mainTitle}) => {
                                 </div>
                             </div>
                             <div className={styles.mobile_filter}>
-                                <button className={styles.mobile_filter__button}>
+                                <button onClick={handleShowFilter} className={styles.mobile_filter__button}>
                                     Фильтры
                                 </button>
                             </div>
