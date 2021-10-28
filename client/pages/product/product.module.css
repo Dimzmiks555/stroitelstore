@@ -13,13 +13,90 @@
 }
 
 /* Portrait tablets and small desktops */
-@media screen and (min-width: 768px) and (max-width: 991px) {
-
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .amount {
+        margin-left: 0 !important;
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+        margin-left: 20px !important;
+    }
+    .product__to_cart__block {
+        flex-direction: column;
+        align-items: start !important;
+    }
+    .product__counter {
+        margin-bottom: 30px !important;
+    }
+    .product__overview {
+        align-items: flex-start !important;
+    }
 }
 
 /* Landscape phones and portrait tablets */
 @media screen and (max-width: 767px) {
-
+    .product__overview {
+        flex-direction: column !important;
+    }
+    .product__overview_img {
+        height: 300px !important;
+    }
+    .product__overview_main_img {
+        height: 300px !important;
+    }
+    .product__overview_img img {
+        object-fit: scale-down;
+    }
+    .product__overview_info {
+        padding: 20px !important;
+        margin-top: 20px !important;
+    }
+    .product__overview > div {
+        width: 100% !important;
+    }
+    .back_button {
+        height: 40px !important;
+        font-size: 32px !important;
+        display: block !important;
+        position: unset !important;
+    }
+    .product__overview_title h1  {
+        font-size: 22px !important;
+        margin-top: 20px !important;
+    }
+    .product__overview_title {
+        margin-bottom: 20px !important; 
+    }
+    .product__to_cart__block {
+        flex-direction: column;
+    }
+    .product__overview_cart_added {
+        width: 80% !important;
+    }
+    .product__to_cart__block button {
+        width: 100% !important;
+    }
+    .product__overview_cart {
+        width: 80% !important;
+    }
+    .product__counter {
+        margin-bottom: 30px !important;
+    }
+    .breadcrumbs {
+        display: none !important;
+    }
+    .gallery {
+        display: none !important;
+    }
+    .amount {
+        margin-left: 0 !important;
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    .product__infoblock {
+        padding-top: 0px !important;
+    }
 }
 
 /* Landscape phones and smaller */

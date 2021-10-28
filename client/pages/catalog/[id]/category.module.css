@@ -9,13 +9,154 @@
 }
 
 /* Portrait tablets and small desktops */
-@media screen and (min-width: 768px) and (max-width: 991px) {
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .category_filter {
+        flex-basis: 32% !important;
+        margin-top: 20px !important;
+        margin-right: 4%;
+        /* padding: 10px 30px; */
+    }
 
+    .checkbox_filter {
+        font-size: 14px !important;
+    }
+        
+    .filter_stock .filter_inputs label {
+        cursor: pointer;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        margin-left: 40px;
+        margin-bottom: 10px;
+        height: 30px;
+        font-size: 13px !important;
+        position: relative;
+    }
+    .category h1{
+        font-weight: bold;
+        font-size: 24px !important;
+        margin-bottom: 10px;
+    }
+
+    .filter_title {
+        font-weight: bold;
+        font-size: 16px !important;
+        margin-bottom: 20px;
+    }
+    .category_goodsblock_header {
+        padding: 10px 0;
+        margin-bottom: 10px !important;
+    }
+    .good_title {
+        font-size: 12px !important;
+    }
+    .good_img {
+        margin-bottom: 10px !important;
+        height: 160px !important;
+    }
+
+    .good_img img {
+        height: 160px !important;
+        object-fit: scale-down !important;
+    }
+    .good_price span {
+        font-size: 18px !important;
+    }
+    .to_cart {
+        font-size: 14px !important;
+        width: 100% !important;
+    }
+    .to_cart_added {
+        font-size: 14px !important;
+        width: 100% !important;
+    }
+    .category_good {
+        /* width: 32% !important; */
+        flex-basis: 28% !important;
+    }
+    .outofstock {
+        font-size: 14px !important;
+        width: 100% !important;
+    }
+    .pagination {
+        margin-top: 0 !important;
+        margin-bottom: 20px !important;
+    }
+    /* .category_goods {
+        justify-content: space-between !important;
+    } */
 }
 
 /* Landscape phones and portrait tablets */
 @media screen and (max-width: 767px) {
-
+    .category_filter {
+        display: none !important;
+        
+    }
+    .category_filter__mobile {
+        position: fixed;
+        z-index: 99999;
+        top: 0;
+        width: 100%;
+        background: #fff;
+        padding: 40px 10% 100px;
+        height: 100vh;
+    }
+    .category h1{
+        text-align: center;
+        font-size: 36px !important;
+        margin-bottom: 20px;
+    }
+    .category_main {
+        flex-direction: column;
+    }
+    .category_good {
+        margin: 0 auto 20px !important;
+        width: 40% !important;
+        flex-basis: 40% !important;
+    }
+    .category_goodsblock {
+        padding: 0px 20px !important;
+    }
+    .good_title {
+        font-size: 14px !important;
+    }
+    .good_img {
+        margin-bottom: 20px !important;
+    }
+    .good_price span {
+        font-size: 24px !important;
+    }
+    .to_cart {
+        font-size: 14px !important;
+        width: 100% !important;
+    }
+    .to_cart_added {
+        font-size: 14px !important;
+        width: 100% !important;
+    }
+    .outofstock {
+        font-size: 14px !important;
+        width: 100% !important;
+    }
+    .pagination {
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+    }
+    .category h1 {
+        margin-bottom: 30px !important;
+    }
+    .breadcrumbs {
+        display: none !important; 
+        margin-bottom: 30px;
+    }
+        
+    .mobile_filter {
+        display:  block !important;
+    }
+    .mobile_filter__button_accept {
+        /* display: block !important; */
+    }
 }
 
 /* Landscape phones and smaller */

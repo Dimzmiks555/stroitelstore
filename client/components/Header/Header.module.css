@@ -61,6 +61,7 @@
     .header {
         padding: 10px 10% !important;
     }
+    
 }
 
 
@@ -71,12 +72,31 @@
 
 /* Portrait tablets and small desktops */
 @media screen and (min-width: 768px) and (max-width: 991px) {
-
+    .header {
+        flex-wrap: wrap;
+        justify-content: space-between !important;
+        padding: 10px 5% !important;
+    }
+    .userblock {
+        margin-left: 0 !important;
+    }
 }
 
 /* Landscape phones and portrait tablets */
 @media screen and (max-width: 767px) {
-
+    .header {
+        flex-direction: column !important;
+        padding: 10px 0 !important;
+    }
+    .menu {
+        display: none !important;
+    }
+    .userblock {
+        display: none !important;
+    }
+    .catalog__button {
+        display: none !important;
+    }
 }
 
 /* Landscape phones and smaller */

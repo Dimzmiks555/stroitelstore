@@ -1,3 +1,51 @@
+@media screen and (min-width: 1200px) and (max-width: 1370) {
+  
+}
+
+/* Portrait tablets and medium desktops */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .completed_order_blocks {
+        flex-direction: column !important;
+        padding: 0 5% !important;
+    }
+    .completed_order_block {
+        width: 100% !important;
+    }
+    .completed_order_block h1 {
+        margin-top: 40px !important;
+    }
+    .completed_order_block table{
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 40px !important;
+        font-size: 16px !important;
+    }
+}
+
+/* Landscape phones and portrait tablets */
+@media screen and (max-width: 767px) {
+    .completed_order_blocks {
+        flex-direction: column !important;
+        padding: 0 5% !important;
+    }
+    .completed_order_block {
+        width: 100% !important;
+    }
+    .completed_order_block h1 {
+        margin-top: 40px !important;
+    }
+    .completed_order_block table{
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 40px !important;
+        font-size: 12px !important;
+    }
+}
 @media screen and (max-width: 480px) {
     .completed_order_blocks {
         flex-direction: column !important;

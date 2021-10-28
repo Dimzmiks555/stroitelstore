@@ -13,12 +13,41 @@
 
 /* Portrait tablets and small desktops */
 @media screen and (min-width: 768px) and (max-width: 991px) {
-
+    .page{
+        min-height: 80vh !important;
+        width: 90% !important;
+        padding: 0% !important;
+    }
 }
 
 /* Landscape phones and portrait tablets */
 @media screen and (max-width: 767px) {
-
+    .page{
+        min-height: 80vh !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+    .popular__wrapper > div .popular__block {
+        width: 100% !important;
+        padding: 20px;
+        display: flex;
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: start !important;
+        margin-bottom: 0 !important;
+        box-shadow: 0 0 0 0 !important;
+        border-radius: 0 !important;
+        text-align: left !important; 
+        border: 1px solid #eee;
+    }
+    .popular__wrapper > div .popular__block img {
+        height: 40px !important;
+        margin-right: 30px;
+    }
+    .popular__wrapper > div .popular__block p {
+        font-size: 20px;
+        margin-top: 0 !important;
+    }
 }
 
 /* Landscape phones and smaller */

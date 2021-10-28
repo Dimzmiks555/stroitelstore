@@ -1,3 +1,32 @@
+
+/* Portrait tablets and small desktops */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .contacts__block {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column !important;
+        padding: 0 5% !important;
+    }
+    .contacts__block > div {
+        width: 100% !important;
+        
+    }
+}
+
+/* Landscape phones and portrait tablets */
+@media screen and (max-width: 767px) {
+    .contacts__block {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column !important;
+        padding: 0 5% !important;
+    }
+    .contacts__block > div {
+        width: 100% !important;
+        
+    }
+}
+
 @media screen and (max-width: 480px) {
     .about {
         padding: 0 5% !important;

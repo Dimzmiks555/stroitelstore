@@ -364,7 +364,7 @@ const Category = observer(({mainTitle}) => {
                             
                             <div className={styles.good_price}>
                                 {
-                                    item?.prices_and_count?.price != '' ? (<p><span>{Number( item.prices_and_count?.price).toLocaleString()}</span> ₽ / шт.</p>) : <b>По запросу</b>
+                                    item?.prices_and_count?.price != '' ? (<p><span>{Number( item.prices_and_count?.price).toLocaleString()}</span> ₽</p>) : <b>По запросу</b>
                                 }
                             </div>
                             <div className={styles.good_amount}>

@@ -1,3 +1,88 @@
+/* Portrait tablets and medium desktops */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .good_title {
+        height: 80px !important;
+        overflow: hidden;
+        font-weight: 650;
+        font-size: 14px !important;
+    }
+}
+
+/* Landscape phones and portrait tablets */
+@media screen and (max-width: 767px) {
+    .newgoods h2{
+        font-size: 24px !important;
+        margin-bottom: 40px !important;
+        /* text-align: center; */
+    }
+    .newgoods {
+        padding: 5% !important;
+        margin-bottom: 20px !important;
+    }
+    .good_img {
+        height: 100px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+        cursor: pointer;
+    }
+    .good_title {
+        height: 80px !important;
+        overflow: hidden;
+        font-weight: 650;
+        font-size: 14px !important;
+    }
+
+    .good_price {
+        margin-top: auto;
+        font-weight: bold;
+        margin-top: 10px;
+        font-size: 24px !important;
+    }
+    .good_price span {
+        font-size: 24px !important;
+    }
+    .to_cart{
+        display: block;
+        text-align: center;
+        font-family: inherit;
+        font-size: 16px;
+        margin-top: 20px;
+        border-radius: 5px;
+        font-weight: 600;
+        outline: none;
+        width: 100%;
+        padding: 10px 10px !important;
+        cursor: pointer;
+        background: #c00;
+        color: #fff;
+        border: none;
+    }
+    .newgoods__item {
+        /* height: 500px; */
+        padding: 0 20px;
+        min-width: 20%;
+        flex-basis: 20%;
+        margin-left: 5%;
+        margin-bottom: 0px !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .newgoods h2{
+        margin-top: 20px !important;
+        font-size: 36px;
+        margin-bottom: 60px;
+    }
+}
+
+
 @media screen and (max-width: 480px) {
     .newgoods h2{
         font-size: 24px !important;

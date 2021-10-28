@@ -13,16 +13,63 @@
 
 /* Portrait tablets and small desktops */
 @media screen and (min-width: 768px) and (max-width: 991px) {
+    .contact_info h2 {
+        font-size: 24px !important;
+    }
+    .contact_info h3 {
+        font-weight: normal !important;
+        font-size: 12px !important;
+    }
 
+    .contact_info img {
+        margin-top: 20px;
+        max-height: 30px !important;
+    }
+    .logo{
+        height: 80px;
+        width: 35% !important;
+    }
+    .menu {
+        font-size: 14px !important;
+    }
 }
 
 /* Landscape phones and portrait tablets */
 @media screen and (max-width: 767px) {
+    .logo img {
+        height: 80px;
+        width: 300px !important;
+    }
+    .footer {
+        flex-direction: column !important;
+        padding-bottom: 120px !important;
+    }
+    .contact_info {
+        text-align: left !important;
+        margin-left: 0 !important;
+    }
 
+    .contact_info h2 {
+        margin-top: 20px;
+        font-size: 32px !important;
+        margin-bottom: 10px;
+    }
+    .contact_info h3 {
+        margin-top: 10px;
+    }
+    .contact_info img {
+        margin-right: 40px !important;
+        margin-top: 20px;
+        max-height: 40px;
+    }
 }
 
 /* Landscape phones and smaller */
 @media screen and (max-width: 480px) {
+    .logo img {
+        height: 80px;
+        width: 300px !important;
+    }
     .footer {
         flex-direction: column !important;
         padding-bottom: 120px !important;
@@ -39,6 +86,10 @@
     .contact_info h3 {
         margin-top: 10px;
     }
+    .contact_info img {
+        margin-top: 20px;
+        max-height: 40px;
+    }
 }
 
 .footer {
@@ -53,10 +104,11 @@
 .logo{
     height: 80px;
     width: 25%;
+    margin-right: 40px;
 }
 .logo img {
     height: 80px;
-    width: 300px;
+    width: 100%;
 }
 .menu {
 

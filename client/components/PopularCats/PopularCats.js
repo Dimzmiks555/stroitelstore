@@ -53,8 +53,6 @@ export default function PopularCats () {
                         </p>
                     </div>
                     </Link>
-                </div>
-                <div>
                     <Link href='/catalog/e4288d53-b14d-11eb-943b-18c04d2a3938/1'>
                         <div className={styles.popular__block}>
                             <img src='./popular_cats/door (1).svg'> 
@@ -95,6 +93,9 @@ export default function PopularCats () {
                         </p>
                     </div>
                     </Link>
+                </div>
+                <div>
+                    
                 </div>
             </div>
             
