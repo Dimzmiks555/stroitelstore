@@ -375,6 +375,7 @@ const Busket = observer(() => {
                             <p><b>Воронежская область</b>, город <b>Лиски</b>, улица <b>Коммунистическая</b>, дом <b>25</b></p>
                         </div>
                         <div className="delivery_block" style={{display: delivery == 'delivery' ? 'block' : 'none'}}>
+                            <h3 style={{color: '#333', fontWeight: 600}}> Наш интернет-магазин осуществляет доставку заказов. Стоимость доставки расчитывается индивидуально после оформления заказа. </h3>
                             {HeaderStore.is_Auth && deliveries?.length < 1 ? (
                                 <div className={styles.delivery__inputs}>
                                     <label for="city">Город</label>
