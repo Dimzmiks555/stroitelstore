@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
 import Link from 'next/link'
 import Head from 'next/head';
+import Image from 'next/image';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import MobileMenu from '../../components/MobileMenu/MobileMenu';
 import Footer from '../../components/Footer/Footer';
@@ -142,7 +143,7 @@ const Product = observer(({data, group, parent_group}) => {
                         <div className={styles.product__overview}>
                             <div className={styles.product__overview_img} id="product__overview_img">
                                 <div className={styles.product__overview_main_img}>
-                                    <img alt="" src={`${HOST.host}/uploads/${data?.images?.length > 0 ? image : 'empty.jpeg'}`}></img>
+                                    <Image width={'600%'} height={600} objectFit='scale-down' alt="" src={`${HOST.host}/uploads/${data?.images?.length > 0 ? image : 'empty.jpeg'}`}></Image>
                                 </div>
                                 {
                                     data?.images?.length > 0 && (

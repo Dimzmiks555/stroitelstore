@@ -16,6 +16,7 @@ import MobileMenu from '../../../components/MobileMenu/MobileMenu';
 import 'rc-slider/assets/index.css';
 import ModalStore from '../../../components/Modal/ModalStore';
 import Loader from '../../../components/Loader/Loader';
+import Image from 'next/image'
 
 
 const Category = observer(({mainTitle}) => {
@@ -348,7 +349,7 @@ const Category = observer(({mainTitle}) => {
                             <Link href={`/product/${item.guid}`}>
                                 <a>
                                     <div className={styles.good_img}>
-                                        <img alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
+                                        <Image width='auto' height='auto' alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></Image>
                                     </div>
                                 </a>
                             </Link>

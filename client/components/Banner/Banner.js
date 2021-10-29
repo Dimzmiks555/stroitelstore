@@ -51,8 +51,24 @@ export default function Banner () {
                 slidesToSlide={1}
                 swipeable
                 >
-                <img
+                <Image
                     src="/banner/banner.jpg"
+                    // layout='fill'
+                    width='1920'
+                    height={700}
+                    objectFit='fill'
+                    style={{
+                    display: 'block',
+                    height: '400px',
+                    margin: 'auto',
+                    width: '100%'
+                    }}
+                />
+                <Image
+                    width='1920'
+                    height={700}
+                    objectFit='fill'
+                    src="/banner/SZLIFIERKA-PROSTA-750W-6MM-1800-7000-OBR-M-MAKITA-Waga-produktu-z-opakowaniem-jednostkowym-2-35-kg.jpg"
                     style={{
                     display: 'block',
                     height: '100%',
@@ -60,8 +76,11 @@ export default function Banner () {
                     width: '100%'
                     }}
                 />
-                <img
-                    src="https://a.allegroimg.com/original/1130d7/dc2997d945bf8d30f6f414442090/SZLIFIERKA-PROSTA-750W-6MM-1800-7000-OBR-M-MAKITA-Waga-produktu-z-opakowaniem-jednostkowym-2-35-kg"
+                <Image
+                    src="/banner/volkova.jpg"
+                    width='1920'
+                    height={700}
+                    objectFit='fill'
                     style={{
                     display: 'block',
                     height: '100%',
@@ -69,17 +88,11 @@ export default function Banner () {
                     width: '100%'
                     }}
                 />
-                <img
-                    src="https://palitra38.ru/images/volkova.jpg"
-                    style={{
-                    display: 'block',
-                    height: '100%',
-                    margin: 'auto',
-                    width: '100%'
-                    }}
-                />
-                <img
-                    src="https://sdelai-lestnicu.ru/wp-content/uploads/7/8/0/78061101fd66d5d8af44e22c0494b6dc.jpg"
+                <Image
+                    src="/banner/78061101fd66d5d8af44e22c0494b6dc.jpg"
+                    width='1920'
+                    height={700}
+                    objectFit='fill'
                     style={{
                     display: 'block',
                     height: '100%',
