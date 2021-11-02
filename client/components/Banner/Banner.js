@@ -51,12 +51,10 @@ export default function Banner () {
                 slidesToSlide={1}
                 swipeable
                 >
-                <Image
+                <img
                     src="/banner/banner.jpg"
                     // layout='fill'
-                    width='1920'
-                    height={700}
-                    objectFit='fill'
+                    
                     style={{
                     display: 'block',
                     height: '400px',
@@ -64,10 +62,8 @@ export default function Banner () {
                     width: '100%'
                     }}
                 />
-                <Image
-                    width='1920'
-                    height={700}
-                    objectFit='fill'
+                <img
+                    
                     src="/banner/SZLIFIERKA-PROSTA-750W-6MM-1800-7000-OBR-M-MAKITA-Waga-produktu-z-opakowaniem-jednostkowym-2-35-kg.jpg"
                     style={{
                     display: 'block',
@@ -76,11 +72,9 @@ export default function Banner () {
                     width: '100%'
                     }}
                 />
-                <Image
+                <img
                     src="/banner/volkova.jpg"
-                    width='1920'
-                    height={700}
-                    objectFit='fill'
+                    
                     style={{
                     display: 'block',
                     height: '100%',
@@ -88,11 +82,9 @@ export default function Banner () {
                     width: '100%'
                     }}
                 />
-                <Image
+                <img
                     src="/banner/78061101fd66d5d8af44e22c0494b6dc.jpg"
-                    width='1920'
-                    height={700}
-                    objectFit='fill'
+                   
                     style={{
                     display: 'block',
                     height: '100%',
@@ -101,7 +93,7 @@ export default function Banner () {
                     }}
                 />
         </Carousel>
-            {/* <Image
+            {/* <img
                 src="/banner/banner.jpg"
                 alt="Banner"
                 layout="responsive"

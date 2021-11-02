@@ -1,0 +1,168 @@
+.subscriptions__wrap--1yj6c {
+    width: 412px;
+    position: relative;
+}
+
+.subscriptions__close--3CXl- {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.subscriptions__cross--3EOla {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    color: var(--color-base);
+}
+
+.subscriptions__step--1RVbD {
+    display: none;
+}
+
+.subscriptions__isActive--3CocZ {
+    display: block;
+}
+.Pages__root--agX6U {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-align-items: center;
+            align-items: center;
+
+    padding: 0 50px 16px;
+}
+
+.Pages__content--28eaD {
+    -webkit-align-self: stretch;
+            align-self: stretch;
+    padding: 16px 16px 0;
+
+    display: -webkit-flex;
+
+    display: flex;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+}
+
+.Pages__title--qJT6y {
+    margin: 0;
+}
+
+.Pages__description--1jZ0- {
+    display: block;
+    margin: 12px 0 0;
+}
+
+.Pages__button--19-5F {
+    margin: 20px 0 0;
+}
+
+.Pages__link--3YP2h {
+    margin: 4px 0 0;
+}
+
+.Pages__failure--dwiKR .Pages__title--qJT6y {
+    margin: 100px 0 72px;
+}
+.AvatarsHeader__root--HzTYM {
+    position: absolute;
+    top: -34px;
+    left: 0;
+    right: 0;
+
+    display: -webkit-flex;
+
+    display: flex;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+
+    font-family: var(--typography-font-family);
+}
+
+.AvatarsHeader__avatars--BxQlB {
+    display: -webkit-flex;
+    display: flex;
+    position: relative;
+}
+
+.AvatarsHeader__avatar--2-Wvi {
+    position: relative;
+    padding: 4px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0px 2.125px 8.5px rgba(0, 0, 0, 0.15);
+
+    display: -webkit-flex;
+
+    display: flex;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+}
+
+.AvatarsHeader__avatar--2-Wvi:not(:first-child) {
+    margin-left: -34px;
+}
+
+.AvatarsHeader__avatarContent--33vtQ {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.AvatarsHeader__avatarMonogram--3drtY {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    color: var(--color-essential);
+    font-size: 40px;
+    line-height: 44px;
+    font-weight: 500;
+}
+
+.AvatarsHeader__extra--L4flf {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #939CB0;
+    font-size: 16px;
+    line-height: 22px;
+    -webkit-transform: translate(calc(100% + 8px), 6px);
+            transform: translate(calc(100% + 8px), 6px);
+}
+.Unsubscribe__root--1CMse {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-align-items: center;
+            align-items: center;
+
+    padding: 72px 40px 32px;
+}
+
+.Unsubscribe__title--9lhTB {
+    margin: 0;
+}
+
+.Unsubscribe__description--1X2-6 {
+    margin: 12px 0 52px 0
+}
+
+.Unsubscribe__button---8wFY {
+    margin: 20px 26px 0;
+    -webkit-align-self: stretch;
+                -ms-grid-row-align: stretch;
+            align-self: stretch;
+}

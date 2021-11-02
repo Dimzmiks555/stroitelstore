@@ -143,7 +143,7 @@ const Product = observer(({data, group, parent_group}) => {
                         <div className={styles.product__overview}>
                             <div className={styles.product__overview_img} id="product__overview_img">
                                 <div className={styles.product__overview_main_img}>
-                                    <Image width={'600%'} height={600} objectFit='scale-down' alt="" src={`${HOST.host}/uploads/${data?.images?.length > 0 ? image : 'empty.jpeg'}`}></Image>
+                                    <img alt="" src={`${HOST.host}/uploads/${data?.images?.length > 0 ? image : 'empty.jpeg'}`}></img>
                                 </div>
                                 {
                                     data?.images?.length > 0 && (

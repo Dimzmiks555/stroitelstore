@@ -33,7 +33,7 @@ const Category = observer(({mainTitle}) => {
     const [filters, setFilters] = useState([]);
     const [goodPrices, setGoodPrices] = useState([]);
     const [order, setOrder] = useState('');
-    const [isLoading, setLoading] = useState([true]);
+    const [isLoading, setLoading] = useState([false]);
     const [group, setGroup] = useState('')
     const [showFilters, setShowFilters] = useState('none')
     const [scroll, setScroll] = useState('hidden')
@@ -349,7 +349,7 @@ const Category = observer(({mainTitle}) => {
                             <Link href={`/product/${item.guid}`}>
                                 <a>
                                     <div className={styles.good_img}>
-                                        <Image width='auto' height='auto' alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></Image>
+                                        <img alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </a>
                             </Link>
@@ -391,25 +391,7 @@ const Category = observer(({mainTitle}) => {
         showGoods()
     }, [data[0]])
     
-    if (isLoading == true) {
-        return (
-            <>
-                <Catalog />
-                <Header />
-                <div className={Mainstyles.page}>
-                <div className={styles.category}>
-                    <div className={styles.category_main}>
-                    <div className={styles.LoadingPanel}>
-                            <img src='/spinning-circles.svg'></img>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            </>
-        )
-    } else {
-
-    let paginationCount = [1]
+        let paginationCount = [1]
     let count = +countGoods
     for (let i = count; i > 20; i = i - 20) {
         if (paginationCount.length == '0') {
@@ -555,7 +537,7 @@ const Category = observer(({mainTitle}) => {
                     </div>
                     
                     <div className={styles.category_goodsblock}>
-                    {data?.[0]?.group?.guid != router.query.id  ? <Loader></Loader> :
+                    {data?.[0]?.group?.guid != router.query.id || isLoading  ? <Loader></Loader> :
                         <>
                         <div className={styles.category_goodsblock_header}>
                             <h1>{data[0] ? data[0]?.group?.title : null}</h1>
@@ -639,7 +621,7 @@ const Category = observer(({mainTitle}) => {
     <MobileMenu></MobileMenu>
         </>
     )
-}
+
 }) 
 
 
