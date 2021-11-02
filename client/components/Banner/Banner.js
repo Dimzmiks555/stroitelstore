@@ -57,7 +57,7 @@ export default function Banner () {
                     
                     style={{
                     display: 'block',
-                    height: '400px',
+                    height: '100%',
                     margin: 'auto',
                     width: '100%'
                     }}
