@@ -27,14 +27,14 @@ import Loader from "../components/Loader/Loader";
     function fetchData(page, group_id) {
         
         if (group_id != null) {
-            fetch(`http://${HOST.host}/api/products?page=${page}&group_id=${group_id}&limit=100`)
+            fetch(`http://${HOST.host}/api/products?page=${page}&group_id=${group_id}&limit=50`)
             .then(res => res.json())
             .then(json => {
                 setData(json)
                 console.log(json)
             })
         } else {
-            fetch(`http://${HOST.host}/api/products?page=${page}&limit=100`)
+            fetch(`http://${HOST.host}/api/products?page=${page}&limit=50`)
             .then(res => res.json())
             .then(json => {
                 setData(json)
@@ -72,7 +72,7 @@ import Loader from "../components/Loader/Loader";
     }
 
     function handlePagination(e, val) {
-        setPagination(val)
+        setPagination(val + 1)
     }
 
     function handleSelect(e) {
@@ -355,11 +355,11 @@ import Loader from "../components/Loader/Loader";
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    rowsPerPageOptions={[100]}
+                    rowsPerPageOptions={[50]}
                     component="div"
                     count={data?.count?.length}
-                    rowsPerPage={100}
-                    page={pagination}
+                    rowsPerPage={50}
+                    page={pagination - 1}
                     onPageChange={handlePagination}
                     // onRowsPerPageChange={handleChangeRowsPerPage}
                 />
