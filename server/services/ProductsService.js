@@ -341,7 +341,20 @@ class ProductsService {
         const color_ = await AttributeModel.findAll({where: {group_id: 'e4288d53-b14d-11eb-943b-18c04d2a3938', title: 'Цвет' }})
 
 
-        for (var i = 0, len = endObject.length; i < len; i++) {
+        for (var i = 0, len = +endObject.length / 2; i < len; i++) {
+
+            console.log(i)
+            
+            const {title, count, sku, price, group_id, glass, width, color} = endObject[i]
+
+            let newSKU = sku +'-' + color + '-' + glass + '-' + width
+
+            createGoods({
+                title, group_id, guid: newSKU
+            })
+          }
+
+        for (var i = +endObject.length / 2, len = endObject.length ; i < len; i++) {
 
             console.log(i)
             
