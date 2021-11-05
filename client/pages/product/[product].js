@@ -25,6 +25,9 @@ const Product = observer(({data, group, parent_group}) => {
     const [image, setImage] = useState('');
     const [counter_value, setCV] = useState([1]);
     const [isLoading, setLoading] = useState([true]);
+    const [doorsWidth, setDoorsWidth] = useState([])
+    const [doorsGlass, setDoorsGlass] = useState([])
+    const [doorsColor, setDoorsColor] = useState([])
     // const [parentGroup, setParentGroup] = useState({})
     // const [group, setGroup] = useState({})
 
@@ -57,9 +60,53 @@ const Product = observer(({data, group, parent_group}) => {
         }
     }
 
+    useEffect(() => {
+
+        if (data.group_id == 'e4288d53-b14d-11eb-943b-18c04d2a3938') {
+            fetch(`${HOST.host}/api/products?sku=${data.prices_and_count?.sku}&limit=20000`)
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
+
+                let values = []
+                let glasses = []
+                let colors = []
+
+                json?.rows?.forEach(o => {
+                    
+                    if (o?.filter_1?.[0]?.attribute?.title == 'Ширина') {
+                        let value = o?.filter_1?.[0]?.value
+
+                        values.push(value)
+                    }
+                    if (o?.filter_1?.[1]?.attribute?.title == 'Вариант остекления') {
+                        
+                        let glass = o?.filter_1?.[1]?.value
+                        glasses.push(glass)
+                    }
+                    if (o?.filter_1?.[2]?.attribute?.title == 'Цвет') {
+                        
+                        let color = o?.filter_1?.[2]?.value
+                        colors.push(color)
+                    }
+
+                })
+
+                setDoorsColor([...new Set(colors)])
+                setDoorsWidth([...new Set(values)])
+                setDoorsGlass([...new Set(glasses)])
+
+
+
+            })
+        }
+
+    }, [data.guid])
+
    
 
     let product_id = router.query.product;
+
     useEffect(() => {
         let filter = BusketStore.positions.findIndex(item => item.guid == product_id)
         if (filter == -1) {
@@ -156,14 +203,17 @@ const Product = observer(({data, group, parent_group}) => {
                                         </div>
                                     )
                                 }
+                                
                             </div>
                             <div className={styles.product__overview_info} id="product__overview_info">
                             <div className={styles.breadcrumbs}><Link href='/categories'><a>Каталог</a></Link> / <Link href={`/categories/${parent_group?.guid}`}><a>{parent_group?.title}</a></Link> / <Link href={`/catalog/${group?.guid}/1`}><a>{group?.title}</a></Link> </div>
                                 <div className={styles.product__overview_title}>
-                                    <h1>{data?.title}</h1>
+                                    <h1>{data?.group_id == 'e4288d53-b14d-11eb-943b-18c04d2a3938' ? data.title?.slice(0, data.title?.search('ширина')) : data.title}</h1>
                                     <h4>Артикул: {data?.prices_and_count?.sku}</h4>
                                 </div>
                                 {console.log(group)}
+                                
+
                                 <div className={styles.product__overview_price}>
                                     {data?.prices_and_count?.price ? (<p><span>{(+data?.prices_and_count?.price).toLocaleString()}</span> ₽ / шт.</p>) : <p>Цена по запросу</p>} 
                                 </div>
@@ -200,12 +250,56 @@ const Product = observer(({data, group, parent_group}) => {
                                             </div>
                                         )
                                     } 
-                                    <div className={styles.amount}>
-                                        
-                                        {data?.prices_and_count?.amount > 0 ? <p style={{color: '#080'}}>{data?.prices_and_count?.amount}  в наличии </p > : <p style={{color: '#a00'}}>Нет в наличии</p>}
+                                    {
+                                    data?.group_id != 'e4288d53-b14d-11eb-943b-18c04d2a3938' && (
+                                        <div className={styles.amount}>
+                                            
+                                            {data?.prices_and_count?.amount > 0 ? <p style={{color: '#080'}}>{data?.prices_and_count?.amount}  в наличии </p > : <p style={{color: '#a00'}}>Нет в наличии</p>}
 
+                                        </div>
+                                    )
+                                    }
+                                   
+                                </div> 
+                                {data?.group_id == 'e4288d53-b14d-11eb-943b-18c04d2a3938' && (
+                                    <>
+                                    
+                                    <h3>Ширина</h3>
+                                    <div className={styles.tabs_width}>
+                                        {
+                                            doorsWidth?.map(width => (
+                                                <Link href={encodeURI(`/product/${data?.prices_and_count?.sku}-${data.filter_1.filter(i => {return i.attribute.title == 'Цвет'})?.[0]?.value}-${data.filter_1.filter(i => {return i.attribute.title == 'Вариант остекления'})?.[0]?.value}-${width}`)}>
+                                                    <div style={data.filter_1.filter(i => {return i.attribute.title == 'Ширина'})?.[0]?.value == width ? {border: '1px solid red'} : null} className={styles.tab_width}>{width} мм</div>
+                                                </Link>
+                                            ))
+                                        }
                                     </div>
-                                </div>
+                                    <h3>Цвет</h3>
+                                    <div className={styles.tabs_width}>
+                                        {
+                                            doorsColor?.map(color => (
+                                                <Link href={encodeURI(`/product/${data?.prices_and_count?.sku}-${color}-${data.filter_1.filter(i => {return i.attribute.title == 'Вариант остекления'})?.[0]?.value}-${data.filter_1.filter(i => {return i.attribute.title == 'Ширина'})?.[0]?.value}`)}>
+                                                    <div style={data.filter_1.filter(i => {return i.attribute.title == 'Цвет'})?.[0]?.value == color ? {border: '1px solid red'} : null} className={styles.tab_width}>{color}</div>
+                                                </Link>
+                                            ))
+                                        }
+                                    </div>
+                                    <h3>Вариант остекления</h3>
+                                    <div className={styles.tabs_width}>
+                                        {
+                                            doorsGlass?.map(glass => (
+                                                <Link href={`/product/${data?.prices_and_count?.sku}-${data.filter_1.filter(i => {return i.attribute.title == 'Цвет'})?.[0]?.value}-${glass}-${data.filter_1.filter(i => {return i.attribute.title == 'Ширина'})?.[0]?.value}`}>
+                                                    <div style={data.filter_1.filter(i => {return i.attribute.title == 'Вариант остекления'})?.[0]?.value == glass ? {border: '1px solid red'} : null} className={styles.tab_width}>{glass}</div>
+                                                </Link>
+                                            ))
+                                        }
+                                        {/* <div className={styles.tab_width}>600мм</div>
+                                        <div className={styles.tab_width}>700мм</div>
+                                        <div className={styles.tab_width}>800мм</div>
+                                        <div className={styles.tab_width}>900мм</div> */}
+                                    </div>
+                                    </>
+                                )}
                                 <div className={styles.product__infoblock}>
                                     <div className={styles.product__description}>
                                         <h2>
@@ -271,7 +365,7 @@ export default Product
 
 export async function getServerSideProps({params}) {
 
-    const result = await fetch(`${HOST.host}/api/products/${params?.product}`);
+    const result = await fetch(encodeURI(`${HOST.host}/api/products/${params?.product}`));
     let json = await result.json();
 
     let data = json[0]

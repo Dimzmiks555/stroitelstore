@@ -78,3 +78,27 @@
     margin-left: 40px;
     display: flex;
 }
+
+
+.pricelists {
+    display: flex;
+    justify-content: space-between;
+}
+
+.select_company {
+    width: 30%;
+}
+
+.select_company li {
+    margin-top: 20px;
+}
+
+.select_company a {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.pricelists_action {
+    width: 50%;
+}

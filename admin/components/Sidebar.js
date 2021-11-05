@@ -46,6 +46,13 @@ export default function Sidebar() {
                         </a>
                     </Link>
                 </li>
+                <li>
+                    <Link href="/pricelists">
+                        <a>
+                            Прайслисты
+                        </a>
+                    </Link>
+                </li>
             </ul>
         </div>
     )

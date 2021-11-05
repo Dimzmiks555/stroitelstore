@@ -65,23 +65,43 @@ const Category = observer(({mainTitle}) => {
 
 
                 
-            fetch(`${HOST.host}/api/products?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
-            .then(res => res.json())
-            .then(json => {
-                setData(json?.rows)
-                setCountGoods(json?.count?.length)
-
-                let parent_id = json?.rows[0]?.group?.parent_group
-
-                fetch(`${HOST.host}/api/groups`)
+            if (id == 'e4288d53-b14d-11eb-943b-18c04d2a3938') {
+                fetch(`${HOST.host}/api/products?page=${page}&group_id=${id}&interdoor=true&limit=20${generate(parametrs)}`)
                 .then(res => res.json())
                 .then(json => {
-                    let group = json?.rows?.filter(item => item.guid == parent_id)[0]
-                    setGroup(group)
+                    setData(json?.rows)
+                    setCountGoods(json?.count?.length)
+    
+                    let parent_id = json?.rows[0]?.group?.parent_group
+    
+                    fetch(`${HOST.host}/api/groups`)
+                    .then(res => res.json())
+                    .then(json => {
+                        let group = json?.rows?.filter(item => item.guid == parent_id)[0]
+                        setGroup(group)
+                    })
+    
+    
                 })
+            } else {
+                fetch(`${HOST.host}/api/products?page=${page}&group_id=${id}&limit=20${generate(parametrs)}`)
+                .then(res => res.json())
+                .then(json => {
+                    setData(json?.rows)
+                    setCountGoods(json?.count?.length)
+
+                    let parent_id = json?.rows[0]?.group?.parent_group
+
+                    fetch(`${HOST.host}/api/groups`)
+                    .then(res => res.json())
+                    .then(json => {
+                        let group = json?.rows?.filter(item => item.guid == parent_id)[0]
+                        setGroup(group)
+                    })
 
 
-            })
+                })
+            }
 
 
             setLoading(false)
@@ -346,17 +366,17 @@ const Category = observer(({mainTitle}) => {
                 return (
                     <div key={item.guid} className={styles.category_good}>
                         <div>
-                            <Link href={`/product/${item.guid}`}>
+                            <Link href={encodeURI(`/product/${item.guid}`)}>
                                 <a>
                                     <div className={styles.good_img}>
                                         <img alt="" src={`${HOST.host}/uploads/${item?.images?.length > 0 ? item?.images.filter(item => item.main == true)[0]?.url : 'empty.jpeg'}`}></img>
                                     </div>
                                 </a>
                             </Link>
-                            <Link href={`/product/${item.guid}`}>
+                            <Link href={encodeURI(`/product/${item.guid}`)}>
                                 <a>
                                     <div className={styles.good_title}>
-                                        {item.title}
+                                        {item?.group_id == 'e4288d53-b14d-11eb-943b-18c04d2a3938' ? item.title?.slice(0, item.title?.search('ширина')) : item.title}
                                     </div>
                                 </a>
                             </Link>
@@ -400,6 +420,7 @@ const Category = observer(({mainTitle}) => {
             paginationCount.push(`${+paginationCount.length + 1}`   )
         }
     }
+    paginationCount.length = 20
 
     const options = [
         { value: 'default', label: 'По умолчанию' },

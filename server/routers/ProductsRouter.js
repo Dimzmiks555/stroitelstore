@@ -38,6 +38,8 @@ const router = new Router();
 
 router.post('/upload/', upload.single("file") ,ImageController.create);
 
+router.post('/upload/avrora', upload.single("file") , ProductsController.createAvrora);
+
 
 router.get('/products/', ProductsController.getAll);
 router.get('/products_prices/', ProductsController.getPrices);
