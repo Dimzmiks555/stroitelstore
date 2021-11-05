@@ -288,7 +288,7 @@ class ProductsService {
                 // .catch(err => {
                 //     console.log(err)
                 // })
-            const sql = `INSERT INTO prices_and_counts(sku, unit, price, amount, good_guid) VALUES("${object.sku}", '${object.unit}', ${+object.price}, ${+object.amount}, "${object.good_guid}") ON DUPLICATE KEY UPDATE sku = "${object.title}"`;
+            const sql = `INSERT INTO prices_and_counts(sku, unit, price, amount, good_guid) VALUES("${object.sku}", '${object.unit}', ${+object.price}, ${+object.amount}, "${object.good_guid}") ON DUPLICATE KEY UPDATE sku = "${object.sku}"`;
 
             connection.query(sql, function(err, results) {
                 if(err) console.log(err);
