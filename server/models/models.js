@@ -9,6 +9,8 @@ const sequelize = new Sequelize("1c_base", "root", "root", {
     min: 0,
     acquire: 1000000,
   }
+}, {
+    timestamps: false
 });
 
 
@@ -347,6 +349,7 @@ PaymentModel.belongsTo(UserModel, { foreignKey: 'order_id'})
 // GoodModel.sync({alter: true})
 // OrderProductsModel.sync({alter: true})
 
+await AttributeModel.sync({ alter: true })
 await GoodsAttributeModel.sync({ alter: true })
 console.log("All models were synchronized successfully.");
 
