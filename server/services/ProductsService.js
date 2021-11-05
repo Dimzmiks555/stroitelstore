@@ -233,7 +233,7 @@ class ProductsService {
         async function createGoods(obj) {
             // const good = await GoodModel.findOne({where: { guid: obj.guid }})
                 console.log(obj)
-                const sql = `INSERT INTO goods(title, group_id, guid, createdAt, updatedAt) VALUES('${obj.title}', '${obj.group_id}', '${obj.guid}, TO_DATE('01/01/2001', 'DD/MM/YYYY') ,TO_DATE('01/01/2001', 'DD/MM/YYYY')) ON DUPLICATE KEY UPDATE title='${obj.title}'`;
+                const sql = `INSERT INTO goods(title, group_id, guid, createdAt, updatedAt) VALUES('${obj.title}', '${obj.group_id}', '${obj.guid}, timestamp '2017-10-12 21:22:23' , timestamp '2017-10-12 21:22:23') ON DUPLICATE KEY UPDATE title='${obj.title}'`;
  
                 connection.query(sql, function(err, results) {
                     if(err) console.log(err);
