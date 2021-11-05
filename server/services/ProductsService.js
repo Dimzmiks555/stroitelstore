@@ -353,14 +353,14 @@ class ProductsService {
             })
 
             
-            createGoodsAndPrices({
-                sku, unit: 'шт', price, amount: count, good_guid: newSKU
-            })
+            // createGoodsAndPrices({
+            //     sku, unit: 'шт', price, amount: count, good_guid: newSKU
+            // })
 
 
-            createAttrs({
-                title, count, sku, price, group_id, glass, width, newSKU, color
-            }, width_, glass_, color_)
+            // createAttrs({
+            //     title, count, sku, price, group_id, glass, width, newSKU, color
+            // }, width_, glass_, color_)
 
             
 
