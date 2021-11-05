@@ -224,7 +224,7 @@ class ProductsService {
 
         async function createGoods(obj) {
             // const good = await GoodModel.findOne({where: { guid: obj.guid }})
-
+                console.log(obj)
             // if (!good) {
                 await GoodModel.upsert(obj).then(res => {
                     console.log(res)
@@ -343,7 +343,7 @@ class ProductsService {
 
         for (var i = 0, len = endObject.length; i < len; i++) {
 
-
+            console.log(i)
             
             const {title, count, sku, price, group_id, glass, width, color} = endObject[i]
 
