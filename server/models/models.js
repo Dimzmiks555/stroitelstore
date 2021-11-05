@@ -349,8 +349,8 @@ PaymentModel.belongsTo(UserModel, { foreignKey: 'order_id'})
 // GoodModel.sync({alter: true})
 // OrderProductsModel.sync({alter: true})
 
-await AttributeModel.sync({ alter: true })
-await GoodsAttributeModel.sync({ alter: true })
+// await AttributeModel.sync({ alter: true })
+// await GoodsAttributeModel.sync({ alter: true })
 console.log("All models were synchronized successfully.");
 
 export {
