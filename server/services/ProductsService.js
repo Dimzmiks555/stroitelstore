@@ -21,6 +21,14 @@ const sequelize = new Sequelize("1c_base", "root", "root", {
     }
   });
 
+ 
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "1c_base",
+  password: "root"
+});
+
 
 class ProductsService {
 
@@ -225,13 +233,20 @@ class ProductsService {
         async function createGoods(obj) {
             // const good = await GoodModel.findOne({where: { guid: obj.guid }})
                 console.log(obj)
+                const sql = `INSERT INTO goods(title, group_id, guid) VALUES(${obj.title}, ${group_id}, ${guid}) ON DUBLICATE KEY UPDATE title=${obj.title}`;
+ 
+                connection.query(sql, function(err, results) {
+                    if(err) console.log(err);
+                    console.log(results);
+                });
+
             // if (!good) {
-                await GoodModel.upsert(obj).then(res => {
-                    console.log(res)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+                // await GoodModel.upsert(obj).then(res => {
+                //     console.log(res)
+                // })
+                // .catch(err => {
+                //     console.log(err)
+                // })
             // } else {
                 
                 // console.log(obj.status)
