@@ -356,7 +356,7 @@ class ProductsService {
         const color_ = await AttributeModel.findAll({where: {group_id: 'e4288d53-b14d-11eb-943b-18c04d2a3938', title: 'Цвет' }})
 
 
-        for (var i = 0, len = +endObject.length ; i < len; i++) {
+        for (var i = 0, len = +endObject.length - 1 ; i < len; i++) {
 
             console.log(i)
             
