@@ -227,7 +227,7 @@ class ProductsService {
 
             // if (!good) {
                 await GoodModel.upsert(obj).then(res => {
-                    // console.log(res)
+                    console.log(res)
                 })
                 .catch(err => {
                     console.log(err)
@@ -340,32 +340,42 @@ class ProductsService {
 
         const color_ = await AttributeModel.findAll({where: {group_id: 'e4288d53-b14d-11eb-943b-18c04d2a3938', title: 'Цвет' }})
 
-        endObject.forEach(obj => {
+
+        for (var i = 0, len = endObject.length; i < len; i++) {
+
+
             
             const {title, count, sku, price, group_id, glass, width, color} = obj
 
             let newSKU = sku +'-' + color + '-' + glass + '-' + width
 
-            
-
             createGoods({
                 title, group_id, guid: newSKU
             })
+          }
 
-            
-            // createGoodsAndPrices({
-            //     sku, unit: 'шт', price, amount: count, good_guid: newSKU
-            // })
-
-
-            // createAttrs({
-            //     title, count, sku, price, group_id, glass, width, newSKU, color
-            // }, width_, glass_, color_)
+        // endObject.forEach(obj => {
 
             
 
+        //     createGoods({
+        //         title, group_id, guid: newSKU
+        //     })
 
-        })
+            
+        //     // createGoodsAndPrices({
+        //     //     sku, unit: 'шт', price, amount: count, good_guid: newSKU
+        //     // })
+
+
+        //     // createAttrs({
+        //     //     title, count, sku, price, group_id, glass, width, newSKU, color
+        //     // }, width_, glass_, color_)
+
+            
+
+
+        // })
 
         
 
