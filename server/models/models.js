@@ -79,6 +79,8 @@ const AttributeModel = sequelize.define('attributes', {
     group_id: {
         type: Sequelize.STRING
     }
+},{
+    timestamps: false
 })
 
 
