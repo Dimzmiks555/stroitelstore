@@ -12,7 +12,7 @@ const sequelize = new Sequelize("1c_base", "root", "root", {
 });
 
 
-(async () => {await sequelize.sync({ alter: true })})()
+// (async () => {await sequelize.sync({ alter: true })})()
 console.log("All models were synchronized successfully.");
 
 const GoodModel = sequelize.define('good', {
