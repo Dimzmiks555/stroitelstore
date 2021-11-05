@@ -381,7 +381,9 @@ class ProductsService {
         const glass_ = await AttributeModel.findAll({where: {group_id: 'e4288d53-b14d-11eb-943b-18c04d2a3938', title: 'Вариант остекления' }})
 
         const color_ = await AttributeModel.findAll({where: {group_id: 'e4288d53-b14d-11eb-943b-18c04d2a3938', title: 'Цвет' }})
-
+        setInterval(function () {
+            connection.query('SELECT 1');
+        }, 5000);
 
         for (var i = 0, len = +endObject.length - 1 ; i < len; i++) {
 
