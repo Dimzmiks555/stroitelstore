@@ -345,7 +345,7 @@ class ProductsService {
 
 
             
-            const {title, count, sku, price, group_id, glass, width, color} = obj
+            const {title, count, sku, price, group_id, glass, width, color} = endObject[i]
 
             let newSKU = sku +'-' + color + '-' + glass + '-' + width
 
