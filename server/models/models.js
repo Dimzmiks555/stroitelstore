@@ -12,6 +12,8 @@ const sequelize = new Sequelize("1c_base", "root", "root", {
 });
 
 
+await sequelize.sync({ alter: true });
+console.log("All models were synchronized successfully.");
 
 const GoodModel = sequelize.define('good', {
     guid: {
@@ -339,8 +341,6 @@ PaymentModel.belongsTo(UserModel, { foreignKey: 'order_id'})
 // GoodModel.sync({alter: true})
 // OrderProductsModel.sync({alter: true})
 
-await sequelize.sync({ alter: true });
-console.log("All models were synchronized successfully.");
 
 export {
     GoodModel,
