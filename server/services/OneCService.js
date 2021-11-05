@@ -146,37 +146,40 @@ class OneCService {
                   
   
                   async function createGoods(obj) {
-                      const good = await GoodModel.findOne({where: { guid: obj.guid }})
+                      
+                    if (obj.group_id != 'e4288d53-b14d-11eb-943b-18c04d2a3938') {
+                        const good = await GoodModel.findOne({where: { guid: obj.guid }})
   
-                      if (!good) {
-                          GoodModel.create(obj).then(res => {
-                              // console.log(res)
-                          })
-                          .catch(err => {
-                              console.log(err)
-                          })
-                      } else {
-                          
-                          console.log(obj.status)
-                          if (obj.status == 'Удален') {
-                              GoodModel.destroy({where: { guid: obj.guid }})
-                              .then(res => {
-                                  // console.log(res)
-                              })
-                              .catch(err => {
-                                  console.log(err)
-                              })
-  
-                          } else {
-                              
-                              GoodModel.update({title: obj.title, group_id: obj.group_id},{where: { guid: obj.guid }})
-                              .then(res => {
-                                  // console.log(res)
-                              })
-                              .catch(err => {
-                                  console.log(err)
-                              })
-                          }
+                        if (!good) {
+                            GoodModel.create(obj).then(res => {
+                                // console.log(res)
+                            })
+                            .catch(err => {
+                                console.log(err)
+                            })
+                        } else {
+                            
+                            console.log(obj.status)
+                            if (obj.status == 'Удален') {
+                                GoodModel.destroy({where: { guid: obj.guid }})
+                                .then(res => {
+                                    // console.log(res)
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                })
+    
+                            } else {
+                                
+                                GoodModel.update({title: obj.title, group_id: obj.group_id},{where: { guid: obj.guid }})
+                                .then(res => {
+                                    // console.log(res)
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                })
+                            }
+                    }
   
   
                           
@@ -245,7 +248,6 @@ class OneCService {
                     })
                 }
             }
-
             createGoodsAndPrices()
             
             // const sql = `INSERT INTO prices_and_counts(good_guid, sku, unit, price, amount) VALUES('${object.good_guid}', '${object.sku}', '${object.unit}', '${object.price}', ${object.amount}) `;
