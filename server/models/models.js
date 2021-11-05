@@ -347,7 +347,7 @@ PaymentModel.belongsTo(UserModel, { foreignKey: 'order_id'})
 // GoodModel.sync({alter: true})
 // OrderProductsModel.sync({alter: true})
 
-// (async () => {await sequelize.sync({ alter: true })})()
+(async () => {await sequelize.sync({ alter: true })})()
 console.log("All models were synchronized successfully.");
 
 export {
