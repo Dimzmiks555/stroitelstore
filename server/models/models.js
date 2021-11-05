@@ -12,7 +12,7 @@ const sequelize = new Sequelize("1c_base", "root", "root", {
 });
 
 
-// (async () => {await sequelize.sync({ alter: true })})()
+(async () => {await sequelize.sync({ alter: true })})()
 console.log("All models were synchronized successfully.");
 
 const GoodModel = sequelize.define('good', {
@@ -99,6 +99,8 @@ const GoodsAttributeModel = sequelize.define('goods_attributes', {
     value: {
         type: Sequelize.STRING
     }
+},{
+    timestamps: false
 })
 
 const DescModel = sequelize.define('desc', {

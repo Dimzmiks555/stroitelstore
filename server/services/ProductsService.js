@@ -319,23 +319,44 @@ class ProductsService {
             // const good_width = await GoodsAttributeModel.findOne({where: { good_id: object.newSKU, value: object.width }})
 
             // if (!good_width) {
-                GoodsAttributeModel.upsert({attr_id: width_attr[0]?.dataValues?.id, good_id: object.newSKU, value: object.width})
-                .then(goods => {
-                    console.log(goods)
-                    // result(goods)
-                }).catch(err=>console.log(err));
+                // GoodsAttributeModel.upsert({attr_id: width_attr[0]?.dataValues?.id, good_id: object.newSKU, value: object.width})
+                // .then(goods => {
+                //     console.log(goods)
+                //     // result(goods)
+                // }).catch(err=>console.log(err));
             // } 
+
+            const sql1 = `INSERT INTO goods_attributes(attr_id, good_id, value) VALUES(${+width_attr[0]?.dataValues?.id}, '${object.newSKU}', "${object.width}") ON DUPLICATE KEY UPDATE good_id = "${object.newSKU}"`;
+
+            connection.query(sql1, function(err, results) {
+                if(err) console.log(err);
+                console.log(results);
+            });
+
+            const sql2 = `INSERT INTO goods_attributes(attr_id, good_id, value) VALUES(${+glass_attr[0]?.dataValues?.id}, '${object.newSKU}', "${object.glass.trim()}") ON DUPLICATE KEY UPDATE good_id = "${object.newSKU}"`;
+
+            connection.query(sql2, function(err, results) {
+                if(err) console.log(err);
+                console.log(results);
+            });
+
+            const sql3 = `INSERT INTO goods_attributes(attr_id, good_id, value) VALUES(${+color_attr[0]?.dataValues?.id}, '${object.newSKU}', "${object.color}") ON DUPLICATE KEY UPDATE good_id = "${object.newSKU}"`;
+
+            connection.query(sql3, function(err, results) {
+                if(err) console.log(err);
+                console.log(results);
+            });
 
             // const good_glass = await GoodsAttributeModel.findOne({where: { good_id: object.newSKU, value: object.glass }})
 
             // if (!good_glass) {
                 
 
-                GoodsAttributeModel.upsert({attr_id: glass_attr[0]?.dataValues?.id, good_id: object.newSKU, value: object.glass.trim()})
-                .then(goods => {
-                    console.log(goods)
-                    // result(goods)
-                }).catch(err=>console.log(err));
+                // GoodsAttributeModel.upsert({attr_id: glass_attr[0]?.dataValues?.id, good_id: object.newSKU, value: object.glass.trim()})
+                // .then(goods => {
+                //     console.log(goods)
+                //     // result(goods)
+                // }).catch(err=>console.log(err));
             // } 
 
             // const good_color = await GoodsAttributeModel.findOne({where: { good_id: object.newSKU, value: object.color }})
@@ -343,11 +364,11 @@ class ProductsService {
             // if (!good_color) {
                 
 
-                GoodsAttributeModel.upsert({attr_id: color_attr[0]?.dataValues?.id, good_id: object.newSKU, value: object.color.trim()})
-                .then(goods => {
-                    console.log(goods)
-                    // result(goods)
-                }).catch(err=>console.log(err));
+                // GoodsAttributeModel.upsert({attr_id: color_attr[0]?.dataValues?.id, good_id: object.newSKU, value: object.color.trim()})
+                // .then(goods => {
+                //     console.log(goods)
+                //     // result(goods)
+                // }).catch(err=>console.log(err));
             // } 
 
 
@@ -377,6 +398,11 @@ class ProductsService {
             createGoodsAndPrices({
                 sku, unit: 'шт', price, amount: count, good_guid: newSKU
             })
+
+            
+            createAttrs({
+                title, count, sku, price, group_id, glass, width, newSKU, color
+            }, width_, glass_, color_)
           }
 
 
