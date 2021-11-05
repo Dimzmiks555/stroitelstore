@@ -280,14 +280,20 @@ class ProductsService {
             object.price = +object.price * 1.4
 
             // const prices_and_counts = await PricesAndCountsModel.findOne({where: { good_guid: object.good_guid }})
-
+            // sku, unit: 'шт', price, amount: count, good_guid: newSKU
             // if (!prices_and_counts) {
-                await PricesAndCountsModel.upsert(object).then(res => {
-                    console.log(res)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+                // await PricesAndCountsModel.upsert(object).then(res => {
+                //     console.log(res)
+                // })
+                // .catch(err => {
+                //     console.log(err)
+                // })
+            const sql = `INSERT INTO prices_and_counts(sku, unit, price, amount, good_guid) VALUES("${object.sku}", '${object.unit}', ${+object.price}, ${+object.amount}, "${object.good_guid}") ON DUPLICATE KEY UPDATE sku = "${object.title}"`;
+
+            connection.query(sql, function(err, results) {
+                if(err) console.log(err);
+                console.log(results);
+            });
             // } else {
                 // PricesAndCountsModel.update({price: object.price},{where: { good_guid: object.good_guid }})
                 // .then(res => {
@@ -367,6 +373,10 @@ class ProductsService {
             createGoods({
                 title, group_id, guid: newSKU
             })
+
+            createGoodsAndPrices({
+                sku, unit: 'шт', price, amount: count, good_guid: newSKU
+            })
           }
 
 
@@ -379,9 +389,6 @@ class ProductsService {
         //     })
 
             
-        //     // createGoodsAndPrices({
-        //     //     sku, unit: 'шт', price, amount: count, good_guid: newSKU
-        //     // })
 
 
         //     // createAttrs({

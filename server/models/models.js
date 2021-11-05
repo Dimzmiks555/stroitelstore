@@ -63,6 +63,8 @@ const PricesAndCountsModel = sequelize.define('prices_and_counts', {
     amount: {
         type: Sequelize.INTEGER
     },
+}, {
+    timestamps: false
 })
 
 const AttributeModel = sequelize.define('attributes', {
