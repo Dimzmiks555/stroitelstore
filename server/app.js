@@ -2,6 +2,7 @@ import express from 'express';
 import OneCRouter from './routers/OneCRouter.js'
 import ProductsRouter from './routers/ProductsRouter.js'
 import cors from 'cors';
+import mysql from 'mysql2'
 
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
