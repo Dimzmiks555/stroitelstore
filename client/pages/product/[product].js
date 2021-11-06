@@ -208,7 +208,7 @@ const Product = observer(({data, group, parent_group}) => {
                             <div className={styles.product__overview_info} id="product__overview_info">
                             <div className={styles.breadcrumbs}><Link href='/categories'><a>Каталог</a></Link> / <Link href={`/categories/${parent_group?.guid}`}><a>{parent_group?.title}</a></Link> / <Link href={`/catalog/${group?.guid}/1`}><a>{group?.title}</a></Link> </div>
                                 <div className={styles.product__overview_title}>
-                                    <h1>{data?.group_id == 'e4288d53-b14d-11eb-943b-18c04d2a3938' ? data.title?.slice(0, data.title?.search('ширина')) : data.title}</h1>
+                                    <h1>{data.title}</h1>
                                     <h4>Артикул: {data?.prices_and_count?.sku}</h4>
                                 </div>
                                 {console.log(group)}

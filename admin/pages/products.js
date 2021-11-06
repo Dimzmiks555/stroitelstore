@@ -12,8 +12,10 @@ import Loader from "../components/Loader/Loader";
 
     const [data, setData] = useState([])
     const [selected, setSelected] = useState([])
+    const [selectedAll, setSelectedAll] = useState([])
     const [pagination, setPagination] = useState(1)
     const [groups, setGroups] = useState([])
+    const [search, setSearch] = useState('')
     const [group_id, setGroupId] = useState(null)
     const [groupOpt, setGroupOpt] = useState([])
     const [attrOpt, setAttrOpt] = useState([])
@@ -26,20 +28,38 @@ import Loader from "../components/Loader/Loader";
 
     function fetchData(page, group_id) {
         
-        if (group_id != null) {
-            fetch(`http://${HOST.host}/api/products?page=${page}&group_id=${group_id}&limit=50`)
-            .then(res => res.json())
-            .then(json => {
-                setData(json)
-                console.log(json)
-            })
+        if (search != '') {
+            if (group_id != null) {
+                fetch(`http://${HOST.host}/api/products?page=${page}&search=${search}&group_id=${group_id}&limit=4000`)
+                .then(res => res.json())
+                .then(json => {
+                    setData(json)
+                    console.log(json)
+                })
+            } else {
+                fetch(`http://${HOST.host}/api/products?page=${page}&search=${search}&limit=50`)
+                .then(res => res.json())
+                .then(json => {
+                    setData(json)
+                    console.log(json)
+                })
+            }
         } else {
-            fetch(`http://${HOST.host}/api/products?page=${page}&limit=50`)
-            .then(res => res.json())
-            .then(json => {
-                setData(json)
-                console.log(json)
-            })
+            if (group_id != null) {
+                fetch(`http://${HOST.host}/api/products?page=${page}&group_id=${group_id}&limit=1000`)
+                .then(res => res.json())
+                .then(json => {
+                    setData(json)
+                    console.log(json)
+                })
+            } else {
+                fetch(`http://${HOST.host}/api/products?page=${page}&limit=50`)
+                .then(res => res.json())
+                .then(json => {
+                    setData(json)
+                    console.log(json)
+                })
+            }
         }
 
     }
@@ -191,11 +211,19 @@ import Loader from "../components/Loader/Loader";
         setFileName(e.target.value)
     }
 
+    function handleSelectAll(e) {
+        let arr = data.rows?.map(good => {
+            return good.guid
+        })
+        console.log(arr)
+        setSelected(arr)
+    }
+
     useEffect(() => {
         fetchData(pagination, group_id)
         fetchGroups()
         fetchAttributeList(group_id)
-    }, [group_id , data[0], pagination, groups.guid])
+    }, [group_id , data[0], pagination, groups.guid, search])
 
 
      return (
@@ -211,7 +239,7 @@ import Loader from "../components/Loader/Loader";
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="Группа" />}
                 />
-                <TextField label='Наименование'></TextField>
+                <TextField label='Наименование' value={search} onChange={e => {setSearch(e.target.value)}}></TextField>
                 
                 <FormGroup>
                     <FormControlLabel control={<Checkbox />} label="Без изображений" />
@@ -259,6 +287,7 @@ import Loader from "../components/Loader/Loader";
                                     // inputProps={{
                                     //     'aria-labelledby': labelId,
                                     // }}
+                                    onClick={handleSelectAll}
                                     />
                                 </TableCell>
                                 <TableCell>
@@ -358,7 +387,7 @@ import Loader from "../components/Loader/Loader";
                     rowsPerPageOptions={[50]}
                     component="div"
                     count={data?.count?.length}
-                    rowsPerPage={50}
+                    rowsPerPage={4000}
                     page={pagination - 1}
                     onPageChange={handlePagination}
                     // onRowsPerPageChange={handleChangeRowsPerPage}

@@ -12,7 +12,16 @@ const app = express();
 
 const port = 8080;
 
+const connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    database: "1c_base",
+    password: "root"
+  });
 
+setInterval(function () {
+    connection.query('SELECT 1');
+}, 5000);
 
 
 app.use(cors());

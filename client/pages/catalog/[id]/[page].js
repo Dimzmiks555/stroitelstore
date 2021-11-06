@@ -376,7 +376,7 @@ const Category = observer(({mainTitle}) => {
                             <Link href={encodeURI(`/product/${item.guid}`)}>
                                 <a>
                                     <div className={styles.good_title}>
-                                        {item?.group_id == 'e4288d53-b14d-11eb-943b-18c04d2a3938' ? item.title?.slice(0, item.title?.search('ширина')) : item.title}
+                                        {item?.group_id == 'e4288d53-b14d-11eb-943b-18c04d2a3938' ? item.title?.slice(0, item.title?.search(',')) : item.title}
                                     </div>
                                 </a>
                             </Link>
