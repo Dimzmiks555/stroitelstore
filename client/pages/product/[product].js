@@ -203,7 +203,21 @@ const Product = observer(({data, group, parent_group}) => {
                                         </div>
                                     )
                                 }
-                                
+                                {data?.group_id == 'e4288d53-b14d-11eb-943b-18c04d2a3938' && (
+                                    <>
+                                    
+                                    <div className={styles.color_pallete}>
+                                        {
+                                            ['Эшвайт', 'Венге', 'Ясень ривьeра грей', 'Ясень ривьера айс', 'Грей', 'Орех', 'Беленый дуб', 'Бетон серый', 'Бетон снежный', 'Роял Вуд Белый'].map(color => (
+                                                <div className={styles.color}>
+                                                    <img src={`/color_pallete/${color}.jpg`}></img>
+                                                    <div>{color}</div>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                    </>
+                                )}
                             </div>
                             <div className={styles.product__overview_info} id="product__overview_info">
                             <div className={styles.breadcrumbs}><Link href='/categories'><a>Каталог</a></Link> / <Link href={`/categories/${parent_group?.guid}`}><a>{parent_group?.title}</a></Link> / <Link href={`/catalog/${group?.guid}/1`}><a>{group?.title}</a></Link> </div>
