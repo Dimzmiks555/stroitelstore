@@ -23,7 +23,7 @@ export default function NewGoods () {
         <div className={styles.offers}>
             <div className={styles.offers__wrapper}>
                 <div className={styles.offer}>
-                    <Link href="/search/makita/1">
+                    <Link href="/search/ЗУБР/1">
                     <img src="./offers/cae303a8-9ee2-467e-b48a-87125f96b836.png">
 
                     </img>
@@ -35,7 +35,7 @@ export default function NewGoods () {
                     </Link>
                 </div>
                 <div className={styles.offer}>
-                    <Link href="/search/текс/1">
+                    <Link href="/search/tikurilla/1">
                     <img src="./offers/466107473_w640_h640_kraski.jpg">
 
                     </img>

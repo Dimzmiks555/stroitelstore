@@ -434,7 +434,9 @@ class ProductsService {
     }
 
     async getAll(params ,result) {
-        
+        setInterval(function () {
+            connection.query('SELECT 1');
+        }, 5000);
         let {limit, page, group_id, search, guid, price , order, stock, order_by , interdoor, sku ,  ...args} = params
 
         let query = {
@@ -856,6 +858,9 @@ class ProductsService {
         
         console.log(params)
 
+        setInterval(function () {
+            connection.query('SELECT 1');
+        }, 5000);
         GoodModel.findAll({
             nest: true, 
             where: {guid: params}, 

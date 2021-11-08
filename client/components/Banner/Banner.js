@@ -64,7 +64,7 @@ export default function Banner () {
                 />
                 <img
                     
-                    src="/banner/SZLIFIERKA-PROSTA-750W-6MM-1800-7000-OBR-M-MAKITA-Waga-produktu-z-opakowaniem-jednostkowym-2-35-kg.jpg"
+                    src="/banner/windows.jpg"
                     style={{
                     display: 'block',
                     height: '100%',
