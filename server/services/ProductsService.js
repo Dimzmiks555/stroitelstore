@@ -168,7 +168,7 @@ class ProductsService {
                                                 size = 800
                                             } 
 
-                                            title = `Межкомнатная дверь ${sku.replace('-AVRORA', '')}, цвет ${color}, ширина ${size} мм, остекление: ${glass}`
+                                            title = `Межкомнатная дверь ${sku.replace('-AVRORA', '')}, цвет ${color}, ширина ${size} мм, остекление: ${glass.trim()}`
                                             if (+size == 900) {
                                                 endObject.push({
                                                     title,
@@ -176,7 +176,7 @@ class ProductsService {
                                                     price: prices900[index],
                                                     count: 1,
                                                     sku,
-                                                    glass,
+                                                    glass: glass.trim(),
                                                     group: 'Межкомнатные двери',
                                                     color,
                                                     group_id: 'e4288d53-b14d-11eb-943b-18c04d2a3938'
@@ -188,7 +188,7 @@ class ProductsService {
                                                     price: prices[index],
                                                     count: 1,
                                                     sku,
-                                                    glass,
+                                                    glass: glass.trim(),
                                                     group: 'Межкомнатные двери',
                                                     color,
                                                     group_id: 'e4288d53-b14d-11eb-943b-18c04d2a3938'
@@ -381,9 +381,7 @@ class ProductsService {
         const glass_ = await AttributeModel.findAll({where: {group_id: 'e4288d53-b14d-11eb-943b-18c04d2a3938', title: 'Вариант остекления' }})
 
         const color_ = await AttributeModel.findAll({where: {group_id: 'e4288d53-b14d-11eb-943b-18c04d2a3938', title: 'Цвет' }})
-        setInterval(function () {
-            connection.query('SELECT 1');
-        }, 5000);
+        
 
         for (var i = 0, len = +endObject.length - 1 ; i < len; i++) {
 
