@@ -288,7 +288,7 @@ const Product = observer(({data, group, parent_group}) => {
                                     <div className={styles.tabs_width}>
                                         {
                                             doorsGlass?.map(glass => (
-                                                <Link href={`/product/${data?.prices_and_count?.sku}-${data.filter_1.filter(i => {return i.attribute.title == 'Цвет'})?.[0]?.value}-${glass}-${data.filter_1.filter(i => {return i.attribute.title == 'Ширина'})?.[0]?.value}`}>
+                                                <Link href={encodeURI(`/product/${data?.prices_and_count?.sku}-${data.filter_1.filter(i => {return i.attribute.title == 'Цвет'})?.[0]?.value}-${glass}-${data.filter_1.filter(i => {return i.attribute.title == 'Ширина'})?.[0]?.value}`)}>
                                                     <div style={data.filter_1.filter(i => {return i.attribute.title == 'Вариант остекления'})?.[0]?.value == glass ? {border: '1px solid red'} : null} className={styles.tab_width}>{glass}</div>
                                                 </Link>
                                             ))
