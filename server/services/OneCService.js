@@ -41,9 +41,7 @@ class OneCService {
           console.log('Connection has been established successfully.');
 
           console.log(json)
-          setInterval(function () {
             connection.query('SELECT 1');
-        }, 5000);
 
           let classificator = data['Классификатор']
           let catalog = data['Каталог']
@@ -52,6 +50,7 @@ class OneCService {
   
           classificator[0]['Группы'][0]['Группа'].forEach(item => {
   
+            connection.query('SELECT 1');
               let object = {
                   guid: item['Ид'][0],
                   title: item['Наименование'][0],
@@ -103,6 +102,7 @@ class OneCService {
   
                   item['Группы'][0]['Группа'].forEach(subitem => {
   
+                    connection.query('SELECT 1');
                       let subobject = {
                               guid: subitem['Ид'][0],
                               title: subitem['Наименование'][0],
@@ -132,6 +132,7 @@ class OneCService {
           catalog[0]['Товары'][0]['Товар'].forEach((item, index) => {
   
   
+            connection.query('SELECT 1');
               if (item['Группы'] != undefined && item['Группы']?.[0]?.['Ид']?.[0] != '5ebd7f05-afbb-11eb-9439-18c04d2a3938') {
   
   
@@ -231,6 +232,7 @@ class OneCService {
                 amount: +item['Количество'][0],
             }
 
+            connection.query('SELECT 1');
             async function createGoodsAndPrices() {
                 const prices_and_counts = await PricesAndCountsModel.findOne({where: { good_guid: object.good_guid }})
 
