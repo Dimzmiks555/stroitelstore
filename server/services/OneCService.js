@@ -10,12 +10,12 @@ import { GoodModel, GroupModel, PricesAndCountsModel } from '../models/models.js
  
 
 
-// const connection = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     database: '1c_base',
-//     password: "root"
-// })
+const connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    database: '1c_base',
+    password: "root"
+})
 
 
 const sequelize = new Sequelize("1c_base", "root", "root", {
@@ -41,6 +41,9 @@ class OneCService {
           console.log('Connection has been established successfully.');
 
           console.log(json)
+          setInterval(function () {
+            connection.query('SELECT 1');
+        }, 5000);
 
           let classificator = data['Классификатор']
           let catalog = data['Каталог']

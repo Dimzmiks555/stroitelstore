@@ -35,7 +35,7 @@ export default function NewGoods () {
                     </Link>
                 </div>
                 <div className={styles.offer}>
-                    <Link href="/search/tikurilla/1">
+                    <Link href="/search/тиккурила/1">
                     <img src="./offers/466107473_w640_h640_kraski.jpg">
 
                     </img>
