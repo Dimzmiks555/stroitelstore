@@ -30,7 +30,7 @@ const Index = observer(() => {
       <PopularCats>
       </PopularCats>
       <Hits/>
-      <NewGoods />
+      {/* <NewGoods /> */}
       <Offers />
       <RecentGoods/>
     </div>
