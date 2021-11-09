@@ -4,7 +4,7 @@
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-// import mysql from 'mysql2'
+import mysql from 'mysql2'
 import Sequelize from "sequelize";
 import { GoodModel, GroupModel, PricesAndCountsModel } from '../models/models.js';
  
