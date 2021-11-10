@@ -13,7 +13,7 @@ const app = express();
 
 const port = 8080;
 
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
     host: "localhost",
     user: "root",
     database: "1c_base",
@@ -21,7 +21,7 @@ const connection = mysql.createConnection({
   });
 
 setInterval(function () {
-    connection.query('SELECT 1');
+    pool.query('SELECT 1');
 }, 5000);
 
 
