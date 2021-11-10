@@ -4,11 +4,6 @@ import Sequelize from "sequelize";
 const sequelize = new Sequelize("1c_base", "root", "root", {
   dialect: "mysql",
   host: "localhost",
-  pool: { 
-    max: 100000,
-    min: 0,
-    acquire: 1000000,
-  }
 }, {
     timestamps: false
 });
