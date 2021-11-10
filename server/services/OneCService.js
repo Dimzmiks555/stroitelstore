@@ -18,15 +18,6 @@ const connection = mysql.createConnection({
 })
 
 
-const sequelize = new Sequelize("1c_base", "root", "root", {
-  dialect: "mysql",
-  host: "localhost",
-  pool: { 
-    max: 100,
-    min: 0,
-    acquire: 1000000,
-  }
-});
 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -36,10 +27,7 @@ class OneCService {
         
         let data = json
 
-        sequelize.authenticate()
-        .then(() => {
-          console.log('Connection has been established successfully.');
-
+        
           console.log(json)
             connection.query('SELECT 1');
 
@@ -205,10 +193,6 @@ class OneCService {
           })
 
 
-        })
-        .catch(err => {
-          console.error('Unable to connect to the database:', err);
-        });
 
 
         
