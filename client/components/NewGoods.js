@@ -9,29 +9,29 @@ import 'react-multi-carousel/lib/styles.css';
 import HOST from '../HOST';
 import Loader from './Loader/Loader';
 
-export default function NewGoods () {
+export default function NewGoods ({data}) {
 
-    const [data, setData] = useState([]);
-    useEffect(() => {
-      async function getData(){
+    // const [data, setData] = useState([]);
+//     useEffect(() => {
+//       async function getData(){
           
-          await fetch(`${HOST.host}/api/products?page=1&limit=10`)
-          .then(result => result.json())
-          .then(json => {
-              json.rows.splice(0, 1)
-              setData(json.rows)
-              console.log(json.rows)
-          });
+//           await fetch(`${HOST.host}/api/products?page=1&limit=10`)
+//           .then(result => result.json())
+//           .then(json => {
+//               json.rows.splice(0, 1)
+//               setData(json.rows)
+//               console.log(json.rows)
+//           });
 
               
-      }
+//       }
       
-      getData();
+//       getData();
   
   
       
   
-  }, []);
+//   }, []);
 
     return (
         <div className={styles.newgoods}>
@@ -152,4 +152,24 @@ export default function NewGoods () {
             
         </div>
     )
+}
+
+export async function getServerSideProps({params}) {
+    const result = await fetch(encodeURI(`${HOST.host}/api/products?page=1&limit=10`));
+    let json = await result.json();
+
+    json.rows.splice(0, 1)
+    let data = json?.rows
+
+
+
+
+
+    return {
+        props: {
+            data
+        }
+    }
+
+    
 }

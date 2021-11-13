@@ -9,7 +9,7 @@ import 'react-multi-carousel/lib/styles.css';
 import HOST from '../../HOST';
 import Loader from '../Loader/Loader';
 
-export default function Hits () {
+function Hits({json}) {
 
     const [data, setData] = useState([]);
 
@@ -39,8 +39,8 @@ export default function Hits () {
                 Хиты
             </h2>
             <div className={styles.newgoods__wrapper} >
-                {
-                    data.length > 0 ? <Carousel
+                
+                    <Carousel
                     additionalTransfrom={0}
                     // autoPlay
                     autoPlaySpeed={3000}
@@ -85,7 +85,8 @@ export default function Hits () {
                     slidesToSlide={1}
                     swipeable
                     >
-                    {data.map(item => (
+                        {/* {console.log(data)} */}
+                    {data?.map(item => (
                         <div className={styles.newgoods__item}>
                             <div>
                                 <Link href={`/product/${item.guid}`}>
@@ -114,8 +115,9 @@ export default function Hits () {
                         </div>
                     
                     ))}
-                </Carousel> : <Loader/>
-                }
+                    <div></div>
+                </Carousel> 
+                
                 <div className={styles.newgoods__items} id="newgoods">
                     
                 </div>
@@ -153,3 +155,20 @@ export default function Hits () {
         </div>
     )
 }
+
+export default Hits
+
+// export async function getServerSideProps() {
+
+//     const result = await fetch(`${HOST.host}/api/hits`);
+//     let data = await result.json();
+//     let json = data.rows
+//     console.log(data)
+//     return {
+//         props: {
+//             json
+//         }
+//     }
+
+    
+// }

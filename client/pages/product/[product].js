@@ -358,7 +358,7 @@ const Product = observer(({data, group, parent_group}) => {
     return (
         <>
         <Head>
-            <title>СТРОИТЕЛЬ - {data?.title}</title>
+            <title>СТРОИТЕЛЬ - {data?.title} | Интернет-магазин строительных материалов в городе Лиски</title>
             <meta name="description" content="СТРОИТЕЛЬ - лучший интернет-магазин строительных материалов в городе Лиски! Всегда актуальные цены и остатки!"/>
             <meta name='keywords' content={`магазин, интернет-магазин, СТРОИТЕЛЬ, строительные материалы, Лиски, Воронежская область, строительный магазин, ${data?.title}  `}></meta>
         </Head>
